@@ -1,0 +1,52 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <div class="inner-footer">
+                            <h4 class="inner-title">
+                                COMPANY NAME
+                            </h4>
+                            <p class="inner-desc">
+                                Fusce at libero iaculis, venenatis augue quis, pharetra lorem. Curabitur ut dolor eu elit
+                                consequat ultricies.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="inner-footer">
+                            <h4 class="inner-title title-two">
+                                CONTACT
+                            </h4>
+                            <ul class="contact-list">
+                                <li>
+                                    <i class="fa-solid fa-phone"></i>
+                                    <span>0369640433</span>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:info@gmail.com">tiendatntse181844</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="inner-footer">
+                            <h4 class="inner-title title-two">OPEN HOURS</h4>
+                            <ul class="hours-list">
+                                <li>
+                                    Monday -Friday 06:00 AM - 10:00 PM
+                                </li>
+                                <li>
+                                    Saturday 09:00 AM - 08:00 PM
+                                </li>
+                                <li>
+                                    Sunday Closed
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>

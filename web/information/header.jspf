@@ -1,0 +1,27 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 ">
+                        <div class="inner-main">
+                            <p class="inner-title">Welcome to a Professional Health Care</p>
+                            <div class="inner-contact">
+                                <div class="inner-phone">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <span>000-000-000</span>
+                                </div>
+                                <div class="inner-time">
+                                    <i class="fa-regular fa-calendar-plus"></i>
+                                    <span>6:00 AM - 10:00 PM (Mon-Fri)</span>
+                                </div>
+                                <div class="inner-email">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="#">tiendatntse181844</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
