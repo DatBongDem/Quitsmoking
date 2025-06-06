@@ -18,7 +18,7 @@ import DTO.Member;
 // datngu123
 /**
  *
- * @author Nguyen Tien 
+ * @author Nguyen Tien Dat 
  */
 public class MemberDao {
 
