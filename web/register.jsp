@@ -11,10 +11,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>register</title>
         <link href="css/styleregister.css" rel="stylesheet" type="text/css"/>
+         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+        
+
+        <%@include file="information/bootstrap.jspf" %>
         
     </head>
     <body>
-        
+           <%@include file="information/header.jspf" %>
         
         <div class="register-container">
             <div class="register-header">Create Account</div>
@@ -73,5 +77,6 @@
                 Already have an account? <a href="login.jsp">Login</a>
             </div>
         </div>
+                  <%@include file="information/footer.jspf" %>
     </body>
 </html>

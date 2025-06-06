@@ -12,12 +12,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>test</title>
-        <link href="css/styletest.css" rel="stylesheet" type="text/css"/>
+   
         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styletest.css" rel="stylesheet" type="text/css"/>
+             
         <%@include file="information/bootstrap.jspf" %>
     </head>
     <body>
+        <div>
         <%@include file="information/header.jspf" %>
+        </div>
+     
         
         
         <h2>Quiz Test</h2>

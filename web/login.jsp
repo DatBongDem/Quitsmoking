@@ -11,9 +11,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="css/stylelogin.css" rel="stylesheet" type="text/css"/>
-        
+           <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+             <%@include file="information/bootstrap.jspf" %>
     </head>
     <body>
+        
+        
+
+          
+          
         <div class="container">
             <div class="login-box">
                 <form method="get" action="LoginServlet"> 
@@ -50,6 +56,10 @@
                 <p>Don't have an account?</p>
                 <button class="signup-btn" onclick="location.href = 'register.jsp'">Sign Up</button>
             </div>
+                    
         </div>
+                   
+                       
+                     
     </body>
 </html>

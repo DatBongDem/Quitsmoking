@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+        
 
         <%@include file="information/bootstrap.jspf" %>
     </head>
@@ -19,87 +20,7 @@
 
         <%@include file="information/header.jspf" %>
 
-        <!-- menu -->
-
-        <div class="menu">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="inner-header">
-                            <div class="inner-logo">
-                                <a href="#">BFBB</a>
-                            </div>
-                            <div class="inner-list">
-                                <ul>
-                                    <li>
-                                        <a href="#">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">About Us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Blog</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Contact</a>
-                                    </li>
-                                    <li>
-                                        <a href="TestServlet">Testing</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--                            <div class="inner-button">
-                                                            <a href="login.jsp" class="button button-one">Sign In</a>
-                                                            <a href="register.jsp" class="button button-two">Sign Up</a>
-                                                        </div>-->
-
-
-
-
-
-                            <%@ page session="true" %>
-                            <%
-                                String username = (String) session.getAttribute("username");
-                            %>
-                            <div class="inner-button">
-                                <% if (username == null) { %>
-                                <a href="login.jsp" class="button button-one">Sign In</a>
-                                <a href="register.jsp" class="button button-two">Sign Up</a>
-                                <% } %>
-                            </div>
-
-                            <div class="inner-profile">
-                                <% if (username != null) {%>
-
-
-
-                                <div class="user-dropdown">
-                                    <div class="inner-notification">
-                                        <a href="#"><i class="fa-solid fa-bell"></i></a>
-                                    </div>
-                                    <button class="user-dropbtn">
-                                        <i class="fa-solid fa-user"></i> <%= username%>
-                                    </button>
-                                    <div>
-                                        <a href="profile.jsp">My Profile</a>
-                                        <a href="LogoutServlet">Logout</a>
-                                    </div>
-                                </div>
-                                <% } else { %>
-                                <a href="#"><i class="fa-solid fa-user"></i></a>
-                                    <% }%>
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       
 
 
 
@@ -237,6 +158,7 @@
         </form>
         
         <% }%>
+        
         <%@include file="information/footer.jspf" %>
     </body>
 </html>
