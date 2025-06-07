@@ -44,29 +44,49 @@ public class QuizDao {
         }
         return quizzes;
     }
+   
+ public void insertQuizResult(String idMember, String idQuiz, String answer) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO dbo.QuizResult (IDMember, IDQuiz, Answer, DateSubmit) VALUES (?, ?, ?, ?)";
+        try  {
+              PreparedStatement ps = getConnection().prepareStatement(sql);
+
+          
+            ps.setString(1, idMember);
+            ps.setString(2, idQuiz);
+            ps.setString(3, answer);
+            
+            java.util.Date now = new java.util.Date();
+            ps.setDate(4, new java.sql.Date(now.getTime()));
+
+           
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            
+            throw new SQLException("Error while inserting quiz result: " + e.getMessage(), e);
+        }
+    }
+//   public static void main(String[] args) {
+//        // Mô phỏng dữ liệu cần thêm vào bảng QuizResult
+//        String idMember = "1";  // ID của thành viên (ví dụ)
+//        String idQuiz = "Q01";      // ID của bài quiz
+//        String answer = "A";           // Đáp án của người dùng
+// // Ngày hiện tại làm DateSubmit
 //
-//    public void saveQuizSubmission(QuizSubmission submission) throws SQLException, ClassNotFoundException {
-//        String sql = "INSERT INTO QuizResult (IDMember, IDQuiz, Answer, DateSubmit) VALUES (?, ?, ?, ?)";
+//        // Tạo đối tượng DAO
+//        QuizDao dao = new QuizDao();
 //
 //        try {
-//            PreparedStatement ps = getConnection().prepareStatement(sql);
-//            ps.setString(1, submission.getIDMember());
-//            ps.setString(2, submission.getIDQuiz());
-//            ps.setString(3, submission.getAnswer());
+//            // Gọi phương thức DAO để thực hiện insert kết quả
+//            dao.insertQuizResult(idMember, idQuiz, answer);
 //
-//            ps.setTimestamp(4, new java.sql.Timestamp(submission.getDateSubmit().getTime()));
-//
-//            ps.executeUpdate();
-//        } catch (SQLException e) {
+//            // In ra thông báo thành công nếu insert thành công
+//            System.out.println("Kết quả bài kiểm tra đã được lưu thành công!");
+//        } catch (Exception e) {
+//            // Nếu có lỗi, in thông báo lỗi
+//            System.out.println("Lỗi xảy ra khi insert kết quả bài kiểm tra: " + e.getMessage());
 //            e.printStackTrace();
 //        }
-//
 //    }
-//
-//    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-//        QuizDao dao = new QuizDao();
-//        dao.saveQuizSubmission("nghia","Q01","a",);
-//
-//    }
+//    
 
 }

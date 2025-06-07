@@ -12,53 +12,47 @@ import java.sql.Date;
  * @author Nghia
  */
 public class QuizResult {
-     public class QuizSubmission {
-    private String IDMember;
-    private String IDQuiz;
-    private String Answer;
-    private Date DateSubmit;
 
-    public QuizSubmission() {
-    }
+    public class QuizSubmission {
 
-    public QuizSubmission(String IDMember, String IDQuiz, String Answer, Date DateSubmit) {
-        this.IDMember = IDMember;
-        this.IDQuiz = IDQuiz;
-        this.Answer = Answer;
-        this.DateSubmit = DateSubmit;
-    }
+        private String IDMember;
+        private String IDQuiz;
+        private String Answer;
 
-    public String getIDMember() {
-        return IDMember;
-    }
+        public QuizSubmission() {
+        }
 
-    public void setIDMember(String IDMember) {
-        this.IDMember = IDMember;
-    }
+        public QuizSubmission(String IDMember, String IDQuiz, String Answer) {
+            this.IDMember = IDMember;
+            this.IDQuiz = IDQuiz;
+            this.Answer = Answer;
 
-    public String getIDQuiz() {
-        return IDQuiz;
-    }
+        }
 
-    public void setIDQuiz(String IDQuiz) {
-        this.IDQuiz = IDQuiz;
-    }
+        public String getIDMember() {
+            return IDMember;
+        }
 
-    public String getAnswer() {
-        return Answer;
-    }
+        public void setIDMember(String IDMember) {
+            this.IDMember = IDMember;
+        }
 
-    public void setAnswer(String Answer) {
-        this.Answer = Answer;
-    }
+        public String getIDQuiz() {
+            return IDQuiz;
+        }
 
-    public Date getDateSubmit() {
-        return DateSubmit;
-    }
+        public void setIDQuiz(String IDQuiz) {
+            this.IDQuiz = IDQuiz;
+        }
 
-    public void setDateSubmit(Date DateSubmit) {
-        this.DateSubmit = DateSubmit;
+        public String getAnswer() {
+            return Answer;
+        }
+
+        public void setAnswer(String Answer) {
+            this.Answer = Answer;
+        }
+
     }
-}
 
 }

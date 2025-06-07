@@ -9,6 +9,7 @@ package DTO;
  *
  * @author Nghia
  */
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Member {
@@ -19,19 +20,18 @@ public class Member {
     private String phone;
     private String email;
     private String address;
-    private LocalDate dateOfBirth;
-    private LocalDate joinDate;
+    private Date dateOfBirth;
+    private Date joinDate;
+    private String avarta;
     private String IDCoach;
     private String subscription;
     private String status;
 
-    // Constructor không tham số
     public Member() {
     }
 
-    // Constructor có tham số
-    public Member(String IDMember, String password, String memberName, String phone, String email,
-            String address, LocalDate dateOfBirth, LocalDate joinDate, String IDCoach, String subscription, String status) {
+    // Constructor không tham số
+    public Member(String IDMember, String password, String memberName, String phone, String email, String address, Date dateOfBirth, Date joinDate, String avarta, String IDCoach, String subscription, String status) {   
         this.IDMember = IDMember;
         this.password = password;
         this.memberName = memberName;
@@ -40,12 +40,12 @@ public class Member {
         this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.joinDate = joinDate;
+        this.avarta = avarta;
         this.IDCoach = IDCoach;
         this.subscription = subscription;
         this.status = status;
     }
 
-    // Getter và Setter
     public String getIDMember() {
         return IDMember;
     }
@@ -94,20 +94,28 @@ public class Member {
         this.address = address;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDate getJoinDate() {
+    public Date getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(LocalDate joinDate) {
+    public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
+    }
+
+    public String getAvarta() {
+        return avarta;
+    }
+
+    public void setAvarta(String avarta) {
+        this.avarta = avarta;
     }
 
     public String getIDCoach() {
@@ -133,7 +141,6 @@ public class Member {
     public void setStatus(String status) {
         this.status = status;
     }
-    
 
     // toString() (nếu cần)
     @Override

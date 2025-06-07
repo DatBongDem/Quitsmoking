@@ -6,21 +6,23 @@
 package Controller;
 
 import DAO.MemberDao;
-import DAO.QuizDao;
+import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static org.apache.tomcat.jni.User.username;
 
 /**
  *
- * @author Nguyen Tien Dat
+ * @author Nghia
  */
-public class TestServlet extends HttpServlet {
+@WebServlet(name = "DetailMemberProfile", urlPatterns = {"/DetailMemberProfile"})
+public class DetailMemberProfile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +36,18 @@ public class TestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DetailMemberProfile</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DetailMemberProfile at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,11 +62,29 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            QuizDao dao = new QuizDao();
+        HttpSession session = request.getSession(false);
+        MemberDao userDAO = new MemberDao();
+        String username = (String) session.getAttribute("username");
 
-            request.setAttribute("quizList", dao.getAllQuiz());
-            request.getRequestDispatcher("test.jsp").forward(request, response);
+        try {
+
+            String idMember = userDAO.getIDMemberByUsername(username);
+
+            // Truy vấn thông tin chi tiết của người dùng
+            Member member = userDAO.getUserByUsername(idMember);
+
+            if (member != null) {
+                // Nếu tìm thấy người dùng, truyền thông tin vào request
+                request.setAttribute("member", member);
+
+                // Chuyển tiếp dữ liệu đến JSP để hiển thị
+                 request.getRequestDispatcher("profile.jsp").forward(request, response);
+             
+            } else {
+                // Nếu không tìm thấy người dùng, hiển thị thông báo lỗi
+                response.getWriter().println("No user found with the username: " + username);
+            }
+
         } catch (Exception e) {
         }
     }
@@ -69,35 +100,7 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // false: don't create a new session if one doesn't exist
-
-        // Check if the session is valid and contains the "name" attribute (meaning the user is logged in)
-        if (session == null || session.getAttribute("username") == null) {
-            // User is not logged in, send an error message
-            request.setAttribute("errorMessage", "Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.");
-
-            request.getRequestDispatcher("test.jsp").forward(request, response);
-
-            return;
-        } else {
-            String username = (String) request.getSession().getAttribute("username");  // Giả sử IDMember là username từ session
-            String idQuiz = request.getParameter("quizID");  // IDQuiz từ form
-            String answer = request.getParameter("answer_" + idQuiz);;  // Đáp án từ form
-            MemberDao mem = new MemberDao();
-
-            QuizDao dao = new QuizDao();
-            try {
-                String idMember = mem.getIDMemberByUsername(username);
-                dao.insertQuizResult(idMember, idQuiz, answer);
-
-            } catch (Exception e) {
-            }
-            
-            request.setAttribute("success", false);  // Đặt thuộc tính "success" để hiển thị nút trở về trang chủ
-            request.setAttribute("successMessage", "Bài kiểm tra đã được nộp thành công!");
-            request.getRequestDispatcher("test.jsp").forward(request, response);
-        }
-
+        processRequest(request, response);
     }
 
     /**

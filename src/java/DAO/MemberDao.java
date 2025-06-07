@@ -15,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.Member;
+import java.sql.Date;
 
 /**
  *
- * @author Nguyen Tien Dat 
+ * @author Nguyen Tien Dat
  */
 public class MemberDao {
 
@@ -43,12 +44,14 @@ public class MemberDao {
                 String phone = rs.getString(4); // phone
                 String email = rs.getString(5); // email
                 String address = rs.getString(6); // address
-                LocalDate dob = rs.getDate(7).toLocalDate(); // dateOfBirth
-                LocalDate joinDate = rs.getDate(8).toLocalDate(); // joinDate
-                String coach = rs.getString(9); // IDCoach
-                String subscription = rs.getString(10); // subscription
-                String status = rs.getString(11);
-                member = new Member(id, password, name, phone, email, address, dob, joinDate, coach, subscription, status);
+                Date dob = rs.getDate(7); // dateOfBirth
+                Date joinDate = rs.getDate(8); // joinDate
+                String avata = rs.getString(9);
+                String coach = rs.getString(10); // IDCoach
+                String subscription = rs.getString(11); // subscription
+                String status = rs.getString(12);
+
+                member = new Member(id, password, name, phone, email, address, dob, joinDate, avata, coach, subscription, status);
 
             }
         } catch (SQLException e) {
@@ -105,25 +108,83 @@ public class MemberDao {
         return memberIds;
     }
 
-    public List<Member> getMembersByCoach(String idCoach) {
-    List<Member> list = new ArrayList<>();
-    String sql = "SELECT * FROM Member WHERE IDCoach = ?";
-    try (Connection conn = getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setString(1, idCoach);
-        ResultSet rs = ps.executeQuery();
-        while(rs.next()) {
-            Member m = new Member();
-            m.setIDMember(rs.getString("IDMember"));
-            m.setMemberName(rs.getString("memberName"));
-            // set các trường khác nếu cần
-            list.add(m);
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return list;
-}
+    public String getIDMemberByUsername(String username) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT IDMember FROM dbo.Member WHERE memberName = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            // Set tham số username vào PreparedStatement
+            ps.setString(1, username);
 
+            // Thực thi truy vấn và lấy kết quả
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);  // Trả về IDMember
+            } else {
+                return null;  // Trường hợp không tìm thấy username
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error while fetching IDMember: " + e.getMessage(), e);
+        }
+    }
+
+    public List<Member> getMembersByCoach(String idCoach) {
+        List<Member> list = new ArrayList<>();
+        String sql = "SELECT * FROM Member WHERE IDCoach = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, idCoach);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Member m = new Member();
+                m.setIDMember(rs.getString("IDMember"));
+                m.setMemberName(rs.getString("memberName"));
+                // set các trường khác nếu cần
+                list.add(m);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Member getUserByUsername(String memberID) throws ClassNotFoundException, SQLException {
+        String sql = "SELECT* FROM Member WHERE IDMember = ?";
+        Member member = null;
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            // Kết nối tới cơ sở dữ liệu
+
+            // Truy vấn lấy thông tin người dùng từ cơ sở dữ liệu
+            ps.setString(1, memberID); // Gán IDMember từ tham số
+
+            // Thực hiện truy vấn và lấy kết quả
+            ResultSet rs = ps.executeQuery();
+
+            // Kiểm tra nếu có kết quả
+            if (rs.next()) {
+                // Tạo đối tượng Member thông qua constructor và chuyển đổi java.sql.Date sang java.util.Date
+                member = new Member(
+                    rs.getString("IDMember"),   // IDMember là String
+                    rs.getString("password"),
+                    rs.getString("memberName"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("address"),
+                    rs.getDate("dateOfBirth"), // Lấy java.sql.Date từ ResultSet
+                    rs.getDate("joinDate"),    // Lấy java.sql.Date từ ResultSet
+                    rs.getString("image"),
+                    rs.getString("IDCoach"),
+                    rs.getString("subcription"),
+                    rs.getString("status")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Trả về đối tượng Member chứa thông tin người dùng
+        return member;
+    }
+     
 
 }

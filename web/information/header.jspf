@@ -4,101 +4,96 @@
 
 
 <header class="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 ">
-                        <div class="inner-main">
-                            <p class="inner-title">Welcome to a Professional Health Care</p>
-                            <div class="inner-contact">
-                                <div class="inner-phone">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <span>000-000-000</span>
-                                </div>
-                                <div class="inner-time">
-                                    <i class="fa-regular fa-calendar-plus"></i>
-                                    <span>6:00 AM - 10:00 PM (Mon-Fri)</span>
-                                </div>
-                                <div class="inner-email">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <a href="#">tiendatntse181844</a>
-                                </div>
-                            </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 ">
+                <div class="inner-main">
+                    <p class="inner-title">Welcome to a Professional Health Care</p>
+                    <div class="inner-contact">
+                        <div class="inner-phone">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>000-000-000</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </header>
- <div class="menu">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="inner-header">
-                            <div class="inner-logo">
-                                <a href="#">BFBB</a>
-                            </div>
-                            <div class="inner-list">
-                                <ul>
-                                    <li>
-                                        <a href="homepage.jsp">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">About Us</a>
-                                    </li>
-                                    <li>
-                                        <a href="blogPage.jsp">Blog</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Contact</a>
-                                    </li>
-                                    <li>
-                                        <a href="TestServlet">Testing</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-
-
-
-                            <%@ page session="true" %>
-                            <%
-                                String username = (String) session.getAttribute("username");
-                            %>
-                            <div class="inner-button">
-                                <% if (username == null) { %>
-                                <a href="login.jsp" class="button button-one">Sign In</a>
-                                <a href="register.jsp" class="button button-two">Sign Up</a>
-                                <% } %>
-                            </div>
-
-                            <div class="inner-profile">
-                                <% if (username != null) {%>
-
-
-
-                                <div class="user-dropdown">
-                                    <div class="inner-notification">
-                                        <a href="#"><i class="fa-solid fa-bell"></i></a>
-                                    </div>
-                                    <button class="user-dropbtn">
-                                        <i class="fa-solid fa-user"></i> <%= username%>
-                                    </button>
-                                    <div>
-                                        <a href="profile.jsp">My Profile</a>
-                                        <a href="LogoutServlet">Logout</a>
-                                    </div>
-                                </div>
-                                <% } else { %>
-                                <a href="#"><i class="fa-solid fa-user"></i></a>
-                                    <% }%>
-                            </div>
-
-
-
-
-
+                        <div class="inner-time">
+                            <i class="fa-regular fa-calendar-plus"></i>
+                            <span>6:00 AM - 10:00 PM (Mon-Fri)</span>
+                        </div>
+                        <div class="inner-email">
+                            <i class="fa-solid fa-envelope"></i>
+                            <a href="#">tiendatntse181844</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</header>
+<div class="menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="inner-header">
+                    <div class="inner-logo">
+                        <a href="#">BFBB</a>
+                    </div>
+                    <div class="inner-list">
+                        <ul>
+                            <li>
+                                <a href="homepage.jsp">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="blogPage.jsp">Blog</a>
+                            </li>
+                            <li>
+                                <a href="#">Contact</a>
+                            </li>
+                            <li>
+                                <a href="TestServlet">Testing</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+                    <%@ page session="true" %>
+                    <%
+                        String username = (String) session.getAttribute("username");
+                    %>
+                    <div class="inner-button">
+                        <% if (username == null) { %>
+                        <a href="login.jsp" class="button button-one">Sign In</a>
+                        <a href="register.jsp" class="button button-two">Sign Up</a>
+                        <% } %>
+                    </div>
+
+                  
+                        <% if (username != null) {%>
+                        
+
+
+                        <div class="inner-profile">
+                            <div class="user-dropdown">
+                                <div class="inner-notification">
+                                    <a href="#"><i class="fa fa-bell"></i></a>
+                                </div>
+                            </div>
+                               <span class="welcome-message">Welcome, <strong><%= username %></strong>!</span>
+                            <button class="user-dropdown">
+                                <i class="fa-solid fa-user"></i>
+                                <a href="DetailMemberProfile">My Profile</a>
+                            </button>
+                            <a href="LogoutServlet" class="button">Logout</a>
+                        </div>
+                        <% }%>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
