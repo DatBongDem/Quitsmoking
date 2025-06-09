@@ -15,7 +15,7 @@ import DTO.Coach;
 
 /**
  *
- * @author 
+ * @author Nguyen
  */
 public class CoachDao {
 

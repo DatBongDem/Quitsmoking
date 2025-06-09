@@ -1,4 +1,5 @@
 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,7 +21,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+
 import javax.servlet.annotation.WebServlet;
+
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +34,9 @@ import javax.servlet.http.Part;
  *
  * @author Nguyen Tien Dat
  */
+
 @WebServlet(name = "UpdateProfileServlet", urlPatterns = {"/UpdateProfileServlet"})
+
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50)    // 50MB
@@ -168,7 +174,11 @@ public class UpdateProfileServlet extends HttpServlet {
 
         // Nếu upload file thành công thì cập nhật avatar
         if (avatarPath != null) {
-            member.setAvarta(avatarPath);
+
+            member.setImage(avatarPath);
+
+            member.setImage(avatarPath);
+
         } else {
             // Nếu không upload file mới, giữ nguyên avatar cũ
             // Bạn nên lấy avatar cũ từ DB hoặc request attribute trước đó để set lại

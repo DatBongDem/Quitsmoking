@@ -188,6 +188,8 @@ public class MemberDao {
         return member;
     }
 
+    
+
     public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO BlogPost (IDPost, IDMember, title, [content], image, publishDate) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -237,45 +239,47 @@ public class MemberDao {
         return blogPosts;
     }
 
-   
-        public static boolean updateMember(Member member) throws SQLException, ClassNotFoundException {
-    String sql = "UPDATE Member SET password=?, memberName=?, phone=?, email=?, address=?, dateOfBirth=?, joinDate=?, image=?, IDCoach=?, subcription=?, status=? WHERE IDMember=?";
-    try (
-         Connection conn = getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+    public static boolean updateMember(Member member) throws SQLException, ClassNotFoundException {
 
-        ps.setString(1, member.getPassword());
-        ps.setString(2, member.getMemberName());
-        ps.setString(3, member.getPhone());
-        ps.setString(4, member.getEmail());
-        ps.setString(5, member.getAddress());
+        String sql = "UPDATE Member SET password=?, memberName=?, phone=?, email=?, address=?, dateOfBirth=?, joinDate=?, image=?, IDCoach=?, subcription=?, status=? WHERE IDMember=?";
+        try (
+                Connection conn = getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        // dateOfBirth
-        if (member.getDateOfBirth() != null) {
-            ps.setDate(6, new java.sql.Date(member.getDateOfBirth().getTime()));
-        } else {
-            ps.setNull(6, java.sql.Types.DATE);
+            ps.setString(1, member.getPassword());
+            ps.setString(2, member.getMemberName());
+            ps.setString(3, member.getPhone());
+            ps.setString(4, member.getEmail());
+            ps.setString(5, member.getAddress());
+
+            // dateOfBirth
+            if (member.getDateOfBirth() != null) {
+                ps.setDate(6, new java.sql.Date(member.getDateOfBirth().getTime()));
+            } else {
+                ps.setNull(6, java.sql.Types.DATE);
+            }
+
+            // joinDate
+            if (member.getJoinDate() != null) {
+                ps.setDate(7, new java.sql.Date(member.getJoinDate().getTime()));
+            } else {
+                ps.setNull(7, java.sql.Types.DATE);
+            }
+
+            ps.setString(8, member.getImage());
+
+            ps.setString(8, member.getImage());
+
+            ps.setString(9, member.getIDCoach());
+            ps.setString(10, member.getSubscription());
+            ps.setString(11, member.getStatus());
+
+            ps.setString(12, member.getIDMember());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         }
-
-        // joinDate
-        if (member.getJoinDate() != null) {
-            ps.setDate(7, new java.sql.Date(member.getJoinDate().getTime()));
-        } else {
-            ps.setNull(7, java.sql.Types.DATE);
-        }
-
-        ps.setString(8, member.getAvarta());
-        ps.setString(9, member.getIDCoach());
-        ps.setString(10, member.getSubscription());
-        ps.setString(11, member.getStatus());
-
-        ps.setString(12, member.getIDMember());
-
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected > 0;
     }
-}
-
 
     public static Member getMemberById(String id) {
         Member member = null;
@@ -300,9 +304,13 @@ public class MemberDao {
                 member.setAddress(rs.getString("address"));
                 member.setDateOfBirth(rs.getDate("dateOfBirth"));
                 member.setJoinDate(rs.getDate("joinDate"));
-                member.setAvarta(rs.getString("image")); 
+
+                member.setImage(rs.getString("image"));
+
+                member.setImage(rs.getString("image"));
+
                 member.setIDCoach(rs.getString("IDCoach"));
-                member.setSubscription(rs.getString("subcription")); 
+                member.setSubscription(rs.getString("subcription"));
                 member.setStatus(rs.getString("status"));
             }
         } catch (Exception e) {
@@ -330,6 +338,5 @@ public class MemberDao {
 
         return member;
     }
-
 
 }

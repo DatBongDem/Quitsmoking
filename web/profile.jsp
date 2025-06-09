@@ -30,7 +30,10 @@
 
                     <div class="profile-info">
                         <p>
-                            <img src="<%= (member.getAvarta()!= null) ? member.getAvarta(): "images/avata/nullavata.png"%>" alt="Profile Image">
+
+                       
+                            <img src="<%= (member.getImage()!= null) ? member.getImage(): "images/avata/nullavata.png"%>" alt="Profile Image">
+
                         </p>
                         
                         

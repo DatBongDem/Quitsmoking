@@ -78,7 +78,11 @@
 
     <p>
         <label>Current Avatar:</label><br/>
-        <img src="<%= (member.getAvarta()!= null) ? member.getAvarta(): "images/avata/nullavata.png"%>" alt="Profile Image" width="150"/>
+
+       
+
+        <img src="<%= (member.getImage()!= null) ? member.getImage(): "images/avata/nullavata.png"%>" alt="Profile Image" width="150"/>
+
     </p>
 
     <p>
@@ -90,4 +94,8 @@
         <button type="submit">Save Changes</button>
         <a href="profile.jsp">Cancel</a>
     </p>
+
 </form>
+
+</form>
+

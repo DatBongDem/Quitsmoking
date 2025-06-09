@@ -10,7 +10,6 @@ package DTO;
  * @author Nghia
  */
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class Member {
 
@@ -22,7 +21,7 @@ public class Member {
     private String address;
     private Date dateOfBirth;
     private Date joinDate;
-    private String avarta;
+    private String image;
     private String IDCoach;
     private String subscription;
     private String status;
@@ -31,7 +30,7 @@ public class Member {
     }
 
     // Constructor không tham số
-    public Member(String IDMember, String password, String memberName, String phone, String email, String address, Date dateOfBirth, Date joinDate, String avarta, String IDCoach, String subscription, String status) {   
+    public Member(String IDMember, String password, String memberName, String phone, String email, String address, Date dateOfBirth, Date joinDate, String image, String IDCoach, String subscription, String status) {
         this.IDMember = IDMember;
         this.password = password;
         this.memberName = memberName;
@@ -40,7 +39,7 @@ public class Member {
         this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.joinDate = joinDate;
-        this.avarta = avarta;
+        this.image = image;
         this.IDCoach = IDCoach;
         this.subscription = subscription;
         this.status = status;
@@ -110,14 +109,16 @@ public class Member {
         this.joinDate = joinDate;
     }
 
-    public String getAvarta() {
-        return avarta;
+    public String getImage() {
+        return image;
     }
 
-    public void setAvarta(String avarta) {
-        this.avarta = avarta;
+    public void setImage(String image) {
+        this.image = image;
     }
 
+    
+    
     public String getIDCoach() {
         return IDCoach;
     }
@@ -158,4 +159,6 @@ public class Member {
                 + ", subscription='" + subscription + '\''
                 + '}';
     }
+
+    
 }
