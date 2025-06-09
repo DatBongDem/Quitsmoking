@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.Member;
+import Utils.DBUtils;
 import java.sql.Date;
 
 /**
@@ -236,31 +237,99 @@ public class MemberDao {
         return blogPosts;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException {
-        // Tạo đối tượng DAO để lấy dữ liệu
-        MemberDao dao = new MemberDao();
+   
+        public static boolean updateMember(Member member) throws SQLException, ClassNotFoundException {
+    String sql = "UPDATE Member SET password=?, memberName=?, phone=?, email=?, address=?, dateOfBirth=?, joinDate=?, image=?, IDCoach=?, subcription=?, status=? WHERE IDMember=?";
+    try (
+         Connection conn = getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, member.getPassword());
+        ps.setString(2, member.getMemberName());
+        ps.setString(3, member.getPhone());
+        ps.setString(4, member.getEmail());
+        ps.setString(5, member.getAddress());
+
+        // dateOfBirth
+        if (member.getDateOfBirth() != null) {
+            ps.setDate(6, new java.sql.Date(member.getDateOfBirth().getTime()));
+        } else {
+            ps.setNull(6, java.sql.Types.DATE);
+        }
+
+        // joinDate
+        if (member.getJoinDate() != null) {
+            ps.setDate(7, new java.sql.Date(member.getJoinDate().getTime()));
+        } else {
+            ps.setNull(7, java.sql.Types.DATE);
+        }
+
+        ps.setString(8, member.getAvarta());
+        ps.setString(9, member.getIDCoach());
+        ps.setString(10, member.getSubscription());
+        ps.setString(11, member.getStatus());
+
+        ps.setString(12, member.getIDMember());
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected > 0;
+    }
+}
+
+
+    public static Member getMemberById(String id) {
+        Member member = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            // Lấy tất cả bài viết từ database
-            List<BlogPost> blogPosts = dao.getAllBlogPosts();
+            conn = DBUtils.getConnection();
+            String sql = "SELECT * FROM Member WHERE IDMember = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
 
-            // In thông tin các bài viết ra console
-            if (blogPosts.isEmpty()) {
-                System.out.println("Không có bài viết nào trong cơ sở dữ liệu.");
-            } else {
-                System.out.println("Danh sách các bài viết:");
-                for (BlogPost post : blogPosts) {
-                    System.out.println("ID: " + post.getIdPost());
-                    System.out.println("Tiêu đề: " + post.getTitle());
-                    System.out.println("Nội dung: " + post.getContent());
-                    System.out.println("Ảnh: " + post.getImage());
-                    System.out.println("Ngày đăng: " + post.getPublishDate());
-                    System.out.println("====================================");
-                }
+            if (rs.next()) {
+                member = new Member();
+                member.setIDMember(rs.getString("IDMember"));
+                member.setPassword(rs.getString("password"));
+                member.setMemberName(rs.getString("memberName"));
+                member.setPhone(rs.getString("phone"));
+                member.setEmail(rs.getString("email"));
+                member.setAddress(rs.getString("address"));
+                member.setDateOfBirth(rs.getDate("dateOfBirth"));
+                member.setJoinDate(rs.getDate("joinDate"));
+                member.setAvarta(rs.getString("image")); 
+                member.setIDCoach(rs.getString("IDCoach"));
+                member.setSubscription(rs.getString("subcription")); 
+                member.setStatus(rs.getString("status"));
             }
-        } catch (SQLException e) {
-            System.err.println("Lỗi khi lấy dữ liệu bài viết: " + e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+            }
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (Exception e) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+            }
         }
+
+        return member;
     }
+
+
 }
