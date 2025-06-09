@@ -109,20 +109,20 @@ public class UpdateProfileServlet extends HttpServlet {
         String subscription = request.getParameter("subcription");
 
         String dateOfBirthStr = request.getParameter("dateOfBirth");
-        Date dateOfBirth = null;
+        java.sql.Date dateOfBirth = null;
 
         if (dateOfBirthStr != null && !dateOfBirthStr.isEmpty()) {
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  // định dạng ngày gửi từ form input type=date
-                dateOfBirth = (Date) sdf.parse(dateOfBirthStr);
+                // parse sang java.util.Date trước
+                java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirthStr);
+                // chuyển sang java.sql.Date
+                dateOfBirth = new java.sql.Date(utilDate.getTime());
             } catch (ParseException e) {
                 e.printStackTrace();
-                // Xử lý lỗi định dạng ngày (có thể báo lỗi, hoặc để null)
             }
         }
-        
 
-
+        member.setDateOfBirth(dateOfBirth);
         // Lấy file upload
         Part filePart = request.getPart("avatarFile");
 
@@ -154,7 +154,6 @@ public class UpdateProfileServlet extends HttpServlet {
         }
 
         // Cập nhật thông tin Member (ở đây bạn phải gọi DAO hoặc service cập nhật database)
-        
         member.setIDMember(idMember);
         member.setMemberName(memberName);
         member.setEmail(email);
@@ -173,7 +172,7 @@ public class UpdateProfileServlet extends HttpServlet {
         }
 
         // Gọi DAO cập nhật database (bạn phải viết hàm này)
-        boolean success = false ;
+        boolean success = false;
         try {
             success = MemberDao.updateMember(member);
         } catch (ClassNotFoundException ex) {

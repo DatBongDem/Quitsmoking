@@ -46,7 +46,7 @@
     </p>
 
     <p>
-<!--        <label>Date of Birth:</label>
+        <label>Date of Birth:</label>
         <%
             String formattedDate = "";
             if (member.getDateOfBirth() != null) {
@@ -55,30 +55,20 @@
             }
         %>
 
-        <input type="date" name="dateOfBirth" value="<%= formattedDate%>" />-->
-        
-        <p>
-    <label>Date of Birth:</label>
-    <%
-        
-        if (member != null && member.getDateOfBirth() != null) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            formattedDate = sdf.format(member.getDateOfBirth());
-        }
-    %>
-    <input type="date" name="dateOfBirth" value="<%= formattedDate %>" />
-</p>
+        <input type="date" name="dateOfBirth" value="<%= formattedDate%>" />
+
+
 
     </p>
 
     <p>
         <label>Subscription:</label>
-        <input type="text" name="subscription" value="<%= member.getSubscription()%>" />
+        <input type="text" name="subcription" value="<%= member.getSubscription()%>" />
     </p>
 
     <p>
         <label>Current Avatar:</label><br/>
-        <img src="<%= (member.getImage()!= null) ? member.getImage(): "images/avata/nullavata.png"%>" alt="Profile Image" width="150"/>
+        <img src="<%= (member.getImage() != null) ? member.getImage() : "images/avata/nullavata.png"%>" alt="Profile Image" width="150"/>
     </p>
 
     <p>
