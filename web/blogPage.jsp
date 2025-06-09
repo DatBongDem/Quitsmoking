@@ -1,116 +1,61 @@
+<%@page import="DTO.BlogPost"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Page</title>
-    <link rel="stylesheet" href="css/styleBlog.css">
-    <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
-     <%@include file="information/bootstrap.jspf" %>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blog Page</title>
 
-<body>
-    <%@include file="information/header.jspf" %>
-    <main>
-        <section class="hero">
-            <h1 class="blog-title">Blog Page</h1>
+        <link rel="stylesheet" href="css/blogPageStyle.css">
+        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+        <%@include file="information/bootstrap.jspf" %>
+    </head>
 
-            <!-- Thanh tìm ki?m -->
-            <div class="blog-search-bar" style="margin-top: 15px; text-align: center;">
-                <input type="text" placeholder="Tìm ki?m blog..." style="padding: 10px; width: 60%; max-width: 500px; border: 1px solid #ccc; border-radius: 5px;">
-                <button style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Tìm ki?m</button>
-            </div>
-        </section>
+    <body>
+        <%@include file="information/header.jspf" %>
+        <main>
+            <section class="hero">
+                <h1 class="blog-title">Blog Page</h1>
 
+                <!-- Thanh tÃ¬m ki?m -->
+                <div class="blog-search-bar" style="margin-top: 15px; text-align: center;">
+                    <input type="text" placeholder="TÃ¬m ki?m blog..." style="padding: 10px; width: 60%; max-width: 500px; border: 1px solid #ccc; border-radius: 5px;">
+                    <button style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">TÃ¬m ki?m</button>
+                </div>
+            </section>
 
-        <section class="news-section">
-    <h2>Last News Health And Medical</h2>
+            
+            <section class="new-sections">
+                <h1>Danh sÃ¡ch BÃ i Viáº¿t</h1>
 
-    <div class="blog-item">
-        <img src="images/Blog/covid19.jpg" alt="COVID-19 Advice" class="blog-image">
-        <div class="blog-content">
-            <h3>COVID-19 và ng??i hút thu?c</h3>
-            <p>COVID-19 là m?t b?nh nhi?m trùng ???ng hô h?p ?nh h??ng ??n ph?i và ???ng hô h?p. Có b?ng ch?ng kh?ng ??nh r?ng hút thu?c lá nói chung có liên quan ??n vi?c t?ng nguy c? phát tri?n các b?nh nhi?m trùng ???ng hô h?p.
-Hút thu?c lá gây h?i cho ph?i và ???ng hô h?p, ??ng th?i gây h?i cho h? th?ng mi?n d?ch, làm gi?m kh? n?ng c? th? ch?ng l?i các nhi?m trùng. Hút thu?c lá g?n li?n v?i hành ??ng ??a tay lên m?t l?p l?i nhi?u l?n, ?i?u này có th? làm t?ng nguy c? vi rút xâm nh?p vào c? th?.
-?i?u này có ngh?a là n?u b?n hút thu?c, b?n th??ng có nguy c? m?c các b?nh nhi?m trùng ???ng hô h?p cao h?n, ch?ng h?n nh? COVID-19, và tình tr?ng b?nh c?a b?n nhi?u kh? n?ng s? b? tr?m tr?ng h?n khi b?n m?c m?c các b?nh liên quan ??n hút thu?c.
-Nh?ng ng??i ti?p xúc v?i khói thu?c nói chung c?ng t?ng nguy c? gây h?i cho ph?i và tim c?a h?. Tr? em ??c bi?t có nguy c? khi ti?p xúc v?i khói thu?c vì chúng có ???ng hô h?p, ph?i và h? th?ng mi?n d?ch ch?a phát tri?n hoàn thi?n.
-B? hút thu?c ngay bây gi? s? mang l?i nh?ng l?i ích ngay l?p t?c cho s?c kh?e c?a b?n, k? c? khi b?n ?ang m?c b?nh liên quan ??n hút thu?c. ?i?u này ??c bi?t quan tr?ng vào th?i ?i?m h? th?ng y t? ?ang có áp l?c vì d?ch Covid 19.
-Hi?n nay có r?t nhi?u ph??ng pháp h? tr? giúp b?n cai thu?c và nh?n ???c s? h? tr? phù h?p có th? t?ng c? h?i cai thu?c thành công c?a b?n lên ??n 3 l?n. S? d?ng các s?n ph?m thay th? nicotine làm gi?m các tri?u ch?ng cai thu?c lá và có th? giúp b?n b? thu?c lá và duy trì cai thu?c. Truy c?p Vquit.vn ?? bi?t thông tin và l?i khuyên v? vi?c b? hút thu?c.</p>
-        </div>
-    </div>
+                <%
+                    // Láº¥y danh sÃ¡ch cÃ¡c bÃ i viáº¿t tá»« request
+                    List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");
 
-    <div class="blog-item">
-        <img src="images/Blog//OIP.jpg" alt="Smoking and Lung Damage" class="blog-image">
-        <div class="blog-content">
-            <h3>??t bi?n ADN và t?n th??ng ph?i do hút thu?c</h3>
-            <p>Qua th?ng kê, chúng ta có th? bi?t chính xác có bao nhiêu ??t bi?n ADN liên quan t?i ung th? ???c tích l?y trong c? th? c?a ng??i hút thu?c qua th?i gian
-Theo th?ng kê t? m?t phân tích g?n ?ây, c? hút trung bình 50 ?i?u thu?c lá s? có m?t ??t bi?n DNA ? m?i t? bào ph?i. Ng??i hút m?t bao thu?c lá (20 ?i?u) m?i ngày trong m?t n?m s? t?o ra 150 ??t bi?n ? m?i t? bào ph?i, 97 ??t bi?n ? m?i t? bào thanh qu?n, 39 ??t bi?n ? m?i t? bào h?u h?ng, 18 ??t bi?n ? m?i t? bào bàng quang và 6 ??t bi?n ? m?i t? bào gan.
-Các nghiên c?u d?ch t? h?c tr??c ?ây ?ã ch? ra s? liên k?t gi?a hút thu?c lá v?i ít nh?t 17 lo?i ung th?, nh?ng ?ây là l?n ??u tiên các nhà nghiên c?u ?ã có th? xác ??nh s? l??ng phân t? b? t?n th??ng trên ADN.
-
-Nhà v?t lý sinh h?c Ludmil Alexandrov và ??ng nghi?p c?a ông ?ã phát hi?n ra k?t qu? này khi so sánh ADN trong kh?i u c?a 2500 ng??i hút thu?c và 1000 ng??i không hút thu?c t?i t?i phòng thí nghi?m qu?c gia Los Alamos ? New Mexico. ?i?u này cho phép h? xác ??nh các ??t bi?n có liên quan ??n hút thu?c lá.
- 
-V? m?t lý thuy?t, m?i ??t bi?n ADN ??u có kh? n?ng gây t?n th??ng cho gen di truy?n khi?n các t? bào tr? thành ung th?. Tuy nhiên, chúng ta v?n ch?a tìm ra xác su?t c?a m?t bi?n ??i ADN có liên quan t?i hút thu?c lá chuy?n thành ung th?, ho?c nh?ng d?ng ??t bi?n ADN nào có th? s? là ác tính. "?ây là nghiên c?u mà hi?n nay chúng tôi ?ang theo ?u?i", Alexandrov nói.
-
-M?t s? ng??i hút thu?c lá không bao gi? phát tri?n b?nh ung th? m?c dù có hàng ngàn ??t bi?n ???c tích l?y trong c? th?, nh?ng ?i?u này là hoàn toàn ch?a chính xác, Alexandrov nói."Hút thu?c lá c?ng gi?ng nh? ch?i trò cò quay c?a n??c Nga v?y: b?n càng ch?i nhi?u, kh? n?ng nh?ng ??t bi?n s? t?n công vào gen quan tr?ng càng cao h?n và ung th? s? phát tri?n trong c? th? b?n", ông nói. "Tuy nhiên, s? luôn có nh?ng ng??i m?c dù hút thu?c r?t nhi?u, nh?ng nh?ng ??t bi?n không t?n công vào nh?ng gen quan tr?ng."</p>
-        </div>
-    </div>
-
-    <div class="blog-item">
-        <img src="images/Blog//OIP (2).jpg" alt="Female Fertility and Smoking" class="blog-image">
-        <div class="blog-content">
-            <h3>?nh h??ng c?a thu?c lá ??n kh? n?ng sinh s?n n?</h3>
-            <p>Ph? n? hút thu?c trên 15 ?i?u thu?c m?t ngày s? t?ng th?i gian ?? th? thai. Nh?ng ph? n? hút thu?c không ch? g?p khó kh?n khi th? thai mà còn ph?i ch?u m?t s? khó kh?n v? nuôi d??ng thai nhi. Ph? n? hút thu?c nhi?u càng ?nh h??ng t?i kh? n?ng sinh s?n. Có nhi?u lý do gi?i thích t?i sao t? l? kh? n?ng sinh s?n c?a ph? n? hút thu?c có xu h??ng th?p h?n ph? n? không hút thu?c. 
-T?n th??ng t?i noãn bào. Hút thu?c có th? gây ?nh h??ng ho?c th?m trí hu? di?t noãn bào (tr?ng) do v?y d?n t?i làm gi?m kh? n?ng sinh s?n.
-B?t th??ng v? hóc môn. Hút thu?c thay ??i m?t ?? c?a m?t s? hóc môn, bao g?m estrogen và nang kích thích hóc môn. Vì v?y s? r?ng tr?ng có th? không x?y ra bình th??ng ??i v?i ng??i hút thu?c.
-R?i lo?n ch?c n?ng vòi tr?ng. M?t s? nghiên c?u ?ã phát hi?n r?i lo?n trong ch?c n?ng vòi tr?ng ? ng??i ph? n? hút thu?c. S? gia t?ng m?c ?? hóc môn d?n t?i thay ??i ho?t ??ng bình th??ng c?a tr?ng qua vòi tr?ng. ? m?t s? tr??ng h?p, s? thay ??i m?c hóc môn có th? làm t?ng quá trình phôi thai vào trong t? cung. Vì th?i gian r?t quan tr?ng ?? t?o môi tr??ng t?t ?? gi? ???c phôi bên trong t? cung, n?u phôi s?m vào t? cung có th? d?n t?i h?ng vì ch?a bám ch?t và d? d?n t?i x?y thai t? phát. Th?t ngh?ch lý ??i v?i m?t s? ng??i hút thu?c m?c hóc môn có th? làm gi?m ho?t ??ng c?a tr?ng qua vòi tr?ng. ?i?u này có th? d?n t?i mang thai d? d?ng.Trong m?t nghiên c?u th?y nguy c? mang thai d? d?ng ? ng??i hút thu?c cao h?n 2,2 t?i 4 l?n ng??i không hút thu?c.
-S?y thai t? phát. Trong các nghiên c?u th?y ng??i hút thu?c có nguy c? s?y thai t? phát cao h?n t? 1,5 t?i 3,2 l?n ? ng??i không hút thu?c. Ph? n? hút thu?c có th? b? suy y?u kh? n?ng duy trì thai nhi.
-</p>
-        </div>
-    </div>
-
-    <div class="blog-item">
-        <img src="images/Blog//OIP (1).jpg" alt="Smoking Facts" class="blog-image">
-        <div class="blog-content">
-            <h3>Th?c tr?ng s? d?ng thu?c lá trên th? gi?i</h3>
-            <p>Trên th?  gi?i  có kho?ng 1,1 t? ng??i s? d?ng thu?c lá, kho?ng 5,8 nghìn t? ?i?u thu?c lá ???c hút n?m 2014. Hàng n?m thu?c lá gi?t ch?t 6 tri?u ng??i trên toàn th? gi?i, trong ?ó có h?n 5 tri?u ng??i ch?t do hút thu?c lá ch? ??ng và h?n 600.000 ng??i ch?t do hút thu?c lá th? ??ng.  Thu?c lá là nguyên nhân c?a 25 c?n b?nh, trong ?ó có nh?ng b?nh nguy hi?m nh?: Ung th? ph?i, ??t qu?, b?nh ph?i t?c ngh?n m?n tính?
-
-
-
-
- 
-Trên th?  gi?i  có kho?ng 1,1 t? ng??i s? d?ng thu?c lá, kho?ng 5,8 nghìn t? ?i?u thu?c lá ???c hút n?m 2014 và vi?c s? d?ng thu?c lá v?n còn gia t?ng. Hàng n?m thu?c lá gi?t ch?t 6 tri?u ng??i trên toàn th? gi?i, trong ?ó có h?n 5 tri?u ng??i ch?t do hút thu?c lá ch? ??ng và h?n 600.000 ng??i ch?t do hút thu?c lá th? ??ng.  S? d?ng  thu?c lá là nguyên nhân c?a 25 c?n b?nh, trong ?ó có nh?ng b?nh nguy hi?m nh?: Ung th? ph?i, ??t qu?, b?nh ph?i t?c ngh?n m?n tính?
-
-Các qu?c gia trên 10.000.000 nam gi?i t? 15 tu?i tr? lên hút thu?c lá hàng ngày (theo tri?u ng??i), n?m 2013
- 
-                  264.0    TRUNG QU?C
-                  106.0    ?N ??
-                   50.6     INDONESIA
-                   27.7     NGA
-                   24.5     BANGLADESH
-                   21.6     M?
-                   18.9     NH?T
-                   17.2     PAKISTAN
-                   14.2     VI?T NAM
-                   12.9     PILIPPINES
-                   12.2     BRAZIL
-                   10.6     TH? NH? K?
-                   10.1     AI C?P
-
-Vi?t Nam thu?c nhóm 15 n??c có ng??i hút thu?c cao nh?t trên th? gi?i v?i g?n n?a nam gi?i trong ?? tu?i tr??ng thành hút thu?c lá. C? th?, t? l? hút thu?c ? nam gi?i là 47,7% (trung bình c? 2 nam có m?t ng??i hút thu?c lá). Hi?n nay ??c tính c? n??c có kho?ng 15,3 tri?u ng??i (h?n 15 tu?i) hút thu?c lá, 2/3 ph? n? và tr? em th??ng xuyên hít ph?i khói thu?c lá t?i nhà: 47 tri?u ng??i không hút thu?c th??ng xuyên hít ph?i khói thu?c t?i nhà: 8 tri?u ng??i tr??ng thành tuy không hút thu?c nh?ng v?n th??ng xuyên hít ph?i khói thu?c lá t?i n?i làm vi?c.
- 
-
-
-             T? l? hút thu?c lá cao nh?t ? Vi?t Nam ? các nhóm tu?i:
-                    31% : 45 ? 64 tu?i
-                    29% : 25 ? 44 tu?i
-                    24% : >65 tu?i
-                    3%   :15 ? 17 tu?i</p>
-        </div>
-    </div>
-</section>
-    </main>
-    <%@include file="information/footer.jspf" %>
-</body>
+                    if (blogPosts != null && !blogPosts.isEmpty()) {
+                        for (BlogPost post : blogPosts) {
+                %>
+                <div class="blog-post">
+                    <h2><%= post.getTitle()%></h2>
+                    <p><%= post.getContent()%></p>
+                    <img src="images/Blog/<%= post.getImage()%>" alt="Image for <%= post.getTitle()%>" class="blog-image" />
+                    <p>NgÃ y Ä‘Äƒng: <%= post.getPublishDate()%></p>
+                </div>
+                <%
+                    }
+                } else {
+                %>
+                <p>KhÃ´ng cÃ³ bÃ i viáº¿t nÃ o.</p>
+                <%
+                    }
+                %>
+            </section>
+        </main>
+        <%@include file="information/footer.jspf" %>
+    </body>
 
 </html>

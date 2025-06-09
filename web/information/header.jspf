@@ -28,6 +28,47 @@
         </div>
     </div>
 </header>
+<%@ page session="true" %>
+<%
+    String username = (String) session.getAttribute("username");
+%>
+<% if (username != null) {%>
+
+<div class="menu-container">
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <div id="menu" class="menu-content">
+        <button onclick="chucNangA()">Post new Blog</button>
+        <button onclick="chucNangB()">Chức năng B</button>
+        <button onclick="chucNangC()">Chức năng C</button>
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function chucNangA() {
+           window.location.href = "PostNewBlog.jsp"; 
+    }
+
+    function chucNangB() {
+        alert("Đã chọn chức năng B");
+    }
+
+    function chucNangC() {
+        alert("Đã chọn chức năng C");
+    }
+
+    // Tắt menu nếu click ra ngoài
+    window.onclick = function (event) {
+        if (!event.target.matches('.hamburger')) {
+            document.getElementById("menu").style.display = "none";
+        }
+    }
+</script>
+<% }%>
 <div class="menu">
     <div class="container">
         <div class="row">
@@ -45,7 +86,7 @@
                                 <a href="#">About Us</a>
                             </li>
                             <li>
-                                <a href="blogPage.jsp">Blog</a>
+                                <a href="BlogPostServlet">Blog</a>
                             </li>
                             <li>
                                 <a href="#">Contact</a>
@@ -59,10 +100,8 @@
 
 
 
-                    <%@ page session="true" %>
-                    <%
-                        String username = (String) session.getAttribute("username");
-                    %>
+                    <!-- Menu khi nhấn vào nút -->
+
                     <div class="inner-button">
                         <% if (username == null) { %>
                         <a href="login.jsp" class="button button-one">Sign In</a>
@@ -70,30 +109,30 @@
                         <% } %>
                     </div>
 
-                  
-                        <% if (username != null) {%>
-                        
+
+                    <% if (username != null) {%>
 
 
-                        <div class="inner-profile">
-                            <div class="user-dropdown">
-                                <div class="inner-notification">
-                                    <a href="#"><i class="fa fa-bell"></i></a>
-                                </div>
+
+                    <div class="inner-profile">
+                        <div class="user-dropdown">
+                            <div class="inner-notification">
+                                <a href="#"><i class="fa fa-bell"></i></a>
                             </div>
-                               <span class="welcome-message">Welcome, <strong><%= username %></strong>!</span>
-                            <button class="user-dropdown">
-                                <i class="fa-solid fa-user"></i>
-                                <a href="DetailMemberProfile">My Profile</a>
-                            </button>
-                            <a href="LogoutServlet" class="button">Logout</a>
                         </div>
-                        <% }%>
+                        <span class="welcome-message">Welcome, <strong><%= username%></strong>!</span>
+                        <button class="user-dropdown">
+                            <i class="fa-solid fa-user"></i>
+                            <a href="DetailMemberProfile">My Profile</a>
+                        </button>
+                        <a href="LogoutServlet" class="button">Logout</a>
                     </div>
+                    <% }%>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 </div>
 

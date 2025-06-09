@@ -1,0 +1,128 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 9, 2025, 2:39:36 PM
+    Author     : Nghia
+*/
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+.hero {
+    background: #28a745;
+    color: #fff;
+    height: 200px;
+    text-align: center;
+    
+    padding: 2rem 1rem;
+    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Phần tìm kiếm bài viết */
+.blog-search-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.blog-search-bar {
+margin-left: 700px;
+    padding: 10px;
+    width: 60%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #218838;
+}
+
+/* Phần danh sách bài viết */
+.new-sections {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.new-sections h1 {
+    text-align: center;
+    color: #2d87f0;
+}
+
+/* Danh sách các bài viết */
+.blog-post {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post h2 {
+    font-size: 1.6em;
+    color: #2d87f0;
+    margin-bottom: 10px;
+}
+
+.blog-post p {
+    color: #555;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.blog-image {
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.blog-post p:last-child {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* Nếu không có bài viết */
+.no-posts {
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+}

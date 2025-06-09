@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import DTO.BlogPost;
 import static Utils.DBUtils.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -164,18 +165,18 @@ public class MemberDao {
             if (rs.next()) {
                 // Tạo đối tượng Member thông qua constructor và chuyển đổi java.sql.Date sang java.util.Date
                 member = new Member(
-                    rs.getString("IDMember"),   // IDMember là String
-                    rs.getString("password"),
-                    rs.getString("memberName"),
-                    rs.getString("phone"),
-                    rs.getString("email"),
-                    rs.getString("address"),
-                    rs.getDate("dateOfBirth"), // Lấy java.sql.Date từ ResultSet
-                    rs.getDate("joinDate"),    // Lấy java.sql.Date từ ResultSet
-                    rs.getString("image"),
-                    rs.getString("IDCoach"),
-                    rs.getString("subcription"),
-                    rs.getString("status")
+                        rs.getString("IDMember"), // IDMember là String
+                        rs.getString("password"),
+                        rs.getString("memberName"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("address"),
+                        rs.getDate("dateOfBirth"), // Lấy java.sql.Date từ ResultSet
+                        rs.getDate("joinDate"), // Lấy java.sql.Date từ ResultSet
+                        rs.getString("image"),
+                        rs.getString("IDCoach"),
+                        rs.getString("subcription"),
+                        rs.getString("status")
                 );
             }
         } catch (SQLException e) {
@@ -185,6 +186,81 @@ public class MemberDao {
         // Trả về đối tượng Member chứa thông tin người dùng
         return member;
     }
-     
 
+    public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO BlogPost (IDPost, IDMember, title, [content], image, publishDate) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+
+            stmt.setString(1, idPost);
+            stmt.setString(2, idMember);
+            stmt.setString(3, title);
+            stmt.setString(4, content);
+            stmt.setString(5, imagePath); // Đây là chuỗi đường dẫn ảnh
+            stmt.setDate(6, java.sql.Date.valueOf(publishDate)); // Convert LocalDate to java.sql.Date
+
+            stmt.executeUpdate();
+        } catch (Exception e) {
+        }
+
+    }
+
+    public List<BlogPost> getAllBlogPosts() throws SQLException, ClassNotFoundException {
+        List<BlogPost> blogPosts = new ArrayList<>();
+
+        String sql = "SELECT IDPost, IDMember, title, content, image, publishDate FROM BlogPost";
+
+        // Kết nối cơ sở dữ liệu
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            // Duyệt qua tất cả các bài viết và thêm vào list
+            while (rs.next()) {
+                String idPost = rs.getString("IDPost");
+                String idMember = rs.getString("IDMember");
+                String title = rs.getString("title");
+                String content = rs.getString("content");
+                String image = rs.getString("image");
+                Date publishDate = rs.getDate("publishDate");
+
+                // Tạo đối tượng BlogPost và thêm vào danh sách
+                BlogPost post = new BlogPost(idPost, idMember, title, content, image, publishDate);
+                blogPosts.add(post);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error retrieving blog posts: " + e.getMessage());
+        }
+
+        return blogPosts;
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException {
+        // Tạo đối tượng DAO để lấy dữ liệu
+        MemberDao dao = new MemberDao();
+
+        try {
+            // Lấy tất cả bài viết từ database
+            List<BlogPost> blogPosts = dao.getAllBlogPosts();
+
+            // In thông tin các bài viết ra console
+            if (blogPosts.isEmpty()) {
+                System.out.println("Không có bài viết nào trong cơ sở dữ liệu.");
+            } else {
+                System.out.println("Danh sách các bài viết:");
+                for (BlogPost post : blogPosts) {
+                    System.out.println("ID: " + post.getIdPost());
+                    System.out.println("Tiêu đề: " + post.getTitle());
+                    System.out.println("Nội dung: " + post.getContent());
+                    System.out.println("Ảnh: " + post.getImage());
+                    System.out.println("Ngày đăng: " + post.getPublishDate());
+                    System.out.println("====================================");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi lấy dữ liệu bài viết: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
