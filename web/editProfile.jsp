@@ -87,7 +87,7 @@
 
     <p>
         <button type="submit">Save Changes</button>
-        <a href="profile.jsp">Cancel</a>
+        <a href="DetailMemberProfile">Cancel</a>
     </p>
 
 </form>
