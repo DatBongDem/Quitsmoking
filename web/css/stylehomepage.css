@@ -140,7 +140,7 @@ body {
 
 /* Background */
 .background {
-    background-image: url(../images/background.png);
+    background-image: url(../images/home/background.png);
     padding: 250px 0;
     position: relative;
     background-repeat: no-repeat;

@@ -16,7 +16,7 @@ public class Member {
     private String IDMember;
     private String password;
     private String memberName;
- 
+    private String gender;
     private String phone;
     private String email;
     private String address;
@@ -31,10 +31,11 @@ public class Member {
     }
 
     // Constructor không tham số
-    public Member(String IDMember, String password, String memberName, String phone, String email, String address, Date dateOfBirth, Date joinDate, String image, String IDCoach, String subscription, String status) {    
+    public Member(String IDMember, String password, String memberName, String gender, String phone, String email, String address, Date dateOfBirth, Date joinDate, String image, String IDCoach, String subscription, String status) {
         this.IDMember = IDMember;
         this.password = password;
         this.memberName = memberName;
+        this.gender= gender;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -70,6 +71,16 @@ public class Member {
         this.memberName = memberName;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    
+    
     public String getPhone() {
         return phone;
     }
@@ -118,6 +129,8 @@ public class Member {
         this.image = image;
     }
 
+    
+    
     public String getIDCoach() {
         return IDCoach;
     }
@@ -142,22 +155,7 @@ public class Member {
         this.status = status;
     }
 
-    // toString() (nếu cần)
-    @Override
-    public String toString() {
-        return "Member{"
-                + "IDMember='" + IDMember + '\''
-                + ", password='" + password + '\''
-                + ", memberName='" + memberName + '\''
-                + ", phone='" + phone + '\''
-                + ", email='" + email + '\''
-                + ", address='" + address + '\''
-                + ", dateOfBirth=" + dateOfBirth
-                + ", joinDate=" + joinDate
-                + ", IDCoach='" + IDCoach + '\''
-                + ", subscription='" + subscription + '\''
-                + '}';
-    }
+    
 
     
 }

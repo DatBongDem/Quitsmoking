@@ -43,17 +43,18 @@ public class MemberDao {
                 String id = rs.getString(1); // IDMember
                 String password = rs.getString(2); // password
                 String name = rs.getString(3); // memberName
-                String phone = rs.getString(4); // phone
-                String email = rs.getString(5); // email
-                String address = rs.getString(6); // address
-                Date dob = rs.getDate(7); // dateOfBirth
-                Date joinDate = rs.getDate(8); // joinDate
-                String avata = rs.getString(9);
-                String coach = rs.getString(10); // IDCoach
-                String subscription = rs.getString(11); // subscription
-                String status = rs.getString(12);
+                String gender = rs.getString(4);
+                String phone = rs.getString(5); // phone
+                String email = rs.getString(6); // email
+                String address = rs.getString(7); // address
+                Date dob = rs.getDate(8); // dateOfBirth
+                Date joinDate = rs.getDate(9); // joinDate
+                String avata = rs.getString(10);
+                String coach = rs.getString(11); // IDCoach
+                String subscription = rs.getString(12); // subscription
+                String status = rs.getString(13);
 
-                member = new Member(id, password, name, phone, email, address, dob, joinDate, avata, coach, subscription, status);
+                member = new Member(id, password, name, gender, phone, email, address, dob, joinDate, avata, coach, subscription, status);
 
             }
         } catch (SQLException e) {
@@ -62,9 +63,12 @@ public class MemberDao {
         return member;
     }
 
-    public void resigter(String id, String password, String memberName, String phone, String email, String address, String dateofBirth, String imagePath) throws ClassNotFoundException {
-        String sql = "INSERT INTO Member (IDMember, password, memberName, phone, email, address, dateOfBirth, , joinDate) "
-               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     public void resigter(String id, String password, String memberName, String gender, String phone, 
+                String email, String address, String dateofBirth) throws ClassNotFoundException {
+        String sql = "INSERT INTO Member\n"
+                + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate )\n"
+                + "VALUES\n"
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             PreparedStatement pstmt = getConnection().prepareStatement(sql);
@@ -72,11 +76,12 @@ public class MemberDao {
             pstmt.setString(1, id);
             pstmt.setString(2, password);
             pstmt.setString(3, memberName);
-            pstmt.setString(4, phone);
-            pstmt.setString(5, email);
-            pstmt.setString(6, address);
-            pstmt.setString(7, dateofBirth);
-            pstmt.setString(8, imagePath);
+            pstmt.setString(4, gender);
+            pstmt.setString(5, phone);
+            pstmt.setString(6, email);
+            pstmt.setString(7, address);
+            pstmt.setString(8, dateofBirth);
+
             java.util.Date now = new java.util.Date();
             pstmt.setDate(9, new java.sql.Date(now.getTime()));
 
@@ -88,25 +93,7 @@ public class MemberDao {
         }
     }
 
-    public static void main(String[] args) throws ClassNotFoundException {
-        // Test data for the registration
-        String id = "member123";
-        String password = "password123";
-        String memberName = "John Doe";
-        String phone = "123-456-7890";
-        String email = "johndoe@example.com";
-        String address = "123 Main Street, Anytown, USA";
-        String dateOfBirth = "1990-01-01";
-        String imagePath = "/uploads/johndoe_profile.jpg";  // Path to the uploaded profile image
-
-        // Create an instance of MemberDao
-        MemberDao memberDao = new MemberDao();
-
-        // Call the register method to insert the data
-        memberDao.resigter(id, password, memberName, phone, email, address, dateOfBirth, imagePath);
-        
-    }
-
+  
     public List<String> getAllMemberIds() throws ClassNotFoundException {
         List<String> memberIds = new ArrayList<>();
         String sql = "SELECT IDMember FROM Member";  // Tên bảng chính xác theo DB của bạn
@@ -167,7 +154,7 @@ public class MemberDao {
     }
 
     public Member getUserByUsername(String memberID) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT* FROM Member WHERE IDMember = ?";
+       String sql = "SELECT* FROM Member WHERE IDMember = ?";
         Member member = null;
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -186,6 +173,7 @@ public class MemberDao {
                         rs.getString("IDMember"), // IDMember là String
                         rs.getString("password"),
                         rs.getString("memberName"),
+                        rs.getString("gender"),
                         rs.getString("phone"),
                         rs.getString("email"),
                         rs.getString("address"),
@@ -203,6 +191,8 @@ public class MemberDao {
 
         // Trả về đối tượng Member chứa thông tin người dùng
         return member;
+
+        
     }
 
     public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
@@ -255,7 +245,6 @@ public class MemberDao {
     }
 
     public static boolean updateMember(Member member) throws SQLException, ClassNotFoundException {
-
         String sql = "UPDATE Member SET password=?, memberName=?, phone=?, email=?, address=?, dateOfBirth=?, joinDate=?, image=?, IDCoach=?, subcription=?, status=? WHERE IDMember=?";
         try (
                 Connection conn = getConnection();
@@ -268,23 +257,21 @@ public class MemberDao {
             ps.setString(5, member.getAddress());
 
             // dateOfBirth
+            // dateOfBirth
             if (member.getDateOfBirth() != null) {
-                ps.setDate(6, new java.sql.Date(member.getDateOfBirth().getTime()));
+                ps.setDate(6, member.getDateOfBirth());  // đã là java.sql.Date rồi
             } else {
                 ps.setNull(6, java.sql.Types.DATE);
             }
 
-            // joinDate
+// joinDate
             if (member.getJoinDate() != null) {
-                ps.setDate(7, new java.sql.Date(member.getJoinDate().getTime()));
+                ps.setDate(7, member.getJoinDate());  // không cần tạo lại java.sql.Date nữa
             } else {
                 ps.setNull(7, java.sql.Types.DATE);
             }
 
             ps.setString(8, member.getImage());
-
-            ps.setString(8, member.getImage());
-
             ps.setString(9, member.getIDCoach());
             ps.setString(10, member.getSubscription());
             ps.setString(11, member.getStatus());
@@ -319,6 +306,8 @@ public class MemberDao {
                 member.setAddress(rs.getString("address"));
                 member.setDateOfBirth(rs.getDate("dateOfBirth"));
                 member.setJoinDate(rs.getDate("joinDate"));
+
+                member.setImage(rs.getString("image"));
 
                 member.setImage(rs.getString("image"));
 

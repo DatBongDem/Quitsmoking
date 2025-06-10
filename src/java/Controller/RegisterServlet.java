@@ -80,10 +80,11 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        MemberDao mem = new MemberDao();
+    MemberDao mem = new MemberDao();
         try {
             String id = request.getParameter("memberid");
             String fullName = request.getParameter("fullname");
+            String gender= request.getParameter("gender");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String confirmPassword = request.getParameter("confirmPassword");
@@ -103,36 +104,24 @@ public class RegisterServlet extends HttpServlet {
                     break;
                 }
             }
-            String imagePath = "";
-            Part imagePart = request.getPart("image");  // Assuming the image input is named 'profileImage'
-            if (imagePart != null && imagePart.getSize() > 0) {
-                String imageFileName = extractFileName(imagePart);
-                String uploadDirectory = getServletContext().getRealPath("/uploads");
-                File uploadDir = new File(uploadDirectory);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();  // Create the uploads directory if it doesn't exist
-                }
-                imagePath = "/uploads/" + imageFileName;
-                imagePart.write(uploadDirectory + File.separator + imageFileName);
-            }
 
             if (isDuplicate) {
                 request.setAttribute("errorMessage", "Member ID đã tồn tại, vui lòng chọn ID khác.");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
-
+                
             }
 
             while (!password.equals(confirmPassword)) {
                 request.setAttribute("errorMessage", "Password and Confirm Password do not match!");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
-
+                
             }
-            mem.resigter(id, password, fullName, phone, email, address, dobStr,imagePath);
+            mem.resigter(id, password, fullName, gender, phone, email, address, dobStr);
             request.setAttribute("successMessage", "Đăng ký tài khoản thành công! Vui lòng đăng nhập.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } catch (Exception e) {
-             e.printStackTrace();
         }
+
         }
  
     private String extractFileName(Part part) {
