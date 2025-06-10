@@ -1,88 +1,109 @@
-<%-- 
-    Document   : register
-    Created on : Jun 5, 2025, 3:53:54 PM
-    Author     : Nguyen Tien Dat
---%>
-
+<!doctype html>
+<html lang="en">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>register</title>
-        <link href="css/styleregister.css" rel="stylesheet" type="text/css"/>
-        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-        <%@include file="information/bootstrap.jspf" %>
+    <link rel="stylesheet" href="css/styleregister.css">
+    <link rel="stylesheet" href="css/stylehomepage.css">
+    <title>Register Page</title>
+</head>
 
-    </head>
-    <body>
-        <%@include file="information/header.jspf" %>
+<body>
 
-        <div class="register-container">
-            <div class="register-header">Create Account</div>
-            <form class="register-form" action="RegisterServlet" method="post">
-                <% String errorMessage = (String) request.getAttribute("errorMessage");
-                    if (errorMessage != null) {%>
-                <div style="color: red; font-weight: bold;">
-                    <%= errorMessage%>
-                </div>
-                <% }%>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+        
+ 
+    <div class="register-form">
+        <div class="container">
+            <div class="inner-form">
+                <h2 class="inner-title">Register</h2>
+                <form action="RegisterServlet" method="post">
+                    <div class="form-group">
+                        <label for="memberid">ID Member</label>
+                        <input type="text" class="form-control" name="memberid" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" class="form-control" name="fullname" required>
+                    </div>
 
-                <label for="memberid">Account ID</label>
-                <input type="text" id="memberid" name="memberid" required 
-                       value="<%= request.getAttribute("memberId") != null ? request.getAttribute("memberId") : ""%>" />
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <div class="inner-form-gender">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male"
+                                    checked>
+                                <label class="form-check-label" for="male">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="female"
+                                    checked>
+                                <label class="form-check-label" for="male">Female</label>
+                            </div>
+                        </div>
+                    </div>
 
-                <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" name="fullname" required
-                       value="<%= request.getAttribute("fullname") != null ? request.getAttribute("fullname") : ""%>"/>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmPassword" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" class="form-control" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Adress</label>
+                        <textarea name="address" class="form-control" rows="2" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-green btn-block">Register</button>
                 
-                <label for="image">Chọn ảnh đại diện</label>
-                <input type="file" id="image" name="image" accept="image/*">
-                
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required
-                       value="<%= request.getAttribute("email") != null ? request.getAttribute("email") : ""%>"/>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required />
-
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required />
-
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone"
-                       value="<%= request.getAttribute("phone") != null ? request.getAttribute("phone") : ""%>"/>
-
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address"
-                       value="<%= request.getAttribute("address") != null ? request.getAttribute("address") : ""%>"/>
-
-                <label for="dob">Date Of Birth</label>
-                <input type="date" id="dob" name="dob"
-                       value="<%= request.getAttribute("dob") != null ? request.getAttribute("dob") : ""%>"/>
-
-                <div class="register-terms">
-                    <input type="checkbox" id="terms" name="terms" required />
-                    <label for="terms">I agree to Terms & Privacy</label>
-                </div>
-                <% String successMessage = (String) request.getAttribute("successMessage"); %>
-
-                <% if (successMessage != null) {%>
-                <div style="color: green; font-weight: bold; margin-bottom: 10px;">
-                    <%= successMessage%>
-                </div>
-                <% }%>
-                <button type="submit" class="register-button">Sign in</button>
-            </form>
-
-            <div class="register-footer">
-                Already have an account? <a href="login.jsp">Login</a>
+                </form>
             </div>
-                
+                <c:if test="${not empty errorMessage}">
+                <div class="error-message">
+                    <p>${errorMessage}</p>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty successMessage}">
+                <div class="success-message">
+                    <p>${successMessage}</p>
+                </div>
+            </c:if>
         </div>
-                <div style="padding-top: 60px">
-        <%@include file="information/footer.jspf" %>
-        </div>
-    </body>
+    </div>
+       
+</body>
+
 </html>
