@@ -62,11 +62,9 @@ public class MemberDao {
         return member;
     }
 
-    public void resigter(String id, String password, String memberName, String phone, String email, String address, String dateofBirth) throws ClassNotFoundException {
-        String sql = "INSERT INTO Member\n"
-                + "(IDMember, password, memberName, phone, email, address, dateOfBirth, joinDate )\n"
-                + "VALUES\n"
-                + "(?, ?, ?, ?, ?, ?,?, ?);";
+    public void resigter(String id, String password, String memberName, String phone, String email, String address, String dateofBirth, String imagePath) throws ClassNotFoundException {
+        String sql = "INSERT INTO Member (IDMember, password, memberName, phone, email, address, dateOfBirth, , joinDate) "
+               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pstmt = getConnection().prepareStatement(sql);
@@ -78,9 +76,9 @@ public class MemberDao {
             pstmt.setString(5, email);
             pstmt.setString(6, address);
             pstmt.setString(7, dateofBirth);
-
+            pstmt.setString(8, imagePath);
             java.util.Date now = new java.util.Date();
-            pstmt.setDate(8, new java.sql.Date(now.getTime()));
+            pstmt.setDate(9, new java.sql.Date(now.getTime()));
 
             pstmt.executeUpdate();
 
@@ -88,6 +86,25 @@ public class MemberDao {
             e.printStackTrace();
 
         }
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException {
+        // Test data for the registration
+        String id = "member123";
+        String password = "password123";
+        String memberName = "John Doe";
+        String phone = "123-456-7890";
+        String email = "johndoe@example.com";
+        String address = "123 Main Street, Anytown, USA";
+        String dateOfBirth = "1990-01-01";
+        String imagePath = "/uploads/johndoe_profile.jpg";  // Path to the uploaded profile image
+
+        // Create an instance of MemberDao
+        MemberDao memberDao = new MemberDao();
+
+        // Call the register method to insert the data
+        memberDao.resigter(id, password, memberName, phone, email, address, dateOfBirth, imagePath);
+        
     }
 
     public List<String> getAllMemberIds() throws ClassNotFoundException {
@@ -187,8 +204,6 @@ public class MemberDao {
         // Trả về đối tượng Member chứa thông tin người dùng
         return member;
     }
-
-    
 
     public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO BlogPost (IDPost, IDMember, title, [content], image, publishDate) VALUES (?, ?, ?, ?, ?, ?)";

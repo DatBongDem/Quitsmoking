@@ -22,6 +22,7 @@ and open the template in the editor.
                 border: 2px solid #007bff; /* viền xanh */
                 padding: 20px;
                 margin: 40px auto;
+               
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -101,6 +102,7 @@ and open the template in the editor.
             /* Footer nhỏ phía dưới */
             .register-footer {
                 margin-top: auto;
+               
                 font-size: 12px;
                 text-align: center;
                 color: #000;

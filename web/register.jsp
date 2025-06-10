@@ -11,15 +11,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>register</title>
         <link href="css/styleregister.css" rel="stylesheet" type="text/css"/>
-         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+
 
         <%@include file="information/bootstrap.jspf" %>
-        
+
     </head>
     <body>
-           <%@include file="information/header.jspf" %>
-        
+        <%@include file="information/header.jspf" %>
+
         <div class="register-container">
             <div class="register-header">Create Account</div>
             <form class="register-form" action="RegisterServlet" method="post">
@@ -37,7 +37,10 @@
                 <label for="fullname">Full Name</label>
                 <input type="text" id="fullname" name="fullname" required
                        value="<%= request.getAttribute("fullname") != null ? request.getAttribute("fullname") : ""%>"/>
-
+                
+                <label for="image">Chọn ảnh đại diện</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required
                        value="<%= request.getAttribute("email") != null ? request.getAttribute("email") : ""%>"/>
@@ -76,7 +79,10 @@
             <div class="register-footer">
                 Already have an account? <a href="login.jsp">Login</a>
             </div>
+                
         </div>
-                  <%@include file="information/footer.jspf" %>
+                <div style="padding-top: 60px">
+        <%@include file="information/footer.jspf" %>
+        </div>
     </body>
 </html>

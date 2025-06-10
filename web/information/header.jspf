@@ -83,7 +83,7 @@
                                 <a href="homepage.jsp">Home</a>
                             </li>
                             <li>
-                                <a href="#">About Us</a>
+                                <a href="AboutUs.jsp">About Us</a>
                             </li>
                             <li>
                                 <a href="BlogPostServlet">Blog</a>
