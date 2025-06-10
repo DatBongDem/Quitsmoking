@@ -25,7 +25,7 @@
         <section class="mission">
 
             <div class="image">
-                <img src="image/anhh.png" alt="Community">
+                <img src="images/aboutUs/anhh.png" alt="Community">
             </div>
             <div class="content">
                 <h3>What will you gain by joining us ?</h3>
@@ -52,7 +52,7 @@
                     and well-being.</p>
             </div>
             <div class="image">
-                <img src="/image/cay.png" alt="Our Story">
+                <img src="/images/aboutUs/cay.png" alt="Our Story">
             </div>
         </section>
     </main>

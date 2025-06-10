@@ -7,10 +7,13 @@ package Controller;
 
 import DAO.MemberDao;
 import DTO.BlogPost;
+import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes.Name;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -65,11 +68,17 @@ public class BlogPostServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          MemberDao dao = new MemberDao();
-
+         
         try {
             // Lấy tất cả bài viết từ database
             List<BlogPost> blogPosts = dao.getAllBlogPosts();
-
+              List<Member> member = new ArrayList<>();
+            for(BlogPost blog: blogPosts){
+                String idMem=blog.getIdMember();
+                member.add(dao.getMemberById(idMem));
+                    
+            }
+          request.setAttribute("member", member);
             // Truyền dữ liệu ra JSP
             request.setAttribute("blogPosts", blogPosts);
             request.getRequestDispatcher("blogPage.jsp").forward(request, response);

@@ -1,3 +1,4 @@
+<%@page import="DTO.Member"%>
 <%@page import="DTO.BlogPost"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -35,18 +36,20 @@
                 <%
                     // Lấy danh sách các bài viết từ request
                     List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");
-
+                       List<Member> member = (List<Member>) request.getAttribute("member");
                     if (blogPosts != null && !blogPosts.isEmpty()) {
                         for (BlogPost post : blogPosts) {
+                             for (Member mem : member){
                 %>
                 <div class="blog-post">
                     <h2><%= post.getTitle()%></h2>
                     <p><%= post.getContent()%></p>
                     <img src="images/Blog/<%= post.getImage()%>" alt="Image for <%= post.getTitle()%>" class="blog-image" />
-                    <p>Ngày đăng: <%= post.getPublishDate()%></p>
+                      <p><strong>Người viết:</strong> <%= mem.getMemberName()%></p>
+                      <p style="color: red">Ngày đăng: <%= post.getPublishDate()%></p>
                 </div>
                 <%
-                    }
+                    }}
                 } else {
                 %>
                 <p>Không có bài viết nào.</p>

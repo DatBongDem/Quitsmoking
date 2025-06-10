@@ -32,7 +32,7 @@
                             <p class="inner-sub-title">LET'S HEALTHY MAKE YOU BEAUTIFUK</p>
                             <h1 class="inner-title">Healthy Living</h1>
                             <div class="inner-button">
-                                <a href="#" class="button-logo">More About Us</a>
+                                <a href="AboutUs.jsp" class="button-logo">More About Us</a>
                             </div>
                         </div>
                     </div>

@@ -284,7 +284,7 @@ public class MemberDao {
         }
     }
 
-    public static Member getMemberById(String id) {
+    public  Member getMemberById(String id) {
         Member member = null;
         Connection conn = null;
         PreparedStatement stmt = null;

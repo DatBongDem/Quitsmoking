@@ -10,6 +10,8 @@ import DAO.QuizDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -80,19 +82,29 @@ public class TestServlet extends HttpServlet {
 
             return;
         } else {
-            String username = (String) request.getSession().getAttribute("username");  // Giả sử IDMember là username từ session
-            String idQuiz = request.getParameter("quizID");  // IDQuiz từ form
-            String answer = request.getParameter("answer_" + idQuiz);;  // Đáp án từ form
-            MemberDao mem = new MemberDao();
-
-            QuizDao dao = new QuizDao();
-            try {
-                String idMember = mem.getIDMemberByUsername(username);
-                dao.insertQuizResult(idMember, idQuiz, answer);
-
+            String quizId = request.getParameter("quizID"); // quiz_id là chuỗi
+            String memberId = request.getParameter("memberID"); // member_id là chuỗi
+            String answers = ""; // Chuỗi lưu trữ các câu trả lời
+     
+            // Lấy các câu trả lời từ các lựa chọn radio buttons (Câu trả lời có thể là một chuỗi)
+            List<String> answerList = new ArrayList<>();
+             QuizDao quiz=new QuizDao();
+            for (int i = 1; i <= Integer.parseInt(quizId); i++) {
+                 answers = request.getParameter("answer_");
+                if (answers != null) {
+                    answerList.add(answers);
+                      answers = String.join(",", answerList);
+                     try {
+               quiz.insertQuizResult("123", quizId, answers);
+              
+                
             } catch (Exception e) {
             }
-            
+                }
+            }
+           
+           
+
             request.setAttribute("success", false);  // Đặt thuộc tính "success" để hiển thị nút trở về trang chủ
             request.setAttribute("successMessage", "Bài kiểm tra đã được nộp thành công!");
             request.getRequestDispatcher("test.jsp").forward(request, response);
