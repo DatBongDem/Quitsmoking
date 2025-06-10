@@ -23,6 +23,7 @@ import java.sql.Date;
  *
  * @author Nguyen Tien Dat
  */
+/////abcxyz
 public class MemberDao {
 
     public Member checkLogin(String username, String pass) throws ClassNotFoundException {
