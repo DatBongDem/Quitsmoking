@@ -19,17 +19,22 @@
 <h1>Edit Your Profile</h1>
 
 <form action="UpdateProfileServlet" method="post" enctype="multipart/form-data">
-    <!-- ID Member không cho sửa, chỉ hiển thị -->
+
     <p><strong>ID Member:</strong> <%= member.getIDMember()%>
         <input type="hidden" name="idMember" value="<%= member.getIDMember()%>" />
     </p>
 
-    <!-- Các trường có thể sửa -->
+   
     <p>
         <label>Name:</label>
         <input type="text" name="memberName" value="<%= member.getMemberName()%>" required/>
     </p>
-
+    <label>Gender:</label>
+    <select name="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
     <p>
         <label>Email:</label>
         <input type="email" name="email" value="<%= member.getEmail()%>" required/>
@@ -46,7 +51,7 @@
     </p>
 
     <p>
-<!--        <label>Date of Birth:</label>
+        <label>Date of Birth:</label>
         <%
             String formattedDate = "";
             if (member.getDateOfBirth() != null) {
@@ -55,33 +60,23 @@
             }
         %>
 
-        <input type="date" name="dateOfBirth" value="<%= formattedDate%>" />-->
-        
-        <p>
-    <label>Date of Birth:</label>
-    <%
-        
-        if (member != null && member.getDateOfBirth() != null) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            formattedDate = sdf.format(member.getDateOfBirth());
-        }
-    %>
-    <input type="date" name="dateOfBirth" value="<%= formattedDate %>" />
-</p>
+        <input type="date" name="dateOfBirth" value="<%= formattedDate%>" />
 
     </p>
 
     <p>
         <label>Subscription:</label>
-        <input type="text" name="subscription" value="<%= member.getSubscription()%>" />
+        <input type="text" name="subcription" value="<%= member.getSubscription()%>" />
     </p>
 
     <p>
         <label>Current Avatar:</label><br/>
 
-       
 
-        <img src="<%= (member.getImage()!= null) ? member.getImage(): "images/avata/nullavata.png"%>" alt="Profile Image" width="150"/>
+
+
+        <img src="<%= (member.getImage() != null) ? member.getImage() : "images/avata/nullavata.png"%>" alt="Profile Image" width="150"/>
+
 
     </p>
 
