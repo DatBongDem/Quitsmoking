@@ -66,6 +66,7 @@ public class SendSupportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String idMember = request.getParameter("idMember");
         String idCoach = request.getParameter("idCoach");
         String authorSend = request.getParameter("authorSend");
