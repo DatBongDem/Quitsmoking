@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>Support Chat</title>
+    
     <style>
         .chat-container {
             width: 600px;
@@ -51,8 +52,12 @@
             float: right;
         }
     </style>
+    <link rel="stylesheet" href="css/blogPageStyle.css">
+        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+        <%@include file="information/bootstrap.jspf" %>
 </head>
 <body>
+    <%@include file="information/header.jspf" %>
     <div class="chat-container">
         <h3>Chat with your coach</h3>
 
@@ -73,5 +78,7 @@
             <button type="submit">Send</button>
         </form>
     </div>
+     <%@include file="information/footer.jspf" %>      
+    
 </body>
 </html>

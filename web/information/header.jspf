@@ -38,8 +38,8 @@
     <button class="hamburger" onclick="toggleMenu()">☰</button>
     <div id="menu" class="menu-content">
         <button onclick="chucNangA()">Post new Blog</button>
-        <button onclick="chucNangB()">Chức năng B</button>
-        <button onclick="chucNangC()">Chức năng C</button>
+<!--        <button onclick="chucNangB()">Chức năng B</button>
+        <button onclick="chucNangC()">Chức năng C</button>-->
     </div>
 </div>
 
@@ -53,13 +53,13 @@
            window.location.href = "PostNewBlog.jsp"; 
     }
 
-    function chucNangB() {
-        alert("Đã chọn chức năng B");
-    }
-
-    function chucNangC() {
-        alert("Đã chọn chức năng C");
-    }
+//    function chucNangB() {
+//        alert("Đã chọn chức năng B");
+//    }
+//
+//    function chucNangC() {
+//        alert("Đã chọn chức năng C");
+//    }
 
     // Tắt menu nếu click ra ngoài
     window.onclick = function (event) {
@@ -88,9 +88,9 @@
                             <li>
                                 <a href="BlogPostServlet">Blog</a>
                             </li>
-                            <li>
+<!--                            <li>
                                 <a href="#">Contact</a>
-                            </li>
+                            </li>-->
                             <li>
                                 <a href="TestServlet">Testing</a>
                             </li>
@@ -133,6 +133,5 @@
 
         </div>
     </div>
-</div>
 </div>
 
