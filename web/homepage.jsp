@@ -4,6 +4,9 @@
     Author     : Nguyen Tien Dat
 --%>
 
+<%@page import="DAO.SystemDao"%>
+<%@page import="DTO.QuitPlan"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
-        
+
 
         <%@include file="information/bootstrap.jspf" %>
     </head>
@@ -20,7 +23,7 @@
 
         <%@include file="information/header.jspf" %>
 
-       
+
 
 
 
@@ -67,7 +70,10 @@
             </div>
         </div>
 
-
+        <%
+            SystemDao dao = new SystemDao();
+            List<QuitPlan> planList = dao.getAllQuitPlans();
+        %>
 
         <!-- Plan -->
         <div class="plan">
@@ -76,63 +82,34 @@
                     <h2 class="inner-title">Các khóa h?c cai thu?c</h2>
                 </div>
                 <div class="row">
+                    <%
+                        for (QuitPlan plan : planList) {
+                    %>
                     <div class="col-xl-4">
                         <div class="inner-plan-one">
                             <div class="inner-image">
                                 <img src="images/home/plan-1.jpg" alt="anh1">
                             </div>
                             <div class="inner-content">
-                                <h4 class="inner-title">Gói 30 Ngày: Kh?i ??u V?ng Ch?c</h4>
+                                <h4 class="inner-title"><%= plan.getGoals()%></h4>
                                 <p class="inner-desc">
-                                    Gói 30 ngày "Kh?i ??u V?ng Ch?c" h? tr? b?n t?ng b??c v??t qua c?n thèm thu?c, thay ??i
-                                    thói quen x?u và xây d?ng l?i s?ng lành m?nh.
+                                    <%= plan.getProgress()%>
                                 </p>
-                                <span class="price">300.000vnđ</span>
+                                <span class="price"><%= plan.getPrice()%></span>
                             </div>
                             <div class="inner-button">
                                 <a href="" class="button">Đăng Ký</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4">
-                        <div class="inner-plan-one">
-                            <div class="inner-image">
-                                <img src="images/home/plan-2.jpg" alt="anh2">
-                            </div>
-                            <div class="inner-content">
-                                <h4 class="inner-title">Gói 60 Ngày: T?ng T?c Quy?t ??nh</h4>
-                                <p class="inner-desc">
-                                    V?i l? trình h? tr? bài b?n, b?n s? ti?p t?c ki?m soát c?m xúc, h?c cách qu?n lý stress
-                                    và xây d?ng thói quen s?ng tích c?c.
-                                </p>
-                                <span class="price">500.000vnđ</span>
-                            </div>
-                            <div class="inner-button">
-                                <a href="" class="button">Đăng Ký</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="inner-plan-one">
-                            <div class="inner-image">
-                                <img src="images/home/plan-3.jpg" alt="anh3">
-                            </div>
-                            <div class="inner-content">
-                                <h4 class="inner-title">Gói 90 Ngày: V?ng B?n Tr?n ??i</h4>
-                                <p class="inner-desc">
-                                    B?n s? ???c h? tr? ?? duy trì ??ng l?c, phòng tránh tái nghi?n và phát tri?n nh?ng thói
-                                    quen m?i tích c?c v? ?n u?ng, v?n ??ng, gi?c ng? và qu?n lý stress.
-                                </p>
-                                <span class="price">800.000vnđ</span>
-                            </div>
-                            <div class="inner-button">
-                                <a href="" class="button">Đăng Ký</a>
-                            </div>
-                        </div>
-                    </div>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
         </div>
+
+
 
         <%@ page session="true" %>
         <%
@@ -150,15 +127,15 @@
             </button>
         </form>
         <% } else {%>
-            <form action="SupportServlet" method="get">
+        <form action="SupportServlet" method="get">
             <input type="hidden" name="idMember" value="<%= id%>">
             <button type="submit" class="support-button" title="Support with your Coach">
                 💬
             </button>
         </form>
-        
+
         <% }%>
-        
+
         <%@include file="information/footer.jspf" %>
     </body>
 </html>
