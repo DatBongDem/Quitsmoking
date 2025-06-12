@@ -21,6 +21,10 @@ public class BlogPost {
     private Date publishDate;
 
     // Constructor
+     public BlogPost() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+     
     public BlogPost(String idPost, String idMember, String title, String content, String image, Date publishDate) {
         this.idPost = idPost;
         this.idMember = idMember;
@@ -29,6 +33,8 @@ public class BlogPost {
         this.image = image;
         this.publishDate = publishDate;
     }
+
+   
 
     // Getter and Setter methods
     public String getIdPost() {
