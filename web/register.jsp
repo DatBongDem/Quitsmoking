@@ -14,7 +14,8 @@
 
         <link rel="stylesheet" href="css/styleregister.css">
         <link rel="stylesheet" href="css/stylehomepage.css">
-        <title>Register Page</title>
+        <title>Create Account Page</title>
+        
     </head>
 
     <body>
