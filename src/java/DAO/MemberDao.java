@@ -51,11 +51,12 @@ public class MemberDao {
                 Date dob = rs.getDate(8); // dateOfBirth
                 Date joinDate = rs.getDate(9); // joinDate
                 String avata = rs.getString(10);
-                String coach = rs.getString(11); // IDCoach
-                String subscription = rs.getString(12); // subscription
-                String status = rs.getString(13);
+                int point=rs.getInt(11);
+                String coach = rs.getString(12); // IDCoach
+                String subscription = rs.getString(13); // subscription
+                String status = rs.getString(14);
 
-                member = new Member(id, password, name, gender, phone, email, address, dob, joinDate, avata, coach, subscription, status);
+                member = new Member(id, password, name, gender, phone, email, address, dob, joinDate, avata, point, coach, subscription, status);
 
             }
         } catch (SQLException e) {
@@ -181,6 +182,7 @@ public class MemberDao {
                         rs.getDate("dateOfBirth"), // Lấy java.sql.Date từ ResultSet
                         rs.getDate("joinDate"), // Lấy java.sql.Date từ ResultSet
                         rs.getString("image"),
+                        rs.getInt("point"),
                         rs.getString("IDCoach"),
                         rs.getString("subcription"),
                         rs.getString("status")
@@ -313,7 +315,7 @@ public class MemberDao {
                 member.setImage(rs.getString("image"));
 
                 member.setImage(rs.getString("image"));
-
+                member.setPoint(rs.getInt("point"));
                 member.setIDCoach(rs.getString("IDCoach"));
                 member.setSubscription(rs.getString("subcription"));
                 member.setStatus(rs.getString("status"));

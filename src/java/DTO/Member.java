@@ -23,6 +23,7 @@ public class Member {
     private Date dateOfBirth;
     private Date joinDate;
     private String image;
+    private int point;
     private String IDCoach;
     private String subscription;
     private String status;
@@ -31,7 +32,8 @@ public class Member {
     }
 
     // Constructor không tham số
-    public Member(String IDMember, String password, String memberName, String gender, String phone, String email, String address, Date dateOfBirth, Date joinDate, String image, String IDCoach, String subscription, String status) {
+    public Member(String IDMember, String password, String memberName, String gender, String phone, 
+            String email, String address, Date dateOfBirth, Date joinDate, String image, int point, String IDCoach, String subscription, String status) {
         this.IDMember = IDMember;
         this.password = password;
         this.memberName = memberName;
@@ -42,6 +44,7 @@ public class Member {
         this.dateOfBirth = dateOfBirth;
         this.joinDate = joinDate;
         this.image = image;
+        this.point = point;
         this.IDCoach = IDCoach;
         this.subscription = subscription;
         this.status = status;
@@ -127,6 +130,14 @@ public class Member {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     
