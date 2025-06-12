@@ -52,7 +52,7 @@
                     and well-being.</p>
             </div>
             <div class="image">
-                <img src="/images/aboutUs/cay.png" alt="Our Story">
+                <img src="images/aboutUs/cay.png" alt="Our Story">
             </div>
         </section>
     </main>
