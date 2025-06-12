@@ -7,90 +7,77 @@
 <%@page import="DTO.Member"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<head>
+    <%
+        Member member = (Member) request.getAttribute("member");
+        if (member == null) {
+            out.println("<p>No member data found!</p>");
+            return;
+        }
+    %>
+    <link href="css/styleeditprofile.css" rel="stylesheet" type="text/css"/>
+</head>
 
-<%
-    Member member = (Member) request.getAttribute("member");
-    if (member == null) {
-        out.println("<p>No member data found!</p>");
-        return;
-    }
-%>
+<body>
+    <div class="container">
+        <h1>Edit Your Profile</h1>
+        <form action="UpdateProfileServlet" method="post" enctype="multipart/form-data">
 
-<h1>Edit Your Profile</h1>
+            <label>ID Member</label>
+            <input  type="text" name="idMember" value="<%= member.getIDMember()%>" required/>
 
-<form action="UpdateProfileServlet" method="post" enctype="multipart/form-data">
+            <label>Full Name</label>
+            <input type="text" name="memberName" value="<%= member.getMemberName()%>" />
 
-    <p><strong>ID Member:</strong> <%= member.getIDMember()%>
-        <input type="hidden" name="idMember" value="<%= member.getIDMember()%>" />
-    </p>
 
-   
-    <p>
-        <label>Name:</label>
-        <input type="text" name="memberName" value="<%= member.getMemberName()%>" required/>
-    </p>
-    <label>Gender:</label>
-    <select name="gender" required>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-    </select>
-    <p>
-        <label>Email:</label>
-        <input type="email" name="email" value="<%= member.getEmail()%>" required/>
-    </p>
+            <label>Gender:</label>
+            <select name="gender" required>
+                <option value="" disabled hidden>Select Gender</option>
+                <option value="Male" <%= "male".equalsIgnoreCase(member.getGender()) ? "selected" : ""%>>Male</option>
+                <option value="Female" <%= "female".equalsIgnoreCase(member.getGender()) ? "selected" : ""%>>Female</option>
+                <option value="Other" <%= "other".equalsIgnoreCase(member.getGender()) ? "selected" : ""%>>Other</option>
+            </select>
 
-    <p>
-        <label>Phone:</label>
-        <input type="text" name="phone" value="<%= member.getPhone()%>" />
-    </p>
+            <label>Email</label>
+            <input type="email" name="email" value="<%= member.getEmail()%>" required/>
 
-    <p>
-        <label>Address:</label>
-        <input type="text" name="address" value="<%= member.getAddress()%>" />
-    </p>
+            <label>Phone</label>
+            <input type="text" name="phone" value="<%= member.getPhone()%>"/>
 
-    <p>
-        <label>Date of Birth:</label>
-        <%
-            String formattedDate = "";
-            if (member.getDateOfBirth() != null) {
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-                formattedDate = sdf.format(member.getDateOfBirth());
-            }
-        %>
+            <label>Address</label>
+            <input  type="text" name="address" rows="3" value="<%= member.getAddress()%>" ></input>
 
-        <input type="date" name="dateOfBirth" value="<%= formattedDate%>" />
+            <label>Date of Birth</label>        
+            <%
+                String formattedDate = "";
+                if (member.getDateOfBirth() != null) {
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                    formattedDate = sdf.format(member.getDateOfBirth());
+                }
+            %>
+            <input type="date" name="dateOfBirth" value="<%= formattedDate%>" />
 
-    </p>
+            <label>Subscription</label>
+            <input type="text" name="subcription" value="<%= member.getSubscription()%>" />
 
-    <p>
-        <label>Subscription:</label>
-        <input type="text" name="subcription" value="<%= member.getSubscription()%>" />
-    </p>
 
-    <p>
-        <label>Current Avatar:</label><br/>
+            <div style="display: flex; justify-content: start;">
+                <label>Current Avatar</label>
+                <img class="avatar-preview" src="<%= (member.getImage() != null) ? member.getImage() : "images/avata/nullavata.png"%>" alt="Profile Image"/>
+            </div>
 
 
 
+            <label>Change Avatar</label>
+            <input type="file" name="avatarFile" accept="image/*"/>
 
-        <img src="<%= (member.getImage() != null) ? member.getImage() : "images/avata/nullavata.png"%>" alt="Profile Image" width="150"/>
+            <div class="button-group">
+                <button type="submit">Save Changes</button>
+                <a href="DetailMemberProfile" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>   
 
 
-    </p>
-
-    <p>
-        <label>Change Avatar (upload new image):</label>
-        <input type="file" name="avatarFile" accept="image/*" />
-    </p>
-
-    <p>
-        <button type="submit">Save Changes</button>
-        <a href="DetailMemberProfile">Cancel</a>
-    </p>
-
-</form>
-
-</form>
+</body>
 

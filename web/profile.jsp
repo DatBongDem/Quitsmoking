@@ -39,6 +39,7 @@
                         
                         <p><strong>ID Member:</strong> <%= member.getIDMember()%></p>
                         <p><strong>Name:</strong> <%= member.getMemberName()%></p>
+                        <p><strong>Gender: </strong><%= member.getGender()%></p>
                         <p><strong>Email:</strong> <%= member.getEmail()%></p>
                         <p><strong>Phone:</strong> <%= member.getPhone()%></p>
                         <p><strong>Address:</strong> <%= member.getAddress()%></p>

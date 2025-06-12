@@ -12,8 +12,6 @@ import DTO.Member;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -104,13 +102,15 @@ public class UpdateProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String AVATAR_UPLOAD_DIR = "images/avata";
-
+       
         String idMember = request.getParameter("idMember");
 
         MemberDao memdao = new MemberDao();
         Member member = memdao.getMemberById(idMember);
 
         String memberName = request.getParameter("memberName");
+        String gender = request.getParameter("gender");
+
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
@@ -161,10 +161,12 @@ public class UpdateProfileServlet extends HttpServlet {
             // Đường dẫn avatar dùng để lưu trong database (dùng đường dẫn tương đối để truy cập từ web)
             avatarPath = AVATAR_UPLOAD_DIR + "/" + fileName;
         }
-
+        
+        
         // Cập nhật thông tin Member (ở đây bạn phải gọi DAO hoặc service cập nhật database)
         member.setIDMember(idMember);
         member.setMemberName(memberName);
+        member.setGender(gender);
         member.setEmail(email);
         member.setPhone(phone);
         member.setAddress(address);
