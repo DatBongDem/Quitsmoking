@@ -1,5 +1,5 @@
 <%@page import="DTO.Member"%>
-AA<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
     <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <head>
