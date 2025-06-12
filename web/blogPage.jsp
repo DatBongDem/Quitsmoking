@@ -50,7 +50,12 @@
                     <h2><%= post.getTitle()%></h2>
                     <p><%= post.getContent()%></p>
                     <img src="images/Blog/<%= post.getImage()%>" alt="Image for <%= post.getTitle()%>" class="blog-image" />
-                    <p><strong>Người viết:</strong> <%= mem.getMemberName()%></p>
+                    <p>
+                        <img src="<%= mem.getImage()%>" alt="Avatar"
+                             style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 8px;">
+                        <strong><%= mem.getMemberName()%></strong>
+                    </p>
+
                     <p style="color: red">Ngày đăng: <%= post.getPublishDate()%></p>
                 </div>
                 <%

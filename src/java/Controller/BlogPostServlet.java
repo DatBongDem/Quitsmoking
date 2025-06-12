@@ -76,6 +76,7 @@ public class BlogPostServlet extends HttpServlet {
             List<Member> member = new ArrayList<>();
             for (BlogPost blog : blogPosts) {
                 String idMem = blog.getIdMember();
+               
                 member.add(dao.getMemberById(idMem));
 
             }
