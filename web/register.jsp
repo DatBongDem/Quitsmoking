@@ -53,6 +53,11 @@
                                     checked>
                                 <label class="form-check-label" for="male">Female</label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="other" value="other"
+                                    checked>
+                                <label class="form-check-label" for="male">Other</label>
+                            </div>
                         </div>
                     </div>
 
