@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.MemberDao;
+import DAO.SystemDao;
 import DTO.BlogPost;
 import DTO.Member;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class BlogPostServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BlogPostServlet</title>");            
+            out.println("<title>Servlet BlogPostServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet BlogPostServlet at " + request.getContextPath() + "</h1>");
@@ -67,18 +68,18 @@ public class BlogPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         MemberDao dao = new MemberDao();
-         
+        MemberDao dao = new MemberDao();
+
         try {
             // Lấy tất cả bài viết từ database
             List<BlogPost> blogPosts = dao.getAllBlogPosts();
-              List<Member> member = new ArrayList<>();
-            for(BlogPost blog: blogPosts){
-                String idMem=blog.getIdMember();
+            List<Member> member = new ArrayList<>();
+            for (BlogPost blog : blogPosts) {
+                String idMem = blog.getIdMember();
                 member.add(dao.getMemberById(idMem));
-                    
+
             }
-          request.setAttribute("member", member);
+            request.setAttribute("member", member);
             // Truyền dữ liệu ra JSP
             request.setAttribute("blogPosts", blogPosts);
             request.getRequestDispatcher("blogPage.jsp").forward(request, response);
@@ -102,7 +103,23 @@ public class BlogPostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String keyword = request.getParameter("keyword");
+          MemberDao mem = new MemberDao();
+        try {
+            SystemDao dao = new SystemDao();
+            List<BlogPost> blogPosts = dao.searchByTitle(keyword);
+            List<Member> member = new ArrayList<>();
+            for (BlogPost blog : blogPosts) {
+                String idMem = blog.getIdMember();
+                member.add(mem.getMemberById(idMem));
+
+            }
+            request.setAttribute("member", member);
+            request.setAttribute("blogPosts", blogPosts);
+            request.getRequestDispatcher("blogPage.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

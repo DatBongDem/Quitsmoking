@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="inner-wrap">
-                            <p class="inner-sub-title">LET'S HEALTHY MAKE YOU BEAUTIFUK</p>
+                            <p class="inner-sub-title">LET'S HEALTHY MAKE YOU BEAUTIFULL</p>
                             <h1 class="inner-title">Healthy Living</h1>
                             <div class="inner-button">
                                 <a href="AboutUs.jsp" class="button-logo">More About Us</a>
@@ -79,7 +79,7 @@
         <div class="plan">
             <div class="container">
                 <div class="inner-header">
-                    <h2 class="inner-title">Các khóa h?c cai thu?c</h2>
+                    <h2 class="inner-title">Các khóa học cai thuốc</h2>
                 </div>
                 <div class="row">
                     <%
@@ -95,7 +95,7 @@
                                 <p class="inner-desc">
                                     <%= plan.getProgress()%>
                                 </p>
-                                <span class="price"><%= plan.getPrice()%></span>
+                                <span class="price"><%= plan.getPrice()%> VND</span>
                             </div>
                             <div class="inner-button">
                                 <a href="" class="button">Đăng Ký</a>
