@@ -127,12 +127,12 @@
             </button>
         </form>
         <% } else {%>
-        <form action="SupportServlet" method="get">
-            <input type="hidden" name="idMember" value="<%= id%>">
-            <button type="submit" class="support-button" title="Support with your Coach">
-                💬
-            </button>
-        </form>
+        <form action="CoachSupportServlet" method="get">
+        <input type="hidden" name="idCoach" value="<%= id %>">
+        <button type="submit" class="support-button" title="Support with Members">
+            💬
+        </button>
+    </form>
 
         <% }%>
 

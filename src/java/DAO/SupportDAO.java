@@ -17,6 +17,17 @@ import DTO.Support;
 import Utils.DBUtils;
 
 public class SupportDAO {
+    
+    private Connection conn;
+
+    public SupportDAO() {
+        try {
+            conn = DBUtils.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     // Lấy tất cả tin nhắn giữa Member và Coach
     public List<Support> getMessagesByMember(String idMember) {
@@ -138,5 +149,33 @@ public class SupportDAO {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    
+    public List<Support> getChatBetween(String memberId, String coachId) {
+        List<Support> chat = new ArrayList<>();
+        String sql = "SELECT * FROM Support WHERE IDMember = ? AND IDCoach = ? ORDER BY feedbackDate ASC";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, memberId);
+            ps.setString(2, coachId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Support s = new Support();
+                    s.setIdSupport(rs.getInt("IDSupport"));
+                    s.setIdMember(rs.getString("IDMember"));
+                    s.setIdCoach(rs.getString("IDCoach"));
+                    s.setAuthorSend(rs.getString("authorSend"));
+                    s.setFeedbackDate(rs.getDate("feedbackDate"));
+                    s.setContent(rs.getString("content"));
+                    chat.add(s);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return chat;
     }
 }
