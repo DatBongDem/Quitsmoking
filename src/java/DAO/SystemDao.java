@@ -21,6 +21,8 @@ import java.util.List;
  */
 public class SystemDao {
 
+    
+    
     public List<QuitPlan> getAllQuitPlans() throws ClassNotFoundException {
         List<QuitPlan> list = new ArrayList<>();
         String query = "SELECT IDQuitPlan, periodOfTime, goals, progress, price FROM QuitPlan";

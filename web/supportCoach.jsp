@@ -1,48 +1,114 @@
-<%-- 
-    Document   : supportCoach
-    Created on : Jun 5, 2025, 9:09:40 PM
-    Author     : Nguyen Tien Dat
---%>
-
-<%@page import="DTO.Support"%>
-<%@page import="DAO.SupportDAO"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%@ page import="java.util.List" %>
-<%@ page import="DTO.Member" %>
-<%@page import="DAO.MemberDao"%>
+<%@page import="java.util.*, DTO.Member, DTO.Support"%>
 <%
-    String idCoach = (String) session.getAttribute("id");
-    MemberDao memberDAO = new MemberDao();
-    List<Member> members = memberDAO.getMembersByCoach(idCoach);
+    List<Member> memberList = (List<Member>) request.getAttribute("memberList");
+    List<Support> chatMessages = (List<Support>) request.getAttribute("chatMessages");
+    String selectedMemberId = (String) request.getAttribute("selectedMemberId");
 %>
-
-<div class="chat-container">
+<html>
+<head>
+    <title>Support - Coach</title>
+    <style>
+        .container {
+            display: flex;
+            height: 90vh;
+            font-family: Arial;
+        }
+        .member-list {
+            width: 25%;
+            background-color: #f0f0f0;
+            overflow-y: auto;
+            border-right: 1px solid #ccc;
+        }
+        .member-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .member-item a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .chat-section {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+        .chat-box {
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .chat-input {
+            margin-top: 10px;
+        }
+        .chat-input form {
+            display: flex;
+        }
+        .chat-input textarea {
+            flex: 1;
+            resize: none;
+        }
+        .chat-input button {
+            padding: 10px;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="css/blogPageStyle.css">
+        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+        <%@include file="information/bootstrap.jspf" %>
+</head>
+<body>
+    <%@include file="information/header.jspf" %>
+<div class="container">
+    <!-- Danh sách thành viên -->
     <div class="member-list">
-        <ul>
-            <% for(Member m : members) { %>
-            <li>
-                <a href="supportCoach.jsp?memberId=<%= m.getIDMember() %>"><%= m.getMemberName() %></a>
-            </li>
-            <% } %>
-        </ul>
-    </div>
-    <div class="chat-box">
-        <% 
-          String idMember = request.getParameter("memberId");
-          if(idMember != null) {
-              SupportDAO dao = new SupportDAO();
-              List<Support> messages = dao.getAllMessagesBetween(idMember, idCoach);
-              for(Support msg : messages) {
+        <h3 style="text-align:center;">Thành viên</h3>
+        <%
+            if (memberList != null && !memberList.isEmpty()) {
+                for (Member m : memberList) {
         %>
-              <div class="<%= msg.getAuthorSend().equals("coach") ? "coach-msg" : "member-msg" %>">
-                  <b><%= msg.getAuthorSend() %>:</b> <%= msg.getContent() %> <br/>
-                  <small><%= msg.getFeedbackDate() %></small>
-              </div>
-        <%  }
-          } else { %>
-              <p>Please select a member to chat.</p>
-        <% } %>
+            <div class="member-item">
+                <a href="CoachSupportServlet?memberId=<%=m.getIDMember()%>">
+                    <%= m.getMemberName() %>
+                </a>
+            </div>
+        <%
+                }
+            } else {
+        %>
+            <p style="text-align:center;">Không có thành viên nào.</p>
+        <%
+            }
+        %>
+    </div>
+
+    <!-- Khung chat -->
+    <div class="chat-section">
+        <div class="chat-box" id="chatBox">
+            <% if (chatMessages != null) {
+                for (Support msg : chatMessages) {
+            %>
+                <p><strong><%= msg.getAuthorSend() %>:</strong> <%= msg.getContent() %> 
+                    <small>(<%= msg.getFeedbackDate() %>)</small></p>
+            <% } } else { %>
+                <p>Chưa có tin nhắn nào.</p>
+            <% } %>
+        </div>
+
+        <!-- Gửi tin nhắn -->
+        <div class="chat-input">
+            <form action="CoachSupportServlet" method="post">
+                <input type="hidden" name="memberId" value="<%=selectedMemberId%>">
+                <textarea name="message" rows="3" required></textarea>
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
     </div>
 </div>
+       <%@include file="information/footer.jspf" %>                
+</body>
+</html>

@@ -12,12 +12,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import DTO.Coach;
+import DTO.Member;
+import Utils.DBUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Nguyen
  */
 public class CoachDao {
+    
+    
 
     public Coach checkLogin(String username, String pass) throws ClassNotFoundException {
         String sql = "SELECT * FROM Coach WHERE IDCoach = ? AND password = ?";
@@ -51,5 +57,33 @@ public class CoachDao {
         return coach;
     }
    
-   
+    
+    public List<Member> getMembersForCoach(String coachId) throws SQLException, ClassNotFoundException {
+    List<Member> members = new ArrayList<>();
+    String sql = "SELECT * FROM Member WHERE IDCoach = ?";
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, coachId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Member m = new Member();
+            m.setIDMember(rs.getString("IDMember"));
+            m.setMemberName(rs.getString("memberName"));
+            m.setGender(rs.getString("gender"));
+            m.setPhone(rs.getString("phone"));
+            m.setEmail(rs.getString("email"));
+            m.setAddress(rs.getString("address"));
+            m.setDateOfBirth(rs.getDate("dateOfBirth"));
+            m.setJoinDate(rs.getDate("joinDate"));
+            m.setImage(rs.getString("image"));
+            m.setPoint(rs.getInt("point"));
+            m.setIDCoach(rs.getString("IDCoach"));
+            m.setSubscription(rs.getString("subcription"));
+            m.setStatus(rs.getString("status"));
+            members.add(m);
+        }
+    }
+    return members;
+}
+
 }

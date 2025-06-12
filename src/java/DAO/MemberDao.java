@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import DTO.Member;
 import Utils.DBUtils;
 import java.sql.Date;
@@ -25,6 +25,16 @@ import java.sql.Date;
  */
 /////abcxyz12345
 public class MemberDao {
+
+    private Connection conn;
+
+    public MemberDao() {
+        try {
+            conn = DBUtils.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Member checkLogin(String username, String pass) throws ClassNotFoundException {
         String sql = "SELECT *\n"
@@ -51,7 +61,7 @@ public class MemberDao {
                 Date dob = rs.getDate(8); // dateOfBirth
                 Date joinDate = rs.getDate(9); // joinDate
                 String avata = rs.getString(10);
-                int point=rs.getInt(11);
+                int point = rs.getInt(11);
                 String coach = rs.getString(12); // IDCoach
                 String subscription = rs.getString(13); // subscription
                 String status = rs.getString(14);
@@ -65,8 +75,8 @@ public class MemberDao {
         return member;
     }
 
-     public void resigter(String id, String password, String memberName, String gender, String phone, 
-                String email, String address, String dateofBirth) throws ClassNotFoundException {
+    public void resigter(String id, String password, String memberName, String gender, String phone,
+            String email, String address, String dateofBirth) throws ClassNotFoundException {
         String sql = "INSERT INTO Member\n"
                 + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate )\n"
                 + "VALUES\n"
@@ -95,7 +105,6 @@ public class MemberDao {
         }
     }
 
-  
     public List<String> getAllMemberIds() throws ClassNotFoundException {
         List<String> memberIds = new ArrayList<>();
         String sql = "SELECT IDMember FROM Member";  // Tên bảng chính xác theo DB của bạn
@@ -156,7 +165,7 @@ public class MemberDao {
     }
 
     public Member getUserByUsername(String memberID) throws ClassNotFoundException, SQLException {
-       String sql = "SELECT* FROM Member WHERE IDMember = ?";
+        String sql = "SELECT* FROM Member WHERE IDMember = ?";
         Member member = null;
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -195,7 +204,6 @@ public class MemberDao {
         // Trả về đối tượng Member chứa thông tin người dùng
         return member;
 
-        
     }
 
     public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
@@ -276,7 +284,7 @@ public class MemberDao {
             }
 
             ps.setString(9, member.getImage());
-            
+
             ps.setString(10, member.getIDCoach());
             ps.setString(11, member.getSubscription());
             ps.setString(12, member.getStatus());
@@ -288,7 +296,7 @@ public class MemberDao {
         }
     }
 
-    public  Member getMemberById(String id) {
+    public Member getMemberById(String id) {
         Member member = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -315,9 +323,6 @@ public class MemberDao {
 
                 member.setImage(rs.getString("image"));
 
-                
-
-               
                 member.setPoint(rs.getInt("point"));
                 member.setIDCoach(rs.getString("IDCoach"));
                 member.setSubscription(rs.getString("subcription"));
@@ -349,4 +354,36 @@ public class MemberDao {
         return member;
     }
 
+    public List<Member> getMembersForCoach(String coachId) {
+        List<Member> members = new ArrayList<>();
+        String sql = "SELECT * FROM Member WHERE IDCoach = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, coachId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Member member = new Member();
+                    member.setIDMember(rs.getString("IDMember"));
+                    member.setMemberName(rs.getString("memberName"));
+                    member.setGender(rs.getString("gender"));
+                    member.setPhone(rs.getString("phone"));
+                    member.setEmail(rs.getString("email"));
+                    member.setAddress(rs.getString("address"));
+                    member.setDateOfBirth(rs.getDate("dateOfBirth"));
+                    member.setJoinDate(rs.getDate("joinDate"));
+                    member.setImage(rs.getString("image"));
+                    member.setPoint(rs.getInt("point"));
+                    member.setIDCoach(rs.getString("IDCoach"));
+                    member.setSubscription(rs.getString("subcription"));
+                    member.setStatus(rs.getString("status"));
+
+                    members.add(member);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return members;
+    }
 }
