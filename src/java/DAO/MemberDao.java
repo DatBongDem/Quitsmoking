@@ -386,4 +386,22 @@ public class MemberDao {
 
         return members;
     }
+
+    public String getCoachIdByMemberId(String idMember) {
+        String coachId = null;
+        try {
+            Connection conn = DBUtils.getConnection();
+            String sql = "SELECT idCoach FROM Member WHERE idMember = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, idMember);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                coachId = rs.getString("idCoach");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return coachId;
+    }
+
 }

@@ -77,7 +77,7 @@
                             </h2>
                                     <span class="inner-sub-title">Don't have an account?</span>
                                     <div class="inner-button">
-                                        <a href="#" class="button">Sign Up</a>
+                                        <a href="register.jsp" class="button">Sign Up</a>
                                     </div>
                         </div>
                     </div>

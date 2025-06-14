@@ -4,6 +4,7 @@
     Author     : Nguyen Tien Dat
 --%>
 
+<%@page import="DAO.MemberDao"%>
 <%@page import="DAO.SystemDao"%>
 <%@page import="DTO.QuitPlan"%>
 <%@page import="java.util.List"%>
@@ -111,30 +112,40 @@
 
 
 
-        <%@ page session="true" %>
         <%
             String role = (String) session.getAttribute("role");
-            String id = (String) session.getAttribute("id"); // IDMember
+            String id = (String) session.getAttribute("id");
+
+            if (role != null && id != null) {
         %>
-
-        <% if ("member".equalsIgnoreCase(role)) {%>
-
-
+        <%-- phần hiển thị nút 💬 --%>
+        <%
+            if ("member".equalsIgnoreCase(role)) {
+                // Giả sử có DAO để lấy coach theo idMember
+                MemberDao mdao = new MemberDao();
+                String coachId = mdao.getCoachIdByMemberId(id); 
+                if (coachId != null && !coachId.isEmpty()) {
+        %>
         <form action="SupportServlet" method="get">
             <input type="hidden" name="idMember" value="<%= id%>">
             <button type="submit" class="support-button" title="Support with your Coach">
                 💬
             </button>
         </form>
-        <% } else {%>
+        <%
+            }
+        } else {
+        %>
         <form action="CoachSupportServlet" method="get">
-        <input type="hidden" name="idCoach" value="<%= id %>">
-        <button type="submit" class="support-button" title="Support with Members">
-            💬
-        </button>
-    </form>
-
-        <% }%>
+            <input type="hidden" name="idCoach" value="<%= id%>">
+            <button type="submit" class="support-button" title="Support with Members">
+                💬
+            </button>
+        </form>
+        <%
+                }
+            }
+        %>
 
         <%@include file="information/footer.jspf" %>
     </body>

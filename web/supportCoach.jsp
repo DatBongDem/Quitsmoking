@@ -57,12 +57,10 @@
         }
     </style>
     
-    <link rel="stylesheet" href="css/blogPageStyle.css">
-        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
-        <%@include file="information/bootstrap.jspf" %>
+  
 </head>
 <body>
-    <%@include file="information/header.jspf" %>
+   
 <div class="container">
     <!-- Danh sách thành viên -->
     <div class="member-list">
@@ -109,6 +107,6 @@
         </div>
     </div>
 </div>
-       <%@include file="information/footer.jspf" %>                
+                     
 </body>
 </html>
