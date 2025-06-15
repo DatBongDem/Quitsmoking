@@ -1,0 +1,287 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 15, 2025, 2:51:59 PM
+    Author     : Nghia
+*/
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #93a59d; /* Đồng bộ với About Us */
+    color: #333;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Header Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* ==== Header ==== */
+.header {
+    background: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.header .inner-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .inner-title {
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.header .inner-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    color: #757575;
+}
+
+.header .inner-contact a {
+    text-decoration: none;
+    color: #757575;
+    transition: color 0.3s ease;
+}
+
+.header .inner-contact a:hover {
+    color: #28a745;
+}
+
+/* ==== Menu ==== */
+.menu {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ddd;
+}
+
+.menu .inner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.menu .inner-logo a {
+    color: #232323;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.menu .inner-list {
+    margin-left: 100px;
+}
+
+.menu .inner-list ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.menu .inner-list ul li a {
+    display: inline-block;
+    padding: 35px 20px;
+    color: #368749;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.menu .inner-list ul li a:hover {
+    background: #f0f0f0;
+    color: #28a745;
+}
+
+.menu .inner-button .button {
+    margin-right: 15px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background-color: #28a745;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.menu .button-one:hover {
+    background-color: #356b42;
+}
+
+
+.menu .button-two:hover {
+    background-color: #356b42;
+}
+
+
+
+.plan-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.plan-image {
+    flex: 1 1 40%;
+    max-width: 40%;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.plan-image:hover {
+    transform: scale(1.05);
+}
+
+.plan-details {
+    flex: 1 1 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+}
+
+.plan-description {
+    font-size: 1.1rem;
+    text-align: justify;
+    line-height: 1.8;
+    color: #368749;
+}
+
+.plan-details h3 {
+    font-size: 1.6rem;
+color: #368749; /* Màu nhấn từ About Us */
+    margin-bottom: 10px;
+    border-left: 4px solid #368749;
+    padding-left: 10px;
+}
+
+.plan-details ul {
+    list-style-type: disc;
+    margin-left: 30px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #368749;
+}
+
+.plan-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #368749; /* Màu nhấn từ About Us */
+    margin-top: 20px;
+}
+
+.btn-register {
+    max-width: 250px;
+    padding: 12px 25px;
+    background: #368749; /* Màu nhấn từ About Us */
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+}
+
+.btn-register:hover {
+    background: #2c6b3d; /* Màu hover đậm hơn */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+/* Footer Styles */
+.footer {
+    background-color: #003c35;
+    padding: 60px 20px;
+    color: #ffffff;
+}
+
+.footer .inner-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer .inner-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.footer .inner-desc {
+    font-size: 15px;
+    color: #bdbdbd;
+    margin-bottom: 0;
+}
+
+.footer .contact-list, .footer .hours-list {
+    list-style: none;
+    padding: 0;
+}
+
+.footer .contact-list li,
+.footer .hours-list li {
+    font-size: 15px;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.footer .contact-list i {
+    margin-right: 10px;
+    color: #28a745;
+    font-size: 18px;
+}
+
+/* ==== Responsive ==== */
+@media screen and (max-width: 768px) {
+    .menu .inner-header,
+    .mission,
+    .story {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .menu .inner-list {
+        margin-left: 0;
+    }
+
+    .menu .inner-button {
+        margin-top: 10px;
+    }
+}
