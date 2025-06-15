@@ -32,6 +32,10 @@
         <servlet-name>CoachSupportServlet</servlet-name>
         <servlet-class>Controller.CoachSupportServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RetakeTestServlet</servlet-name>
+        <servlet-class>Controller.RetakeTestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>CoachSupportServlet</servlet-name>
         <url-pattern>/CoachSupportServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RetakeTestServlet</servlet-name>
+        <url-pattern>/RetakeTestServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

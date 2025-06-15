@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import DTO.Quiz;
-import DTO.QuizResult.QuizSubmission;
 
 /**
  *
@@ -65,28 +64,6 @@ public class QuizDao {
             throw new SQLException("Error while inserting quiz result: " + e.getMessage(), e);
         }
     }
-//   public static void main(String[] args) {
-//        // Mô phỏng dữ liệu cần thêm vào bảng QuizResult
-//        String idMember = "1";  // ID của thành viên (ví dụ)
-//        String idQuiz = "Q01";      // ID của bài quiz
-//        String answer = "A";           // Đáp án của người dùng
-// // Ngày hiện tại làm DateSubmit
-//
-//        // Tạo đối tượng DAO
-//        QuizDao dao = new QuizDao();
-//
-//        try {
-//            // Gọi phương thức DAO để thực hiện insert kết quả
-//            dao.insertQuizResult(idMember, idQuiz, answer);
-//
-//            // In ra thông báo thành công nếu insert thành công
-//            System.out.println("Kết quả bài kiểm tra đã được lưu thành công!");
-//        } catch (Exception e) {
-//            // Nếu có lỗi, in thông báo lỗi
-//            System.out.println("Lỗi xảy ra khi insert kết quả bài kiểm tra: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//    }
-//    
+
 
 }

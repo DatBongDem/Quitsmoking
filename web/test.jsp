@@ -26,7 +26,26 @@
 
 
         <h2>Quiz Test</h2>
+
+        <c:if test="${not empty errorMessage}">
+        <p style="color: red;">${errorMessage}</p>
+    </c:if>
+    <c:if test="${not empty successMessage}">
+        <p style="color: green;">${successMessage}</p>
+    </c:if>
+        <% Boolean hasSubmitted = (Boolean) request.getAttribute("hasSubmitted"); %>
+
+
         <div class="container">
+            <% if (hasSubmitted != null && hasSubmitted) {%>
+            <p>Bạn đã làm bài test.</p>
+            <p>Điểm của bạn là: <strong><%= request.getAttribute("score")%></strong></p>
+            <form action="RetakeTestServlet" method="post">
+                <button type="submit">Làm lại</button>
+            </form>
+            <% } else { %>
+
+
             <%    List<Quiz> quizList = (List<Quiz>) request.getAttribute("quizList");
 
                 if (quizList == null || quizList.isEmpty()) {
@@ -71,22 +90,11 @@
                 <button type="submit">Submit Test</button>
             </form>
             <%
-                }
+                  }
             %>
-            <c:if test="${not empty errorMessage}">
-                <p style="color: red;">${errorMessage}</p>
-            </c:if>
-            <c:if test="${not empty successMessage}">
-                <p style="color: green;">${successMessage}</p>
-            </c:if>
 
-            <%-- Hiển thị nút để trở về trang homepage nếu thành công --%>
-            <c:if test="${success == true}">
-                <a href="homepage.jsp">
-                    <button>Trở về trang chủ</button>
-                </a>
-            </c:if>
-            <%-- Hiển thị nút để trở về trang homepage --%>
+            <% }%>
+
 
         </div>
 

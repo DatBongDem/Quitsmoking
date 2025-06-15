@@ -13,46 +13,32 @@ import java.sql.Date;
  */
 public class QuizResult {
 
-    public class QuizSubmission {
+    private String IDMember;
+    private String IDQuiz;
+    private String Answer;
+    private Date DateSubmit;
 
-        private String IDMember;
-        private String IDQuiz;
-        private String Answer;
+    public QuizResult(String IDMember, String IDQuiz, String Answer, Date DateSubmit) {
+        this.IDMember = IDMember;
+        this.IDQuiz = IDQuiz;
+        this.Answer = Answer;
+        this.DateSubmit = DateSubmit;
+    }
 
-        public QuizSubmission() {
-        }
+    public String getIDMember() {
+        return IDMember;
+    }
 
-        public QuizSubmission(String IDMember, String IDQuiz, String Answer) {
-            this.IDMember = IDMember;
-            this.IDQuiz = IDQuiz;
-            this.Answer = Answer;
+    public String getIDQuiz() {
+        return IDQuiz;
+    }
 
-        }
+    public String getAnswer() {
+        return Answer;
+    }
 
-        public String getIDMember() {
-            return IDMember;
-        }
-
-        public void setIDMember(String IDMember) {
-            this.IDMember = IDMember;
-        }
-
-        public String getIDQuiz() {
-            return IDQuiz;
-        }
-
-        public void setIDQuiz(String IDQuiz) {
-            this.IDQuiz = IDQuiz;
-        }
-
-        public String getAnswer() {
-            return Answer;
-        }
-
-        public void setAnswer(String Answer) {
-            this.Answer = Answer;
-        }
-
+    public Date getDateSubmit() {
+        return DateSubmit;
     }
 
 }

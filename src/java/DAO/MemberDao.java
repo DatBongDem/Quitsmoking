@@ -78,7 +78,7 @@ public class MemberDao {
     public void resigter(String id, String password, String memberName, String gender, String phone,
             String email, String address, String dateofBirth) throws ClassNotFoundException {
         String sql = "INSERT INTO Member\n"
-                + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate )\n"
+                + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, point )\n"
                 + "VALUES\n"
                 + "(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -96,7 +96,8 @@ public class MemberDao {
 
             java.util.Date now = new java.util.Date();
             pstmt.setDate(9, new java.sql.Date(now.getTime()));
-
+            pstmt.setInt(9,-1);
+                    
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -404,4 +405,14 @@ public class MemberDao {
         return coachId;
     }
 
+    
+    public void updatePoint(String idMember, int point) throws Exception {
+    String sql = "UPDATE Member SET point = ? WHERE IDMember = ?";
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, point);
+        ps.setString(2, idMember);
+        ps.executeUpdate();
+    }
+    }
 }
