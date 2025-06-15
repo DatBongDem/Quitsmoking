@@ -80,7 +80,7 @@ public class MemberDao {
         String sql = "INSERT INTO Member\n"
                 + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, point )\n"
                 + "VALUES\n"
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             PreparedStatement pstmt = getConnection().prepareStatement(sql);
@@ -96,7 +96,7 @@ public class MemberDao {
 
             java.util.Date now = new java.util.Date();
             pstmt.setDate(9, new java.sql.Date(now.getTime()));
-            pstmt.setInt(9,-1);
+            pstmt.setInt(10,-1);
                     
             pstmt.executeUpdate();
 
