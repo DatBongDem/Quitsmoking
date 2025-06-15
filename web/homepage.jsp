@@ -26,7 +26,11 @@
 
 
 
-
+  <c:if test="${not empty requestScope.error}">
+                        <div class="error-message " style="color: red; font-weight: bold;">
+                            <p>${requestScope.error}</p>
+                        </div>
+                    </c:if>
 
         <div class="background">
             <div class="container-fluid">
@@ -85,6 +89,8 @@
                 <div class="row">
                     <%
                         for (QuitPlan plan : planList) {
+                           
+                            
                     %>
                     <div class="col-xl-4">
                         <div class="inner-plan-one">
@@ -98,22 +104,26 @@
                                 </p>
                                 <span class="price"><%= plan.getPrice()%> VND</span>
                             </div>
+                          
                             <div class="inner-button">
-                                <a href="" class="button">Đăng Ký</a>
+                                <a href="QuitPlanRegister" class="button">Đăng Ký</a>
                             </div>
+                             
                         </div>
                     </div>
                     <%
                         }
+
+
                     %>
                 </div>
+              
             </div>
         </div>
 
 
 
-        <%
-            String role = (String) session.getAttribute("role");
+        <%            String role = (String) session.getAttribute("role");
             String id = (String) session.getAttribute("id");
 
             if (role != null && id != null) {
@@ -123,7 +133,7 @@
             if ("member".equalsIgnoreCase(role)) {
                 // Giả sử có DAO để lấy coach theo idMember
                 MemberDao mdao = new MemberDao();
-                String coachId = mdao.getCoachIdByMemberId(id); 
+                String coachId = mdao.getCoachIdByMemberId(id);
                 if (coachId != null && !coachId.isEmpty()) {
         %>
         <form action="SupportServlet" method="get">
