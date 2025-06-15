@@ -39,7 +39,7 @@
         <div class="container">
             <% if (hasSubmitted != null && hasSubmitted) {%>
             <p>Bạn đã làm bài test.</p>
-            <p>Điểm của bạn là: <strong><%= request.getAttribute("score")%></strong></p>
+            <p>Mức độ của bạn là: <strong><%= request.getAttribute("score")%></strong></p>
             <form action="RetakeTestServlet" method="post">
                 <button type="submit">Làm lại</button>
             </form>
