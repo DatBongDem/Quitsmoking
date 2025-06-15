@@ -14,12 +14,12 @@
             String keyword = request.getParameter("keyword");
         %>
         <link rel="stylesheet" href="css/blogPageStyle.css">
-        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
-        <%@include file="information/bootstrap.jspf" %>
+        <!--        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>-->
+        
     </head>
 
     <body>
-        <%@include file="information/header.jspf" %>
+
         <main>
             <section class="hero">
                 <h1 class="blog-title">Blog Page</h1>
@@ -46,18 +46,27 @@
                         for (BlogPost post : blogPosts) {
                             for (Member mem : member) {
                 %>
-                <div class="blog-post">
+                <div>
                     <h2><%= post.getTitle()%></h2>
-                    <p><%= post.getContent()%></p>
-                    <img src="images/Blog/<%= post.getImage()%>" alt="Image for <%= post.getTitle()%>" class="blog-image" />
-                    <p>
-                        <img src="<%= mem.getImage()%>" alt="Avatar"
-                             style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 8px;">
-                        <strong><%= mem.getMemberName()%></strong>
-                    </p>
+                    <div class="bloga1">
+                    <div>
+                        <p>
 
-                    <p style="color: red">Ngày đăng: <%= post.getPublishDate()%></p>
+                            <strong><%= mem.getMemberName()%></strong>
+                            <img src="<%= mem.getImage()%>" alt="Avatar" class="avatar">
+                        <p style="color: red;">Ngày đăng: <%= post.getPublishDate()%></p>
+
+                        </p>
+
+                        <img src="images/Blog/<%= post.getImage()%>" alt="Image for <%= post.getTitle()%>" class="blog-image" />
+                    </div>
+
+                    
+                        <p><%= post.getContent()%></p>
+                    </div>
                 </div>
+
+
                 <%
                         }
                     }
@@ -69,7 +78,7 @@
                 %>
             </section>
         </main>
-        <%@include file="information/footer.jspf" %>
+
     </body>
 
 </html>
