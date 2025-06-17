@@ -89,7 +89,7 @@
 
 
                     </ul>
-                    <form action="PaymentServlet" method="get">
+                    <form action="../PaymentServlet" method="get">
                         <input type="hidden" name="goal" value="GOLD" /> <!-- Set giá trị goal -->
                         <input type="hidden" name="price" value="2,500,000" /> <!-- Set giá trị price -->
 

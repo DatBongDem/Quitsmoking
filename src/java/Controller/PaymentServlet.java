@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import DAO.MemberDao;
+import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -60,9 +63,14 @@ public class PaymentServlet extends HttpServlet {
             throws ServletException, IOException {
         String goal = request.getParameter("goal");
         String price = request.getParameter("price");
+         HttpSession session = request.getSession();
+            String idMember = (String) session.getAttribute("id");
+             MemberDao memberDao = new MemberDao();
+            Member member = memberDao.getMemberById(idMember);
         try {
             request.setAttribute("goal", goal);
             request.setAttribute("price", price);
+              request.setAttribute("member", member);
             request.getRequestDispatcher("Payment.jsp").forward(request, response);
         } catch (Exception e) {
         }

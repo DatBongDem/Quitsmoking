@@ -4,6 +4,7 @@
     Author     : thanh
 --%>
 
+<%@page import="DTO.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="vi">
 <head>
@@ -13,6 +14,7 @@
     <%
     String goal = (String) request.getAttribute("goal");
     String price = (String) request.getAttribute("price");
+    Member member = (Member) request.getAttribute("member");
 %>
     <link rel="stylesheet" href="css/PaymentStyle.css">
 </head>
@@ -49,7 +51,7 @@
 
                         <div class="form-group">
                             <label for="customerName">Họ và tên</label>
-                            <input type="text" id="customerName" name="customerName" value="Nguyễn Văn An" required>
+                            <input type="text" id="customerName" name="customerName" value="<%= member.getMemberName()%>" required>
                         </div>
                         
                         <div class="form-row">
@@ -57,7 +59,7 @@
                                 <label for="email">Email</label>
                                 <div class="input-with-icon">
                                     <div class="icon mail-icon"></div>
-                                    <input type="email" id="email" name="email" value="nguyenvanan@email.com" required>
+                                    <input type="email" id="email" name="email" value="<%= member.getEmail()%>" required>
                                 </div>
                             </div>
                             
@@ -65,19 +67,19 @@
                                 <label for="phone">Số điện thoại</label>
                                 <div class="input-with-icon">
                                     <div class="icon phone-icon"></div>
-                                    <input type="tel" id="phone" name="phone" value="0901234567" required>
+                                    <input type="tel" id="phone" name="phone" value="<%= member.getPhone() %>" required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+<!--                        <div class="form-group">
                             <label for="idNumber">ID</label>
                             <div class="input-with-icon">
                                 <div class="icon hash-icon"></div>
                                 <input type="text" id="idNumber" name="idNumber" value="123456789012" required>
                             </div>
                         </div>
-                        
+                        -->
                         <div class="verification-success">
                             <div class="check-icon"></div>
                             <span>Thông tin đã được xác thực từ cơ sở dữ liệu</span>
@@ -148,8 +150,8 @@
 
                         <div class="package-card">
                             <div class="package-header">
-                                <div class="package-name"><%= goal %></div>
-                                <div class="package-price"><%= price %> đ</div>
+                                <div class="package-name">Gói: <%= goal %></div>
+                                <div class="package-price">Giá: <%= price %> đ</div>
                             </div>
                             <div class="package-duration">Thời hạn: 30 ngày</div>
                             
@@ -167,19 +169,12 @@
                         <div class="pricing-summary">
                             <div class="price-row">
                                 <span>Giá gói dịch vụ:</span>
-                                <span>299,000đ</span>
+                                <span> <%= price %></span>
                             </div>
-                            <div class="price-row">
-                                <span>Giảm giá:</span>
-                                <span class="discount">-50,000đ</span>
-                            </div>
-                            <div class="price-row">
-                                <span>Phí xử lý:</span>
-                                <span>5,000đ</span>
-                            </div>
+                           
                             <div class="price-row total">
                                 <span>Tổng cộng:</span>
-                                <span>254,000đ</span>
+                                <span> <%= price %>đ</span>
                             </div>
                         </div>
                         
