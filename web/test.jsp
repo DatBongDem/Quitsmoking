@@ -27,12 +27,7 @@
 
         <h2>Quiz Test</h2>
 
-        <c:if test="${not empty errorMessage}">
-        <p style="color: red;">${errorMessage}</p>
-    </c:if>
-    <c:if test="${not empty successMessage}">
-        <p style="color: green;">${successMessage}</p>
-    </c:if>
+        
         <% Boolean hasSubmitted = (Boolean) request.getAttribute("hasSubmitted"); %>
 
 

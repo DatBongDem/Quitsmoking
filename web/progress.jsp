@@ -17,7 +17,7 @@
 
     String startDate = (String) request.getAttribute("startDate");
     String todayStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+ 
     Integer todayCigarettes = (Integer) request.getAttribute("todayCigarettes");
     Integer yesterday = (Integer) request.getAttribute("yesterdayCigarettes");
     Integer firstDay = (Integer) request.getAttribute("firstDayCigarettes");
