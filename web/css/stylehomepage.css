@@ -95,8 +95,9 @@ body {
     display: inline-block;
     padding: 35px 20px;
     color: #232323;
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: none;
+    font-weight: 500;
 }
 
 .menu .inner-list ul li a:hover {
@@ -134,8 +135,40 @@ body {
     color: #232323;
     font-size: 20px;
     text-decoration: none;
-    margin-left: 15px;
+    padding: 0;
+    margin: 0
 }
+
+/* Drop down profile*/
+.profile-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    padding: 10px 20px;
+    border-radius: 6px;
+    right: 10;
+    top: 40px;
+    z-index: 9999;
+}
+
+.inner-profile {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-dropdown-menu a {
+    padding: 0;
+    margin: 0;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.profile-dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+/* End Drop down profile*/
 /* End Menu */
 
 /* Background */
