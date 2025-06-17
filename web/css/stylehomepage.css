@@ -200,12 +200,13 @@ body {
 
 .background .inner-wrap .inner-sub-title {
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 0;
+    font-weight: 500;
 }
 
 .background .inner-wrap .inner-title {
-    color: #fff;
+    color: #28a745;
     font-size: 80px;
     font-weight: 700;
 }
@@ -226,7 +227,7 @@ body {
 }
 
 .background .inner-wrap .inner-button .button-logo:hover {
-    background: #E0DDFF;
+    background: #337ab7;
     color: #000;
 }
 /* End Background */
