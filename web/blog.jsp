@@ -77,7 +77,8 @@
                             <a href="#" class="btn btn-success">Đọc thêm</a>
                         </div>
                         <div class="card-footer text-muted">
-                            Ngày đăng: 17/06/2025
+                            <div>Ngày đăng: 17/06/2025</div>
+                            <div>Người đăng: Admin</div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +95,8 @@
                             <a href="#" class="btn btn-success">Đọc thêm</a>
                         </div>
                         <div class="card-footer text-muted">
-                            Ngày đăng: 15/06/2025
+                            <div>Ngày đăng: 17/06/2025</div>
+                            <div>Người đăng: Admin</div>
                         </div>
                     </div>
                 </div>
@@ -111,7 +113,8 @@
                             <a href="#" class="btn btn-success">Đọc thêm</a>
                         </div>
                         <div class="card-footer text-muted">
-                            Ngày đăng: 12/06/2025
+                            <div>Ngày đăng: 17/06/2025</div>
+                            <div>Người đăng: Admin</div>
                         </div>
                     </div>
                 </div>
@@ -128,7 +131,8 @@
                             <a href="#" class="btn btn-success">Đọc thêm</a>
                         </div>
                         <div class="card-footer text-muted">
-                            Ngày đăng: 10/06/2025
+                            <div>Ngày đăng: 17/06/2025</div>
+                            <div>Người đăng: Admin</div>
                         </div>
                     </div>
                 </div>
@@ -144,7 +148,8 @@
                             <a href="#" class="btn btn-success">Đọc thêm</a>
                         </div>
                         <div class="card-footer text-muted">
-                            Ngày đăng: 08/06/2025
+                            <div>Ngày đăng: 17/06/2025</div>
+                            <div>Người đăng: Admin</div>
                         </div>
                     </div>
                 </div>
@@ -160,7 +165,8 @@
                             <a href="#" class="btn btn-success">Đọc thêm</a>
                         </div>
                         <div class="card-footer text-muted">
-                            Ngày đăng: 05/06/2025
+                            <div>Ngày đăng: 17/06/2025</div>
+                            <div>Người đăng: Admin</div>
                         </div>
                     </div>
                 </div>
