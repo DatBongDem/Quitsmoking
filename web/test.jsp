@@ -15,7 +15,7 @@
 
         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
         <link href="css/styletest.css" rel="stylesheet" type="text/css"/>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <%@include file="information/bootstrap.jspf" %>
     </head>
     <body>
@@ -37,14 +37,38 @@
 
 
         <div class="container">
-            <% if (hasSubmitted != null && hasSubmitted) {%>
-            <p>Bạn đã làm bài test.</p>
-            <p>Mức độ của bạn là: <strong><%= request.getAttribute("score")%></strong></p>
-            <form action="RetakeTestServlet" method="post">
-                <button type="submit">Làm lại</button>
+          <% if (hasSubmitted != null && hasSubmitted) {%>
+    <div class="results-container">
+        <div class="results-icon">
+            <i class="fas fa-trophy"></i>
+        </div>
+        
+        <h3 class="results-title">Kết quả bài kiểm tra</h3>
+        
+        <p class="completion-message">
+            Bạn đã hoàn thành bài kiểm tra đánh giá mức độ phụ thuộc thuốc lá!
+        </p>
+        
+        <div class="score-display">
+            <span class="score-label">Mức độ của bạn là:</span>
+            <span class="score-value"><%= request.getAttribute("score")%></span>
+        </div>
+        
+        <div class="action-buttons">
+            <form action="RetakeTestServlet" method="post" style="display: inline;">
+                <button type="submit" class="btn-retake">
+                    <i class="fas fa-redo"></i>
+                    Làm lại bài kiểm tra
+                </button>
             </form>
-            <% } else { %>
-
+            
+            <a href="homepage.jsp" class="btn-home">
+                <i class="fas fa-home"></i>
+                Về trang chủ
+            </a>
+        </div>
+    </div>
+<% } else { %>
 
             <%    List<Quiz> quizList = (List<Quiz>) request.getAttribute("quizList");
 
