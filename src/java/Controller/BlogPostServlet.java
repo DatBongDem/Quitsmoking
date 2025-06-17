@@ -84,7 +84,7 @@ public class BlogPostServlet extends HttpServlet {
             request.setAttribute("member", member);
             // Truyền dữ liệu ra JSP
             request.setAttribute("blogPosts", blogPosts);
-            request.getRequestDispatcher("blogPage.jsp").forward(request, response);
+            request.getRequestDispatcher("blog.jsp").forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();

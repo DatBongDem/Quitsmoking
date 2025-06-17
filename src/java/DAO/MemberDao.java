@@ -415,4 +415,33 @@ public class MemberDao {
         ps.executeUpdate();
     }
     }
+    public static void main(String[] args) {
+        // Tạo đối tượng SystemDao
+        MemberDao dao = new MemberDao();
+
+        try {
+            // Gọi phương thức getAllBlogPosts() để lấy danh sách bài viết
+            List<BlogPost> blogPosts = dao.getAllBlogPosts();
+
+            // Kiểm tra và hiển thị kết quả
+            if (blogPosts != null && !blogPosts.isEmpty()) {
+                System.out.println("Danh sách bài viết:");
+                for (BlogPost post : blogPosts) {
+                    System.out.println("ID: " + post.getIdPost());
+                    System.out.println("Member ID: " + post.getIdMember());
+                    System.out.println("Title: " + post.getTitle());
+                    System.out.println("Content: " + post.getContent());
+                    System.out.println("Image: " + post.getImage());
+                    System.out.println("Publish Date: " + post.getPublishDate());
+                    System.out.println("-----------------------------------------------------");
+                }
+            } else {
+                System.out.println("Không có bài viết nào.");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            // In ra thông báo lỗi nếu có
+            e.printStackTrace();
+            System.out.println("Lỗi khi lấy bài viết: " + e.getMessage());
+        }
+    }
 }
