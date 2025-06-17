@@ -53,38 +53,58 @@
 
             <div class="plan-details">
                 <p class="plan-description">
-                    Khóa học "Duy Trì và Ngăn Ngừa Tái Nghiện" là bước cuối cùng giúp người đã cai nghiện thuốc lá trên 3 tháng củng cố lối sống không thuốc lá và tránh nguy cơ tái nghiện dài hạn. Đây cũng là lựa chọn lý tưởng cho những ai muốn chia sẻ kinh nghiệm của mình, trở thành cố vấn hỗ trợ cộng đồng trong hành trình cai nghiện.
+                    Khóa học nâng cao dành cho người mới bắt đầu và muốn cắt đứt hoàn toàn sự phụ thuộc vào thuốc lá. Đây là bước ngoặt để hình thành tư duy tích cực và lối sống sạch thuốc một cách bền vững.
                 </p>
                 <h3>Chi tiết khóa học</h3>
+                <div class="course-info">
+                    <div class="info-item">
+                        <span class="label">Thời lượng : </span>
+                        <span class="value">6 tháng (72 buổi)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian :</span>
+                        <span class="value">2 giờ / buổi </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian bắt đầu mỗi buổi học :</span>
+                        <span class="value"> 07h00 / 09h15 / 13h00 / 15h15  </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Hình thức học :</span>
+                        <span class="value">Online qua Zoom </span>
+                    </div>                   
+                </div>
                 <ul>
                     <li>
                         <h4>Đặc điểm của khóa học:</h4>
                         <ul>
-                            <li>Hỗ trợ người tham gia xây dựng thói quen sống lành mạnh và tích cực, bất chấp các yếu tố kích thích từ môi trường xung quanh.</li>
-                            <li>Cung cấp kiến thức và kỹ năng để duy trì lối sống không thuốc lá.</li>                           
+                            <li>Giúp người tham gia tái cấu trúc hành vi, loại bỏ hoàn toàn cảm giác lệ thuộc vào nicotine.</li>
+                            <li>Củng cố tư duy tích cực, tự tin duy trì cuộc sống không thuốc lá trong mọi tình huống.</li> 
+                            <li>Định hướng hình thành một môi trường sống lành mạnh, hỗ trợ lâu dài.</li>
                         </ul>
 </li>
                     <li>
                         <h4>Hỗ trợ toàn diện:</h4>
                         <ul>
-                            <li>Tổ chức các buổi học phát triển kỹ năng sống như quản lý căng thẳng, xây dựng kỷ luật bản thân và tăng cường mối quan hệ xã hội lành mạnh.</li>
-                            <li>Cung cấp hướng dẫn cụ thể để trở thành một cố vấn, chia sẻ kinh nghiệm và truyền cảm hứng cho những người khác.</li>
+                            <li>Cung cấp các bài học chuyên sâu về thay đổi hành vi, duy trì động lực và kiểm soát các thói quen xấu.</li>
+                            <li>Hướng dẫn xây dựng mạng lưới hỗ trợ từ bạn bè, gia đình và cộng đồng.</li>
+                            <li>Tổ chức các buổi huấn luyện để củng cố kỹ năng duy trì thói quen mới.</li>
                         </ul>
                     </li>
                     <li>
                         <h4>Ý nghĩa cộng đồng:</h4>
                         <ul>
-                            <li>Giúp học viên không chỉ củng cố bản thân mà còn lan tỏa giá trị của việc cai nghiện, tạo động lực cho cộng đồng.</li>
+                            <li>Tạo động lực cho người tham gia phát triển hơn trong cuộc sống tái hòa nhập và chung tay phát triển xã hội</li>
+                            <li>Đóng góp vào việc xây dựng cộng đồng sống khỏe mạnh, không khói thuốc.</li>
                         </ul>
                     </li>
                 </ul>
                 <h3>Mục tiêu khóa học:</h3>
                 <ul>
-                    <li>Đảm bảo người tham gia duy trì lối sống không thuốc lá trong dài hạn.</li>
-                    <li>Trang bị khả năng đối phó với các yếu tố kích thích.</li>
-                    <li>Xây dựng đội ngũ cố vấn từ những người từng trải để hỗ trợ cộng đồng cai nghiện hiệu quả hơn.</li>
+                    <li>Đảm bảo người tham gia không tái nghiện dù trong môi trường có yếu tố kích thích cao.</li>
+                    <li>Trang bị nền tảng tâm lý và xã hội vững chắc để duy trì thói quen tốt suốt đời.</li>
                 </ul>
-                <p class="plan-price">Giá: 1,000,000 VND</p>
+                <p class="plan-price">Giá: 4,500,000 VND</p>
                 <a href="#" class="btn-register">Đăng Ký Ngay</a>
             </div>
         </div>

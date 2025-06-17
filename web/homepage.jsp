@@ -1,8 +1,4 @@
-<%-- 
-    Document   : homepage
-    Created on : Jun 5, 2025, 3:09:37 PM
-    Author     : Nguyen Tien Dat
---%>
+
 
 <%@page import="DAO.MemberDao"%>
 <%@page import="DAO.SystemDao"%>
@@ -163,3 +159,4 @@
     <%@include file="information/footer.jspf" %>
 </body>
 </html>
+
