@@ -106,7 +106,7 @@
                             </div>
                           
                             <div class="inner-button">
-                                <a href="QuitPlanRegister" class="button">Đăng Ký</a>
+                                <a href="QuitPlanRegister" class="button">Detail</a>
                             </div>
                              
                         </div>

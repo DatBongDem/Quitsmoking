@@ -56,6 +56,24 @@
                     Khóa học "Duy Trì và Ngăn Ngừa Tái Nghiện" là bước cuối cùng giúp người đã cai nghiện thuốc lá trên 3 tháng củng cố lối sống không thuốc lá và tránh nguy cơ tái nghiện dài hạn. Đây cũng là lựa chọn lý tưởng cho những ai muốn chia sẻ kinh nghiệm của mình, trở thành cố vấn hỗ trợ cộng đồng trong hành trình cai nghiện.
                 </p>
                 <h3>Chi tiết khóa học</h3>
+                <div class="course-info">
+                    <div class="info-item">
+                        <span class="label">Thời lượng : </span>
+                        <span class="value">1 tháng (12 buổi)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian :</span>
+                        <span class="value">2 giờ / buổi </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian bắt đầu mỗi buổi học :</span>
+                        <span class="value"> 07h00 / 09h15 / 13h00 / 15h15  </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Hình thức học :</span>
+                        <span class="value">Online qua Zoom </span>
+                    </div>                   
+                </div>
                 <ul>
                     <li>
                         <h4>Đặc điểm của khóa học:</h4>
