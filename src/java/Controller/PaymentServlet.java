@@ -6,9 +6,12 @@
 package Controller;
 
 import DAO.MemberDao;
+import DAO.SystemDao;
 import DTO.Member;
+import DTO.Payment;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,14 +66,21 @@ public class PaymentServlet extends HttpServlet {
             throws ServletException, IOException {
         String goal = request.getParameter("goal");
         String price = request.getParameter("price");
-         HttpSession session = request.getSession();
-            String idMember = (String) session.getAttribute("id");
-             MemberDao memberDao = new MemberDao();
-            Member member = memberDao.getMemberById(idMember);
+        HttpSession session = request.getSession();
+        String idMember = (String) session.getAttribute("id");
+        MemberDao memberDao = new MemberDao();
+        Member member = memberDao.getMemberById(idMember);
+        SystemDao SystemDao = new SystemDao();
+        // Lấy danh sách phương thức thanh toán từ DAO
+
+        // Set danh sách payments vào request để chuyển tiếp vào JSP
         try {
+
             request.setAttribute("goal", goal);
             request.setAttribute("price", price);
-              request.setAttribute("member", member);
+            request.setAttribute("member", member);
+            List<Payment> payments = SystemDao.getAllPayments();
+            request.setAttribute("payments", payments);
             request.getRequestDispatcher("Payment.jsp").forward(request, response);
         } catch (Exception e) {
         }

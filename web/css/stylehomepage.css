@@ -139,7 +139,6 @@ body {
     margin: 0
 }
 
-/* Drop down profile*/
 .profile-dropdown-menu {
     display: none;
     position: absolute;
@@ -168,7 +167,6 @@ body {
 .profile-dropdown-menu a:hover {
     background-color: #f0f0f0;
 }
-/* End Drop down profile*/
 /* End Menu */
 
 /* Background */

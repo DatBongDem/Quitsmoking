@@ -6,6 +6,7 @@
 package DAO;
 
 import DTO.BlogPost;
+import DTO.Payment;
 import DTO.QuitPlan;
 import static Utils.DBUtils.getConnection;
 import java.sql.Date;
@@ -21,8 +22,6 @@ import java.util.List;
  */
 public class SystemDao {
 
-    
-    
     public List<QuitPlan> getAllQuitPlans() throws ClassNotFoundException {
         List<QuitPlan> list = new ArrayList<>();
         String query = "SELECT IDQuitPlan, periodOfTime, goals, progress, price FROM QuitPlan";
@@ -77,12 +76,37 @@ public class SystemDao {
         return list;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException {
-        SystemDao dao = new SystemDao();
-        List<BlogPost> results = dao.searchByTitle("h");
+    public List<Payment> getAllPayments() throws ClassNotFoundException {
+        List<Payment> payments = new ArrayList<>();
 
-        for (BlogPost post : results) {
-            System.out.println(post.getTitle() + " - " + post.getPublishDate());
+        String sql = "SELECT * FROM Payment"; // Câu lệnh SQL để lấy tất cả các phương thức thanh toán
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+              ResultSet rs = ps.executeQuery();
+            // Duyệt qua kết quả và thêm vào list
+            while (rs.next()) {
+                String idPayment = rs.getString("IDPayment");
+                String method = rs.getString("method");
+                 String logo = rs.getString("logo");  // Lấy logo từ cơ sở dữ liệu
+                Payment payment = new Payment(idPayment, method, logo);
+                payments.add(payment);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return payments;
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException {
+        SystemDao paymentDAO = new SystemDao();
+        List<Payment> payments = paymentDAO.getAllPayments();
+        
+        // In kết quả
+        for (Payment payment : payments) {
+            System.out.println("ID: " + payment.getIdPayment() + ", Method: " + payment.getMethod());
         }
     }
 }

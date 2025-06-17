@@ -4,6 +4,9 @@
     Author     : thanh
 --%>
 
+<%@page import="DTO.Payment"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page import="DTO.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="vi">
@@ -15,6 +18,8 @@
     String goal = (String) request.getAttribute("goal");
     String price = (String) request.getAttribute("price");
     Member member = (Member) request.getAttribute("member");
+        List<Payment> payments = (List<Payment>) request.getAttribute("payments");
+
 %>
     <link rel="stylesheet" href="css/PaymentStyle.css">
 </head>
@@ -92,50 +97,27 @@
                             <div class="icon credit-card-icon"></div>
                             <h2>Phương thức thanh toán</h2>
                         </div>
-                        
+                        <%
+            for (Payment payment : payments) {
+        %>
                         <div class="payment-methods">
                             <div class="payment-method" data-method="momo">
-                                <input type="radio" id="momo" name="paymentMethod" value="momo" required>
+                                <input type="radio" id="momo" name="paymentMethod" value="<%= payment.getIdPayment()%>" required>
                                 <label for="momo">
                                     <div class="method-content">
-                                        <div class="method-icon momo-icon">M</div>
+                                        <div class="method-icon ">   <img src="<%= payment.getLogo() %>" style="width: 100%"alt="<%= payment.getMethod() %> Logo">  </div>
                                         <div class="method-info">
-                                            <h3>MoMo</h3>
-                                            <p>Thanh toán qua ví MoMo</p>
+                                            <h3><%= payment.getMethod() %></h3>
+                                           
                                         </div>
                                     </div>
                                     <div class="chevron-icon"></div>
                                 </label>
                             </div>
                             
-                            <div class="payment-method" data-method="zalopay">
-                                <input type="radio" id="zalopay" name="paymentMethod" value="zalopay" required>
-                                <label for="zalopay">
-                                    <div class="method-content">
-                                        <div class="method-icon zalopay-icon">Z</div>
-                                        <div class="method-info">
-                                            <h3>ZaloPay</h3>
-                                            <p>Thanh toán qua ví ZaloPay</p>
-                                        </div>
-                                    </div>
-                                    <div class="chevron-icon"></div>
-                                </label>
-                            </div>
-                            
-                            <div class="payment-method" data-method="vnpay">
-                                <input type="radio" id="vnpay" name="paymentMethod" value="vnpay" required>
-                                <label for="vnpay">
-                                    <div class="method-content">
-                                        <div class="method-icon vnpay-icon">V</div>
-                                        <div class="method-info">
-                                            <h3>VNPay</h3>
-                                            <p>Thanh toán qua cổng VNPay</p>
-                                        </div>
-                                    </div>
-                                    <div class="chevron-icon"></div>
-                                </label>
-                            </div>
+                         
                         </div>
+                         <%}%>
                     </div>
                 </div>
 
