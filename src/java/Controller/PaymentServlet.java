@@ -98,7 +98,26 @@ public class PaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String goal = request.getParameter("goal");
+        SystemDao dao = new SystemDao();
+        HttpSession session = request.getSession();
+        String idMember = (String) session.getAttribute("id");
+        String quitPlan = "QP02";  // Giá trị mặc định
+
+        // Kiểm tra giá trị của goal và gán quitPlan tương ứng
+        if ("silver".equalsIgnoreCase(goal)) {
+            quitPlan = "QP01";  // Nếu goal là silver, quitPlan là QP01
+        } else if ("gold".equalsIgnoreCase(goal)) {
+            quitPlan = "QP02";  // Nếu goal là gold, quitPlan là QP02
+        } else  {
+            quitPlan = "QP03";  // Nếu goal là diamond, quitPlan là QP03
+        }
+
+        try {
+            dao.insertQuitPlanRegistration(idMember, quitPlan, "Active", "2025-06-17");
+        } catch (Exception e) {
+        }
     }
 
     /**

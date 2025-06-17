@@ -46,7 +46,7 @@
                                 <a href="AboutUs.jsp">About Us</a>
                             </li>
                             <li>
-                                <a href="BlogPostServlet">Blog</a>
+                                <a href="blog.jsp">Blog</a>
                             </li>
                             <li>
                                 <a href="TestServlet">Testing</a>
@@ -68,6 +68,7 @@
 
                                 <div class="profile-dropdown-menu" id="profileDropdown">
                                     <a href="DetailMemberProfile">Profile</a>
+                                    <a href="#">ProgressLog</a>
                                     <a href="LogoutServlet">Logout</a>
                                 </div>                             
                             </c:when>

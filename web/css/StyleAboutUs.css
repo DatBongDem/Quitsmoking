@@ -1,3 +1,6 @@
+
+
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -132,10 +135,7 @@ body {
 /* ==== About Us Blur Section ==== */
 .about-us-blur {
     position: relative;
-    background-image: url(../images/aboutUs/sto.png) ;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background: url('../images/aboutUs/sto.png') no-repeat center center/cover;
     height: 450px;
     display: flex;
     justify-content: center;
@@ -234,3 +234,4 @@ body {
         margin-top: 10px;
     }
 }
+

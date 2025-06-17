@@ -103,7 +103,7 @@
                     <li>Xây dựng đội ngũ cố vấn từ những người từng trải để hỗ trợ cộng đồng cai nghiện hiệu quả hơn.</li>
                 </ul>
                 <form action="../PaymentServlet" method="get">
-                        <input type="hidden" name="goal" value="GOLD" /> <!-- Set giá trị goal -->
+                        <input type="hidden" name="goal" value="SILVER" /> <!-- Set giá trị goal -->
                         <input type="hidden" name="price" value="1,000,000" /> <!-- Set giá trị price -->
 
                         <p class="plan-price">Giá: 1,000,000 VND</p>
