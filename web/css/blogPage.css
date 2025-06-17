@@ -138,7 +138,7 @@ body {
 /* Background */
 .background {
     background-image: url(../images/home/background.png);
-    padding: 250px 0;
+    padding: 150px 0;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
@@ -221,69 +221,24 @@ body {
 
 /* End Background */
 
-.footer .inner-footer .inner-title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-.footer .inner-footer .title-two {
-    padding-left: 40px;
-}
-
-.footer .inner-footer .inner-desc {
-    font-size: 15px;
-     color: #bdbdbd;
-     margin-bottom: 0;
-}
-
-.footer .inner-footer .contact-list {
-    list-style: none;
-}
-
-.footer .inner-footer .contact-list li {
-    display: flex; /* Aligns icon and text horizontally */
-    align-items: center;
-    margin-bottom: 15px; /* Spacing between contact items */
-    font-size: 15px;
-    color: #bdbdbd;
-}
-
-.footer .inner-footer .contact-list i {
-    margin-right: 10px;
-    color: #28a745;
-    font-size: 18px;
-}
-
-.footer .inner-footer .contact-list a {
-    color: #bdbdbd; /* Link color */
-    text-decoration: none;
-}
-
-.footer .inner-footer .contact-list a:hover {
-    color: #fff;
-}
-
-.footer .inner-footer .contact-list li a {
-    text-decoration: none;
-}
-
-.footer .inner-footer .hours-list {
-    list-style: none;
-}
-
-.footer .inner-footer .hours-list li {
-    color: #bdbdbd;
-    margin-bottom: 10px;
-    font-size: 15px;
-}
 
 .blog h2 {
     font-size: 30px;
     font-weight: 700;
     color: #343a40;
 }
+
+.blog-search-form input.form-control {
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.blog-search-form button {
+    padding: 5px 15px;
+    font-size: 16px;
+}
+
 
 .card {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);

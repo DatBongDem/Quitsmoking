@@ -1,3 +1,11 @@
+<%-- 
+    Document   : blog
+    Created on : Jun 17, 2025, 4:13:39 PM
+    Author     : Thinkpad
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <!doctype html>
 <html lang="en">
 
@@ -6,104 +14,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <%@include file="information/bootstrap.jspf" %>
+    
+    <link rel="stylesheet" href="css/blogPage.css">
+    <link rel="stylesheet" href="css/stylehomepage.css">
 
     <title>Blog Page</title>
 </head>
 
 <body>
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="css/blogPage.css">
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    -->
-
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 ">
-                    <div class="inner-main">
-                        <p class="inner-title">Welcome to a Professional Health Care</p>
-                        <div class="inner-contact">
-                            <div class="inner-phone">
-                                <i class="fa-solid fa-phone"></i>
-                                <span>000-000-000</span>
-                            </div>
-                            <div class="inner-time">
-                                <i class="fa-regular fa-calendar-plus"></i>
-                                <span>6:00 AM - 10:00 PM (Mon-Fri)</span>
-                            </div>
-                            <div class="inner-email">
-                                <i class="fa-solid fa-envelope"></i>
-                                <a href="#">tiendatntse181844</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!--End Header -->
-
-    <!-- Menu -->
-    <div class="menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="inner-header">
-                        <div class="inner-logo">
-                            <a href="#">BFBB</a>
-                        </div>
-                        <div class="inner-list">
-                            <ul>
-                                <li>
-                                    <a href="#">Home</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="#">Contact</a>
-                                </li>
-                                <li>
-                                    <a href="#">Testing</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="inner-button">
-                            <a href="login.jsp" target="_blank" class="button button-one">Sign In</a>
-                            <a href="register.jsp" target="_blank" class="button button-two">Sign Up</a>
-                        </div>
-                        <div class="inner-notification">
-                            <a href="#"><i class="fa-solid fa-bell"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End menu -->
-
+    
+    
+    <%@include file="information/header.jspf" %>
 
     <!-- Background -->
     <div class="background">
@@ -247,58 +169,7 @@
     </section>
     <!-- End Blog Page Content -->
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-4">
-                    <div class="inner-footer">
-                        <h4 class="inner-title">
-                            COMPANY NAME
-                        </h4>
-                        <p class="inner-desc">
-                            Fusce at libero iaculis, venenatis augue quis, pharetra lorem. Curabitur ut dolor eu elit
-                            consequat ultricies.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-xl-4">
-                    <div class="inner-footer">
-                        <h4 class="inner-title title-two">
-                            CONTACT
-                        </h4>
-                        <ul class="contact-list">
-                            <li>
-                                <i class="fa-solid fa-phone"></i>
-                                <span>0369640433</span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-envelope"></i>
-                                <a href="mailto:info@gmail.com">tiendatntse181844</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4">
-                    <div class="inner-footer">
-                        <h4 class="inner-title title-two">OPEN HOURS</h4>
-                        <ul class="hours-list">
-                            <li>
-                                Monday -Friday 06:00 AM - 10:00 PM
-                            </li>
-                            <li>
-                                Saturday 09:00 AM - 08:00 PM
-                            </li>
-                            <li>
-                                Sunday Closed
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- End Footer -->
+    <%@include file="information/footer.jspf" %>
 </body>
 
 </html>
