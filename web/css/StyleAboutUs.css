@@ -132,7 +132,10 @@ body {
 /* ==== About Us Blur Section ==== */
 .about-us-blur {
     position: relative;
-    background: url('/image/sto.jpg') no-repeat center center/cover;
+    background-image: url(../images/aboutUs/sto.png) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     height: 450px;
     display: flex;
     justify-content: center;
