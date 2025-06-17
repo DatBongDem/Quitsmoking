@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!doctype html>
 <html lang="en">
 
 <head>
@@ -74,7 +73,7 @@
                             <p class="card-text">Hút thuốc lá là nguyên nhân hàng đầu gây ra các bệnh về tim mạch, phổi
                                 và ung thư. Việc từ bỏ thuốc lá giúp bạn cải thiện sức khỏe, tiết kiệm chi phí và sống
                                 lâu hơn.</p>
-                            <a href="#" class="btn btn-success">Đọc thêm</a>
+                            <a href="blog-detail1.jsp" class="btn btn-success">Đọc thêm</a>
                         </div>
                         <div class="card-footer text-muted">
                             <div>Ngày đăng: 17/06/2025</div>
