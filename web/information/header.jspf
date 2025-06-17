@@ -63,7 +63,7 @@
                                 <a href="NotificationServlet"><i class="fa fa-bell"></i></a>
                             </div>
                         </div>
-                        <span class="welcome-message">Welcome, <strong><%= username%></strong>!</span>
+                        <span class="welcome-message">Welcome, <strong></strong>!</span>
                         <button class="user-dropdown">
                             <i class="fa-solid fa-user"></i>
                             <a href="DetailMemberProfile">My Profile</a>
