@@ -56,6 +56,24 @@
                     Khóa học nâng cao dành cho người mới bắt đầu và muốn cắt đứt hoàn toàn sự phụ thuộc vào thuốc lá. Đây là bước ngoặt để hình thành tư duy tích cực và lối sống sạch thuốc một cách bền vững.
                 </p>
                 <h3>Chi tiết khóa học</h3>
+                <div class="course-info">
+                    <div class="info-item">
+                        <span class="label">Thời lượng : </span>
+                        <span class="value">6 tháng (72 buổi)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian :</span>
+                        <span class="value">2 giờ / buổi </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian bắt đầu mỗi buổi học :</span>
+                        <span class="value"> 07h00 / 09h15 / 13h00 / 15h15  </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Hình thức học :</span>
+                        <span class="value">Online qua Zoom </span>
+                    </div>                   
+                </div>
                 <ul>
                     <li>
                         <h4>Đặc điểm của khóa học:</h4>

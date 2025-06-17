@@ -56,6 +56,24 @@
                      Khóa học trung cấp phù hợp cho những người đang trong quá trình chuyển đổi hành vi, hướng tới thay thế thuốc lá bằng các thói quen lành mạnh và bền vững.
                 </p>
                 <h3>Chi tiết khóa học</h3>
+                <div class="course-info">
+                    <div class="info-item">
+                        <span class="label">Thời lượng : </span>
+                        <span class="value">3 tháng (36 buổi)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian :</span>
+                        <span class="value">2 giờ / buổi </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời gian bắt đầu mỗi buổi học :</span>
+                        <span class="value"> 07h00 / 09h15 / 13h00 / 15h15  </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Hình thức học :</span>
+                        <span class="value">Online qua Zoom </span>
+                    </div>                   
+                </div>
                 <ul>
                     <li>
                         <h4>Đặc điểm của khóa học:</h4>
