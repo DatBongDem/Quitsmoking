@@ -24,7 +24,8 @@
                             <div class="profile-header">
                             </div>
                             <div class="text-center profile-image-container">
-                                <img src="<%= member.getImage()%>" alt="Ảnh đại diện" class="profile-image" />
+                                <img src="<%= member.getImage() != null ? member.getImage() : "images/avata/nullavata.png" %>" alt="Ảnh đại diện" class="profile-image" />
+
                             </div>
                             <div class="card-body profile-body">
                                 <h3 class="card-title text-center mb-4">Thông tin Hồ sơ</h3>

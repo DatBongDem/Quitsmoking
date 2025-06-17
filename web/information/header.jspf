@@ -83,7 +83,7 @@
                     <c:set var="user" value="${sessionScope.username}"/>
                     <c:if test="${not empty user}" >
                         <div class="inner-notification">
-                            <a href="#"><i class="fa-solid fa-bell"></i></a>
+                            <a href="NotificationServlet"><i class="fa-solid fa-bell"></i></a>
                         </div>
                     </c:if>    
 
