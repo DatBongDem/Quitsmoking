@@ -40,6 +40,10 @@
         <servlet-name>NotificationServlet</servlet-name>
         <servlet-class>Controller.NotificationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProgressLogServlet</servlet-name>
+        <servlet-class>Controller.ProgressLogServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>NotificationServlet</servlet-name>
         <url-pattern>/NotificationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProgressLogServlet</servlet-name>
+        <url-pattern>/ProgressLogServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

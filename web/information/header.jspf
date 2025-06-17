@@ -46,7 +46,7 @@
                                 <a href="AboutUs.jsp">About Us</a>
                             </li>
                             <li>
-                                <a href="blog.jsp">Blog</a>
+                                <a href="BlogPostServlet">Blog</a>
                             </li>
                             <li>
                                 <a href="TestServlet">Testing</a>
@@ -55,8 +55,6 @@
                     </div>
                     
                     <div class="inner-profile">
-
-
                         <c:choose>
                             <c:when test="${not empty sessionScope.username}">
                                 <a href="NotificationServlet" class="icon-user" id="userIcon">
@@ -68,7 +66,7 @@
 
                                 <div class="profile-dropdown-menu" id="profileDropdown">
                                     <a href="DetailMemberProfile">Profile</a>
-                                    <a href="#">ProgressLog</a>
+                                    <a href="progress.jsp">ProgressLog</a>
                                     <a href="LogoutServlet">Logout</a>
                                 </div>                             
                             </c:when>
@@ -79,15 +77,7 @@
                                 </div>
                             </c:otherwise>
                         </c:choose>
-
-                    </div>
-                    <c:set var="user" value="${sessionScope.username}"/>
-                    <c:if test="${not empty user}" >
-                        <div class="inner-notification">
-                            <a href="NotificationServlet"><i class="fa-solid fa-bell"></i></a>
-                        </div>
-                    </c:if>    
-
+                    </div>    
                 </div>
             </div>
         </div>

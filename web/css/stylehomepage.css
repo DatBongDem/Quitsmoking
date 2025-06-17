@@ -1,3 +1,4 @@
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -171,7 +172,7 @@ body {
 
 /* Background */
 .background {
-    background-image: url(../images/aboutUs/sto.png);
+    background-image: url(../images/home/background.png);
     padding: 250px 0;
     position: relative;
     background-repeat: no-repeat;
