@@ -26,137 +26,140 @@
 
 
 
-  <c:if test="${not empty requestScope.error}">
-                        <div class="error-message " style="color: red; font-weight: bold;">
-                            <p>${requestScope.error}</p>
-                        </div>
-                    </c:if>
+    <c:if test="${not empty requestScope.error}">
+        <div class="error-message " style="color: red; font-weight: bold;">
+            <p>${requestScope.error}</p>
+        </div>
+    </c:if>
 
-        <div class="background">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="inner-wrap">
-                            <p class="inner-sub-title">LET'S HEALTHY MAKE YOU BEAUTIFULL</p>
-                            <h1 class="inner-title">Healthy Living</h1>
-                            <div class="inner-button">
-                                <a href="AboutUs.jsp" class="button-logo">More About Us</a>
-                            </div>
+    <div class="background">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="inner-wrap">
+                        <p class="inner-sub-title">LET'S HEALTHY MAKE YOU BEAUTIFULL</p>
+                        <h1 class="inner-title">Healthy Living</h1>
+                        <div class="inner-button">
+                            <a href="AboutUs.jsp" class="button-logo">More About Us</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Welcome -->
-        <div class="welcome">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 d-flex align-items-center">
-                        <div class="inner-main">
-                            <h1 class="inner-title">
-                                Welcome to Your Health Center
-                            </h1>
-                            <p class="inner-desc">
-                                Aenean luctus lobortis tellus, vel ornare enim molestie condimentum. Curabitur lacinia nisi
-                                vitae velit volutpat venenatis.
-                                <br>
-                                Sed a dignissim lacus. Quisque fermentum est non orci commodo, a luctus urna mattis. Ut
-                                placerat, diam a tempus vehicula.
-                            </p>
-                        </div>
+    <!-- Welcome -->
+    <div class="welcome">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 d-flex align-items-center">
+                    <div class="inner-main">
+                        <h1 class="inner-title">
+                            Welcome to Your Health Center
+                        </h1>
+                        <p class="inner-desc">
+                            Aenean luctus lobortis tellus, vel ornare enim molestie condimentum. Curabitur lacinia nisi
+                            vitae velit volutpat venenatis.
+                            <br>
+                            Sed a dignissim lacus. Quisque fermentum est non orci commodo, a luctus urna mattis. Ut
+                            placerat, diam a tempus vehicula.
+                        </p>
                     </div>
-                    <div class="col-xl-6">
+                </div>
+                <div class="col-xl-6">
+                    <div class="inner-image">
+                        <img src="images/home/image8.png" alt="Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%
+        SystemDao dao = new SystemDao();
+        List<QuitPlan> planList = dao.getAllQuitPlans();
+    %>
+
+    <!-- Plan -->
+    <div class="plan">
+        <div class="container">
+            <div class="inner-header">
+                <h2 class="inner-title">Các khóa học cai thuốc</h2>
+            </div>
+            <div class="row">
+                <%
+                    for (QuitPlan plan : planList) {
+
+
+                %>
+                <div class="col-xl-4">
+                    <div class="inner-plan-one">
                         <div class="inner-image">
-                            <img src="images/home/image8.png" alt="Logo">
+                            <img src="images/home/plan-1.jpg" alt="anh1">
                         </div>
+                        <div class="inner-content">
+                            <h4 class="inner-title"><%= plan.getGoals()%></h4>
+                            <p class="inner-desc">
+                                <%= plan.getProgress()%>
+                            </p>
+                            <span class="price"><%= plan.getPrice()%> VND</span>
+                        </div>
+
+                        <div class="inner-button">
+                            <form action="QuitPlanRegister" method="post">
+                                <input type="hidden" name="goal" value="<%= plan.getGoals()%>">
+                                <button type="submit" class="button">Đăng Ký</button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
+                <%
+                    }
+
+
+                %>
             </div>
+
         </div>
-
-        <%
-            SystemDao dao = new SystemDao();
-            List<QuitPlan> planList = dao.getAllQuitPlans();
-        %>
-
-        <!-- Plan -->
-        <div class="plan">
-            <div class="container">
-                <div class="inner-header">
-                    <h2 class="inner-title">Các khóa học cai thuốc</h2>
-                </div>
-                <div class="row">
-                    <%
-                        for (QuitPlan plan : planList) {
-                           
-                            
-                    %>
-                    <div class="col-xl-4">
-                        <div class="inner-plan-one">
-                            <div class="inner-image">
-                                <img src="images/home/plan-1.jpg" alt="anh1">
-                            </div>
-                            <div class="inner-content">
-                                <h4 class="inner-title"><%= plan.getGoals()%></h4>
-                                <p class="inner-desc">
-                                    <%= plan.getProgress()%>
-                                </p>
-                                <span class="price"><%= plan.getPrice()%> VND</span>
-                            </div>
-                          
-                            <div class="inner-button">
-                                <a href="QuitPlanRegister" class="button">Đăng Ký</a>
-                            </div>
-                             
-                        </div>
-                    </div>
-                    <%
-                        }
-
-
-                    %>
-                </div>
-              
-            </div>
-        </div>
+    </div>
 
 
 
-        <%            String role = (String) session.getAttribute("role");
-            String id = (String) session.getAttribute("id");
+    <%            String role = (String) session.getAttribute("role");
+        String id = (String) session.getAttribute("id");
 
-            if (role != null && id != null) {
-        %>
-        <%-- phần hiển thị nút 💬 --%>
-        <%
-            if ("member".equalsIgnoreCase(role)) {
-                // Giả sử có DAO để lấy coach theo idMember
-                MemberDao mdao = new MemberDao();
-                String coachId = mdao.getCoachIdByMemberId(id);
-                if (coachId != null && !coachId.isEmpty()) {
-        %>
-        <form action="SupportServlet" method="get">
-            <input type="hidden" name="idMember" value="<%= id%>">
-            <button type="submit" class="support-button" title="Support with your Coach">
-                💬
-            </button>
-        </form>
-        <%
+        if (role != null && id != null) {
+    %>
+    <%-- phần hiển thị nút 💬 --%>
+    <%
+        if ("member".equalsIgnoreCase(role)) {
+            // Giả sử có DAO để lấy coach theo idMember
+            MemberDao mdao = new MemberDao();
+            String coachId = mdao.getCoachIdByMemberId(id);
+            if (coachId != null && !coachId.isEmpty()) {
+    %>
+    <form action="SupportServlet" method="get">
+        <input type="hidden" name="idMember" value="<%= id%>">
+        <button type="submit" class="support-button" title="Support with your Coach">
+            💬
+        </button>
+    </form>
+    <%
+        }
+    } else {
+    %>
+    <form action="CoachSupportServlet" method="get">
+        <input type="hidden" name="idCoach" value="<%= id%>">
+        <button type="submit" class="support-button" title="Support with Members">
+            💬
+        </button>
+    </form>
+    <%
             }
-        } else {
-        %>
-        <form action="CoachSupportServlet" method="get">
-            <input type="hidden" name="idCoach" value="<%= id%>">
-            <button type="submit" class="support-button" title="Support with Members">
-                💬
-            </button>
-        </form>
-        <%
-                }
-            }
-        %>
+        }
+    %>
 
-        <%@include file="information/footer.jspf" %>
-    </body>
+    <%@include file="information/footer.jspf" %>
+</body>
 </html>

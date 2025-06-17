@@ -32,18 +32,7 @@ public class QuitPlanRegister extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String name = (String) session.getAttribute("username");
-        if (name == null) {
-            request.setAttribute("error", "Vui long đăng nhập để tiếp tục, Nếu bạn chưa có tài khoản hãy đăng kí.");
-            // Chuyển hướng đến homepage.jsp
-             request.getRequestDispatcher("homepage.jsp").forward(request, response);
-             
-         
-        }
-        else{
-            
-        }
+        
 
     }
 
@@ -73,7 +62,25 @@ public class QuitPlanRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         HttpSession session = request.getSession();
+        String memberId = (String) session.getAttribute("id"); // IDMember
+
+        if (memberId == null) {
+            // Chưa đăng nhập → chuyển về login
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        String goal = request.getParameter("goal");
+
+        if ("Silver".equalsIgnoreCase(goal)) {
+            response.sendRedirect("QUITPLAN/GOISILIVRER.jsp");
+        } else if ("Gold".equalsIgnoreCase(goal)) {
+            response.sendRedirect("QUITPLAN/GOIGOLD.jsp");
+        } else {
+           
+            response.sendRedirect("QUITPLAN/GOIDIAMOND.jsp");
+        }
     }
 
     /**

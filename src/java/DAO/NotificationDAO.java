@@ -18,25 +18,32 @@ import java.util.List;
  * @author Nguyen Tien Dat
  */
 public class NotificationDAO {
-    public static  List<Notification> getNotificationsForMember(String memberId) {
-    List<Notification> list = new ArrayList<>();
-    String sql = "SELECT N.IDNotification, N.type, N.message " +
-                 "FROM Notification N JOIN MemberNotification MN ON N.IDNotification = MN.IDNotification " +
-                 "WHERE MN.IDMember = ? ORDER BY MN.date DESC";
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setString(1, memberId);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Notification n = new Notification();
-            n.setIdNotification(rs.getString("IDNotification"));
-            n.setType(rs.getString("type"));
-            n.setMessage(rs.getString("message"));
-            list.add(n);
+
+    public static List<Notification> getNotificationsForMember(String memberId) {
+        List<Notification> list = new ArrayList<>();
+        String sql = "SELECT n.IDNotification, n.type, n.message, mn.date "
+                + "FROM Notification n "
+                + "JOIN MemberNotification mn ON n.IDNotification = mn.IDNotification "
+                + "WHERE mn.IDMember = ? "
+                + "ORDER BY mn.date DESC";
+
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, memberId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Notification n = new Notification();
+                n.setIdNotification(rs.getString("IDNotification"));
+                n.setType(rs.getString("type"));
+                n.setMessage(rs.getString("message"));
+                n.setDate(rs.getDate("date"));
+                list.add(n);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+
+        return list;
     }
-    return list;
-}
+
 }

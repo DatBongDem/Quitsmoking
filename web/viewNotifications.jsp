@@ -4,75 +4,49 @@
     Author     : Nguyen Tien Dat
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.*, DTO.Notification"%>
-<%
-    String role = (String) session.getAttribute("role");
-    String memberId = (String) session.getAttribute("id");
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.*, DTO.Notification" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-    if (role == null || !"member".equalsIgnoreCase(role) || memberId == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-
-    List<Notification> notifications = (List<Notification>) request.getAttribute("notifications");
-%>
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Thông báo của tôi</title>
+    <title>Thông báo của bạn</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
         .notification {
-            border: 1px solid #ccc;
             padding: 15px;
-            margin: 15px auto;
-            width: 80%;
-            border-radius: 5px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-family: Arial;
         }
         .success {
             background-color: #d4edda;
-            border-color: #c3e6cb;
+            color: #155724;
         }
         .reminder {
             background-color: #fff3cd;
-            border-color: #ffeeba;
+            color: #856404;
         }
         .warning {
             background-color: #f8d7da;
-            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .date {
+            font-size: 12px;
+            color: gray;
         }
     </style>
 </head>
 <body>
-    <h2 style="text-align:center;">📢 Thông báo của bạn</h2>
+    <h2>📢 Thông báo của bạn</h2>
 
-    <%
-        if (notifications != null && !notifications.isEmpty()) {
-            for (Notification n : notifications) {
-                String typeClass = "";
-                if ("success".equalsIgnoreCase(n.getType())) {
-                    typeClass = "success";
-                } else if ("reminder".equalsIgnoreCase(n.getType())) {
-                    typeClass = "reminder";
-                } else if ("warning".equalsIgnoreCase(n.getType())) {
-                    typeClass = "warning";
-                }
-    %>
-                <div class="notification <%= typeClass %>">
-                    <strong><%= n.getType().toUpperCase() %>:</strong> <%= n.getMessage() %>
-                </div>
-    <%
-            }
-        } else {
-    %>
-        <p style="text-align:center;">Hiện không có thông báo nào.</p>
-    <%
-        }
-    %>
+    <c:forEach var="n" items="${notifications}">
+        <div class="notification ${n.type}">
+            <div class="date">
+                Ngày: <fmt:formatDate value="${n.date}" pattern="dd/MM/yyyy" />
+            </div>
+            <div><strong>${n.message}</strong></div>
+        </div>
+    </c:forEach>
 </body>
 </html>

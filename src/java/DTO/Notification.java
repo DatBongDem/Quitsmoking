@@ -5,6 +5,8 @@
  */
 package DTO;
 
+import java.sql.Date;
+
 /**
  *
  * @author Nguyen Tien Dat
@@ -13,6 +15,7 @@ public class Notification {
     private String idNotification;
     private String type;
     private String message;
+     private Date date;
 
     // Getters và Setters
     public String getIdNotification() {
@@ -33,4 +36,14 @@ public class Notification {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    
 }

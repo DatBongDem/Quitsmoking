@@ -53,16 +53,14 @@ public class NotificationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("role");
-        String memberId = (String) session.getAttribute("id");
+        String memberId = (String) session.getAttribute("id"); // IDMember đã lưu lúc login
 
-        if (role == null || !"member".equalsIgnoreCase(role) || memberId == null) {
+        if (memberId == null) {
             response.sendRedirect("login.jsp");
             return;
         }
-        
-        List<Notification> notifications = NotificationDAO.getNotificationsForMember(memberId);
 
+        List<Notification> notifications = NotificationDAO.getNotificationsForMember(memberId);
         request.setAttribute("notifications", notifications);
         request.getRequestDispatcher("viewNotifications.jsp").forward(request, response);
     }
