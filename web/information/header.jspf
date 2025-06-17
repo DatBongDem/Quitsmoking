@@ -53,13 +53,13 @@
                             </li>
                         </ul>
                     </div>
-
-        
-
+                    
                     <div class="inner-profile">
+
+
                         <c:choose>
                             <c:when test="${not empty sessionScope.username}">
-                                <a href="#" class="icon-user" id="userIcon">
+                                <a href="NotificationServlet" class="icon-user" id="userIcon">
                                     <i class="fa-solid fa-user"></i>
                                 </a>
                                 <span class="name-member" style="margin-left: 10px">
