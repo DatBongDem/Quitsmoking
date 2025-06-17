@@ -144,7 +144,7 @@ public class TestServlet extends HttpServlet {
             // ✅ Cập nhật điểm
             memberDao.updatePoint(idMember, totalScore);
 
-            request.setAttribute("successMessage", "Bài kiểm tra đã được nộp. Tổng điểm: " + totalScore);
+            
             doGet(request, response);
         } catch (Exception e) {
             request.setAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
