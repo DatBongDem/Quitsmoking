@@ -66,7 +66,7 @@
 
                                 <div class="profile-dropdown-menu" id="profileDropdown">
                                     <a href="DetailMemberProfile">Profile</a>
-                                    <a href="#">ProgressLog</a>
+                                    <a href="progress.jsp">ProgressLog</a>
                                     <a href="LogoutServlet">Logout</a>
                                 </div>                             
                             </c:when>
