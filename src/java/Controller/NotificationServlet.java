@@ -5,10 +5,12 @@
  */
 package Controller;
 
+import DTO.Notification;
+import DAO.NotificationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +18,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Nghia
+ * @author Nguyen Tien Dat
  */
-@WebServlet(name = "QuitPlanRegister", urlPatterns = {"/QuitPlanRegister"})
-public class QuitPlanRegister extends HttpServlet {
+public class NotificationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,8 +33,11 @@ public class QuitPlanRegister extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,7 +52,17 @@ public class QuitPlanRegister extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String memberId = (String) session.getAttribute("id"); // IDMember đã lưu lúc login
+
+        if (memberId == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        List<Notification> notifications = NotificationDAO.getNotificationsForMember(memberId);
+        request.setAttribute("notifications", notifications);
+        request.getRequestDispatcher("viewNotifications.jsp").forward(request, response);
     }
 
     /**
@@ -62,25 +76,7 @@ public class QuitPlanRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
-        String memberId = (String) session.getAttribute("id"); // IDMember
-
-        if (memberId == null) {
-            // Chưa đăng nhập → chuyển về login
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
-        String goal = request.getParameter("goal");
-
-        if ("Silver".equalsIgnoreCase(goal)) {
-            response.sendRedirect("QUITPLAN/GOISILIVRER.jsp");
-        } else if ("Gold".equalsIgnoreCase(goal)) {
-            response.sendRedirect("QUITPLAN/GOIGOLD.jsp");
-        } else {
-           
-            response.sendRedirect("QUITPLAN/GOIDIAMOND.jsp");
-        }
+        processRequest(request, response);
     }
 
     /**
