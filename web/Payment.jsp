@@ -65,8 +65,9 @@
                                 </div>
                             </div>
                         </div>
-<div class="form-group">
-                            <label for="idNumber">Số CMND/CCCD</label>
+
+                        <div class="form-group">
+                            <label for="idNumber">ID</label>
                             <div class="input-with-icon">
                                 <div class="icon hash-icon"></div>
                                 <input type="text" id="idNumber" name="idNumber" value="123456789012" required>
@@ -117,3 +118,77 @@
                             
                             <div class="payment-method" data-method="vnpay">
                                 <input type="radio" id="vnpay" name="paymentMethod" value="vnpay" required>
+                                <label for="vnpay">
+                                    <div class="method-content">
+                                        <div class="method-icon vnpay-icon">V</div>
+                                        <div class="method-info">
+                                            <h3>VNPay</h3>
+                                            <p>Thanh toán qua cổng VNPay</p>
+                                        </div>
+                                    </div>
+                                    <div class="chevron-icon"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Order Summary -->
+                <div class="right-column">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="icon package-icon"></div>
+                            <h2>Thông tin đơn hàng</h2>
+                        </div>
+                        
+                        <div class="package-card">
+                            <div class="package-header">
+                                <div class="package-name">Gói Premium</div>
+                                <div class="package-price">299,000đ</div>
+                            </div>
+                            <div class="package-duration">Thời hạn: 30 ngày</div>
+                            
+                            <div class="package-features">
+                                <h4>Tính năng bao gồm:</h4>
+                                <ul class="feature-list">
+                                    <li>Truy cập không giới hạn</li>
+                                    <li>Hỗ trợ 24/7</li>
+                                    <li>Tính năng cao cấp</li>
+                                    <li>Không quảng cáo</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="pricing-summary">
+                            <div class="price-row">
+                                <span>Giá gói dịch vụ:</span>
+                                <span>299,000đ</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Giảm giá:</span>
+                                <span class="discount">-50,000đ</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Phí xử lý:</span>
+                                <span>5,000đ</span>
+                            </div>
+                            <div class="price-row total">
+                                <span>Tổng cộng:</span>
+                                <span>254,000đ</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="payment-button">
+                            Xác nhận thanh toán
+                        </button>
+                        
+                        <div class="security-note">
+                            Giao dịch được bảo mật SSL 256-bit
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
