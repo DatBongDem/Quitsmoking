@@ -8,6 +8,7 @@
     <title>About Us - BBFB</title>
     <link rel="stylesheet" href="css/StyleAboutUs.css">
         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+         <%@include file="information/bootstrap.jspf" %>
 </head>
 
 <body>
