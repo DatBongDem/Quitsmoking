@@ -57,9 +57,6 @@
                     <!-- Menu khi nhấn vào nút -->
 
                     <div class="inner-profile">
-
-
-
                         <c:choose>
                             <c:when test="${not empty sessionScope.username}">
                                 <a href="#" class="icon-user" id="userIcon">
