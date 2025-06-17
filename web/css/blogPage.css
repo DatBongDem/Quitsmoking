@@ -264,6 +264,7 @@ body {
 .card-footer {
     font-size: 12px;
     background-color: #f8f9fa;
+    text-align: center;
 }
 
 .card {
@@ -281,4 +282,9 @@ body {
 
 .card-body .btn {
     margin-top: auto;
+}
+
+.card-footer div {
+    margin-bottom: 4px;
+    font-size: 14px;
 }
