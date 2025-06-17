@@ -10,6 +10,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xác nhận thanh toán - Vietnamese Payment</title>
+    <%
+    String goal = (String) request.getAttribute("goal");
+    String price = (String) request.getAttribute("price");
+%>
     <link rel="stylesheet" href="css/PaymentStyle.css">
 </head>
 <body>
@@ -141,10 +145,11 @@
                             <h2>Thông tin đơn hàng</h2>
                         </div>
                         
+
                         <div class="package-card">
                             <div class="package-header">
-                                <div class="package-name">Gói Premium</div>
-                                <div class="package-price">299,000đ</div>
+                                <div class="package-name"><%= goal %></div>
+                                <div class="package-price"><%= price %> đ</div>
                             </div>
                             <div class="package-duration">Thời hạn: 30 ngày</div>
                             
