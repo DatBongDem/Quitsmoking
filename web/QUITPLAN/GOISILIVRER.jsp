@@ -102,8 +102,13 @@
                     <li>Trang bị khả năng đối phó với các yếu tố kích thích.</li>
                     <li>Xây dựng đội ngũ cố vấn từ những người từng trải để hỗ trợ cộng đồng cai nghiện hiệu quả hơn.</li>
                 </ul>
-                <p class="plan-price">Giá: 1,000,000 VND</p>
-                <a href="#" class="btn-register">Đăng Ký Ngay</a>
+                <form action="../PaymentServlet" method="get">
+                        <input type="hidden" name="goal" value="GOLD" /> <!-- Set giá trị goal -->
+                        <input type="hidden" name="price" value="1,000,000" /> <!-- Set giá trị price -->
+
+                        <p class="plan-price">Giá: 1,000,000 VND</p>
+                        <button type="submit" class="btn-register">Đăng Ký Ngay</button>   </form>
+
             </div>
         </div>
     </main>

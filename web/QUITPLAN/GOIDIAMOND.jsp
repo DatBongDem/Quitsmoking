@@ -104,8 +104,15 @@
                     <li>Đảm bảo người tham gia không tái nghiện dù trong môi trường có yếu tố kích thích cao.</li>
                     <li>Trang bị nền tảng tâm lý và xã hội vững chắc để duy trì thói quen tốt suốt đời.</li>
                 </ul>
-                <p class="plan-price">Giá: 4,500,000 VND</p>
-                <a href="#" class="btn-register">Đăng Ký Ngay</a>
+                
+               <form action="../PaymentServlet" method="get">
+                        <input type="hidden" name="goal" value="DIAMOND" /> <!-- Set giá trị goal -->
+                        <input type="hidden" name="price" value="4,500,000" /> <!-- Set giá trị price -->
+
+                        <p class="plan-price">Giá: 4,500,000 VND</p>
+                        <button type="submit" class="btn-register">Đăng Ký Ngay</button>   </form>
+
+                </div>
             </div>
         </div>
     </main>
