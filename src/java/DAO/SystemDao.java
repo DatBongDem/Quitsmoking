@@ -99,14 +99,26 @@ public class SystemDao {
 
         return payments;
     }
-
-    public static void main(String[] args) throws ClassNotFoundException {
-        SystemDao paymentDAO = new SystemDao();
-        List<Payment> payments = paymentDAO.getAllPayments();
+   public boolean insertQuitPlanRegistration(String idMember,String iQuitPlan, String status, String registerDate) throws ClassNotFoundException {
+        String sql = "INSERT INTO dbo.QuitPlanRegistration (IDMember, IDQuitPlan, status, registerDate)\n" +
+"VALUES (?, ?, ?, ?);";
         
-        // In kết quả
-        for (Payment payment : payments) {
-            System.out.println("ID: " + payment.getIdPayment() + ", Method: " + payment.getMethod());
+        try  {
+              PreparedStatement ps = getConnection().prepareStatement(sql);
+            // Thiết lập các tham số cho PreparedStatement
+            ps.setString(1, idMember);
+      
+            ps.setString(2, iQuitPlan);
+            ps.setString(3, status);
+            ps.setString(4, registerDate);  // Lưu ý: Chuyển kiểu dữ liệu nếu cần, có thể dùng java.sql.Date
+
+            // Thực thi câu lệnh SQL
+            int result = ps.executeUpdate();
+            return result > 0; // Trả về true nếu số dòng bị ảnh hưởng > 0
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Nếu có lỗi thì trả về false
         }
     }
+   
 }

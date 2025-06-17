@@ -46,7 +46,7 @@
                                 <a href="AboutUs.jsp">About Us</a>
                             </li>
                             <li>
-                                <a href="BlogPostServlet">Blog</a>
+                                <a href="blog.jsp">Blog</a>
                             </li>
                             <li>
                                 <a href="TestServlet">Testing</a>

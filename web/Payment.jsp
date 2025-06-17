@@ -10,32 +10,32 @@
 <%@page import="DTO.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xác nhận thanh toán - Vietnamese Payment</title>
-    <%
-    String goal = (String) request.getAttribute("goal");
-    String price = (String) request.getAttribute("price");
-    Member member = (Member) request.getAttribute("member");
-        List<Payment> payments = (List<Payment>) request.getAttribute("payments");
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Xác nhận thanh toán - Vietnamese Payment</title>
+        <%
+            String goal = (String) request.getAttribute("goal");
+            String price = (String) request.getAttribute("price");
+            Member member = (Member) request.getAttribute("member");
+            List<Payment> payments = (List<Payment>) request.getAttribute("payments");
 
-%>
-    <link rel="stylesheet" href="css/PaymentStyle.css">
-</head>
-<body>
-    <!-- Header -->
-    <div class="header">
-        <div class="container">
-            <div class="header-content">
-                <h1>Xác nhận thanh toán</h1>
-                <p>Kiểm tra thông tin và chọn phương thức thanh toán</p>
+        %>
+        <link rel="stylesheet" href="css/PaymentStyle.css">
+    </head>
+    <body>
+        <!-- Header -->
+        <div class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1>Xác nhận thanh toán</h1>
+                    <p>Kiểm tra thông tin và chọn phương thức thanh toán</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <form action="PaymentServlet" method="post" class="payment-form">
+        <div class="container">
+
             <div class="form-grid">
                 <!-- Left Column -->
                 <div class="left-column">
@@ -45,7 +45,7 @@
                             <div class="icon user-icon"></div>
                             <h2>Thông tin khách hàng</h2>
                         </div>
-                        
+
                         <div class="verification-badge">
                             <div class="check-icon"></div>
                             <div>
@@ -58,7 +58,7 @@
                             <label for="customerName">Họ và tên</label>
                             <input type="text" id="customerName" name="customerName" value="<%= member.getMemberName()%>" required>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -67,23 +67,23 @@
                                     <input type="email" id="email" name="email" value="<%= member.getEmail()%>" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="phone">Số điện thoại</label>
                                 <div class="input-with-icon">
                                     <div class="icon phone-icon"></div>
-                                    <input type="tel" id="phone" name="phone" value="<%= member.getPhone() %>" required>
+                                    <input type="tel" id="phone" name="phone" value="<%= member.getPhone()%>" required>
                                 </div>
                             </div>
                         </div>
 
-<!--                        <div class="form-group">
-                            <label for="idNumber">ID</label>
-                            <div class="input-with-icon">
-                                <div class="icon hash-icon"></div>
-                                <input type="text" id="idNumber" name="idNumber" value="123456789012" required>
-                            </div>
-                        </div>
+                        <!--                        <div class="form-group">
+                                                    <label for="idNumber">ID</label>
+                                                    <div class="input-with-icon">
+                                                        <div class="icon hash-icon"></div>
+                                                        <input type="text" id="idNumber" name="idNumber" value="123456789012" required>
+                                                    </div>
+                                                </div>
                         -->
                         <div class="verification-success">
                             <div class="check-icon"></div>
@@ -98,26 +98,26 @@
                             <h2>Phương thức thanh toán</h2>
                         </div>
                         <%
-            for (Payment payment : payments) {
-        %>
+                            for (Payment payment : payments) {
+                        %>
                         <div class="payment-methods">
                             <div class="payment-method" data-method="momo">
-                                <input type="radio" id="momo" name="paymentMethod" value="<%= payment.getIdPayment()%>" required>
+                                <input type="radio" id="<%= payment.getIdPayment()%>" name="paymentMethod" value="<%= payment.getIdPayment()%>" required>
                                 <label for="momo">
                                     <div class="method-content">
-                                        <div class="method-icon ">   <img src="<%= payment.getLogo() %>" style="width: 100%"alt="<%= payment.getMethod() %> Logo">  </div>
+                                        <div class="method-icon ">   <img src="<%= payment.getLogo()%>" style="width: 100%"alt="<%= payment.getMethod()%> Logo">  </div>
                                         <div class="method-info">
-                                            <h3><%= payment.getMethod() %></h3>
-                                           
+                                            <h3><%= payment.getMethod()%></h3>
+
                                         </div>
                                     </div>
                                     <div class="chevron-icon"></div>
                                 </label>
                             </div>
-                            
-                         
+
+
                         </div>
-                         <%}%>
+                        <%}%>
                     </div>
                 </div>
 
@@ -128,15 +128,15 @@
                             <div class="icon package-icon"></div>
                             <h2>Thông tin đơn hàng</h2>
                         </div>
-                        
+
 
                         <div class="package-card">
                             <div class="package-header">
-                                <div class="package-name">Gói: <%= goal %></div>
-                                <div class="package-price">Giá: <%= price %> đ</div>
+                                <div class="package-name">Gói: <%= goal%></div>
+                                <div class="package-price">Giá: <%= price%> đ</div>
                             </div>
                             <div class="package-duration">Thời hạn: 30 ngày</div>
-                            
+
                             <div class="package-features">
                                 <h4>Tính năng bao gồm:</h4>
                                 <ul class="feature-list">
@@ -147,30 +147,36 @@
                                 </ul>
                             </div>
                         </div>
-                        
-                        <div class="pricing-summary">
-                            <div class="price-row">
-                                <span>Giá gói dịch vụ:</span>
-                                <span> <%= price %></span>
+
+                        <form action="PaymentServlet" method="POST">
+                            <div class="pricing-summary">
+                                <div class="price-row">
+                                    <span>Giá gói dịch vụ:</span>
+                                    <span> <%= price%></span>
+                                </div>
+
+                                <div class="price-row total">
+                                    <span>Tổng cộng:</span>
+                                    <span> <%= price%>đ</span>
+                                </div>
                             </div>
-                           
-                            <div class="price-row total">
-                                <span>Tổng cộng:</span>
-                                <span> <%= price %>đ</span>
+                            <input type="hidden" name="goal" value=" <%= goal%>">
+                            <input type="hidden" name="paymentMethod" value="momo"> <!-- Ví dụ phương thức thanh toán -->
+
+                            <button type="submit" class="payment-button">
+                                Xác nhận thanh toán
+                            </button>
+
+                            <div class="security-note">
+                                Giao dịch được bảo mật SSL 256-bit
                             </div>
-                        </div>
-                        
-                        <button type="submit" class="payment-button">
-                            Xác nhận thanh toán
-                        </button>
-                        
-                        <div class="security-note">
-                            Giao dịch được bảo mật SSL 256-bit
-                        </div>
+                        </form>
                     </div>
                 </div>
+
             </div>
-        </form>
-    </div>
-</body>
+
+
+        </div>
+    </body>
 </html>
