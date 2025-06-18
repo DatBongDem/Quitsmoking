@@ -24,8 +24,8 @@
                 <th>Điện thoại</th>
                 <th>Email</th>
                 <th>Điểm</th>
+                <th>Mô tả cơ bản</th>
                 <th>Gói</th>
-                <th>Trạng thái</th>
                 <th>Quản Lý</th>
             </tr>
 
@@ -47,11 +47,12 @@
                         <input type="hidden" name="id" value="<%= m.getIDMember()%>">
                         <input type="submit" value="Xem tiến trình">
                     </form>
-                        
-                    <form action="ViewProgressServlet" method="get">
-                        <input type="hidden" name="id" value="<%= m.getIDMember()%>">
+
+                    <form action="ScheduleSetupServlet" method="get">
+                        <input type="hidden" name="idMember" value="<%= m.getIDMember()%>">
                         <input type="submit" value="Xếp lịch">
-                    </form>   
+                    </form>
+
                 </td>
             </tr>
             <%
