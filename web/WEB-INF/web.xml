@@ -44,6 +44,22 @@
         <servlet-name>ProgressLogServlet</servlet-name>
         <servlet-class>Controller.ProgressLogServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageMemberServlet</servlet-name>
+        <servlet-class>Controller.coach.ManageMemberServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewProgressServlet</servlet-name>
+        <servlet-class>Controller.coach.ViewProgressServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScheduleSetupServlet</servlet-name>
+        <servlet-class>Controller.coach.ScheduleSetupServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateScheduleServlet</servlet-name>
+        <servlet-class>Controller.coach.CreateScheduleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -87,6 +103,22 @@
     <servlet-mapping>
         <servlet-name>ProgressLogServlet</servlet-name>
         <url-pattern>/ProgressLogServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageMemberServlet</servlet-name>
+        <url-pattern>/ManageMemberServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewProgressServlet</servlet-name>
+        <url-pattern>/ViewProgressServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleSetupServlet</servlet-name>
+        <url-pattern>/ScheduleSetupServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateScheduleServlet</servlet-name>
+        <url-pattern>/CreateScheduleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

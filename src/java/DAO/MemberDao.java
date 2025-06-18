@@ -78,7 +78,7 @@ public class MemberDao {
     public void resigter(String id, String password, String memberName, String gender, String phone,
             String email, String address, String dateofBirth) throws ClassNotFoundException {
         String sql = "INSERT INTO Member\n"
-                + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, point )\n"  
+                + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, point )\n"
                 + "VALUES\n"
                 + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -96,8 +96,8 @@ public class MemberDao {
 
             java.util.Date now = new java.util.Date();
             pstmt.setDate(9, new java.sql.Date(now.getTime()));
-            pstmt.setInt(10,-1);
-                    
+            pstmt.setInt(10, -1);
+
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -388,6 +388,32 @@ public class MemberDao {
         return members;
     }
 
+    public static List<Member> getMembersByCoachId(String coachId) {
+        List<Member> list = new ArrayList<>();
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "SELECT * FROM Member WHERE IDCoach = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, coachId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Member m = new Member();
+                m.setIDMember(rs.getString("IDMember"));
+                m.setMemberName(rs.getString("memberName"));
+                m.setGender(rs.getString("gender"));
+                m.setPhone(rs.getString("phone"));
+                m.setEmail(rs.getString("email"));
+                m.setPoint(rs.getInt("point"));
+                m.setSubscription(rs.getString("subcription"));
+                m.setStatus(rs.getString("status"));
+                list.add(m);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Kiểm tra nếu có lỗi SQL
+        }
+        return list;
+    }
+
     public String getCoachIdByMemberId(String idMember) {
         String coachId = null;
         try {
@@ -405,43 +431,79 @@ public class MemberDao {
         return coachId;
     }
 
-    
     public void updatePoint(String idMember, int point) throws Exception {
-    String sql = "UPDATE Member SET point = ? WHERE IDMember = ?";
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setInt(1, point);
-        ps.setString(2, idMember);
-        ps.executeUpdate();
-    }
-    }
-    public static void main(String[] args) {
-        // Tạo đối tượng SystemDao
-        MemberDao dao = new MemberDao();
-
-        try {
-            // Gọi phương thức getAllBlogPosts() để lấy danh sách bài viết
-            List<BlogPost> blogPosts = dao.getAllBlogPosts();
-
-            // Kiểm tra và hiển thị kết quả
-            if (blogPosts != null && !blogPosts.isEmpty()) {
-                System.out.println("Danh sách bài viết:");
-                for (BlogPost post : blogPosts) {
-                    System.out.println("ID: " + post.getIdPost());
-                    System.out.println("Member ID: " + post.getIdMember());
-                    System.out.println("Title: " + post.getTitle());
-                    System.out.println("Content: " + post.getContent());
-                    System.out.println("Image: " + post.getImage());
-                    System.out.println("Publish Date: " + post.getPublishDate());
-                    System.out.println("-----------------------------------------------------");
-                }
-            } else {
-                System.out.println("Không có bài viết nào.");
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            // In ra thông báo lỗi nếu có
-            e.printStackTrace();
-            System.out.println("Lỗi khi lấy bài viết: " + e.getMessage());
+        String sql = "UPDATE Member SET point = ? WHERE IDMember = ?";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, point);
+            ps.setString(2, idMember);
+            ps.executeUpdate();
         }
     }
+
+    public String getCoachWithLeastCount() throws ClassNotFoundException {
+        String sql = "SELECT top 1 IDCoach, COUNT(IDCoach) AS count\n"
+                + "FROM Member\n"
+                + "GROUP BY IDCoach\n"
+                + "HAVING COUNT(IDCoach) >= 1\n"
+                + "ORDER BY count ASC\n"
+                + ";";
+        String coachId = null;
+
+        try {
+
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                coachId = rs.getString("IDCoach");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return coachId;
+    }
+
+    public boolean updateCoachForMember(String idMem) throws ClassNotFoundException {
+
+        String sql = "UPDATE Member \n"
+                + "                    SET IDCoach = ? \n"
+                + "                   WHERE IDMember = ?";  // Cập nhật IDCoach cho Member có IDMember = idMem
+        String coachId = getCoachWithLeastCount();
+        try {
+
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+
+            ps.setString(1, coachId);
+            ps.setString(2, idMem);
+
+            int rowsUpdated = ps.executeUpdate();
+
+            return rowsUpdated > 0; // Trả về true nếu có bản ghi được cập nhật
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Trả về false nếu có lỗi
+        }
+    }
+
+    public boolean updateMemberStatus(String idMember, String status) throws ClassNotFoundException {
+        String sql = "UPDATE Member\n"
+                + "SET status = ? \n"
+                + "WHERE IDMember = ?";
+
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, status);  // Thiết lập giá trị cho trường status
+            ps.setString(2, idMember);  // Thiết lập IDMember cần cập nhật
+
+            // Thực thi câu lệnh UPDATE
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;  // Nếu có bản ghi được cập nhật, trả về true
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;  // Trả về false nếu có lỗi
+        }
+    }
+ 
 }

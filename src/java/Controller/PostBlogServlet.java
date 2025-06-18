@@ -84,7 +84,11 @@ public class PostBlogServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         String username = (String) request.getSession().getAttribute("username");
-
+ if (session == null || session.getAttribute("username") == null) {
+        // Chưa login → chuyển hướng về trang login
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        return;
+    }
         String title = "";
         String content = "";
         String imagePath = "";

@@ -76,6 +76,27 @@ public class SystemDao {
         return list;
     }
 
+    public BlogPost getBlogById(String idPost) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT IDPost, IDMember, title, content, image, publishDate "
+                + "FROM BlogPost WHERE IDPost = ?";
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+            ps.setString(1, idPost);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new BlogPost(
+                            rs.getString("IDPost"),
+                            rs.getString("IDMember"),
+                            rs.getString("title"),
+                            rs.getString("content"),
+                            rs.getString("image"),
+                            rs.getDate("publishDate")
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
     public List<Payment> getAllPayments() throws ClassNotFoundException {
         List<Payment> payments = new ArrayList<>();
 
@@ -83,12 +104,12 @@ public class SystemDao {
 
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
-              ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             // Duyệt qua kết quả và thêm vào list
             while (rs.next()) {
                 String idPayment = rs.getString("IDPayment");
                 String method = rs.getString("method");
-                 String logo = rs.getString("logo");  // Lấy logo từ cơ sở dữ liệu
+                String logo = rs.getString("logo");  // Lấy logo từ cơ sở dữ liệu
                 Payment payment = new Payment(idPayment, method, logo);
                 payments.add(payment);
             }
@@ -99,19 +120,23 @@ public class SystemDao {
 
         return payments;
     }
-   public boolean insertQuitPlanRegistration(String idMember,String iQuitPlan, String status, String registerDate) throws ClassNotFoundException {
-        String sql = "INSERT INTO dbo.QuitPlanRegistration (IDMember, IDQuitPlan, status, registerDate)\n" +
-"VALUES (?, ?, ?, ?);";
-        
-        try  {
-              PreparedStatement ps = getConnection().prepareStatement(sql);
+
+    public boolean insertQuitPlanRegistration(String idMember, String idPayment, String idQuitPlan, String status) throws ClassNotFoundException {
+        String sql = "INSERT INTO QuitPlanRegistration \n" +
+"                    (IDMember, IDPayment, IDQuitPlan, status,registerDate) \n" +
+"                   VALUES (?, ?, ?, ?, ? )";
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
             // Thiết lập các tham số cho PreparedStatement
             ps.setString(1, idMember);
-      
-            ps.setString(2, iQuitPlan);
-            ps.setString(3, status);
-            ps.setString(4, registerDate);  // Lưu ý: Chuyển kiểu dữ liệu nếu cần, có thể dùng java.sql.Date
+            ps.setString(2, idPayment);
+            ps.setString(3, idQuitPlan);
+            ps.setString(4, status);
+            java.util.Date now = new java.util.Date();
+            ps.setDate(5, new java.sql.Date(now.getTime()));
 
+         
             // Thực thi câu lệnh SQL
             int result = ps.executeUpdate();
             return result > 0; // Trả về true nếu số dòng bị ảnh hưởng > 0
@@ -120,5 +145,5 @@ public class SystemDao {
             return false; // Nếu có lỗi thì trả về false
         }
     }
-   
+
 }

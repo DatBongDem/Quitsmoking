@@ -101,4 +101,26 @@ public class ProgressLogDAO {
         }
         return list;
     }
+    
+    
+     public static List<ProgressLog> getLogsByMember(String memberId) {
+        List<ProgressLog> list = new ArrayList<>();
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "SELECT * FROM ProgressLog WHERE IDMember = ? ORDER BY logDate DESC";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, memberId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProgressLog log = new ProgressLog();
+                log.setLogDate(rs.getDate("logDate"));
+                log.setNumberOfCigarettes(rs.getInt("numberOfCigarettes"));
+                log.setNotes(rs.getString("notes"));
+                list.add(log);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

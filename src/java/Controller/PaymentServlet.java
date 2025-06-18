@@ -5,8 +5,10 @@
  */
 package Controller;
 
+import DAO.CoachDao;
 import DAO.MemberDao;
 import DAO.SystemDao;
+import DTO.Coach;
 import DTO.Member;
 import DTO.Payment;
 import java.io.IOException;
@@ -98,24 +100,43 @@ public class PaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        MemberDao mem = new MemberDao();
+         CoachDao coachDAO = new CoachDao();
         String goal = request.getParameter("goal");
         SystemDao dao = new SystemDao();
         HttpSession session = request.getSession();
         String idMember = (String) session.getAttribute("id");
         String quitPlan = "QP02";  // Giá trị mặc định
-
+        String IDpaymentMethod = request.getParameter("paymentMethod");
         // Kiểm tra giá trị của goal và gán quitPlan tương ứng
-        if ("silver".equalsIgnoreCase(goal)) {
+        if ("silver".trim().equalsIgnoreCase(goal.trim())) {
             quitPlan = "QP01";  // Nếu goal là silver, quitPlan là QP01
-        } else if ("gold".equalsIgnoreCase(goal)) {
+        } else if ("gold".trim().equalsIgnoreCase(goal.trim())) {
             quitPlan = "QP02";  // Nếu goal là gold, quitPlan là QP02
-        } else  {
+        } else {
             quitPlan = "QP03";  // Nếu goal là diamond, quitPlan là QP03
         }
+        String status="";
+         if (quitPlan.trim().equalsIgnoreCase("QP01".trim())) {
+            status = "SILVER - Đang trong khóa";
+        } else if (quitPlan.trim().equalsIgnoreCase("QP02".trim())) {
+            status = "GOLD - Đang trong khóa";
+        } else if (quitPlan.trim().equalsIgnoreCase("QP03".trim())) {
+            status = "DIAMOND - Đang trong khóa";
+        } else {
+            System.out.println("Invalid quitplan!");
+            return;
+        }
+
 
         try {
-            dao.insertQuitPlanRegistration(idMember, quitPlan, "Active", "2025-06-17");
+            dao.insertQuitPlanRegistration(idMember, IDpaymentMethod, quitPlan, "succel");
+            mem.updateCoachForMember(idMember);
+            mem.updateMemberStatus(idMember, status);
+            String coachName=coachDAO.getCoachNameFromMember(idMember);
+            request.setAttribute("coachName", coachName);
+            request.getRequestDispatcher("AfterPayment.jsp").forward(request, response);
+            
         } catch (Exception e) {
         }
     }
