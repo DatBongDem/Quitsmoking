@@ -68,12 +68,21 @@
                                     <a href="DetailMemberProfile">Profile</a>
 
 
-                                    <a href="progress.jsp">ProgressLog</a>
+                                    
 
+                                    
+                                    <%
+                                        String role = (String) session.getAttribute("role");
+                                        if ("member".equals(role)) {
+                                    %>
+                                    <a href="progress.jsp">ProgressLog</a>
+                                    <%
+                                        }
+                                    %>
 
 
                                     <%
-                                        String role = (String) session.getAttribute("role");
+                                        
                                         if ("coach".equals(role)) {
                                     %>
                                     <a href="ManageMemberServlet">Manage</a>
