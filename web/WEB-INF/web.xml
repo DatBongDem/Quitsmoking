@@ -60,6 +60,14 @@
         <servlet-name>CreateScheduleServlet</servlet-name>
         <servlet-class>Controller.coach.CreateScheduleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusServlet</servlet-name>
+        <servlet-class>Controller.coach.UpdateStatusServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CoachScheduleServlet</servlet-name>
+        <servlet-class>Controller.coach.CoachScheduleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -119,6 +127,14 @@
     <servlet-mapping>
         <servlet-name>CreateScheduleServlet</servlet-name>
         <url-pattern>/CreateScheduleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusServlet</servlet-name>
+        <url-pattern>/UpdateStatusServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CoachScheduleServlet</servlet-name>
+        <url-pattern>/CoachScheduleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
