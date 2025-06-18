@@ -22,7 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+ 
 /**
  *
  * @author Nghia
@@ -41,7 +41,9 @@ public class BlogPostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+  request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -68,29 +70,34 @@ public class BlogPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+  request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
         MemberDao dao = new MemberDao();
-
         try {
-            // Lấy tất cả bài viết từ database
             List<BlogPost> blogPosts = dao.getAllBlogPosts();
-            List<Member> member = new ArrayList<>();
-            for (BlogPost blog : blogPosts) {
-                String idMem = blog.getIdMember();
-               
-                member.add(dao.getMemberById(idMem));
+            List<Member> members = new ArrayList<>();
 
+            // Duyệt qua các bài viết để lấy thông tin thành viên
+            for (BlogPost post : blogPosts) {
+                String memberId = post.getIdMember();
+                Member member = dao.getMemberById(memberId);
+                if (member != null) {
+                    members.add(member);
+                }
             }
-            request.setAttribute("member", member);
-            // Truyền dữ liệu ra JSP
+
+            // Truyền dữ liệu bài viết và thành viên vào request
             request.setAttribute("blogPosts", blogPosts);
+            request.setAttribute("members", members);
+
+            // Chuyển hướng đến trang JSP để hiển thị
             request.getRequestDispatcher("blog.jsp").forward(request, response);
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            response.getWriter().println("Lỗi khi lấy dữ liệu bài viết: " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BlogPostServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("error", "Error retrieving blog posts: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
@@ -105,20 +112,24 @@ public class BlogPostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+          request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
         String keyword = request.getParameter("keyword");
-          MemberDao mem = new MemberDao();
+        MemberDao mem = new MemberDao();
         try {
             SystemDao dao = new SystemDao();
-            List<BlogPost> blogPosts = dao.searchByTitle(keyword);
+            List<BlogPost> blogPosts = dao.searchByTitle(keyword.trim());
             List<Member> member = new ArrayList<>();
             for (BlogPost blog : blogPosts) {
                 String idMem = blog.getIdMember();
                 member.add(mem.getMemberById(idMem));
 
             }
-            request.setAttribute("member", member);
             request.setAttribute("blogPosts", blogPosts);
-            request.getRequestDispatcher("blogPage.jsp").forward(request, response);
+            request.setAttribute("members", member);
+            request.setAttribute("keyword", keyword);
+            request.getRequestDispatcher("blog.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }

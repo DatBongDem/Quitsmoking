@@ -75,7 +75,28 @@ public class SystemDao {
 
         return list;
     }
+    public BlogPost getBlogById(String idPost) throws SQLException, ClassNotFoundException {
+  String sql = "SELECT IDPost, IDMember, title, content, image, publishDate "
+             + "FROM BlogPost WHERE IDPost = ?";
+  try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+    ps.setString(1, idPost);
+    try (ResultSet rs = ps.executeQuery()) {
+      if (rs.next()) {
+        return new BlogPost(
+          rs.getString("IDPost"),
+          rs.getString("IDMember"),
+          rs.getString("title"),
+          rs.getString("content"),
+          rs.getString("image"),
+          rs.getDate("publishDate")
+        );
+      }
+    }
+  }
+  return null;
+}
 
+     
     public List<Payment> getAllPayments() throws ClassNotFoundException {
         List<Payment> payments = new ArrayList<>();
 

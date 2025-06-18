@@ -3,11 +3,12 @@
     Created on : Jun 17, 2025, 4:13:39 PM
     Author     : Thinkpad
 --%>
-
+<%@ page errorPage="error.jsp" %>
 <%@page import="DTO.Member"%>
 <%@page import="DTO.BlogPost"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,82 +52,97 @@
         </div>
         <!-- End Background -->
 
+
         <!-- Blog Page Content -->
         <section class="blog py-5">
             <div class="container">
                 <h2 class="text-center mb-5">Tin tức về thuốc lá</h2>
 
 
-            <!-- Search Form -->
-            <form class="blog-search-form mb-5" action="#" method="get">
-                <div class="form-row justify-content-center">
-                    <div class="col-md-6 col-sm-8 mb-2">
-                        <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm bài viết..." />
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                    </div>
-                </div>
-            </form>
-
-            <div class="row">
-                <!-- Blog Post 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 d-flex flex-column">
-                        <img src="images/Blog/blog1.jpg" class="card-img-top" alt="No smoking">
-                        <div class="card-body">
-                            <h5 class="card-title">Tại sao nên cai thuốc lá?</h5>
-                            <p class="card-text">Hút thuốc lá là nguyên nhân hàng đầu gây ra các bệnh về tim mạch, phổi
-                                và ung thư. Việc từ bỏ thuốc lá giúp bạn cải thiện sức khỏe, tiết kiệm chi phí và sống
-                                lâu hơn.</p>
-                            <a href="blog-detail1.jsp" class="btn btn-success">Đọc thêm</a>
-
+                <!-- Search Form -->
+                <form class="blog-search-form mb-5" action="BlogPostServlet" method="post">
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-6 col-sm-8 mb-2">
+                            <input type="text" class="form-control" name="keyword" value="<%= request.getAttribute("keyword") != null ? request.getAttribute("keyword") : "" %>"  placeholder="Tìm kiếm bài viết..." />
+                                    
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-success">Tìm kiếm</button>
                         </div>
                     </div>
-                </form>
+               </form>
 
+                <!--            <div class="row">
+                                 Blog Post 1 
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100 d-flex flex-column">
+                                        <img src="images/Blog/blog1.jpg" class="card-img-top" alt="No smoking">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Tại sao nên cai thuốc lá?</h5>
+                                            <p class="card-text">Hút thuốc lá là nguyên nhân hàng đầu gây ra các bệnh về tim mạch, phổi
+                                                và ung thư. Việc từ bỏ thuốc lá giúp bạn cải thiện sức khỏe, tiết kiệm chi phí và sống
+                                                lâu hơn.</p>
+                                            <a href="blog-detail1.jsp" class="btn btn-success">Đọc thêm</a>
+                
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                        </div>
+                                    </div>
+                
+                                <div class="row">
+                <!-- Blog Post 1 -->
                 <%
-                    // Lấy danh sách các bài viết từ request
                     List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");
-                    List<Member> member = (List<Member>) request.getAttribute("member");
+                    List<Member> members = (List<Member>) request.getAttribute("members");
+
                     if (blogPosts != null && !blogPosts.isEmpty()) {
                         for (BlogPost post : blogPosts) {
-                            for (Member mem : member) {
+                            String memberId = post.getIdMember();
+                            Member member = null;
+                            if (members != null) {
+                                for (Member m : members) {
+                                    if (m.getIDMember().equals(memberId)) {
+                                        member = m;
+                                        break;
+                                    }
+                                }
+                            }
                 %>
-                <div class="row">
-                    <!-- Blog Post 1 -->
-                    <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4">
+                    <div class="container">
                         <div class="card h-100 d-flex flex-column">
                             <img src="images/Blog/<%= post.getImage()%>" class="card-img-top" alt="No smoking">
                             <div class="card-body">
                                 <h5 class="card-title"><%= post.getTitle()%></h5>
                                 <p class="card-text"><%= post.getContent()%></p>
-                                <a href="#" class="btn btn-success">Đọc thêm</a>
+                                <a href="BlogDetailServlet?id=<%= post.getIdPost() %>" class="btn btn-success">Đọc thêm</a>
                             </div>
                             <div class="card-footer text-muted">
                                 <div><%= post.getPublishDate()%></div>
-                                <div>Người đăng: <%= mem.getMemberName()%></div>
+                                <div>Người đăng: <%= member != null ? member.getMemberName() : "Unknown"%></div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
+                <%
+                    }
+                } else {
+                %>
+                <p>Không có bài viết nào.</p>
+                <%
+                    }
+                %>
+
             </div>
 
-            <%
-                    }
-                }
-            } 
-            %>
-          
-        </section>
-        <!-- End Blog Page Content -->
 
+
+        </section>
+                 
         <%@include file="information/footer.jspf" %>
+
+
     </body>
 
 </html>

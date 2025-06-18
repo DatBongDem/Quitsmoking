@@ -4,6 +4,8 @@
     Author     : Thinkpad
 --%>
 
+<%@page import="DTO.BlogPost"%>
+<%@page import="DTO.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +13,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="information/bootstrap.jspf" %>
         <title>JSP Page</title>
-        
+        <%
+  // Lấy ra đối tượng post và author
+  BlogPost post   = (BlogPost) request.getAttribute("post");
+  Member   author = (Member)   request.getAttribute("author");
+%>
         <link rel="stylesheet" href="css/blogPage.css">
         <link rel="stylesheet" href="css/stylehomepage.css">
         <link rel="stylesheet" href="css/blog-detail.css">
@@ -20,17 +26,17 @@
         <%@include file="information/header.jspf" %>
 
         <div class="blog-detail-container">
-            <h2 class="blog-detail-title">Tại sao nên cai thuốc lá?</h2>
+            <h2 class="blog-detail-title"><%= post.getTitle() %></h2>
             <div class="blog-detail-meta">
-                Ngày đăng: 17/06/2025 | Người đăng: Admin
+                <%= post.getPublishDate() %> | Người đăng: <%= (author!=null? author.getMemberName() : "Unknown") %>
             </div>
-            <img src="images/Blog/blog1.jpg" class="blog-detail-image" alt="Ảnh minh họa bài viết">
+            <img src="images/Blog/<%= post.getImage() %>" class="blog-detail-image" alt="Ảnh minh họa bài viết">
             <div class="blog-detail-content">
-                <p>Hút thuốc lá là nguyên nhân hàng đầu gây ra các bệnh về tim mạch, phổi và ung thư...</p>
-                <p>Việc cai thuốc không chỉ giúp cải thiện sức khỏe mà còn tiết kiệm chi phí...</p>
+                <p>  <%= post.getContent() %></p>
+              
                 <!-- thêm nội dung khác -->
             </div>
-            <a href="blog.jsp" class="back-button">← Quay lại</a>
+            <a href="BlogPostServlet" class="back-button">← Quay lại</a>
         </div>
 
 
