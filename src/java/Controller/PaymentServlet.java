@@ -104,18 +104,18 @@ public class PaymentServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String idMember = (String) session.getAttribute("id");
         String quitPlan = "QP02";  // Giá trị mặc định
-
+          String IDpaymentMethod = request.getParameter("paymentMethod");
         // Kiểm tra giá trị của goal và gán quitPlan tương ứng
-        if ("silver".equalsIgnoreCase(goal)) {
+        if ("silver".trim().equalsIgnoreCase(goal.trim())) {
             quitPlan = "QP01";  // Nếu goal là silver, quitPlan là QP01
-        } else if ("gold".equalsIgnoreCase(goal)) {
+        } else if ("gold".trim().equalsIgnoreCase(goal.trim())) {
             quitPlan = "QP02";  // Nếu goal là gold, quitPlan là QP02
         } else  {
             quitPlan = "QP03";  // Nếu goal là diamond, quitPlan là QP03
         }
 
         try {
-            dao.insertQuitPlanRegistration(idMember, quitPlan, "Active", "2025-06-17");
+            dao.insertQuitPlanRegistration(idMember, IDpaymentMethod, quitPlan, "succel");
         } catch (Exception e) {
         }
     }

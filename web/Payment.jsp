@@ -92,6 +92,7 @@
                     </div>
 
                     <!-- Payment Methods -->
+
                     <div class="card">
                         <div class="card-header">
                             <div class="icon credit-card-icon"></div>
@@ -100,9 +101,12 @@
                         <%
                             for (Payment payment : payments) {
                         %>
+
                         <div class="payment-methods">
-                            <div class="payment-method" data-method="momo">
-                                <input type="radio" id="<%= payment.getIdPayment()%>" name="paymentMethod" value="<%= payment.getIdPayment()%>" required>
+
+                            <div class="payment-method" data-method="">
+                                <input type="radio" id="${payment.getIdPayment()}" name="paymentMethod" value="${payment.getIdPayment()}" required>
+
                                 <label for="momo">
                                     <div class="method-content">
                                         <div class="method-icon ">   <img src="<%= payment.getLogo()%>" style="width: 100%"alt="<%= payment.getMethod()%> Logo">  </div>
@@ -115,8 +119,8 @@
                                 </label>
                             </div>
 
-
                         </div>
+
                         <%}%>
                     </div>
                 </div>
@@ -148,20 +152,21 @@
                             </div>
                         </div>
 
-                        <form action="PaymentServlet" method="POST">
-                            <div class="pricing-summary">
-                                <div class="price-row">
-                                    <span>Giá gói dịch vụ:</span>
-                                    <span> <%= price%></span>
-                                </div>
 
-                                <div class="price-row total">
-                                    <span>Tổng cộng:</span>
-                                    <span> <%= price%>đ</span>
-                                </div>
+                        <div class="pricing-summary">
+                            <div class="price-row">
+                                <span>Giá gói dịch vụ:</span>
+                                <span> <%= price%></span>
                             </div>
+
+                            <div class="price-row total">
+                                <span>Tổng cộng:</span>
+                                <span> <%= price%>đ</span>
+                            </div>
+                        </div>
+                        <form action="PaymentServlet" method="post">
                             <input type="hidden" name="goal" value=" <%= goal%>">
-                            <input type="hidden" name="paymentMethod" value="momo"> <!-- Ví dụ phương thức thanh toán -->
+                            <!-- Ví dụ phương thức thanh toán -->
 
                             <button type="submit" class="payment-button">
                                 Xác nhận thanh toán
@@ -172,11 +177,13 @@
                             </div>
                         </form>
                     </div>
-                </div>
 
+                </div>
             </div>
 
 
         </div>
+
+
     </body>
 </html>
