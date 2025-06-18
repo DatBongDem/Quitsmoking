@@ -18,7 +18,7 @@
         <p><strong>IDCoach:</strong> </p>  <!-- Hiển thị IDCoach đã được truyền từ Servlet -->
    <p><strong>Huấn luyện viên của bạn:</strong> <%= request.getAttribute("coachName") %></p
         <br>
-        <a href="home.jsp">Quay lại trang chủ</a>
+        <a href="homepage.jsp">Quay lại trang chủ</a>
     </div>
 </body>
 </html>
