@@ -388,6 +388,33 @@ public class MemberDao {
         return members;
     }
 
+   public static List<Member> getMembersByCoachId(String coachId) {
+    List<Member> list = new ArrayList<>();
+    try (Connection conn = DBUtils.getConnection()) {
+        String sql = "SELECT * FROM Member WHERE IDCoach = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, coachId);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Member m = new Member();
+            m.setIDMember(rs.getString("IDMember"));
+            m.setMemberName(rs.getString("memberName"));
+            m.setGender(rs.getString("gender"));
+            m.setPhone(rs.getString("phone"));
+            m.setEmail(rs.getString("email"));
+            m.setPoint(rs.getInt("point"));
+            m.setSubscription(rs.getString("subcription"));
+            m.setStatus(rs.getString("status"));
+            list.add(m);
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // Kiểm tra nếu có lỗi SQL
+    }
+    return list;
+}
+
+    
     public String getCoachIdByMemberId(String idMember) {
         String coachId = null;
         try {
