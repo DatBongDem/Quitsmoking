@@ -388,33 +388,32 @@ public class MemberDao {
         return members;
     }
 
-   public static List<Member> getMembersByCoachId(String coachId) {
-    List<Member> list = new ArrayList<>();
-    try (Connection conn = DBUtils.getConnection()) {
-        String sql = "SELECT * FROM Member WHERE IDCoach = ?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, coachId);
-        ResultSet rs = ps.executeQuery();
+    public static List<Member> getMembersByCoachId(String coachId) {
+        List<Member> list = new ArrayList<>();
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "SELECT * FROM Member WHERE IDCoach = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, coachId);
+            ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            Member m = new Member();
-            m.setIDMember(rs.getString("IDMember"));
-            m.setMemberName(rs.getString("memberName"));
-            m.setGender(rs.getString("gender"));
-            m.setPhone(rs.getString("phone"));
-            m.setEmail(rs.getString("email"));
-            m.setPoint(rs.getInt("point"));
-            m.setSubscription(rs.getString("subcription"));
-            m.setStatus(rs.getString("status"));
-            list.add(m);
+            while (rs.next()) {
+                Member m = new Member();
+                m.setIDMember(rs.getString("IDMember"));
+                m.setMemberName(rs.getString("memberName"));
+                m.setGender(rs.getString("gender"));
+                m.setPhone(rs.getString("phone"));
+                m.setEmail(rs.getString("email"));
+                m.setPoint(rs.getInt("point"));
+                m.setSubscription(rs.getString("subcription"));
+                m.setStatus(rs.getString("status"));
+                list.add(m);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Kiểm tra nếu có lỗi SQL
         }
-    } catch (Exception e) {
-        e.printStackTrace(); // Kiểm tra nếu có lỗi SQL
+        return list;
     }
-    return list;
-}
 
-    
     public String getCoachIdByMemberId(String idMember) {
         String coachId = null;
         try {
@@ -452,10 +451,10 @@ public class MemberDao {
         String coachId = null;
 
         try {
-            
+
             PreparedStatement ps = getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-           
+
             if (rs.next()) {
                 coachId = rs.getString("IDCoach");
             }
@@ -465,9 +464,46 @@ public class MemberDao {
 
         return coachId;
     }
-    public static void main(String[] args) throws ClassNotFoundException {
-        MemberDao mem= new MemberDao();
-        System.out.println(mem.getCoachWithLeastCount());
-       
+
+    public boolean updateCoachForMember(String idMem) throws ClassNotFoundException {
+
+        String sql = "UPDATE Member \n"
+                + "                    SET IDCoach = ? \n"
+                + "                   WHERE IDMember = ?";  // Cập nhật IDCoach cho Member có IDMember = idMem
+        String coachId = getCoachWithLeastCount();
+        try {
+
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+
+            ps.setString(1, coachId);
+            ps.setString(2, idMem);
+
+            int rowsUpdated = ps.executeUpdate();
+
+            return rowsUpdated > 0; // Trả về true nếu có bản ghi được cập nhật
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Trả về false nếu có lỗi
+        }
     }
+
+    public boolean updateMemberStatus(String idMember, String status) throws ClassNotFoundException {
+        String sql = "UPDATE Member\n"
+                + "SET status = ? \n"
+                + "WHERE IDMember = ?";
+
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, status);  // Thiết lập giá trị cho trường status
+            ps.setString(2, idMember);  // Thiết lập IDMember cần cập nhật
+
+            // Thực thi câu lệnh UPDATE
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;  // Nếu có bản ghi được cập nhật, trả về true
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;  // Trả về false nếu có lỗi
+        }
+    }
+ 
 }
