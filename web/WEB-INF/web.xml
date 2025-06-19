@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>TestServlet</servlet-name>
-        <servlet-class>Controller.TestServlet</servlet-class>
+        <servlet-class>Controller.member.TestServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -42,7 +42,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProgressLogServlet</servlet-name>
-        <servlet-class>Controller.ProgressLogServlet</servlet-class>
+        <servlet-class>Controller.member.ProgressLogServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageMemberServlet</servlet-name>
