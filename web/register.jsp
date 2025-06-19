@@ -22,6 +22,35 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
+        
+        <style>
+            /* Home Button */
+            .home-button {
+                position: fixed; /* Cố định vị trí */
+                top: 20px; /* Cách mép trên 20px */
+                left: 20px; /* Cách mép trái 20px */
+                background-color: #28a745; /* Màu xanh lá chủ đạo */
+                color: white; /* Màu chữ */
+                padding: 10px 20px; /* Khoảng cách bên trong nút */
+                font-size: 16px; /* Kích thước chữ */
+                font-weight: bold; /* Chữ đậm */
+                border: none; /* Không viền */
+                border-radius: 8px; /* Bo góc */
+                text-decoration: none; /* Loại bỏ gạch chân */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+                transition: all 0.3s ease; /* Hiệu ứng chuyển động */
+                z-index: 999; /* Hiển thị trên cùng */
+            }
+
+            .home-button:hover {
+                background-color: #218838; /* Màu đậm hơn khi hover */
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng tăng khi hover */
+                transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+                text-decoration: underline; /* Gạch chân khi hover */
+            }
+
+        </style>
+        <a href="homepage.jsp" class="home-button">Home</a>
 
 
         <div class="register-form">

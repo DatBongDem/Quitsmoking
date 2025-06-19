@@ -167,17 +167,17 @@
                 <% for (int i = 0; i < planList.size(); i++) {
                     QuitPlan plan = (QuitPlan) planList.get(i);
                 %>
-                <div class="col-xl-4">
-                    <div class="inner-plan-one">
+                <div class="col-xl-4 d-flex">
+                    <div class="inner-plan-one d-flex flex-column w-100">
                         <div class="inner-image">
                             <img src="images/home/plan-1.jpg" alt="anh1">
                         </div>
-                        <div class="inner-content">
+                        <div class="inner-content flex-grow-1 d-flex flex-column">
                             <h4 class="inner-title"><%= plan.getGoals()%></h4>
                             <p class="inner-desc">
                                 <%= plan.getProgress()%>
                             </p>
-                            <span class="price"><%= plan.getPrice()%> VND</span>
+                            <span class="price mt-auto"><%= String.format("%,.0f", plan.getPrice()) %> VND</span>
                         </div>
                         <div class="inner-button">
                             <form action="QuitPlanRegister" method="post">

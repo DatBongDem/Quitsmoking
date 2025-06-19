@@ -18,8 +18,12 @@
     <title>Support Chat</title>
     <link rel="stylesheet" href="css/support-member.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/stylehomepage.css">
+        <%@include file="information/bootstrap.jspf" %>
+
 </head>
 <body>
+    <%@include file="information/header.jspf" %>
     <!-- Header -->
     <header class="member-header">
         <div class="header-container">
