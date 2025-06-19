@@ -46,7 +46,7 @@
                 background-color: #218838; /* Màu đậm hơn khi hover */
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng tăng khi hover */
                 transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
-                text-decoration: underline; /* Gạch chân khi hover */
+                text-decoration: none;
             }
 
         </style>

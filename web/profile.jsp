@@ -39,7 +39,7 @@
                 background-color: #218838; /* Màu ??m h?n khi hover */
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* ?? bóng t?ng khi hover */
                 transform: scale(1.05); /* Hi?u ?ng phóng to nh? */
-                text-decoration: underline; /* G?ch chân khi hover */
+                text-decoration: none;
             }
 
         </style>
