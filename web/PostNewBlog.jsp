@@ -12,6 +12,7 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="css/PostNewBlogStyle.css">
         <link rel="stylesheet" href="css/stylehomepage.css">
+        <%@include file="information/bootstrap.jspf" %>
 
     </head>
     <body>

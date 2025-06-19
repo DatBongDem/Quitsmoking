@@ -15,7 +15,7 @@ and open the template in the editor.
     box-sizing: border-box;
 }
 
-:root {
+root {
     --primary-green: #27ae60;
     --secondary-green: #2ecc71;
     --light-green: #a5d6a7;
