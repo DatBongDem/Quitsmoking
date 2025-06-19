@@ -65,16 +65,22 @@
                                 </span>
 
                                 <div class="profile-dropdown-menu" id="profileDropdown">
-                                    <a href="DetailMemberProfile">Profile</a>
-
-
-
-
-
-                                    <%
+                                     <%
                                         String role = (String) session.getAttribute("role");
                                         String mycoach = (String) session.getAttribute("coachId");
+                                        if ("member".equals(role) ){
+                                    %>
+                                    <a href="DetailMemberProfile">Profile</a>
+                                     <%
+                                        }
+                                    %>
 
+
+
+
+
+                                   
+                                    <%
                                         if ("member".equals(role) && mycoach != null) {
                                     %>
                                     <a href="progress.jsp">ProgressLog</a>
@@ -87,8 +93,10 @@
                                     <%
                                         if ("coach".equals(role)) {
                                     %>
+                                    <a href="#">Profile</a>
                                     <a href="ManageMemberServlet">Manage</a>
                                     <a href="CoachScheduleServlet">Schedule</a>
+                                    
 
                                     <%
                                         }
