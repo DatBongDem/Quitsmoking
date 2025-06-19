@@ -137,37 +137,46 @@ body {
     font-size: 20px;
     text-decoration: none;
     padding: 0;
-    margin: 0
+    margin: 15px 0;
 }
 
-.profile-dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: white;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    padding: 10px 20px;
-    border-radius: 6px;
-    right: 10;
-    top: 40px;
-    z-index: 9999;
-}
-
+/*Drop down menu*/
 .inner-profile {
     position: relative;
     display: inline-block;
 }
 
+.profile-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    right: 0; /* fix lỗi: `right: 10` thiếu đơn vị */
+    top: 48px;
+    z-index: 9999;
+    min-width: 180px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
 .profile-dropdown-menu a {
-    padding: 0;
+    padding: 12px 20px;
     margin: 0;
     display: block;
     text-decoration: none;
-    color: black;
+    color: #333;
+    font-size: 15px;
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+    border-radius: 4px;
 }
 
 .profile-dropdown-menu a:hover {
-    background-color: #f0f0f0;
+    background-color: #28a745;
+    color: #fff;
+    padding-left: 24px;
 }
+/* End drop down menu*/
 /* End Menu */
 
 /* Background */
