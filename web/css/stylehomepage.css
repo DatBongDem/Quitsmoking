@@ -329,6 +329,7 @@ body {
     background-color: #28a745; /* Green color for action */
     color: #fff;
     padding: 16px 28px;
+    border: none;
     border-radius: 8px;
     text-decoration: none;
 }
