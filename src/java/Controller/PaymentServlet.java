@@ -118,11 +118,11 @@ public class PaymentServlet extends HttpServlet {
         }
         String status="";
          if (quitPlan.trim().equalsIgnoreCase("QP01".trim())) {
-            status = "SILVER - Đang trong khóa";
+            status = "SILVER";
         } else if (quitPlan.trim().equalsIgnoreCase("QP02".trim())) {
-            status = "GOLD - Đang trong khóa";
+            status = "GOLD";
         } else if (quitPlan.trim().equalsIgnoreCase("QP03".trim())) {
-            status = "DIAMOND - Đang trong khóa";
+            status = "DIAMOND";
         } else {
             System.out.println("Invalid quitplan!");
             return;
