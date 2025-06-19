@@ -14,14 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nghia
  */
-@WebServlet(name = "ProfileServlet", urlPatterns = {"/ProfileServlet"})
-public class ProfileServlet extends HttpServlet {
+@WebServlet(name = "updateProfileCoach", urlPatterns = {"/updateProfileCoach"})
+public class updateProfileCoach extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class ProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProfileServlet</title>");
+            out.println("<title>Servlet updateProfileCoach</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet updateProfileCoach at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,28 +60,19 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           HttpSession session = request.getSession();
-
-        // Retrieve session attributes
-        String role = (String) session.getAttribute("role");
-        String coachId = (String) session.getAttribute("coachId");
-  
-
-
-      
+        String coachId = request.getParameter("coachId");
+CoachDao dao=new CoachDao();
         try {
-            CoachDao coachDAO = new CoachDao();
-            Coach coach = coachDAO.getCoachById(coachId);
-            if (coach != null) {
-                request.setAttribute("coach", coach);
-                request.getRequestDispatcher("ProfileCoach.jsp").forward(request, response);
-            } 
+            Coach coach = dao.getCoachById(coachId);
+
+            // Pass coach object to JSP
+            request.setAttribute("coach", coach);
+            request.getRequestDispatcher("editProfileCoach.jsp").forward(request, response);
         } catch (Exception e) {
         }
-        // Fetch coach details from the database
 
-        // If coach is found, forward to the JSP with the coach data
-    }
+        }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -95,7 +85,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     /**
