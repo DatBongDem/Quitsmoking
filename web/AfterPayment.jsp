@@ -124,7 +124,7 @@
                     <i class="fas fa-home"></i>
                     Quay lại trang chủ
                 </a>
-                <a href="profile.jsp" class="btn btn-secondary">
+                <a href="DetailMemberProfile" class="btn btn-secondary">
                     <i class="fas fa-user"></i>
                     Xem hồ sơ
                 </a>
