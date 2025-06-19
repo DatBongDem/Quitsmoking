@@ -68,7 +68,7 @@ public class DetailMemberProfile extends HttpServlet {
 
         try {
 
-            String idMember = userDAO.getIDMemberByUsername(username);
+            String idMember = (String) session.getAttribute("id");
 
             // Truy vấn thông tin chi tiết của người dùng
             Member member = userDAO.getUserByUsername(idMember);
