@@ -93,7 +93,7 @@
                                     <%
                                         if ("coach".equals(role)) {
                                     %>
-                                    <a href="#">Profile</a>
+                                    <a href="ProfileServlet">Profile</a>
                                     <a href="ManageMemberServlet">Manage</a>
                                     <a href="CoachScheduleServlet">Schedule</a>
                                     

@@ -43,7 +43,7 @@ public class CoachDao {
                 coach.setPhone(rs.getString(4));                // phone
                 coach.setEmail(rs.getString(5));                // email
                 coach.setAddress(rs.getString(6));              // address
-                coach.setDateOfBirth(rs.getDate(7).toLocalDate());  // dateOfBirth (java.sql.Date -> LocalDate)
+                coach.setDateOfBirth(rs.getDate(7));  // dateOfBirth (java.sql.Date -> LocalDate)
                 coach.setSpecialization(rs.getString(8));       // specialization
                 coach.setExperienceYears(rs.getInt(9));          // experienceYears
 
@@ -104,8 +104,45 @@ public class CoachDao {
 
         return coachName;
     }
-    public static void main(String[] args) throws ClassNotFoundException {
-          CoachDao coachDAO = new CoachDao();
-          System.out.println(coachDAO.getCoachNameFromMember("MEMHUNG01"));
+      public Coach getCoachById(String idCoach) throws ClassNotFoundException {
+        Coach coach = null;
+        String query = "SELECT * FROM dbo.Coach WHERE IDCoach = ?";
+        
+        try {
+            
+            PreparedStatement st = getConnection().prepareStatement(query);
+            // Set the IDCoach parameter in the query
+            st.setString(1, idCoach);
+            ResultSet resultSet = st.executeQuery();
+        
+                while (resultSet.next()) {
+                    coach = new Coach();
+                    coach.setIDCoach(resultSet.getString("IDCoach"));
+                    coach.setPassword(resultSet.getString("password"));
+                    coach.setCoachName(resultSet.getString("coachName"));
+                    coach.setGender(resultSet.getString("gender"));
+                    coach.setPhone(resultSet.getString("phone"));
+                    coach.setEmail(resultSet.getString("email"));
+                    coach.setAddress(resultSet.getString("address"));
+                    coach.setImage(resultSet.getString("image"));
+                    coach.setDateOfBirth(resultSet.getDate("dateOfBirth"));
+                    coach.setSpecialization(resultSet.getString("specialization"));
+                    coach.setExperienceYears(resultSet.getInt("experienceYears"));
+                }
+            }
+         catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return coach;
+    }
+         
+     
+
+   public static void main(String[] args) throws ClassNotFoundException {
+        CoachDao coachDAO = new CoachDao();
+        Coach coaches = coachDAO.getCoachById("C000001");
+        
+       System.out.println(coaches);
     }
 }

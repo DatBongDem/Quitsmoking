@@ -5,6 +5,7 @@
  */
 package DTO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 ///vdjvi fibfib igb igi ig gigi /////
 /**
@@ -15,10 +16,12 @@ public class Coach {
      private String IDCoach;
     private String password;
     private String coachName;
+    private String gender;
     private String phone;
     private String email;
     private String address;
-    private LocalDate dateOfBirth;
+    private String image;
+    private Date dateOfBirth;
     private String specialization;
     private int experienceYears;
 
@@ -27,7 +30,7 @@ public class Coach {
     }
 
     // Constructor có tham số
-    public Coach(String IDCoach, String password, String coachName, String phone, String email, String address, LocalDate dateOfBirth, String specialization, int experienceYears) {
+    public Coach(String IDCoach, String password, String coachName, String gender, String phone, String email, String address,String image, Date dateOfBirth, String specialization, int experienceYears) {
         this.IDCoach = IDCoach;
         this.password = password;
         this.coachName = coachName;
@@ -37,6 +40,22 @@ public class Coach {
         this.dateOfBirth = dateOfBirth;
         this.specialization = specialization;
         this.experienceYears = experienceYears;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     // Getter và Setter
@@ -88,13 +107,15 @@ public class Coach {
         this.address = address;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+   
 
     public String getSpecialization() {
         return specialization;
@@ -111,4 +132,10 @@ public class Coach {
     public void setExperienceYears(int experienceYears) {
         this.experienceYears = experienceYears;
     }
+
+    @Override
+    public String toString() {
+        return "Coach{" + "IDCoach=" + IDCoach + ", password=" + password + ", coachName=" + coachName + ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", address=" + address + ", image=" + image + ", dateOfBirth=" + dateOfBirth + ", specialization=" + specialization + ", experienceYears=" + experienceYears + '}';
+    }
+    
 }
