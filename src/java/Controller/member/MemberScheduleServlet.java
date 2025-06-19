@@ -37,7 +37,7 @@ public class MemberScheduleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
+
         }
     }
 
@@ -60,9 +60,13 @@ public class MemberScheduleServlet extends HttpServlet {
         String idMember = (String) session.getAttribute("id");
 
         try {
+            // Lấy tháng/năm từ request nếu có, không thì lấy tháng hiện tại
+            String monthParam = request.getParameter("month");
+            String yearParam = request.getParameter("year");
+
             LocalDate today = LocalDate.now();
-            int month = today.getMonthValue();
-            int year = today.getYear();
+            int month = (monthParam != null) ? Integer.parseInt(monthParam) : today.getMonthValue();
+            int year = (yearParam != null) ? Integer.parseInt(yearParam) : today.getYear();
 
             List<Schedule> scheduleList = ScheduleDAO.getScheduleByMemberAndMonth(idMember, month, year);
 
@@ -75,8 +79,9 @@ public class MemberScheduleServlet extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Không thể tải lịch học: " + e.getMessage());
             request.getRequestDispatcher("memberschedule.jsp").forward(request, response);
+        }
     }
-    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

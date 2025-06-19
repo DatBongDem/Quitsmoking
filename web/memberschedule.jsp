@@ -8,8 +8,12 @@
 <%@ page import="java.util.*, DTO.Schedule" %>
 <%
     List<Schedule> scheduleList = (List<Schedule>) request.getAttribute("scheduleList");
-    int selectedMonth = (request.getAttribute("selectedMonth") != null) ? (int) request.getAttribute("selectedMonth") : java.time.LocalDate.now().getMonthValue();
-    int selectedYear = (request.getAttribute("selectedYear") != null) ? (int) request.getAttribute("selectedYear") : java.time.LocalDate.now().getYear();
+    int selectedMonth = (request.getAttribute("selectedMonth") != null)
+        ? (int) request.getAttribute("selectedMonth")
+        : java.time.LocalDate.now().getMonthValue();
+    int selectedYear = (request.getAttribute("selectedYear") != null)
+        ? (int) request.getAttribute("selectedYear")
+        : java.time.LocalDate.now().getYear();
 %>
 <html>
 <head>
@@ -17,6 +21,18 @@
 </head>
 <body>
     <h2>Lịch học tháng <%= selectedMonth %>/<%= selectedYear %></h2>
+
+    <form action="MemberScheduleServlet" method="get">
+        <label>Chọn tháng:</label>
+        <select name="month">
+            <% for (int i = 1; i <= 12; i++) { %>
+                <option value="<%= i %>" <%= (i == selectedMonth ? "selected" : "") %>>Tháng <%= i %></option>
+            <% } %>
+        </select>
+        <label>Năm:</label>
+        <input type="number" name="year" value="<%= selectedYear %>" min="2020" max="2040" />
+        <input type="submit" value="Xem" />
+    </form>
 
     <hr>
     <% if (scheduleList != null && !scheduleList.isEmpty()) {
