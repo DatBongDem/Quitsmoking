@@ -34,7 +34,8 @@ public class ScheduleSetupServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          String idMember = request.getParameter("idMember");
-         
+         request.setCharacterEncoding("UTF-8");
+response.setCharacterEncoding("UTF-8");
         boolean hasSchedule = ScheduleDAO.hasSchedule(idMember);
 
         request.setAttribute("idMember", idMember);

@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CreateScheduleServlet extends HttpServlet {
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -34,18 +33,17 @@ public class CreateScheduleServlet extends HttpServlet {
         }
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String idMember = request.getParameter("idMember");
         String selectedDays = request.getParameter("days");
         String startTimeStr = request.getParameter("startTime");
@@ -76,7 +74,6 @@ public class CreateScheduleServlet extends HttpServlet {
 
     }
 
- 
     @Override
     public String getServletInfo() {
         return "Short description";
