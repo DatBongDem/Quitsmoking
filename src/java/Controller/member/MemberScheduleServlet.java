@@ -76,7 +76,7 @@ public class MemberScheduleServlet extends HttpServlet {
             request.setAttribute("errorMessage", "Không thể tải lịch học: " + e.getMessage());
             request.getRequestDispatcher("memberschedule.jsp").forward(request, response);
     }
-
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
