@@ -32,8 +32,11 @@
     <title>Tiến trình cai thuốc - Health Center</title>
     <link rel="stylesheet" href="css/progress.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <%@include file="information/bootstrap.jspf" %>
+    <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+    <%@include file="information/header.jspf" %>
     <div class="progress-container">
         <!-- Header Section -->
         <div class="header-section">
