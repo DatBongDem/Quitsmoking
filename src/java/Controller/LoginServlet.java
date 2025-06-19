@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("id", id);
                 session.setAttribute("role", "member");
                 session.setAttribute("username", member.getMemberName());
-
+                session.setAttribute("coachId", member.getIDCoach());
                 // Gửi dữ liệu đến homepage
                 request.setAttribute("member", member);
                 request.getRequestDispatcher("homepage.jsp").forward(request, response);
