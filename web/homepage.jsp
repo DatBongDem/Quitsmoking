@@ -199,11 +199,11 @@
 
     <!-- Support Chat Button -->
     <%
-        String role = (String) session.getAttribute("role");
+        String myrole = (String) session.getAttribute("role");
         String id = (String) session.getAttribute("id");
-        if (role != null && id != null) {
+        if (myrole != null && id != null) {
     %>
-    <% if ("member".equalsIgnoreCase(role)) {
+    <% if ("member".equalsIgnoreCase(myrole)) {
         MemberDao mdao = new MemberDao();
         String coachId = mdao.getCoachIdByMemberId(id);
         if (coachId != null && !coachId.isEmpty()) {
