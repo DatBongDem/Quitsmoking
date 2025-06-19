@@ -33,6 +33,10 @@
         }
     %>
     
+    
+   
+    <% if (userId != null) { %>
+    
     <div class="notification-button-container">
         <button class="notification-btn" onclick="openNotificationSidebar()" title="Xem thông báo">
             <i class="fas fa-bell"></i>
@@ -42,7 +46,8 @@
             <% } %>
         </button>
     </div>
-
+     <% } %>   
+        
     <!-- Notification Sidebar -->
     <div id="notificationSidebar" class="notification-sidebar">
         <div class="sidebar-header">
