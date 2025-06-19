@@ -68,6 +68,10 @@
         <servlet-name>CoachScheduleServlet</servlet-name>
         <servlet-class>Controller.coach.CoachScheduleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MemberScheduleServlet</servlet-name>
+        <servlet-class>Controller.member.MemberScheduleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>CoachScheduleServlet</servlet-name>
         <url-pattern>/CoachScheduleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MemberScheduleServlet</servlet-name>
+        <url-pattern>/MemberScheduleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

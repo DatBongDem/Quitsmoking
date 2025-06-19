@@ -188,4 +188,34 @@ public class ScheduleDAO {
 
         return list;
     }
+
+    public static List<Schedule> getScheduleByMemberAndMonth(String idMember, int month, int year) throws Exception {
+        List<Schedule> list = new ArrayList<>();
+       String sql = "SELECT * FROM Schedule " +
+             "WHERE IDMember = ? AND MONTH(sessionDate) = ? AND YEAR(sessionDate) = ? " +
+             "ORDER BY sessionDate, startTime";
+
+    try (Connection conn = DBUtils.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idMember);
+            stmt.setInt(2, month);
+            stmt.setInt(3, year);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Schedule s = new Schedule();
+                s.setIDSchedule(rs.getString("IDSchedule"));
+                s.setIDCoach(rs.getString("IDCoach"));
+                s.setIDMember(rs.getString("IDMember"));
+                s.setSessionDate(rs.getDate("sessionDate"));
+                s.setStartTime(rs.getTime("startTime"));
+                s.setEndTime(rs.getTime("endTime"));
+                s.setStatus(rs.getString("status"));
+                s.setDetail(rs.getString("detail"));
+                s.setMeetLink(rs.getString("meetLink"));
+                list.add(s);
+            }
+        }
+        return list;
+    }
 }
