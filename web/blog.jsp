@@ -63,14 +63,14 @@
                 <form class="blog-search-form mb-5" action="BlogPostServlet" method="post">
                     <div class="form-row justify-content-center">
                         <div class="col-md-6 col-sm-8 mb-2">
-                            <input type="text" class="form-control" name="keyword" value="<%= request.getAttribute("keyword") != null ? request.getAttribute("keyword") : "" %>"  placeholder="Tìm kiếm bài viết..." />
-                                    
+                            <input type="text" class="form-control" name="keyword" value="<%= request.getAttribute("keyword") != null ? request.getAttribute("keyword") : ""%>"  placeholder="Tìm kiếm bài viết..." />
+
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-success">Tìm kiếm</button>
                         </div>
                     </div>
-               </form>
+                </form>
 
                 <!--            <div class="row">
                                  Blog Post 1 
@@ -92,31 +92,31 @@
                 
                                 <div class="row">
                 <!-- Blog Post 1 -->
-                <%
-                    List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");
-                    List<Member> members = (List<Member>) request.getAttribute("members");
+                <div class="row">
+                    <%
+                        List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");
+                        List<Member> members = (List<Member>) request.getAttribute("members");
 
-                    if (blogPosts != null && !blogPosts.isEmpty()) {
-                        for (BlogPost post : blogPosts) {
-                            String memberId = post.getIdMember();
-                            Member member = null;
-                            if (members != null) {
-                                for (Member m : members) {
-                                    if (m.getIDMember().equals(memberId)) {
-                                        member = m;
-                                        break;
+                        if (blogPosts != null && !blogPosts.isEmpty()) {
+                            for (BlogPost post : blogPosts) {
+                                String memberId = post.getIdMember();
+                                Member member = null;
+                                if (members != null) {
+                                    for (Member m : members) {
+                                        if (m.getIDMember().equals(memberId)) {
+                                            member = m;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                %>
-                <div class="col-md-4 mb-4">
-                    <div class="container">
+                    %>
+                    <div class="col-md-4 mb-4">
                         <div class="card h-100 d-flex flex-column">
                             <img src="images/Blog/<%= post.getImage()%>" class="card-img-top" alt="No smoking">
                             <div class="card-body">
                                 <h5 class="card-title"><%= post.getTitle()%></h5>
-                                <p class="card-text"><%= post.getContent()%></p>
-                                <a href="BlogDetailServlet?id=<%= post.getIdPost() %>" class="btn btn-success">Đọc thêm</a>
+                                
+                                <a href="BlogDetailServlet?id=<%= post.getIdPost()%>" class="btn btn-success">Đọc thêm</a>
                             </div>
                             <div class="card-footer text-muted">
                                 <div><%= post.getPublishDate()%></div>
@@ -124,22 +124,22 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <%
-                    }
-                } else {
-                %>
-                <p>Không có bài viết nào.</p>
-                <%
-                    }
-                %>
-
-            </div>
+                    <%
+                        } // end for
+                    } else {
+                    %>
+                    <div class="col-12">
+                        <p class="text-center">Không có bài viết nào.</p>
+                    </div>
+                    <%
+                        }
+                    %>
+                </div> <!-- end .row -->  
 
 
 
         </section>
-                 
+
         <%@include file="information/footer.jspf" %>
 
 

@@ -51,6 +51,10 @@
                             <li>
                                 <a href="TestServlet">Testing</a>
                             </li>
+                            <li>
+                                <a href="TestServlet">Ranking</a>
+                            </li>
+                            
                         </ul>
                     </div>
 
