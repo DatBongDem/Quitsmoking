@@ -165,47 +165,7 @@ public class MemberDao {
         return list;
     }
 
-    public Member getUserByUsername(String memberID) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT* FROM Member WHERE IDMember = ?";
-        Member member = null;
-        try {
-            PreparedStatement ps = getConnection().prepareStatement(sql);
-            // Kết nối tới cơ sở dữ liệu
-
-            // Truy vấn lấy thông tin người dùng từ cơ sở dữ liệu
-            ps.setString(1, memberID); // Gán IDMember từ tham số
-
-            // Thực hiện truy vấn và lấy kết quả
-            ResultSet rs = ps.executeQuery();
-
-            // Kiểm tra nếu có kết quả
-            if (rs.next()) {
-                // Tạo đối tượng Member thông qua constructor và chuyển đổi java.sql.Date sang java.util.Date
-                member = new Member(
-                        rs.getString("IDMember"), // IDMember là String
-                        rs.getString("password"),
-                        rs.getString("memberName"),
-                        rs.getString("gender"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        rs.getString("address"),
-                        rs.getDate("dateOfBirth"), // Lấy java.sql.Date từ ResultSet
-                        rs.getDate("joinDate"), // Lấy java.sql.Date từ ResultSet
-                        rs.getString("image"),
-                        rs.getInt("point"),
-                        rs.getString("IDCoach"),
-                        rs.getString("subcription"),
-                        rs.getString("status")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        // Trả về đối tượng Member chứa thông tin người dùng
-        return member;
-
-    }
+   
 
     public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO BlogPost (IDPost, IDMember, title, [content], image, publishDate) VALUES (?, ?, ?, ?, ?, ?)";

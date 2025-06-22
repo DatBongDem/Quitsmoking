@@ -64,14 +64,13 @@ public class DetailMemberProfile extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         MemberDao userDAO = new MemberDao();
-        String username = (String) session.getAttribute("username");
-
+      
         try {
 
             String idMember = (String) session.getAttribute("id");
 
             // Truy vấn thông tin chi tiết của người dùng
-            Member member = userDAO.getUserByUsername(idMember);
+            Member member = userDAO.getMemberById(idMember);
 
             if (member != null) {
                 // Nếu tìm thấy người dùng, truyền thông tin vào request
@@ -82,7 +81,7 @@ public class DetailMemberProfile extends HttpServlet {
              
             } else {
                 // Nếu không tìm thấy người dùng, hiển thị thông báo lỗi
-                response.getWriter().println("No user found with the username: " + username);
+                response.getWriter().println("No user found with the username: " + idMember);
             }
 
         } catch (Exception e) {
