@@ -74,12 +74,12 @@ public class QuitPlanRegister extends HttpServlet {
         String goal = request.getParameter("goal");
 
         if ("Silver".equalsIgnoreCase(goal)) {
-            response.sendRedirect("QUITPLAN/GOISILIVRER.jsp");
+            response.sendRedirect("GOISILIVER.jsp");
         } else if ("Gold".equalsIgnoreCase(goal)) {
-            response.sendRedirect("QUITPLAN/GOIGOLD.jsp");
+            response.sendRedirect("GOIGOLD.jsp");
         } else {
            
-            response.sendRedirect("QUITPLAN/GOIDIAMOND.jsp");
+            response.sendRedirect("GOIDIAMOND.jsp");
         }
     }
 
