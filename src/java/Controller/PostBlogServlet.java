@@ -116,7 +116,7 @@ public class PostBlogServlet extends HttpServlet {
 
         MemberDao dao = new MemberDao();
         try {
-            String idMember = dao.getIDMemberByUsername(username);
+            String idMember = (String) session.getAttribute("id");
             dao.insertBlogPost(idPost, idMember, title, content, imagePath, publishDate);
             request.setAttribute("message", "🟢 Bài viết đã đăng thành công!");
             request.getRequestDispatcher("PostNewBlog.jsp").forward(request, response);

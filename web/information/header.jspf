@@ -68,6 +68,13 @@
                                      <%
                                         String role = (String) session.getAttribute("role");
                                         String mycoach = (String) session.getAttribute("coachId");
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                         if ("member".equals(role) ){
                                     %>
                                     <a href="DetailMemberProfile">Profile</a>
