@@ -465,5 +465,34 @@ public class MemberDao {
             return false;  // Trả về false nếu có lỗi
         }
     }
+       public List<BlogPost> getPostsByMemberId(String id) {
+        List<BlogPost> posts = new ArrayList<>();
+        String sql = "SELECT * FROM BlogPost WHERE IDMember = ?";
+
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                BlogPost post = new BlogPost();
+                post.setIdPost(rs.getString("IDPost"));
+                post.setIdMember(rs.getString("IDMember"));
+                post.setTitle(rs.getString("title"));
+                post.setContent(rs.getString("content"));
+                post.setImage(rs.getString("image"));
+                post.setPublishDate(rs.getDate("publishDate"));
+
+                posts.add(post);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return posts;
+    }
+
  
 }
