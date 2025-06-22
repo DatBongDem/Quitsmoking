@@ -7,6 +7,7 @@ package Controller;
 
 import DAO.CoachDao;
 import DAO.MemberDao;
+import DAO.NotificationDao;
 import DAO.SystemDao;
 import DTO.Coach;
 import DTO.Member;
@@ -101,7 +102,9 @@ public class PaymentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         MemberDao mem = new MemberDao();
+        NotificationDao nofiDao=new NotificationDao();
          CoachDao coachDAO = new CoachDao();
+         
         String goal = request.getParameter("goal");
         SystemDao dao = new SystemDao();
         HttpSession session = request.getSession();
@@ -133,7 +136,9 @@ public class PaymentServlet extends HttpServlet {
             dao.insertQuitPlanRegistration(idMember, IDpaymentMethod, quitPlan, "succel");
             mem.updateCoachForMember(idMember);
             mem.updateMemberStatus(idMember, status);
-            String coachName=coachDAO.getCoachNameFromMember(idMember);
+            String coachName=coachDAO.getCoachIdFromMember(idMember);
+              nofiDao.sendNotificationToMember("NT07", idMember);
+              nofiDao.sendNotificationToCoach("NT08", coachName);
             request.setAttribute("coachName", coachName);
             request.getRequestDispatcher("AfterPayment.jsp").forward(request, response);
             

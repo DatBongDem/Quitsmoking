@@ -6,6 +6,8 @@
 package Controller;
 
 import DAO.MemberDao;
+import DAO.NotificationDao;
+import DTO.Notification;
 import Utils.DBUtils;
 import java.io.File;
 import java.io.IOException;
@@ -81,6 +83,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
     MemberDao mem = new MemberDao();
+        NotificationDao dao=new NotificationDao();
         try {
             String id = request.getParameter("memberid");
             String fullName = request.getParameter("fullname");
@@ -117,6 +120,7 @@ public class RegisterServlet extends HttpServlet {
                 
             }
             mem.resigter(id, password, fullName, gender, phone, email, address, dobStr);
+            dao.sendNotificationToMember("NT01", id);
             request.setAttribute("successMessage", "Đăng ký tài khoản thành công! Vui lòng đăng nhập.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } catch (Exception e) {
