@@ -71,7 +71,7 @@ public class DetailMemberProfile extends HttpServlet {
             String idMember = userDAO.getIDMemberByUsername(username);
 
             // Truy vấn thông tin chi tiết của người dùng
-            Member member = userDAO.getUserByUsername(idMember);
+            Member member = userDAO.getMemberById(idMember);
 
             if (member != null) {
                 // Nếu tìm thấy người dùng, truyền thông tin vào request
