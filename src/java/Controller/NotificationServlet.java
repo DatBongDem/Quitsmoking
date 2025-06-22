@@ -31,9 +31,9 @@ public class NotificationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-       protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         String memberId = (String) session.getAttribute("id");
 
@@ -45,13 +45,13 @@ public class NotificationServlet extends HttpServlet {
         try {
             List notifications = NotificationDao.getNotificationsByUserId(memberId);
             int unreadCount = NotificationDao.getUnreadCount(memberId);
-            
+
             request.setAttribute("notifications", notifications);
             request.setAttribute("unreadCount", new Integer(unreadCount));
             request.setAttribute("memberId", memberId);
-            
+
             request.getRequestDispatcher("viewNotifications.jsp").forward(request, response);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Có lỗi xảy ra khi tải thông báo");
@@ -59,49 +59,54 @@ public class NotificationServlet extends HttpServlet {
         }
     }
 
-   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    
-    response.setContentType("application/json");
-    response.setCharacterEncoding("UTF-8");
-    PrintWriter out = response.getWriter();
-    
-    HttpSession session = request.getSession();
-    String memberId = (String) session.getAttribute("id");
-    
-    if (memberId == null) {
-        out.print("{\"success\": false, \"message\": \"User not logged in\"}");
-        return;
-    }
-    
-    String action = request.getParameter("action");
-    System.out.println("Received action: " + action); // Debug log
-    
-    try {
-        if ("deleteNotification".equals(action)) {
-            String notificationId = request.getParameter("notificationId");
-            System.out.println("Deleting notification ID: " + notificationId); // Debug log
-            
-            if (notificationId != null && !notificationId.trim().equals("")) {
-                boolean success = NotificationDao.deleteNotification(notificationId, memberId);
-                System.out.println("Delete result: " + success); // Debug log
-                
-                if (success) {
-                    out.print("{\"success\": true, \"message\": \"Notification deleted\"}");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+
+        HttpSession session = request.getSession();
+        String memberId = (String) session.getAttribute("id");
+
+        if (memberId == null) {
+            out.print("{\"success\": false, \"message\": \"User not logged in\"}");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        System.out.println("Received action: " + action); // Debug log
+
+        try {
+            if ("deleteNotification".equals(action)) {
+                String notificationId = request.getParameter("notificationId");
+                System.out.println("Deleting notification ID: " + notificationId); // Debug log
+
+                if (notificationId != null && !notificationId.trim().equals("")) {
+                    boolean success = NotificationDao.deleteNotification(notificationId, memberId);
+                    System.out.println("Delete result: " + success); // Debug log
+
+                    if (success) {
+                        out.print("{\"success\": true, \"message\": \"Notification deleted\"}");
+                    } else {
+                        out.print("{\"success\": false, \"message\": \"Failed to delete notification\"}");
+                    }
                 } else {
-                    out.print("{\"success\": false, \"message\": \"Failed to delete notification\"}");
+                    out.print("{\"success\": false, \"message\": \"Notification ID is required\"}");
+                }
+            } else if ("markAllAsRead".equals(action)) {
+                boolean success = NotificationDao.markAllAsRead(memberId);
+                if (success) {
+                    out.print("{\"success\": true, \"message\": \"All notifications marked as read\"}");
+                } else {
+                    out.print("{\"success\": false, \"message\": \"Failed to mark notifications as read\"}");
                 }
             } else {
-                out.print("{\"success\": false, \"message\": \"Notification ID is required\"}");
+                out.print("{\"success\": false, \"message\": \"Invalid action: " + action + "\"}");
             }
-        } else if ("markAllAsRead".equals(action)) {
-            // Existing code...
-        } else {
-            out.print("{\"success\": false, \"message\": \"Invalid action: " + action + "\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.print("{\"success\": false, \"message\": \"Server error: " + e.getMessage() + "\"}");
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        out.print("{\"success\": false, \"message\": \"Server error: " + e.getMessage() + "\"}");
     }
-}
 }

@@ -184,15 +184,13 @@ public class NotificationDao {
     public static boolean markAllAsRead(String memberId) {
         String sql = "UPDATE MemberNotification SET isRead = 1 WHERE IDMember = ?";
 
-        try {
-            Connection conn = DBUtils.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, memberId);
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
+            ps.setString(1, memberId);
             int result = ps.executeUpdate();
-            ps.close();
-            conn.close();
             return result > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -482,7 +480,6 @@ public class NotificationDao {
 //            return createAndSendNotificationToMembers("warning", message, memberIds);
 //        }
 //    }
-
     public static boolean sendNotificationToCoach(String idNotification, String coachId) {
         String sql = "INSERT INTO CoachNotification (IDNotification, IDCoach, date, isRead) VALUES (?, ?, GETDATE(), 0)";
 

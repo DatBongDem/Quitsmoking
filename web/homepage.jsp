@@ -107,7 +107,6 @@
         </div>
     </div>
 
-    <!-- Mobile Overlay (chỉ hiện trên mobile) -->
     <div id="notificationOverlay" class="notification-overlay"></div>
 
     <c:if test="${not empty requestScope.error}">
