@@ -57,7 +57,7 @@
         <section class="blog py-5">
             <div class="container">
                 <h2 class="text-center mb-5">Tin tức về thuốc lá</h2>
-
+                
 
                 <!-- Search Form -->
                 <form class="blog-search-form mb-5" action="BlogPostServlet" method="post">

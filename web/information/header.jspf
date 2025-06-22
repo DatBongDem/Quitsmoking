@@ -82,6 +82,7 @@
                                         if ("member".equals(role) ){
                                     %>
                                     <a href="DetailMemberProfile">Profile</a>
+                                    <a href="BadgeServlet">Badge</a>
                                      <%
                                         }
                                     %>
