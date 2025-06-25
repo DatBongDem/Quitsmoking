@@ -22,7 +22,7 @@
 
         %>
 
-      <form action="updateProfileCoach" method="post" enctype="multipart/form-data">
+      <form action="UpdateProfileCoach" method="post" enctype="multipart/form-data">
     <input type="hidden" name="coachId" value="<%= coach.getIDCoach() %>">
     
     <div class="profile-card">
