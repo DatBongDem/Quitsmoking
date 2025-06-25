@@ -10,23 +10,26 @@ import DTO.Coach;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 
 /**
  *
- * @author Nghia
+ * @author Nguyen Tien Dat
+ * 
  */
-@WebServlet(name = "UpdateProfileCoach", urlPatterns = {"/UpdateProfileCoach"})
+@MultipartConfig  
 public class UpdateProfileCoach extends HttpServlet {
 
     /**
@@ -43,7 +46,7 @@ public class UpdateProfileCoach extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-         
+
         }
     }
 
@@ -59,16 +62,37 @@ public class UpdateProfileCoach extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String coachId = request.getParameter("coachId");
-        CoachDao dao = new CoachDao();
         try {
-            Coach coach = dao.getCoachById(coachId);
+        // Lấy coachId từ session
+        HttpSession session = request.getSession(false);
+        String coachId = (session != null) ? (String) session.getAttribute("coachId") : null;
 
-            // Pass coach object to JSP
+        System.out.println("GET - Session coachId: " + coachId);
+
+        if (coachId == null || coachId.trim().isEmpty()) {
+            request.setAttribute("error", "Coach ID is missing from session.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        CoachDao dao = new CoachDao();
+        Coach coach = dao.getCoachById(coachId);
+
+        if (coach == null) {
+            request.setAttribute("error", "Coach not found.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
             request.setAttribute("coach", coach);
             request.getRequestDispatcher("editProfileCoach.jsp").forward(request, response);
-        } catch (Exception e) {
         }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
+    }
+    
+       
+    
 
     }
 
@@ -83,123 +107,84 @@ public class UpdateProfileCoach extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
+         try {
         request.setCharacterEncoding("UTF-8");
-        
-        // Đường dẫn lưu ảnh avatar
-        String AVATAR_UPLOAD_DIR = "images/avata";
-        
-        // Lấy idCoach từ request
-        String coachId = request.getParameter("coachId");
-        
-        // Gọi DAO để lấy đối tượng Coach
-        CoachDao coachDao = new CoachDao();
-        Coach coach = coachDao.getCoachById(coachId);
-        
-        // Lấy thông tin từ form
+        HttpSession session = request.getSession();
+        String coachId = (String) session.getAttribute("coachId");
+
+        System.out.println("POST - Session coachId = " + coachId);
+        if (coachId == null || coachId.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Session expired or coach not found.");
+            return;
+        }
+
+        CoachDao dao = new CoachDao();
+        Coach coach = dao.getCoachById(coachId);
+        if (coach == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Coach not found.");
+            return;
+        }
+
+        // Lấy dữ liệu từ form
         String password = request.getParameter("password");
-        String coachName = request.getParameter("coachName");
+        String name = request.getParameter("coachName");
         String gender = request.getParameter("gender");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String specialization = request.getParameter("specialization");
-        
-        // Xử lý dateOfBirth
         String dateOfBirthStr = request.getParameter("dateOfBirth");
+        String expStr = request.getParameter("experienceYears");
+
         java.sql.Date dateOfBirth = null;
-        
         if (dateOfBirthStr != null && !dateOfBirthStr.isEmpty()) {
-            try {
-                // Chuyển từ chuỗi sang java.util.Date
-                java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirthStr);
-                // Chuyển sang java.sql.Date
-                dateOfBirth = new java.sql.Date(utilDate.getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            dateOfBirth = java.sql.Date.valueOf(dateOfBirthStr);
         }
-        
-        // Xử lý experienceYears
-        String experienceYearsStr = request.getParameter("experienceYears");
-        int experienceYears = 0; // Mặc định là 0 nếu không có giá trị
-        
-        if (experienceYearsStr != null && !experienceYearsStr.isEmpty()) {
-            try {
-                experienceYears = Integer.parseInt(experienceYearsStr);  // Chuyển sang kiểu int
-            } catch (NumberFormatException e) {
-                e.printStackTrace();  // Log lỗi nếu không thể chuyển đổi
-            }
+
+        int experienceYears = 0;
+        if (expStr != null && !expStr.isEmpty()) {
+            experienceYears = Integer.parseInt(expStr);
         }
-        
-        // Lấy file avatar từ request
+
+        // Avatar (nếu có)
         Part filePart = request.getPart("avatarFile");
-        String avatarPath = null; // Đường dẫn avatar mới
-        
+        String avatarPath = null;
         if (filePart != null && filePart.getSize() > 0) {
-            // Lấy tên file
-            String fullFileName = filePart.getSubmittedFileName();
-            String fileName = fullFileName.substring(fullFileName.lastIndexOf("\\") + 1);
-            
-            // Đường dẫn lưu file trên server
-            String appPath = request.getServletContext().getRealPath("");
-            String uploadDir = appPath + File.separator + AVATAR_UPLOAD_DIR;
-            
-            // Tạo thư mục nếu chưa tồn tại
-            File uploadDirFile = new File(uploadDir);
-            if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdirs();
-            }
-            
-            // Đường dẫn file lưu
-            String filePath = uploadDir + File.separator + fileName;
-            
-            // Lưu file vào server
-            filePart.write(filePath);
-            
-            // Đường dẫn avatar sẽ lưu vào database
-            avatarPath = AVATAR_UPLOAD_DIR + "/" + fileName;
+            String fileName = new File(filePart.getSubmittedFileName()).getName();
+            String realPath = request.getServletContext().getRealPath("/images/avata");
+            File dir = new File(realPath);
+            if (!dir.exists()) dir.mkdirs();
+            String savePath = realPath + File.separator + fileName;
+            filePart.write(savePath);
+            avatarPath = "images/avata/" + fileName;
         }
-        
-        // Cập nhật thông tin cho coach
+
+        // Cập nhật dữ liệu
         coach.setPassword(password);
-        coach.setCoachName(coachName);
+        coach.setCoachName(name);
         coach.setGender(gender);
         coach.setPhone(phone);
         coach.setEmail(email);
         coach.setAddress(address);
         coach.setSpecialization(specialization);
-        coach.setExperienceYears(experienceYears);
         coach.setDateOfBirth(dateOfBirth);
-        
-        // Nếu có ảnh avatar mới thì set lại avatar cho coach
-        if (avatarPath != null) {
-            coach.setImage(avatarPath);
-        }
-        
-        // Cập nhật thông tin trong database thông qua DAO
-        boolean success = false;
-        try {
-            success = coachDao.updateCoachProfile(coach);  // Gọi phương thức updateCoach trong DAO
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateStatusServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        // Kiểm tra kết quả cập nhật và chuyển hướng
-        if (success) {
-            // Cập nhật thành công, chuyển về trang profile với thông tin mới
+        coach.setExperienceYears(experienceYears);
+        if (avatarPath != null) coach.setImage(avatarPath);
+
+        boolean updated = dao.updateCoachProfile(coach);
+        if (updated) {
             request.setAttribute("coach", coach);
             request.getRequestDispatcher("ProfileCoach.jsp").forward(request, response);
         } else {
-            // Xử lý lỗi cập nhật
-            request.setAttribute("error", "Update failed");
+            request.setAttribute("error", "Update failed.");
             request.getRequestDispatcher("editProfileCoach.jsp").forward(request, response);
         }
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(UpdateProfileCoach.class.getName()).log(Level.SEVERE, null, ex);
-    } 
-}
 
+    } catch (Exception e) {
+        e.printStackTrace();
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error: " + e.getMessage());
+    }
+    }
     
 
     /**

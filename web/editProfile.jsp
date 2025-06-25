@@ -83,7 +83,7 @@
                     formattedDate = sdf.format(member.getDateOfBirth());
                 }
             %>
-            <input type="date" name="dateOfBirth" value="<%= formattedDate%>" />
+            <input type="date" name="dateOfBirth" value="<%= member.getDateOfBirth()%>" />
 
             <label>Subscription</label>
             <input type="text" name="subcription" value="<%= member.getSubscription()%>" />

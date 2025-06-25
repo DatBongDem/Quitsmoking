@@ -88,7 +88,7 @@
 
                 <!-- Edit Profile Button -->
                 <div style="text-align: center; margin-top: 20px;">
-                    <a href="UpdateProfileCoach?coachId=<%= coach.getIDCoach()%>" class="btn btn-success">Edit Profile</a>
+                    <a href="UpdateProfileCoach" class="btn btn-success">Edit Profile</a>
                 </div>
             </div>
         </div>
