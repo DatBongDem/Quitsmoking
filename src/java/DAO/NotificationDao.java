@@ -8,8 +8,10 @@ package DAO;
 import DTO.Notification;
 import Utils.DBUtils;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -497,5 +499,38 @@ public class NotificationDao {
         }
     }
     
+     public static List<Notification> getNotificationsByCoachId(String coachId) throws ClassNotFoundException {
+        List<Notification> notifications = new ArrayList<>();
+        String sql = "SELECT n.IDNotification, n.type, n.message, c.date, c.isRead " +
+                     "FROM CoachNotification c " +
+                     "JOIN Notification n ON c.IDNotification = n.IDNotification " +
+                     "WHERE c.IDCoach = ?";
+        
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, coachId); // Set the coachId parameter
 
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                String idNotification = rs.getString("IDNotification");
+                String type = rs.getString("type");
+                String message = rs.getString("message");
+                Date date = rs.getDate("date");
+                boolean isRead = rs.getBoolean("isRead");
+
+                // Create a new Notification object and add it to the list
+                Notification notification = new Notification(idNotification, type, message, date, isRead);
+                notifications.add(notification);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return notifications;
+    }
+    
+       
+        
+    
 }

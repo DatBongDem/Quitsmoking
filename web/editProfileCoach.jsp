@@ -22,36 +22,102 @@
 
         %>
 
-        <form action="updateProfileServlet" method="post">
+      <form action="updateProfileCoach" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="coachId" value="<%= coach.getIDCoach() %>">
+    
+    <div class="profile-card">
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+            <img class="profile-image" src="<%= coach.getImage() %>" alt="Coach Image">
+        </div>
 
-            <label for="phone">Name:</label>
-            <input type="text" id="phone" name="phone" value="<%= coach.getCoachName()%>" />
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" value="<%= coach.getPhone()%>" />
-            <label for="phone">Password: </label>
-            <input type="text" id="phone" name="phone" value="<%= coach.getPassword()%>" />
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<%= coach.getEmail()%>" />
-            <label for="email">Gender: </label>
-            <input type="email" id="email" name="email" value="<%= coach.getGender()%>" />
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" value="<%= coach.getAddress()%>" />
-            <label for="address">BirthDay: </label>
-            <input type="date" id="address" name="dateofbirth " value="<%= coach.getDateOfBirth()%>" />
-            <label for="address">BirthDay: </label>
-            <label>Change Avatar</label>
-            <div style="display: flex; justify-content: start;">
-                <label>Current Avatar</label>
-                <img class="avatar-preview" src="<%= (coach.getImage() != null) ? coach.getImage() : "images/avata/nullavata.png"%>" alt="Profile Image"/>
+        <!-- Profile Body -->
+        <div class="profile-body">
+            <h4 class="card-title text-center">Personal Information</h4>
+
+            <div class="detail-row">
+                <div class="detail-label">Coach ID:</div>
+                <div class="detail-value">
+                    <input type="text" name="coachId" value="<%= coach.getIDCoach() %>" readonly>
+                </div>
             </div>
 
-            <input type="file" name="avatarFile" accept="image/*"/>
-            <input type="text" id="specialization" name="specialization" value="<%= coach.getSpecialization()%>" />
+            <div class="detail-row">
+                <div class="detail-label">Password:</div>
+                <div class="detail-value">
+                    <input type="password" name="password" value="<%= coach.getPassword() %>">
+                </div>
+            </div>
 
-            <label for="experienceYears">Experience Years:</label>
-            <input type="number" id="experienceYears" name="experienceYears" value="<%= coach.getExperienceYears()%>" />
+            <div class="detail-row">
+                <div class="detail-label">Name:</div>
+                <div class="detail-value">
+                    <input type="text" name="coachName" value="<%= coach.getCoachName() %>">
+                </div>
+            </div>
 
-            <input type="submit" value="Save Changes" />
-        </form>
+            <div class="detail-row">
+                <div class="detail-label">Gender:</div>
+                <div class="detail-value">
+                    <input type="text" name="gender" value="<%= coach.getGender() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Phone:</div>
+                <div class="detail-value">
+                    <input type="text" name="phone" value="<%= coach.getPhone() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Email:</div>
+                <div class="detail-value">
+                    <input type="text" name="email" value="<%= coach.getEmail() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Address:</div>
+                <div class="detail-value">
+                    <input type="text" name="address" value="<%= coach.getAddress() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Date of Birth:</div>
+                <div class="detail-value">
+                    <input type="date" name="dateOfBirth" value="<%= coach.getDateOfBirth() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Specialization:</div>
+                <div class="detail-value">
+                    <input type="text" name="specialization" value="<%= coach.getSpecialization() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Experience Years:</div>
+                <div class="detail-value">
+                    <input type="number" name="experienceYears" value="<%= coach.getExperienceYears() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Avatar:</div>
+                <div class="detail-value">
+                    <input type="file" name="avatarFile">
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Changes Button -->
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+    </div>
+</form>
     </body>
 </html>

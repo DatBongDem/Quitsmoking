@@ -132,7 +132,7 @@ public class PaymentServlet extends HttpServlet {
         }
 
         try {
-            dao.insertQuitPlanRegistration(idMember, IDpaymentMethod, quitPlan, "succel");
+            dao.insertQuitPlanRegistration(idMember, IDpaymentMethod, quitPlan, "success");
             mem.updateCoachForMember(idMember);
             mem.updateMemberStatus(idMember, status);
             String coachId = coachDAO.getCoachIdFromMember(idMember);
