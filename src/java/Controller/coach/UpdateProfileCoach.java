@@ -26,8 +26,8 @@ import javax.servlet.http.Part;
  *
  * @author Nghia
  */
-@WebServlet(name = "updateProfileCoach", urlPatterns = {"/updateProfileCoach"})
-public class updateProfileCoach extends HttpServlet {
+@WebServlet(name = "UpdateProfileCoach", urlPatterns = {"/UpdateProfileCoach"})
+public class UpdateProfileCoach extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,15 +43,7 @@ public class updateProfileCoach extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet updateProfileCoach</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet updateProfileCoach at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+         
         }
     }
 
@@ -197,14 +189,14 @@ public class updateProfileCoach extends HttpServlet {
         if (success) {
             // Cập nhật thành công, chuyển về trang profile với thông tin mới
             request.setAttribute("coach", coach);
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            request.getRequestDispatcher("ProfileCoach.jsp").forward(request, response);
         } else {
             // Xử lý lỗi cập nhật
             request.setAttribute("error", "Update failed");
-            request.getRequestDispatcher("editProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("editProfileCoach.jsp").forward(request, response);
         }
     } catch (ClassNotFoundException ex) {
-        Logger.getLogger(updateProfileCoach.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(UpdateProfileCoach.class.getName()).log(Level.SEVERE, null, ex);
     } 
 }
 
