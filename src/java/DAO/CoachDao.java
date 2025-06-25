@@ -136,7 +136,30 @@ public class CoachDao {
 
         return coach;
     }
+ public boolean updateCoachProfile(Coach coach) throws ClassNotFoundException {
+        String sql = "UPDATE Coach SET password = ?, coachName = ?, gender = ?, phone = ?, email = ?, address = ?, dateOfBirth = ?, specialization = ?, experienceYears = ? WHERE IDCoach = ?";
 
+        try  {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+
+            ps.setString(1, coach.getPassword());
+            ps.setString(2, coach.getCoachName());
+            ps.setString(3, coach.getGender());
+            ps.setString(4, coach.getPhone());
+            ps.setString(5, coach.getEmail());
+            ps.setString(6, coach.getAddress());
+            ps.setDate(7, coach.getDateOfBirth());
+            ps.setString(8, coach.getSpecialization());
+            ps.setInt(9, coach.getExperienceYears());
+            ps.setString(10, coach.getIDCoach());
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0; // Trả về true nếu cập nhật thành công
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public static void main(String[] args) throws ClassNotFoundException {
         CoachDao coachDAO = new CoachDao();
         Coach coaches = coachDAO.getCoachById("C000001");
