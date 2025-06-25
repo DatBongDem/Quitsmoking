@@ -23,7 +23,7 @@ import java.sql.Date;
  *
  * @author Nguyen Tien Dat
  */
-/////abcxyz12345
+/////
 public class MemberDao {
 
     private Connection conn;
