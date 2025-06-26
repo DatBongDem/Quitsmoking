@@ -27,10 +27,16 @@
         List notifications = null;
         int unreadCount = 0;
         
-        if (userId != null) {
+        if (userId != null && userRole.equalsIgnoreCase("member")) {
             notifications = NotificationDao.getRecentNotifications(userId, 10);
             unreadCount = NotificationDao.getUnreadCount(userId);
+        }else if(userId != null && userRole.equalsIgnoreCase("coach")){
+            notifications=NotificationDao.getNotificationsByCoachId(userId);
+                unreadCount = NotificationDao.getUnreadCount(userId);
         }
+        
+            
+        
     %>
     
     

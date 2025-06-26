@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.MemberDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,7 +33,6 @@ public class QuitPlanRegister extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
     }
 
@@ -62,15 +62,22 @@ public class QuitPlanRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        MemberDao mem = new MemberDao();
         String memberId = (String) session.getAttribute("id"); // IDMember
-
-        if (memberId == null) {
+        String roleID = (String) session.getAttribute("role"); // IDMember
+        if (memberId == null || roleID.equalsIgnoreCase("coach")) {
             // Chưa đăng nhập → chuyển về login
-            response.sendRedirect("login.jsp");
+            request.getRequestDispatcher("homepage.jsp").forward(request, response);
+
             return;
         }
-
+        String status = mem.getMemberById(memberId).getStatus();
+        if (status != null) {
+            request.setAttribute("error", "Bạn đã trong khóa, không thể đăng ký khóa mới");
+            request.getRequestDispatcher("homepage.jsp").forward(request, response);
+            return;  // Dừng lại ở đây, không tiếp tục xử lý các logic bên dưới
+        }
         String goal = request.getParameter("goal");
 
         if ("Silver".equalsIgnoreCase(goal)) {
@@ -78,7 +85,7 @@ public class QuitPlanRegister extends HttpServlet {
         } else if ("Gold".equalsIgnoreCase(goal)) {
             response.sendRedirect("GOIGOLD.jsp");
         } else {
-           
+
             response.sendRedirect("GOIDIAMOND.jsp");
         }
     }

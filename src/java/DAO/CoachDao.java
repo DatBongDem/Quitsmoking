@@ -24,35 +24,50 @@ import java.util.List;
 public class CoachDao {
 
     public Coach checkLogin(String username, String pass) throws ClassNotFoundException {
-        String sql = "SELECT * FROM Coach WHERE IDCoach = ? AND password = ?";
-        Connection con = null;
-        Coach coach = null;
+    String sql = "SELECT * FROM Coach WHERE IDCoach = ? AND password = ?";
+    Connection con = null;
+    Coach coach = null;
 
-        try {
+    try {
+        // Mở kết nối đến database
+        con = getConnection();
 
-            PreparedStatement st = getConnection().prepareStatement(sql);
-            st.setString(1, username);
-            st.setString(2, pass);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1, username);
+        st.setString(2, pass);
 
-                coach = new Coach();
-                coach.setIDCoach(rs.getString(1));             // IDCoach
-                coach.setPassword(rs.getString(2));            // password
-                coach.setCoachName(rs.getString(3));           // coachName
-                coach.setPhone(rs.getString(4));                // phone
-                coach.setEmail(rs.getString(5));                // email
-                coach.setAddress(rs.getString(6));              // address
-                coach.setDateOfBirth(rs.getDate(7));  // dateOfBirth (java.sql.Date -> LocalDate)
-                coach.setSpecialization(rs.getString(8));       // specialization
-                coach.setExperienceYears(rs.getInt(9));          // experienceYears
+        ResultSet rs = st.executeQuery();
 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (rs.next()) {
+            coach = new Coach();
+
+            coach.setIDCoach(rs.getString("IDCoach"));
+            coach.setPassword(rs.getString("password"));
+            coach.setCoachName(rs.getString("coachName"));
+            coach.setGender(rs.getString("gender")); // mới thêm
+            coach.setPhone(rs.getString("phone"));
+            coach.setEmail(rs.getString("email"));
+            coach.setAddress(rs.getString("address"));
+            coach.setImage(rs.getString("image")); // mới thêm
+            coach.setDateOfBirth(rs.getDate("dateOfBirth"));
+            coach.setSpecialization(rs.getString("specialization"));
+            coach.setExperienceYears(rs.getInt("experienceYears"));
         }
-        return coach;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        // Đóng kết nối
+        try {
+            if (con != null) con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
+
+    return coach;
+}
+
 
     public List<Member> getMembersForCoach(String coachId) throws SQLException, ClassNotFoundException {
         List<Member> members = new ArrayList<>();
@@ -106,41 +121,81 @@ public class CoachDao {
     }
 
     public Coach getCoachById(String idCoach) throws ClassNotFoundException {
-        Coach coach = null;
-        String query = "SELECT * FROM dbo.Coach WHERE IDCoach = ?";
+    Coach coach = null;
+    String query = "SELECT * FROM Coach WHERE IDCoach = ?";
 
-        try {
+    try {
+        
+        PreparedStatement st = getConnection().prepareStatement(query);
+        st.setString(1, idCoach);
+        ResultSet rs = st.executeQuery();
 
-            PreparedStatement st = getConnection().prepareStatement(query);
-            // Set the IDCoach parameter in the query
-            st.setString(1, idCoach);
-            ResultSet resultSet = st.executeQuery();
-
-            while (resultSet.next()) {
-                coach = new Coach();
-                coach.setIDCoach(resultSet.getString("IDCoach"));
-                coach.setPassword(resultSet.getString("password"));
-                coach.setCoachName(resultSet.getString("coachName"));
-                coach.setGender(resultSet.getString("gender"));
-                coach.setPhone(resultSet.getString("phone"));
-                coach.setEmail(resultSet.getString("email"));
-                coach.setAddress(resultSet.getString("address"));
-                coach.setImage(resultSet.getString("image"));
-                coach.setDateOfBirth(resultSet.getDate("dateOfBirth"));
-                coach.setSpecialization(resultSet.getString("specialization"));
-                coach.setExperienceYears(resultSet.getInt("experienceYears"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (rs.next()) {
+            coach = new Coach();
+            coach.setIDCoach(rs.getString("IDCoach"));
+            coach.setPassword(rs.getString("password"));
+            coach.setCoachName(rs.getString("coachName"));
+            coach.setGender(rs.getString("gender"));
+            coach.setPhone(rs.getString("phone"));
+            coach.setEmail(rs.getString("email"));
+            coach.setAddress(rs.getString("address"));
+            coach.setImage(rs.getString("image"));
+            coach.setDateOfBirth(rs.getDate("dateOfBirth"));
+            coach.setSpecialization(rs.getString("specialization"));
+            coach.setExperienceYears(rs.getInt("experienceYears"));
         }
 
-        return coach;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
 
-    public static void main(String[] args) throws ClassNotFoundException {
-        CoachDao coachDAO = new CoachDao();
-        Coach coaches = coachDAO.getCoachById("C000001");
+    return coach;
+}
 
-        System.out.println(coaches);
+
+    public boolean updateCoachProfile(Coach coach) throws ClassNotFoundException {
+    String sql = "UPDATE Coach SET password = ?, coachName = ?, gender = ?, phone = ?, email = ?, address = ?, dateOfBirth = ?, specialization = ?, experienceYears = ?, image = ? WHERE IDCoach = ?";
+
+    try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+        ps.setString(1, coach.getPassword());
+        ps.setString(2, coach.getCoachName());
+        ps.setString(3, coach.getGender());
+        ps.setString(4, coach.getPhone());
+        ps.setString(5, coach.getEmail());
+        ps.setString(6, coach.getAddress());
+
+        // ✅ Xử lý ngày sinh có thể null
+        if (coach.getDateOfBirth() != null) {
+            ps.setDate(7, coach.getDateOfBirth());
+        } else {
+            ps.setNull(7, java.sql.Types.DATE);
+        }
+
+        ps.setString(8, coach.getSpecialization());
+
+        // ✅ Tránh lỗi NumberFormatException nếu giá trị null
+        ps.setInt(9, coach.getExperienceYears());
+
+        // ✅ Xử lý ảnh đại diện, nếu không có thì dùng giá trị hiện tại
+        if (coach.getImage() != null && !coach.getImage().trim().isEmpty()) {
+            ps.setString(10, coach.getImage());
+        } else {
+            ps.setNull(10, java.sql.Types.VARCHAR);
+        }
+
+        ps.setString(11, coach.getIDCoach());
+
+        int rowsUpdated = ps.executeUpdate();
+        return rowsUpdated > 0;
+
+    } catch (SQLException e) {
+        System.err.println("Error updating coach profile: " + e.getMessage());
+        e.printStackTrace();
+        return false;
     }
+}
+
+
+
 }
