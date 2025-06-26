@@ -1,76 +1,111 @@
-
-/* Basic settings for the entire page */
+/* Basic settings */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #e9fbe5; /* Light green background */
-    color: #2e4d1a; /* Dark green text color */
+    background-color: #e9fbe5;
+    color: #2e4d1a;
 }
 
+/*Title*/
 .main-page-title {
     text-align: center;
-    font-size: 3em; /* Larger font size */
-    color: #388E3C; /* A prominent dark green */
-    margin-top: 30px; /* Space from the top of the page */
-    margin-bottom: 50px; /* Space before the first ranking section */
+    font-size: 45px; 
+    color: #388E3C; 
+    margin-top: 30px; 
+    margin-bottom: 50px; 
 }
 
-/* Main title for each ranking table */
+/* Container for horizontal layout */
+.ranking-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Responsive on small screens */
+}
+
+/* Box for each ranking */
+.ranking-box {
+    flex: 1;
+    min-width: 320px;
+    max-width: 600px;
+}
+
+/* Title styling */
 h2 {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 10px;
     font-size: 24px;
-    margin-bottom: 20px; /* Added space below titles */
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Space between icon and text */
+    gap: 10px;
 }
 
-/* Specific colors for each rank */
 h2.silver {
-    color: #7f8c8d; /* Grey for Silver */
+    color: #7f8c8d;
 }
 
 h2.gold {
-    color: #f1c40f; /* Gold for Gold */
+    color: #f1c40f;
 }
 
 h2.diamond {
-    color: #5dade2; /* Blue for Diamond */
+    color: #5dade2;
 }
 
-/* Ranking table styling */
+/* Table styling */
 table {
-    width: 80%;
-    margin: 20px auto;
+    width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff; /* White table background */
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(46, 125, 50, 0.2); /* Green shadow */
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.2);
     overflow: hidden;
-    table-layout: fixed; /* Ensures consistent column widths */
+    table-layout: fixed;
+    margin-bottom: 20px;
 }
 
-/* Column headers and data cells */
 th, td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
     color: #2e4d1a;
-    text-align: center; /* Center align all content */
-    vertical-align: middle; /* Vertically center content */
+    text-align: center;
+    vertical-align: middle;
 }
 
-/* Header specific styling */
 th {
-    background-color: #4CAF50; /* Dark green for headers */
+    background-color: #4CAF50;
     color: white;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-
-/* Hover effect for rows */
 tr:hover {
-    background-color: #d0f0c0; /* Light green on hover */
+    background-color: #d0f0c0;
+}
+
+/* Căn chỉnh cột trong bảng */
+.ranking-box table th:nth-child(1),
+.ranking-box table td:nth-child(1) {
+    width: 10%;
+}
+
+.ranking-box table th:nth-child(2),
+.ranking-box table td:nth-child(2) {
+    width: 25%;
+    word-break: break-word;
+}
+
+.ranking-box table th:nth-child(3),
+.ranking-box table td:nth-child(3) {
+    width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ranking-box table th:nth-child(4),
+.ranking-box table td:nth-child(4) {
+    width: 25%;
 }
