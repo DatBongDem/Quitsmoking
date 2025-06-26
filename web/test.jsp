@@ -3,30 +3,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Quiz Test</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Quiz Test</title>
 
-    <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
-    <link href="css/styletest.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <%@include file="information/bootstrap.jspf" %>
-</head>
-<body>
-    <!-- Header -->
-    <div>
-        <%@include file="information/header.jspf" %>
-    </div>
+        <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styletest.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <%@include file="information/bootstrap.jspf" %>
+    </head>
+    <body>
+        <!-- Header -->
+        <div>
+            <%@include file="information/header.jspf" %>
+        </div>
 
-    
-    <h2>Quiz Test</h2>
 
-    <%
-        Boolean hasSubmitted = (Boolean) request.getAttribute("hasSubmitted");
-    %>
+        <h2>Quiz Test</h2>
 
-    <div class="container">
-        <% if (hasSubmitted != null && hasSubmitted) { %>
+        <%        Boolean hasSubmitted = (Boolean) request.getAttribute("hasSubmitted");
+        %>
+
+        <div class="container">
+            <% if (hasSubmitted != null && hasSubmitted) {%>
             <!-- ✅ Hiển thị kết quả -->
             <div class="results-container">
                 <div class="results-icon">
@@ -41,7 +40,7 @@
 
                 <div class="score-display">
                     <span class="score-label">Mức độ của bạn là:</span>
-                    <span class="score-value"><%= request.getAttribute("score") %></span>
+                    <span class="score-value"><%= request.getAttribute("score")%></span>
                 </div>
 
                 <p class="completion-message">
@@ -62,62 +61,64 @@
                     </a>
                 </div>
             </div>
-        <% } else { %>
+            <% } else { %>
             <!-- ✅ Hiển thị bài kiểm tra nếu chưa nộp -->
             <%
                 List<Quiz> quizList = (List<Quiz>) request.getAttribute("quizList");
 
                 if (quizList == null || quizList.isEmpty()) {
             %>
-                <p style="text-align:center;">Không có câu hỏi nào để hiển thị.</p>
+            <p style="text-align:center;">Không có câu hỏi nào để hiển thị.</p>
             <%
-                } else {
+            } else {
             %>
-                <form action="TestServlet" method="post">
-                    <%
-                        int qNo = 1;
-                        for (Quiz q : quizList) {
-                    %>
-                    <div class="question-block">
-                        <p><strong>Câu hỏi <%= qNo++ %>:</strong> <%= q.getQuestion() %></p>
-                        <input type="hidden" name="quizID" value="<%= q.getIDQuiz() %>" />
+            <form action="TestServlet" method="post">
+                <%
+                    int qNo = 1;
+                    for (Quiz q : quizList) {
+                %>
+                <div class="question-block">
+                    <p><strong>Câu hỏi <%= qNo++%>:</strong> <%= q.getQuestion()%></p>
+                    <input type="hidden" name="quizID" value="<%= q.getIDQuiz()%>" />
 
-                        <% if (q.getAnswerA() != null) { %>
-                            <div class="answer-option">
-                                <label><input type="radio" name="answer_<%= q.getIDQuiz() %>" value="<%= q.getAnswerA() %>" required /> A. <%= q.getAnswerA() %></label>
-                            </div>
-                        <% } %>
-
-                        <% if (q.getAnswerB() != null) { %>
-                            <div class="answer-option">
-                                <label><input type="radio" name="answer_<%= q.getIDQuiz() %>" value="<%= q.getAnswerB() %>" /> B. <%= q.getAnswerB() %></label>
-                            </div>
-                        <% } %>
-
-                        <% if (q.getAnswerC() != null) { %>
-                            <div class="answer-option">
-                                <label><input type="radio" name="answer_<%= q.getIDQuiz() %>" value="<%= q.getAnswerC() %>" /> C. <%= q.getAnswerC() %></label>
-                            </div>
-                        <% } %>
-
-                        <% if (q.getAnswerD() != null) { %>
-                            <div class="answer-option">
-                                <label><input type="radio" name="answer_<%= q.getIDQuiz() %>" value="<%= q.getAnswerD() %>" /> D. <%= q.getAnswerD() %></label>
-                            </div>
-                        <% } %>
+                    <% if (q.getAnswerA() != null) {%>
+                    <div class="answer-option">
+                        <label><input type="radio" name="answer_<%= q.getIDQuiz()%>" value="<%= q.getAnswerA()%>" required /> A. <%= q.getAnswerA()%></label>
                     </div>
-                    <hr/>
                     <% } %>
 
+                    <% if (q.getAnswerB() != null) {%>
+                    <div class="answer-option">
+                        <label><input type="radio" name="answer_<%= q.getIDQuiz()%>" value="<%= q.getAnswerB()%>" /> B. <%= q.getAnswerB()%></label>
+                    </div>
+                    <% } %>
+
+                    <% if (q.getAnswerC() != null) {%>
+                    <div class="answer-option">
+                        <label><input type="radio" name="answer_<%= q.getIDQuiz()%>" value="<%= q.getAnswerC()%>" /> C. <%= q.getAnswerC()%></label>
+                    </div>
+                    <% } %>
+
+                    <% if (q.getAnswerD() != null) {%>
+                    <div class="answer-option">
+                        <label><input type="radio" name="answer_<%= q.getIDQuiz()%>" value="<%= q.getAnswerD()%>" /> D. <%= q.getAnswerD()%></label>
+                    </div>
+                    <% } %>
+                </div>
+                <hr/>
+                <% } %>
+
+                <div style="text-align: center;">
                     <button type="submit" class="btn-submit">Nộp bài</button>
-                </form>
+                </div>
+            </form>
             <%
                 } // đóng if quizList
             %>
-        <% } // đóng else của hasSubmitted %>
-    </div>
+            <% } // đóng else của hasSubmitted %>
+        </div>
 
-    <!-- Footer -->
-    <%@include file="information/footer.jspf" %>
-</body>
+        <!-- Footer -->
+        <%@include file="information/footer.jspf" %>
+    </body>
 </html>
