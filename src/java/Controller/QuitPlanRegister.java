@@ -68,7 +68,8 @@ public class QuitPlanRegister extends HttpServlet {
         String roleID = (String) session.getAttribute("role"); // IDMember
         if (memberId == null || roleID.equalsIgnoreCase("coach")) {
             // Chưa đăng nhập → chuyển về login
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("homepage.jsp").forward(request, response);
+
             return;
         }
         String status = mem.getMemberById(memberId).getStatus();
