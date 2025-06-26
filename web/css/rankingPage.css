@@ -7,6 +7,14 @@ body {
     color: #2e4d1a; /* Dark green text color */
 }
 
+.main-page-title {
+    text-align: center;
+    font-size: 3em; /* Larger font size */
+    color: #388E3C; /* A prominent dark green */
+    margin-top: 30px; /* Space from the top of the page */
+    margin-bottom: 50px; /* Space before the first ranking section */
+}
+
 /* Main title for each ranking table */
 h2 {
     text-align: center;
