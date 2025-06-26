@@ -18,7 +18,7 @@
         <%@include file="information/header.jspf" %>
     </div>
 
-    <br>
+    
     <h2>Quiz Test</h2>
 
     <%
