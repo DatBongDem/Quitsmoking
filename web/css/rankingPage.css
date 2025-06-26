@@ -1,0 +1,76 @@
+
+/* Basic settings for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #e9fbe5; /* Light green background */
+    color: #2e4d1a; /* Dark green text color */
+}
+
+.main-page-title {
+    text-align: center;
+    font-size: 3em; /* Larger font size */
+    color: #388E3C; /* A prominent dark green */
+    margin-top: 30px; /* Space from the top of the page */
+    margin-bottom: 50px; /* Space before the first ranking section */
+}
+
+/* Main title for each ranking table */
+h2 {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 24px;
+    margin-bottom: 20px; /* Added space below titles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+/* Specific colors for each rank */
+h2.silver {
+    color: #7f8c8d; /* Grey for Silver */
+}
+
+h2.gold {
+    color: #f1c40f; /* Gold for Gold */
+}
+
+h2.diamond {
+    color: #5dade2; /* Blue for Diamond */
+}
+
+/* Ranking table styling */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff; /* White table background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.2); /* Green shadow */
+    overflow: hidden;
+    table-layout: fixed; /* Ensures consistent column widths */
+}
+
+/* Column headers and data cells */
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    color: #2e4d1a;
+    text-align: center; /* Center align all content */
+    vertical-align: middle; /* Vertically center content */
+}
+
+/* Header specific styling */
+th {
+    background-color: #4CAF50; /* Dark green for headers */
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+/* Hover effect for rows */
+tr:hover {
+    background-color: #d0f0c0; /* Light green on hover */
+}

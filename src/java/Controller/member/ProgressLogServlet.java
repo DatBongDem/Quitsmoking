@@ -5,6 +5,8 @@
  */
 package Controller.member;
 
+import DAO.BadgeDAO;
+import DAO.NotificationDao;
 import DAO.ProgressLogDAO;
 import DAO.QuitPlanDAO;
 import DTO.ProgressLog;
@@ -100,7 +102,8 @@ public class ProgressLogServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8"); // cần thiết để đọc đúng tiếng Việt
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-
+        BadgeDAO badge = new BadgeDAO();
+        NotificationDao notiDao=new NotificationDao();
         HttpSession session = request.getSession();
         String idMember = (String) session.getAttribute("id");
 
@@ -135,7 +138,8 @@ public class ProgressLogServlet extends HttpServlet {
 
             // Ghi vào DB
             ProgressLogDAO.insertProgressLog(log);
-
+            badge.insertBadgeDetail(idMember);
+       
             response.sendRedirect("ProgressLogServlet");
         } catch (Exception e) {
             e.printStackTrace();
