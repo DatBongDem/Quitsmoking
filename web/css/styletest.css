@@ -1,27 +1,27 @@
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    
 }
 
 h2 {
     text-align: center;
-    font-size: 2.5em;
+    font-size: 30px;
     color: #27ae60;
-    margin-bottom: 30px;
     font-weight: 600;
+    padding-top: 20px;
 }
 
 /* Results Section Styling - Màu Xanh Lá */
 .results-container {
     max-width: 600px;
-    margin: 40px auto;
+    margin: 20px auto;
     background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
     border-radius: 20px;
     padding: 40px;
     box-shadow: 0 15px 35px rgba(39, 174, 96, 0.3);
     text-align: center;
     color: white;
+    margin-bottom: 70px;
 }
 
 .results-icon {
