@@ -10,8 +10,10 @@ import DTO.Member;
 import DTO.MemberBadgeRankingDTO;
 import Utils.DBUtils;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,4 +98,88 @@ public class BadgeDAO {
 
         return list;
     }
+      public int getMemberCount(String idMember) throws SQLException, ClassNotFoundException {
+        String sql = "  SELECT \n" +
+"                COUNT(*) AS MemberCount\n" +
+"            FROM dbo.ProgressLog\n" +
+"            WHERE IDMember = ?\n" +
+"            GROUP BY IDMember";
+          
+        
+
+        int memberCount = 0;
+
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idMember);  // Gán giá trị idMember vào tham số SQL
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    memberCount = rs.getInt("MemberCount");
+                }
+            }
+        }
+
+        return memberCount;
+    }
+       public String getBadgeByCount(int memberCount) {
+        // Dùng else if để kiểm tra giá trị gần nhất
+        if (memberCount >= 180) {
+            return "BG11";
+        } else if (memberCount >= 150) {
+            return "BG10";
+        } else if (memberCount >= 120) {
+            return "BG09";
+        } else if (memberCount >= 90) {
+            return "BG08";
+        } else if (memberCount >= 60) {
+            return "BG07";
+        } else if (memberCount >= 45) {
+            return "BG06";
+        } else if (memberCount >= 30) {
+            return "BG05";
+        } else if (memberCount >= 15) {
+            return "BG04";
+        } else if (memberCount >= 10) {
+            return "BG03";
+        } else if (memberCount >= 5) {
+            return "BG02";
+        } else if (memberCount >= 3) {
+            return "BG01";
+        } else {
+            return "";  // Trả về chuỗi rỗng nếu không có match
+        }
+    }
+       
+       public boolean insertBadgeDetail(String idMember) throws SQLException, ClassNotFoundException {
+        // Câu lệnh SQL được đặt trong dấu ngoặc luôn
+        String sql = "INSERT INTO dbo.BadgeDetail (IDMember, IDBadge, badgeDate) VALUES (?, ?, ?)";
+         int memberCount = getMemberCount(idMember);  // Lấy số lượng
+        String idBadge = getBadgeByCount(memberCount);  // Lấy IDBadge theo count
+
+        // Nếu không có IDBadge hợp lệ, trả về false
+        if (idBadge.isEmpty()) {
+            return false;
+        }
+        // Sử dụng PreparedStatement để tránh SQL Injection
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idMember);  // Gán IDMember
+            stmt.setString(2, idBadge);   // Gán IDBadge
+            
+            // Lấy ngày hiện tại
+            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+            stmt.setDate(3, currentDate);  // Gán ngày hiện tại vào badgeDate
+
+            // Thực thi câu lệnh INSERT
+            int rowsAffected = stmt.executeUpdate();
+
+            // Kiểm tra nếu có ít nhất một dòng được thêm vào
+            return rowsAffected > 0;
+        }
+    }
+       public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        BadgeDAO dao=new BadgeDAO();
+        dao.insertBadgeDetail("07");
+    }
 }
+
