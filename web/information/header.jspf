@@ -52,7 +52,7 @@
                                 <a href="TestServlet">Testing</a>
                             </li>
                             <li>
-                                <a href="TestServlet">Ranking</a>
+                                <a href="BadgeRankingServlet">Ranking</a>
                             </li>
                             
                         </ul>

@@ -233,7 +233,7 @@
                 <i class="fas fa-home"></i>
                 Về trang chủ
             </a>
-            <a href="progressHistory.jsp" class="nav-btn primary">
+            <a href="MemberViewProgressLogServlet" class="nav-btn primary">
                 <i class="fas fa-history"></i>
                 Xem lịch sử tiến trình
             </a>
