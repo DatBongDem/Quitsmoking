@@ -22,7 +22,7 @@
         <div>
             <%@include file="information/header.jspf" %>
         </div>
-
+        <br>
 
 
         <h2>Quiz Test</h2>
@@ -48,7 +48,11 @@
             <span class="score-label">Mức độ của bạn là:</span>
             <span class="score-value"><%= request.getAttribute("score")%></span>
         </div>
-        
+        <p class="completion-message">
+            Nếu kết quả là 0-4, bạn nên chọn khóa Silver.<br>
+            Nếu kết quả là 5-8, bạn nên chọn khóa Gold.<br>
+            Nếu kết quả là 9-12, bạn nên chọn khóa Diamond.
+        </p>
         <div class="action-buttons">
             <form action="RetakeTestServlet" method="post" style="display: inline;">
                 <button type="submit" class="btn-retake">
