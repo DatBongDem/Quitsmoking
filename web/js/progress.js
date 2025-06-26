@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 // Progress Log JavaScript - NetBeans 8.3 & JDK 1.8 Compatible
 
 // Global variables
@@ -146,7 +145,7 @@ function validateForm(event) {
         cigaretteInput.focus();
     }
     
-    // Validate all textareas
+    // Validate all textareas - CHỈ KIỂM TRA RỖNG, KHÔNG KIỂM TRA ĐỘ DÀI
     var textareas = document.querySelectorAll('textarea[required]');
     for (var i = 0; i < textareas.length; i++) {
         var textarea = textareas[i];
@@ -157,13 +156,8 @@ function validateForm(event) {
                 textarea.focus();
                 textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-        } else if (textarea.value.trim().length < 10) {
-            errorMessages.push('Câu trả lời ' + (i + 1) + ' quá ngắn. Vui lòng mô tả chi tiết hơn!');
-            isValid = false;
-            if (errorMessages.length === 1) {
-                textarea.focus();
-            }
         }
+        // ĐÃ XÓA PHẦN KIỂM TRA ĐỘ DÀI TỐI THIỂU
     }
     
     if (!isValid) {
