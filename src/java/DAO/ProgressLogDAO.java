@@ -126,18 +126,18 @@ public class ProgressLogDAO {
             = "INSERT INTO ProgressLog "
             + "(IDMember, IDCoach, StartDate, EndDate, "
             + "qs1, qs2, qs3, qs4, qs5, qs6, qs7, qs8, qs9, qs10, "
-            + "status) "
-            + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            + "type, status) "
+            + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     /**
      * @param idMember Mã thành viên
      * @param idCoach Mã coach
      * @param endDate Ngày kết thúc (StartDate = hôm nay)
-     * @param questions Mảng câu hỏi (độ dài ≤10). Các phần tử null/"" => ghi
-     * NULL
+     * @param questions Mảng câu hỏi (độ dài ≤10). Các phần tử null/"" => ghi NULL
+     * @param type Loại của tiến trình (type)
      */
     public static void insertQuestions(String idMember, String idCoach,
-            Date endDate, String[] questions) throws ClassNotFoundException {
+            Date endDate, String[] questions, String type) throws ClassNotFoundException {
         // Normalize to exactly 10 slots
         String[] qs = new String[10];
         for (int i = 0; i < 10; i++) {
@@ -168,9 +168,14 @@ public class ProgressLogDAO {
                     ps.setNull(idx++, java.sql.Types.NVARCHAR);
                 }
             }
+
+            // Set giá trị "type" vào câu lệnh SQL
+            ps.setString(idx++, type);  // Đặt giá trị cho "type"
+
             // status mặc định = "0"
             ps.setString(idx++, "0");
 
+            // Thực thi câu lệnh INSERT
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(

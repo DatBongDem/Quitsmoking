@@ -74,7 +74,7 @@
     });
   </script>
 </head>
-<body>
+
   <h2>Nhập Câu Hỏi Cho Thành Viên: <strong><%= idMember %></strong></h2>
   <p>Đang có <span id="countDisplay">0</span> câu hỏi</p>
 

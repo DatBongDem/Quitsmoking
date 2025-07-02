@@ -67,12 +67,13 @@ public class SaveQuestionsServlet extends HttpServlet {
 
         // 1. Lấy idMember, idCoach
         String idMember = request.getParameter("idMember");
+        
         HttpSession session = request.getSession(false);
-        String idCoach  = session != null
-                          ? (String) session.getAttribute("idCoach")
-                          : null;
+         String idCoach = (String) session.getAttribute("id");
+       
 
         // 2. Lấy option planDays và tính EndDate
+        String planDaysStr=request.getParameter("planDays");
         int planDays = Integer.parseInt(request.getParameter("planDays"));
         LocalDate  today   = LocalDate.now();
         LocalDate  endDate = today.plusDays(planDays);
@@ -92,7 +93,7 @@ public class SaveQuestionsServlet extends HttpServlet {
         boolean success;
         String  message;
         try {
-            ProgressLogDAO.insertQuestions(idMember, idCoach, sqlEnd, questions);
+            ProgressLogDAO.insertQuestions(idMember, idCoach, sqlEnd, questions, planDaysStr +" day");
             success = true;
             message = "Đã lưu " + questionCount 
                     + " câu hỏi; kế hoạch đến " + endDate;
