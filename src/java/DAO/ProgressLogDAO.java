@@ -230,22 +230,22 @@ public class ProgressLogDAO {
         }
         return progressLogs;
     }
-   private static final String UPDATE_ANSWER_TEMPLATE = "UPDATE dbo.ProgressLog SET %s = ? WHERE IDLog = ? AND IDMember = ?";
-       public void updateAnswer(int logId, String idMember, List<String> answers) throws SQLException, ClassNotFoundException {
-        // Duyệt qua câu trả lời và tạo câu lệnh SQL động
-        for (int i = 0; i < answers.size(); i++) {
-            String column = String.format("as%02d", i + 1);  // Tạo tên cột như as01, as02, ...
-            String updateQuery = String.format(UPDATE_ANSWER_TEMPLATE, column);  // Tạo câu lệnh SQL động
-
-            try (Connection conn = DBUtils.getConnection();
-                 PreparedStatement preparedStatement = conn.prepareStatement(updateQuery)) {
-
-                preparedStatement.setString(1, answers.get(i));  // Đặt giá trị cho câu trả lời
-                preparedStatement.setInt(2, logId);  // Đặt giá trị cho logId
-                preparedStatement.setString(3, idMember);  // Đặt giá trị cho IDMember
-
-                preparedStatement.executeUpdate();  // Thực hiện câu lệnh UPDATE
-            }
-        }
-    }
+//   private static final String UPDATE_ANSWER_TEMPLATE = "UPDATE dbo.ProgressLog SET %s = ? WHERE IDLog = ? AND IDMember = ?";
+//       public void updateAnswer(int logId, String idMember, List<String> answers) throws SQLException, ClassNotFoundException {
+//        // Duyệt qua câu trả lời và tạo câu lệnh SQL động
+//        for (int i = 0; i < answers.size(); i++) {
+//            String column = String.format("as%02d", i + 1);  // Tạo tên cột như as01, as02, ...
+//            String updateQuery = String.format(UPDATE_ANSWER_TEMPLATE, column);  // Tạo câu lệnh SQL động
+//
+//            try (Connection conn = DBUtils.getConnection();
+//                 PreparedStatement preparedStatement = conn.prepareStatement(updateQuery)) {
+//
+//                preparedStatement.setString(1, answers.get(i));  // Đặt giá trị cho câu trả lời
+//                preparedStatement.setInt(2, logId);  // Đặt giá trị cho logId
+//                preparedStatement.setString(3, idMember);  // Đặt giá trị cho IDMember
+//
+//                preparedStatement.executeUpdate();  // Thực hiện câu lệnh UPDATE
+//            }
+//        }
+//    }
 }
