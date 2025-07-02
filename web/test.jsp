@@ -120,7 +120,7 @@
             <%
                 } // đóng if quizList
             %>
-            <% } // đóng else của hasSubmitted %>
+            
         </div>
 
         <!-- Footer -->
