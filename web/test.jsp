@@ -71,7 +71,7 @@
             <%
             } else {
             %>
-            <form action="TestServlet" method="post">
+            <form action="TestServlet" method="post"></form>
                 <%
                     int qNo = 1;
                     for (Quiz q : quizList) {
@@ -116,7 +116,7 @@
                 <div style="text-align: center;">
                     <button type="submit" class="btn-submit">Nộp bài</button>
                 </div>
-            </form>
+            
             <%
                 } // đóng if quizList
             %>
