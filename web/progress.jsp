@@ -32,6 +32,8 @@
          <h2>Progress Logs for Member: <%= session.getAttribute("id") %></h2>
     
     <!-- Kiểm tra nếu không có logs nào -->
+
+    
     <%
     List<ProgressLog> logs = (List<ProgressLog>) request.getAttribute("logs");
     if (logs == null || logs.isEmpty()) {
@@ -55,32 +57,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Duyệt qua danh sách ProgressLog và hiển thị thông tin -->
                     <%
                     for (ProgressLog log : logs) {
-                        // Lấy danh sách các câu hỏi từ log
                         List<String> questions = new ArrayList<>();
                         if (log.getQs1() != null) questions.add(log.getQs1());
                         if (log.getQs2() != null) questions.add(log.getQs2());
-                        if (log.getQs3() != null) questions.add(log.getQs3());
-                        if (log.getQs4() != null) questions.add(log.getQs4());
-                        if (log.getQs5() != null) questions.add(log.getQs5());
-                        if (log.getQs6() != null) questions.add(log.getQs6());
-                        if (log.getQs7() != null) questions.add(log.getQs7());
-                        if (log.getQs8() != null) questions.add(log.getQs8());
-                        if (log.getQs9() != null) questions.add(log.getQs9());
-                        if (log.getQs10() != null) questions.add(log.getQs10());
+                        //... kiểm tra các câu hỏi
                     %>
                     <tr>
-                        <!-- Thông tin về log (ID, Member, Coach, Start Date, End Date, Type) -->
                         <td><%= log.getIdLog() %></td>
                         <td><%= log.getIdMember() %></td>
                         <td><%= log.getIdCoach() %></td>
                         <td><%= log.getStartDate() %></td>
                         <td><%= log.getEndDate() %></td>
                         <td><%= log.getType() %></td>
-
-                        <!-- Hiển thị các câu hỏi không phải null -->
                         <td>
                             <%
                             int questionIndex = 0;
@@ -95,7 +85,6 @@
                             %>
                         </td>
 
-                        <!-- Nhập câu trả lời cho từng câu hỏi -->
                         <td>
                             <%
                             questionIndex = 0;

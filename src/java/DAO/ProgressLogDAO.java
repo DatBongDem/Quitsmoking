@@ -179,32 +179,32 @@ public class ProgressLogDAO {
     }
     private static final String SELECT_LOGS_BY_MEMBER = "SELECT * FROM dbo.ProgressLog WHERE IDMember = ?";
 
-     public List<ProgressLog> getProgressLogsByMember(String idMember) throws SQLException, ClassNotFoundException {
+    public List<ProgressLog> getProgressLogsByMember(String idMember) throws SQLException, ClassNotFoundException {
         List<ProgressLog> progressLogs = new ArrayList<>();
-        
+
         // Kết nối và truy vấn dữ liệu
         try (Connection conn = DBUtils.getConnection();
                 PreparedStatement ps = conn.prepareStatement(SELECT_LOGS_BY_MEMBER)) {
-            
+
             ps.setString(1, idMember);
-            
+
             ResultSet resultSet = ps.executeQuery();
-            
+
             // Xử lý kết quả trả về
             while (resultSet.next()) {
                 int idLog = resultSet.getInt("IDLog");
                 String idCoach = resultSet.getString("IDCoach");
-                
+
                 // Lấy ngày tháng từ SQL và sử dụng java.sql.Date
                 java.sql.Date sqlStartDate = resultSet.getDate("StartDate");
                 java.sql.Date sqlEndDate = resultSet.getDate("EndDate");
-                
+
                 // Nếu có dữ liệu thì sử dụng
                 Date startDate = sqlStartDate != null ? sqlStartDate : null;
                 Date endDate = sqlEndDate != null ? sqlEndDate : null;
-                
+
                 String type = resultSet.getString("Type");
-                
+
                 // Các câu hỏi khác...
                 String qs1 = resultSet.getString("qs1");
                 String qs2 = resultSet.getString("qs2");
@@ -216,30 +216,31 @@ public class ProgressLogDAO {
                 String qs8 = resultSet.getString("qs8");
                 String qs9 = resultSet.getString("qs9");
                 String qs10 = resultSet.getString("qs10");
-                
+
                 // Tạo đối tượng ProgressLog và thêm vào danh sách
-                ProgressLog log = new ProgressLog(idLog, idMember, idCoach, startDate, endDate, type, 
-                                                  qs1, qs2, qs3, qs4, qs5, qs6, qs7, qs8, qs9, qs10);
+                ProgressLog log = new ProgressLog(idLog, idMember, idCoach, startDate, endDate, type,
+                        qs1, qs2, qs3, qs4, qs5, qs6, qs7, qs8, qs9, qs10);
                 progressLogs.add(log);
             }
         }
         return progressLogs;
     }
-       private static final String INSERT_ANSWER = "INSERT INTO Answers (logId, questionId, answer) VALUES (?, ?, ?)";
-        public void saveAnswer(int logId, int questionId, String answer) throws SQLException, ClassNotFoundException {
-        try (Connection conn = DBUtils.getConnection();
-                PreparedStatement preparedStatement= conn.prepareStatement(INSERT_ANSWER)) {
-            preparedStatement.setInt(1, logId);  // logId
-            preparedStatement.setInt(2, questionId);  // questionId
-            preparedStatement.setString(3, answer);  // answer
+   private static final String UPDATE_ANSWER_TEMPLATE = "UPDATE dbo.ProgressLog SET %s = ? WHERE IDLog = ? AND IDMember = ?";
+       public void updateAnswer(int logId, String idMember, List<String> answers) throws SQLException, ClassNotFoundException {
+        // Duyệt qua câu trả lời và tạo câu lệnh SQL động
+        for (int i = 0; i < answers.size(); i++) {
+            String column = String.format("as%02d", i + 1);  // Tạo tên cột như as01, as02, ...
+            String updateQuery = String.format(UPDATE_ANSWER_TEMPLATE, column);  // Tạo câu lệnh SQL động
 
-            preparedStatement.executeUpdate();
+            try (Connection conn = DBUtils.getConnection();
+                 PreparedStatement preparedStatement = conn.prepareStatement(updateQuery)) {
+
+                preparedStatement.setString(1, answers.get(i));  // Đặt giá trị cho câu trả lời
+                preparedStatement.setInt(2, logId);  // Đặt giá trị cho logId
+                preparedStatement.setString(3, idMember);  // Đặt giá trị cho IDMember
+
+                preparedStatement.executeUpdate();  // Thực hiện câu lệnh UPDATE
+            }
         }
     }
 }
-   
-    
-
-    
-
-
