@@ -42,7 +42,6 @@
                     <span class="score-label">Mức độ của bạn là:</span>
                     <span class="score-value"><%= request.getAttribute("score")%></span>
                 </div>
-
                 <p class="completion-message">
                     Nếu kết quả là 0-4, bạn nên chọn khóa <strong>Silver</strong>.<br>
                     Nếu kết quả là 5-8, bạn nên chọn khóa <strong>Gold</strong>.<br>
@@ -106,6 +105,12 @@
                     <% } %>
                 </div>
                 <hr/>
+                <%
+                    }
+                %>
+                
+                <div class="home-but"> 
+                <button type="submit">Submit Test</button>
                 <% } %>
 
                 <div style="text-align: center;">
