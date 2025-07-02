@@ -1,8 +1,8 @@
-name: Compile Java Web Project (No Server)
+name: Compile Java Web Project (with local servlet JAR)
 
 on:
   push:
-    branches: [ "master" ]  
+    branches: [ "master" ] 
   pull_request:
     branches: [ "master" ]
 
@@ -17,11 +17,11 @@ jobs:
     - name: ☕ Setup Java
       uses: actions/setup-java@v3
       with:
-        java-version: '8' 
+        java-version: '8'
         distribution: 'temurin'
 
-    - name: 🧱 Compile all Java files manually
+    - name: 🧱 Compile Java files with servlet support
       run: |
         mkdir -p out
         find ./src -name "*.java" > sources.txt
-        javac -d out @sources.txt
+        javac -cp "lib/servlet-api.jar" -d out @sources.txt
