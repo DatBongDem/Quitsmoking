@@ -1,3 +1,5 @@
+
+=======
 <%@page import="java.util.List"%>
 <%@page import="DTO.Quiz"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -71,7 +73,7 @@
             <%
             } else {
             %>
-            <form action="TestServlet" method="post"></form>
+            <form action="TestServlet" method="post">
                 <%
                     int qNo = 1;
                     for (Quiz q : quizList) {
@@ -109,18 +111,17 @@
                     }
                 %>
                 
-                <div class="home-but"> 
-                <button type="submit">Submit Test</button>
+         
                 <% } %>
 
                 <div style="text-align: center;">
                     <button type="submit" class="btn-submit">Nộp bài</button>
                 </div>
-            
+            </form>
             <%
                 } // đóng if quizList
             %>
-            <% } // đóng else của hasSubmitted %>
+            
         </div>
 
         <!-- Footer -->
