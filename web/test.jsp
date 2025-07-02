@@ -63,7 +63,7 @@
             <% } else { %>
             <!-- ✅ Hiển thị bài kiểm tra nếu chưa nộp -->
             <%
-                List<Quiz> quizList = (List<Quiz>) request.getAttribute("quizList");
+                List<Quiz> quizList = (List<Quiz>) request.getAttribute("quizList")
 
                 if (quizList == null || quizList.isEmpty()) {
             %>
