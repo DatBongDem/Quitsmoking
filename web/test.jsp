@@ -106,7 +106,10 @@
                 <%
                     }
                 %>
+                
+                <div class="home-but"> 
                 <button type="submit">Submit Test</button>
+                </div>
             </form>
             <%
                   }

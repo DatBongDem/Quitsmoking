@@ -22,14 +22,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Support - Coach</title>
         <link rel="stylesheet" href="css/support-coach.css">
-        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        
+        <link rel="stylesheet" href="css/stylehomepage.css">
+        <%@include file="information/bootstrap.jspf" %>
 
     </head>
     <body>
         
-
+        <%@include file="/information/header.jspf" %>
 
         <!-- Header -->
         <header class="coach-header">
