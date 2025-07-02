@@ -106,6 +106,7 @@ public class ProgressLogServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String idMember = (String) session.getAttribute("id");
 
+        // Kiểm tra nếu người dùng chưa đăng nhập
         if (idMember == null) {
             response.sendRedirect("login.jsp");
             return;
@@ -116,36 +117,51 @@ public class ProgressLogServlet extends HttpServlet {
         List<Integer> questionIds = new ArrayList<>();
         List<Integer> logIds = new ArrayList<>();
 
-        // Duyệt qua các câu hỏi và lấy các câu trả lời
+        // Duyệt qua các câu trả lời (tối đa 10 câu hỏi)
         for (int i = 1; i <= 10; i++) {  // Giả sử có tối đa 10 câu hỏi
-            String answer = request.getParameter("answer_" + i);  // Lấy câu trả lời
+            String answer = request.getParameter("answer_" + i);  // Lấy câu trả lời từ form
             if (answer != null && !answer.trim().isEmpty()) {
-                answers.add(answer);
-                questionIds.add(i);  // Mỗi câu hỏi có ID (ví dụ: 1, 2, 3,...)
-                logIds.add(Integer.parseInt(request.getParameter("logId")));  // ID của log
+                answers.add(answer);  // Thêm câu trả lời vào danh sách answers
+                questionIds.add(i);  // Lưu ID câu hỏi (1, 2, 3,...)
+                logIds.add(Integer.parseInt(request.getParameter("logId")));  // Lưu ID của log
+            } else {
+                answers.add(null);  // Nếu không có câu trả lời, thêm null vào answers
+                questionIds.add(i);  // Vẫn giữ ID câu hỏi
             }
         }
 
-        // Giả sử bạn có một phương thức lưu câu trả lời vào cơ sở dữ liệu
-        // progressLogDAO.saveAnswers(answers, questionIds, logIds);
-        // Lưu câu trả lời vào cơ sở dữ liệu
-        for (int i = 0; i < answers.size(); i++) {
-            try {
+        // Kiểm tra nếu danh sách answers trống
+        if (answers.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No answers provided.");
+            return;
+        }
+
+        // Cập nhật câu trả lời vào cơ sở dữ liệu
+        try {
+            ProgressLogDAO progressLogDAO = new ProgressLogDAO();
+
+            // Kiểm tra nếu answers có phần tử trước khi gọi updateAnswer
+            for (int i = 0; i < answers.size(); i++) {
                 String answer = answers.get(i);
                 int questionId = questionIds.get(i);
                 int logId = logIds.get(i);
 
-                // Gọi DAO để lưu câu trả lời
-                progressLogDAO.saveAnswer(logId, questionId, answer);
-            } catch (SQLException ex) {
-                Logger.getLogger(ProgressLogServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ProgressLogServlet.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    // Gọi phương thức để lưu câu trả lời vào cơ sở dữ liệu
+                    progressLogDAO.updateAnswer(logId, idMember, answers);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ProgressLogServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
+            // Chuyển hướng tới trang thành công
+            response.sendRedirect("success.jsp");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error saving answers");
         }
 
-  
-    
     }
 
     /**
