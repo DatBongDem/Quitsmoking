@@ -92,13 +92,11 @@
                                     <span class="detail-value"><%= member.getAddress()%></span>
                                 </div>
 
-                                <!-- Email -->
                                 <div class="detail-row">
                                     <span class="detail-label">Email:</span>
                                     <span class="detail-value"><%= member.getEmail()%></span>
                                 </div>
 
-                                <!-- Trạng thái -->
                                 <div class="detail-row">
                                     <span class="detail-label">Trạng thái:</span>
                                     <span class="detail-value">
@@ -111,7 +109,6 @@
                                     <span class="detail-value"><%= member.getSubscription()%></span>
                                 </div>
                                 
-
                                 <div class="text-center mt-4">
                                     <a href="UpdateProfileServlet?idMember=<%= member.getIDMember() %>" class="btn btn-success">
                                         Chỉnh sửa Hồ sơ
