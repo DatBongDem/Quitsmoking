@@ -1,8 +1,8 @@
-name: Build Java Web (Servlet)
+name: Build Java Web Project (Ant)
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master" ]  
   pull_request:
     branches: [ "master" ]
 
@@ -17,8 +17,11 @@ jobs:
     - name: ☕ Setup Java
       uses: actions/setup-java@v3
       with:
-        java-version: '8' 
+        java-version: '17'
         distribution: 'temurin'
 
-    - name: 🔧 Build with Maven
-      run: mvn clean install
+    - name: 🛠 Install Ant
+      run: sudo apt-get install ant -y
+
+    - name: 🧱 Build with Ant
+      run: ant -buildfile build.xml
