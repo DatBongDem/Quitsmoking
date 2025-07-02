@@ -109,8 +109,7 @@
                     }
                 %>
                 
-                <div class="home-but"> 
-                <button type="submit">Submit Test</button>
+                
                 <% } %>
 
                 <div style="text-align: center;">
