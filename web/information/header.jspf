@@ -54,7 +54,7 @@
                             <li>
                                 <a href="BadgeRankingServlet">Ranking</a>
                             </li>
-                            
+
                         </ul>
                     </div>
 
@@ -69,21 +69,15 @@
                                 </span>
 
                                 <div class="profile-dropdown-menu" id="profileDropdown">
-                                     <%
+                                    <%
                                         String role = (String) session.getAttribute("role");
                                         String mycoach = (String) session.getAttribute("coachId");
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        if ("member".equals(role) ){
+
+                                        if ("member".equals(role)) {
                                     %>
                                     <a href="DetailMemberProfile">Profile</a>
                                     <a href="BadgeServlet">Badge</a>
-                                     <%
+                                    <%
                                         }
                                     %>
 
@@ -91,7 +85,7 @@
 
 
 
-                                   
+
                                     <%
                                         if ("member".equals(role) && mycoach != null) {
                                     %>
@@ -108,7 +102,7 @@
                                     <a href="ProfileServlet">Profile</a>
                                     <a href="ManageMemberServlet">Manage</a>
                                     <a href="CoachScheduleServlet">Schedule</a>
-                                    
+
 
                                     <%
                                         }

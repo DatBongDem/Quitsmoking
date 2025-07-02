@@ -15,6 +15,7 @@
         <%@include file="information/bootstrap.jspf" %>
 
     </head>
+    
     <body>
               <%@include file="information/header.jspf" %>
         <div class="bodys">

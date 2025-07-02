@@ -1,0 +1,27 @@
+name: Compile Java Web Project (with local servlet JAR)
+
+on:
+  push:
+    branches: [ "master" ] 
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout source
+      uses: actions/checkout@v3
+
+    - name: ☕ Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+
+    - name: 🧱 Compile Java files with servlet support
+      run: |
+        mkdir -p out
+        find ./src -name "*.java" > sources.txt
+        javac -cp "lib/servlet-api.jar" -d out @sources.txt

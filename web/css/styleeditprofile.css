@@ -7,47 +7,41 @@
 }
 
 html {
-    font-size: 16px; /* giúp sử dụng rem dễ tính toán */
+    font-size: 16px;
 }
 
 body {
     background-color: #e8f5e9;
-    display: flex;
-    justify-content: center;
-    padding: 2.5rem 1.25rem; /* ~40px 20px */
+    padding: 2.5rem 1.25rem;
+    min-height: 100vh;
 }
 
-/* Container */
 .container {
     background-color: white;
-    padding: 2rem; /* ~32px */
-    max-width: 50%;
-    width: 100%;
-    border-radius: 1rem; /* ~16px */
-    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08); /* ~8px 20px */
-    transition: all 0.3s;
-    
-    margin-bottom: -10%;
+    padding: 2rem;
+    padding-bottom: 0.5rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
 }
-
-
 
 /* Title */
 h1 {
     text-align: center;
     color: #2e7d32;
-    font-size: 1.625rem; /* ~26px */
-    margin-bottom: 1.875rem; /* ~30px */
+    font-size: 1.625rem;
+    margin-bottom: 1.875rem;
 }
 
 /* Labels */
 label {
     display: block;
-    margin-top: 1.125rem;  /* ~18px */
-    margin-bottom: 0.375rem; /* ~6px */
+    margin-top: 1.125rem;
+    margin-bottom: 0.375rem;
     font-weight: 600;
     color: #2e7d32;
-    font-size: 0.9375rem; /* ~15px */
+    font-size: 0.9375rem;
 }
 
 /* Input fields */
@@ -59,12 +53,17 @@ textarea,
 input[type="file"],
 select {
     width: 100%;
-    padding: 0.75rem 0.875rem; /* ~12px 14px */
+    padding: 0.75rem 0.875rem;
     border: 1px solid #c8e6c9;
-    border-radius: 0.625rem; /* ~10px */
+    border-radius: 0.625rem;
     background-color: #f1f8f1;
     font-size: 0.9375rem;
     transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="file"] {
+    background-color: #fff;
+    padding: 0.5rem;
 }
 
 /* Focus effect */
@@ -73,7 +72,7 @@ textarea:focus,
 select:focus {
     outline: none;
     border-color: #81c784;
-    box-shadow: 0 0 0 0.125rem rgba(76, 175, 80, 0.2); /* ~2px */
+    box-shadow: 0 0 0 0.125rem rgba(76, 175, 80, 0.2);
 }
 
 /* Dropdown with custom arrow */
@@ -83,34 +82,35 @@ select {
     -moz-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg%20width='12'%20height='8'%20viewBox='0%200%2012%208'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M1%201L6%206L11%201'%20stroke='%23388E3C'%20stroke-width='2'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.875rem center; /* ~14px */
-    background-size: 0.75rem 0.5rem; /* ~12px x 8px */
+    background-position: right 0.875rem center;
+    background-size: 0.75rem 0.5rem;
     cursor: pointer;
 }
 
 /* Avatar preview */
 .avatar-preview {
-    width: 5rem; /* ~80px */
+    width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    margin-top: 0.625rem; /* ~10px */
+    margin-top: 0.625rem;
     object-fit: cover;
     border: 0.125rem solid #c8e6c9;
-    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.05); /* ~2px 6px */
+    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.05);
 }
 
 /* Button styles */
 .button-group {
-    margin-top: 1.875rem; /* ~30px */
+    margin-top: 1.875rem;
+    margin-bottom: 2rem; /* tạo khoảng cách phía dưới */
     display: flex;
     justify-content: space-between;
-    gap: 0.9375rem; /* ~15px */
+    gap: 0.9375rem;
 }
 
 button[type="submit"] {
     background-color: #4caf50;
     color: white;
-    padding: 0.75rem 1.5rem; /* ~12px 24px */
+    padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 0.625rem;
     font-size: 0.9375rem;
@@ -138,10 +138,3 @@ button[type="submit"]:hover {
 .cancel-btn:hover {
     background-color: #f1f8f1;
 }
-
-/* File input - better alignment */
-input[type="file"] {
-    background-color: #fff;
-    padding: 0.5rem;
-}
-
