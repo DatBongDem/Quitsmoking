@@ -1,5 +1,4 @@
 
-=======
 <%@page import="java.util.List"%>
 <%@page import="DTO.Quiz"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -111,7 +110,7 @@
                     }
                 %>
                 
-         
+                
                 <% } %>
 
                 <div style="text-align: center;">
@@ -128,3 +127,4 @@
         <%@include file="information/footer.jspf" %>
     </body>
 </html>
+
