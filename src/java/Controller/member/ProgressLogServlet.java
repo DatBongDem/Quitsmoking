@@ -10,11 +10,17 @@ import DAO.NotificationDao;
 import DAO.ProgressLogDAO;
 import DAO.QuitPlanDAO;
 import DTO.ProgressLog;
+import DTO.Question;
 import DTO.QuitPlan;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +32,15 @@ import javax.servlet.http.HttpSession;
  * @author Nguyen Tien Dat
  */
 public class ProgressLogServlet extends HttpServlet {
+
+    private ProgressLogDAO progressLogDAO;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        // Khởi tạo đối tượng DAO khi Servlet được khởi tạo
+        progressLogDAO = new ProgressLogDAO();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,35 +72,24 @@ public class ProgressLogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String idMember = (String) session.getAttribute("id");
 
-        if (idMember == null) {
-            response.sendRedirect("login.jsp");
-            return;
+        try {
+            HttpSession session = request.getSession();
+            String idMember = (String) session.getAttribute("id");
+
+            // Lấy danh sách các ProgressLog của idMember từ cơ sở dữ liệu
+            List<ProgressLog> logs = progressLogDAO.getProgressLogsByMember(idMember);
+
+            // Lưu logs vào request để truyền cho JSP
+            request.setAttribute("logs", logs);
+
+            // Forward dữ liệu tới JSP để hiển thị
+            request.getRequestDispatcher("progress.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProgressLogServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProgressLogServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Date startDate = ProgressLogDAO.getStartDate(idMember);
-        request.setAttribute("startDate", (startDate != null ? startDate.toString() : ""));
-
-        LocalDate today = LocalDate.now();
-        request.setAttribute("today", today.toString());
-
-        Integer todayCigs = ProgressLogDAO.getCigarettesOnDate(idMember, 0);
-        Integer yesterdayCigs = ProgressLogDAO.getCigarettesOnDate(idMember, -1);
-        Integer firstDayCigs = ProgressLogDAO.getCigarettesOnFirstDay(idMember);
-
-        request.setAttribute("todayCigarettes", todayCigs);
-        request.setAttribute("yesterdayCigarettes", yesterdayCigs);
-        request.setAttribute("firstDayCigarettes", firstDayCigs);
-
-        if (startDate != null && startDate.toLocalDate().isEqual(today)) {
-            request.setAttribute("isFirstDay", true);
-        } else {
-            request.setAttribute("isFirstDay", false);
-        }
-
-        request.getRequestDispatcher("progress.jsp").forward(request, response);
     }
 
     /**
@@ -99,11 +103,6 @@ public class ProgressLogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8"); // cần thiết để đọc đúng tiếng Việt
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        BadgeDAO badge = new BadgeDAO();
-        NotificationDao notiDao=new NotificationDao();
         HttpSession session = request.getSession();
         String idMember = (String) session.getAttribute("id");
 
@@ -112,39 +111,41 @@ public class ProgressLogServlet extends HttpServlet {
             return;
         }
 
-        try {
-            int numberOfCigarettes = Integer.parseInt(request.getParameter("cigarettes"));
+        // Lấy danh sách các câu trả lời từ form
+        List<String> answers = new ArrayList<>();
+        List<Integer> questionIds = new ArrayList<>();
+        List<Integer> logIds = new ArrayList<>();
 
-            // Lấy 5 câu trả lời từ form
-            String q1 = request.getParameter("q1");
-            String q2 = request.getParameter("q2");
-            String q3 = request.getParameter("q3");
-            String q4 = request.getParameter("q4");
-            String q5 = request.getParameter("q5");
-
-            // Ghép lại thành notes, cách nhau bằng dòng mới
-            String notes = "Câu 1: " + q1 + "\n"
-                    + "Câu 2: " + q2 + "\n"
-                    + "Câu 3: " + q3 + "\n"
-                    + "Câu 4: " + q4 + "\n"
-                    + "Câu 5: " + q5;
-
-            // Tạo log mới
-            ProgressLog log = new ProgressLog();
-            log.setIdMember(idMember);
-            log.setLogDate(Date.valueOf(LocalDate.now()));
-            log.setNumberOfCigarettes(numberOfCigarettes);
-            log.setNotes(notes);
-
-            // Ghi vào DB
-            ProgressLogDAO.insertProgressLog(log);
-            badge.insertBadgeDetail(idMember);
-       
-            response.sendRedirect("ProgressLogServlet");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("progress.jsp?error=1");
+        // Duyệt qua các câu hỏi và lấy các câu trả lời
+        for (int i = 1; i <= 10; i++) {  // Giả sử có tối đa 10 câu hỏi
+            String answer = request.getParameter("answer_" + i);  // Lấy câu trả lời
+            if (answer != null && !answer.trim().isEmpty()) {
+                answers.add(answer);
+                questionIds.add(i);  // Mỗi câu hỏi có ID (ví dụ: 1, 2, 3,...)
+                logIds.add(Integer.parseInt(request.getParameter("logId")));  // ID của log
+            }
         }
+
+        // Giả sử bạn có một phương thức lưu câu trả lời vào cơ sở dữ liệu
+        // progressLogDAO.saveAnswers(answers, questionIds, logIds);
+        // Lưu câu trả lời vào cơ sở dữ liệu
+        for (int i = 0; i < answers.size(); i++) {
+            try {
+                String answer = answers.get(i);
+                int questionId = questionIds.get(i);
+                int logId = logIds.get(i);
+
+                // Gọi DAO để lưu câu trả lời
+                progressLogDAO.saveAnswer(logId, questionId, answer);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProgressLogServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ProgressLogServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+  
+    
     }
 
     /**

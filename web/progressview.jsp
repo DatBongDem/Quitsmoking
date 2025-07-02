@@ -5,17 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, DTO.ProgressLog" %>
-<%
-    List<ProgressLog> logList = (List<ProgressLog>) request.getAttribute("logList");
-    String memberId = (String) request.getAttribute("memberId");
-%>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiến trình cai thuốc - <%= memberId %></title>
+   
+   
     <link rel="stylesheet" href="css/progressview.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>

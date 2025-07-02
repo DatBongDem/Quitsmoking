@@ -6,7 +6,7 @@
 package Controller.member;
 
 import DAO.ProgressLogDAO;
-import DTO.ProgressLog;
+import DTO.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -53,24 +53,6 @@ public class MemberViewProgressLogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
-            HttpSession session = request.getSession();
-            String idMember = (String) session.getAttribute("id");
-
-            if (idMember == null) {
-                response.sendRedirect("login.jsp");
-                return;
-            }
-
-            List<ProgressLog> logList = ProgressLogDAO.getLogsByMember(idMember);
-            request.setAttribute("logList", logList);
-
-            request.getRequestDispatcher("progressMember.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Lỗi khi lấy tiến trình.");
-            request.getRequestDispatcher("progress.jsp").forward(request, response);
-        }
     }
 
     /**

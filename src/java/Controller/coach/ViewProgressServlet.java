@@ -6,7 +6,7 @@
 package Controller.coach;
 
 import DAO.ProgressLogDAO;
-import DTO.ProgressLog;
+import DTO.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -52,15 +52,7 @@ public class ViewProgressServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String memberId = request.getParameter("id");
-
-        // Lấy danh sách nhật ký cai thuốc
-        List<ProgressLog> logs = ProgressLogDAO.getLogsByMember(memberId);
-
-        request.setAttribute("logList", logs);
-        request.setAttribute("memberId", memberId);
-
-        request.getRequestDispatcher("progressview.jsp").forward(request, response);
+       
     }
 
     /**
