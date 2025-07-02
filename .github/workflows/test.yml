@@ -1,4 +1,4 @@
-name: Build Java Web Project (Ant)
+name: Compile Java Web Project (No Server)
 
 on:
   push:
@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 📥 Checkout code
+    - name: 📥 Checkout source
       uses: actions/checkout@v3
 
     - name: ☕ Setup Java
       uses: actions/setup-java@v3
       with:
-        java-version: '8'
+        java-version: '8' 
         distribution: 'temurin'
 
-    - name: 🛠 Install Ant
-      run: sudo apt-get install ant -y
-
-    - name: 🧱 Build with Ant
-      run: ant -buildfile build.xml
+    - name: 🧱 Compile all Java files manually
+      run: |
+        mkdir -p out
+        find ./src -name "*.java" > sources.txt
+        javac -d out @sources.txt
