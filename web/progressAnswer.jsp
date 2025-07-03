@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html;charset=UTF-8" %>
 <%@page import="DTO.ProgressLog"%>
 <%@page import="java.lang.reflect.Method"%>
@@ -24,16 +25,16 @@
         %>
 
         <div class="container mt-4 mb-5">
-            <h2 class="text-center text-success mb-4 font-weight-bold">✍️ Trả lời câu hỏi từ huấn luyện viên</h2>
+            <h2 class="text-center text-success title mb-4">✍️ Trả lời câu hỏi từ huấn luyện viên</h2>
 
             <% String progress = log.getProgress();
-                if (progress != null && !progress.trim().isEmpty()) {%>
+        if (progress != null && !progress.trim().isEmpty()) {%>
             <div class="card border-success mb-4 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title text-success font-weight-bold">
                         <i class="fas fa-sticky-note mr-2"></i> Nhật ký ghi chú:
                     </h5>
-                    <textarea class="form-control text-question" rows="4" readonly><%= progress%></textarea>
+                    <textarea class="form-control" rows="4" readonly><%= progress%></textarea>
                 </div>
             </div>
             <% }%>
@@ -68,13 +69,16 @@
                 %>
 
                 <div class="d-flex justify-content-end mt-4">
+                    <a href="progressList.jsp" class="btn btn-success">⬅ Quay lại danh sách</a>
                     <button type="submit" name="action" value="save" class="btn btn-success shadow-sm mr-2">
                         <i class="fas fa-save"></i> Lưu
                     </button>
                     <button type="submit" name="action" value="submit" class="btn btn-primary shadow-sm">
                         <i class="fas fa-paper-plane"></i> Gửi
                     </button>
+                    
                 </div>
+                
             </form>
         </div>
     </body>
