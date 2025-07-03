@@ -1,146 +1,56 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
-/**
- *
- * @author Nguyen Tien Dat
- */
 import DTO.ProgressLog;
-import DTO.Question;
-import java.sql.*;
-
 import Utils.DBUtils;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProgressLogDAO {
 
-//    public static void insertProgressLog(Question log) {
-//        String sql = "INSERT INTO ProgressLog (IDMember, logDate, numberOfCigarettes, notes) VALUES (?, ?, ?, ?)";
-//        try (Connection con = DBUtils.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-//            ps.setString(1, log.getIdMember());
-//            ps.setDate(2, log.getLogDate());
-//            ps.setInt(3, log.getNumberOfCigarettes());
-//            ps.setString(4, log.getNotes());
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-    public static Integer getCigarettesOnDate(String idMember, int daysOffset) {
-        String sql = "SELECT numberOfCigarettes FROM ProgressLog WHERE IDMember = ? AND logDate = ?";
-        try (Connection con = DBUtils.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            LocalDate targetDate = LocalDate.now().plusDays(daysOffset);
-            ps.setString(1, idMember);
-            ps.setDate(2, Date.valueOf(targetDate));
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("numberOfCigarettes");
-                }
+    public ProgressLog getById(int idLog) throws Exception {
+        Connection conn = DBUtils.getConnection();
+        String sql = "SELECT * FROM ProgressLog WHERE IDLog = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, idLog);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            ProgressLog log = new ProgressLog();
+            log.setIdLog(rs.getInt("IDLog"));
+            log.setIdMember(rs.getString("IDMember"));
+            log.setIdCoach(rs.getString("IDCoach"));
+            log.setStartDate(rs.getDate("StartDate"));
+            log.setEndDate(rs.getDate("EndDate"));
+            log.setType(rs.getString("Type"));
+
+            for (int i = 1; i <= 5; i++) {
+                String q = rs.getString("qs" + i);
+                log.getClass().getMethod("setQs" + i, String.class).invoke(log, q);
+                String a = rs.getString("as" + i);
+                log.setAnswer(i, a);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            log.setPoint(rs.getInt("point"));
+            log.setStatus(rs.getString("status"));
+
+            return log;
         }
         return null;
     }
 
-    public static Integer getCigarettesOnFirstDay(String idMember) {
-        String sql = "SELECT TOP 1 numberOfCigarettes FROM ProgressLog WHERE IDMember = ? ORDER BY logDate ASC";
-        try (Connection con = DBUtils.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, idMember);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("numberOfCigarettes");
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    private static final String INSERT_SQL =
+            "INSERT INTO ProgressLog " +
+            "(IDMember, IDCoach, StartDate, EndDate, " +
+            "qs1, qs2, qs3, qs4, qs5, " +
+            "type, status) " +
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
-    public static Date getStartDate(String idMember) {
-        String sql = "SELECT TOP 1 logDate FROM ProgressLog WHERE IDMember = ? ORDER BY logDate ASC";
-        try (Connection con = DBUtils.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, idMember);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDate("logDate");
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-//    public static List<Question> getAllLogsForMember(String idMember) {
-//        List<Question> list = new ArrayList<>();
-//        String sql = "SELECT * FROM ProgressLog WHERE IDMember = ? ORDER BY logDate DESC";
-//        try (Connection con = DBUtils.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-//            ps.setString(1, idMember);
-//            try (ResultSet rs = ps.executeQuery()) {
-//                while (rs.next()) {
-//                    Question log = new Question(
-//                        rs.getInt("IDLog"),
-//                        rs.getString("IDMember"),
-//                        rs.getDate("logDate"),
-//                        rs.getInt("numberOfCigarettes"),
-//                        rs.getString("notes")
-//                    );
-//                    list.add(log);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
-//    
-//     public static List<Question> getLogsByMember(String memberId) {
-//        List<Question> list = new ArrayList<>();
-//        try (Connection conn = DBUtils.getConnection()) {
-//            String sql = "SELECT * FROM ProgressLog WHERE IDMember = ? ORDER BY logDate DESC";
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setString(1, memberId);
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                Question log = new Question();
-//                log.setLogDate(rs.getDate("logDate"));
-//                log.setNumberOfCigarettes(rs.getInt("numberOfCigarettes"));
-//                log.setNotes(rs.getString("notes"));
-//                list.add(log);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
-    private static final String INSERT_SQL
-            = "INSERT INTO ProgressLog "
-            + "(IDMember, IDCoach, StartDate, EndDate, "
-            + "qs1, qs2, qs3, qs4, qs5, qs6, qs7, qs8, qs9, qs10, "
-            + "type, status) "
-            + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-    /**
-     * @param idMember Mã thành viên
-     * @param idCoach Mã coach
-     * @param endDate Ngày kết thúc (StartDate = hôm nay)
-     * @param questions Mảng câu hỏi (độ dài ≤10). Các phần tử null/"" => ghi NULL
-     * @param type Loại của tiến trình (type)
-     */
     public static void insertQuestions(String idMember, String idCoach,
-            Date endDate, String[] questions, String type) throws ClassNotFoundException {
-        // Normalize to exactly 10 slots
-        String[] qs = new String[10];
-        for (int i = 0; i < 10; i++) {
+                                       Date endDate, String[] questions, String type) throws ClassNotFoundException {
+        String[] qs = new String[5];
+        for (int i = 0; i < 5; i++) {
             if (questions != null && i < questions.length) {
                 String raw = questions[i];
                 qs[i] = (raw != null && !raw.trim().isEmpty()) ? raw.trim() : null;
@@ -150,18 +60,15 @@ public class ProgressLogDAO {
         }
 
         try (Connection conn = DBUtils.getConnection();
-                PreparedStatement ps = conn.prepareStatement(INSERT_SQL)) {
+             PreparedStatement ps = conn.prepareStatement(INSERT_SQL)) {
 
             int idx = 1;
             ps.setString(idx++, idMember);
             ps.setString(idx++, idCoach);
-            // StartDate = ngày hiện tại
             ps.setDate(idx++, new Date(System.currentTimeMillis()));
-            // EndDate = tham số truyền vào
             ps.setDate(idx++, endDate);
 
-            // qs1..qs10
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 5; i++) {
                 if (qs[i] != null) {
                     ps.setString(idx++, qs[i]);
                 } else {
@@ -169,83 +76,95 @@ public class ProgressLogDAO {
                 }
             }
 
-            // Set giá trị "type" vào câu lệnh SQL
-            ps.setString(idx++, type);  // Đặt giá trị cho "type"
-
-            // status mặc định = "0"
-            ps.setString(idx++, "0");
-
-            // Thực thi câu lệnh INSERT
+            ps.setString(idx++, type);
+            ps.setString(idx++, "save");
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(
-                    "Error inserting ProgressLog for member=" + idMember, e);
+            throw new RuntimeException("Error inserting ProgressLog for member=" + idMember, e);
         }
     }
-    private static final String SELECT_LOGS_BY_MEMBER = "SELECT * FROM dbo.ProgressLog WHERE IDMember = ?";
 
     public List<ProgressLog> getProgressLogsByMember(String idMember) throws SQLException, ClassNotFoundException {
         List<ProgressLog> progressLogs = new ArrayList<>();
 
-        // Kết nối và truy vấn dữ liệu
+        String sql = "SELECT * FROM ProgressLog WHERE IDMember = ?";
         try (Connection conn = DBUtils.getConnection();
-                PreparedStatement ps = conn.prepareStatement(SELECT_LOGS_BY_MEMBER)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, idMember);
 
-            ResultSet resultSet = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int idLog = rs.getInt("IDLog");
+                String idCoach = rs.getString("IDCoach");
+                Date startDate = rs.getDate("StartDate");
+                Date endDate = rs.getDate("EndDate");
+                String type = rs.getString("type");
 
-            // Xử lý kết quả trả về
-            while (resultSet.next()) {
-                int idLog = resultSet.getInt("IDLog");
-                String idCoach = resultSet.getString("IDCoach");
+                String qs1 = rs.getString("qs1");
+                String qs2 = rs.getString("qs2");
+                String qs3 = rs.getString("qs3");
+                String qs4 = rs.getString("qs4");
+                String qs5 = rs.getString("qs5");
 
-                // Lấy ngày tháng từ SQL và sử dụng java.sql.Date
-                java.sql.Date sqlStartDate = resultSet.getDate("StartDate");
-                java.sql.Date sqlEndDate = resultSet.getDate("EndDate");
+                String as1 = rs.getString("as1");
+                String as2 = rs.getString("as2");
+                String as3 = rs.getString("as3");
+                String as4 = rs.getString("as4");
+                String as5 = rs.getString("as5");
 
-                // Nếu có dữ liệu thì sử dụng
-                Date startDate = sqlStartDate != null ? sqlStartDate : null;
-                Date endDate = sqlEndDate != null ? sqlEndDate : null;
+                int point = rs.getInt("point");
+                String status = rs.getString("status");
 
-                String type = resultSet.getString("Type");
+                ProgressLog log = new ProgressLog(
+                        idLog, idMember, idCoach, startDate, endDate, type,
+                        qs1, qs2, qs3, qs4, qs5,
+                        as1, as2, as3, as4, as5,
+                        point, status
+                );
 
-                // Các câu hỏi khác...
-                String qs1 = resultSet.getString("qs1");
-                String qs2 = resultSet.getString("qs2");
-                String qs3 = resultSet.getString("qs3");
-                String qs4 = resultSet.getString("qs4");
-                String qs5 = resultSet.getString("qs5");
-                String qs6 = resultSet.getString("qs6");
-                String qs7 = resultSet.getString("qs7");
-                String qs8 = resultSet.getString("qs8");
-                String qs9 = resultSet.getString("qs9");
-                String qs10 = resultSet.getString("qs10");
-
-                // Tạo đối tượng ProgressLog và thêm vào danh sách
-                ProgressLog log = new ProgressLog(idLog, idMember, idCoach, startDate, endDate, type,
-                        qs1, qs2, qs3, qs4, qs5, qs6, qs7, qs8, qs9, qs10);
                 progressLogs.add(log);
             }
         }
+
         return progressLogs;
     }
-//   private static final String UPDATE_ANSWER_TEMPLATE = "UPDATE dbo.ProgressLog SET %s = ? WHERE IDLog = ? AND IDMember = ?";
-//       public void updateAnswer(int logId, String idMember, List<String> answers) throws SQLException, ClassNotFoundException {
-//        // Duyệt qua câu trả lời và tạo câu lệnh SQL động
-//        for (int i = 0; i < answers.size(); i++) {
-//            String column = String.format("as%02d", i + 1);  // Tạo tên cột như as01, as02, ...
-//            String updateQuery = String.format(UPDATE_ANSWER_TEMPLATE, column);  // Tạo câu lệnh SQL động
-//
-//            try (Connection conn = DBUtils.getConnection();
-//                 PreparedStatement preparedStatement = conn.prepareStatement(updateQuery)) {
-//
-//                preparedStatement.setString(1, answers.get(i));  // Đặt giá trị cho câu trả lời
-//                preparedStatement.setInt(2, logId);  // Đặt giá trị cho logId
-//                preparedStatement.setString(3, idMember);  // Đặt giá trị cho IDMember
-//
-//                preparedStatement.executeUpdate();  // Thực hiện câu lệnh UPDATE
-//            }
-//        }
-//    }
-}
+
+    public static boolean update(ProgressLog log) throws Exception {
+        String sql =
+                "UPDATE ProgressLog SET " +
+                        "IDMember = ?, IDCoach = ?, StartDate = ?, EndDate = ?, type = ?, " +
+                        "qs1 = ?, qs2 = ?, qs3 = ?, qs4 = ?, qs5 = ?, " +
+                        "as1 = ?, as2 = ?, as3 = ?, as4 = ?, as5 = ?, " +
+                        "point = ?, status = ? " +
+                        "WHERE IDLog = ?";
+
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, log.getIdMember());
+            stmt.setString(2, log.getIdCoach());
+            stmt.setDate(3, log.getStartDate());
+            stmt.setDate(4, log.getEndDate());
+            stmt.setString(5, log.getType());
+
+            stmt.setString(6, log.getQs1());
+            stmt.setString(7, log.getQs2());
+            stmt.setString(8, log.getQs3());
+            stmt.setString(9, log.getQs4());
+            stmt.setString(10, log.getQs5());
+
+            stmt.setString(11, log.getAs1());
+            stmt.setString(12, log.getAs2());
+            stmt.setString(13, log.getAs3());
+            stmt.setString(14, log.getAs4());
+            stmt.setString(15, log.getAs5());
+
+            stmt.setInt(16, log.getPoint());
+            stmt.setString(17, log.getStatus());
+            stmt.setInt(18, log.getIdLog());
+
+            return stmt.executeUpdate() > 0;
+        }
+    }
+} 
