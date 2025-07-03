@@ -89,7 +89,7 @@
                                     <%
                                         if ("member".equals(role) && mycoach != null) {
                                     %>
-                                    <a href="ProgressLogServlet">ProgressLog</a>
+                                    <a href="progressList.jsp">ProgressLog</a>
                                     <a href="MemberScheduleServlet">Schedule</a>
                                     <%
                                         }

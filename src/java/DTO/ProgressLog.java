@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DTO;
+
 import java.sql.Date;
-/**
- *
- * @author Nghia
- */
+
 public class ProgressLog {
     private int idLog;
     private String idMember;
@@ -16,21 +9,17 @@ public class ProgressLog {
     private Date startDate;
     private Date endDate;
     private String type;
-    private String qs1;
-    private String qs2;
-    private String qs3;
-    private String qs4;
-    private String qs5;
-    private String qs6;
-    private String qs7;
-    private String qs8;
-    private String qs9;
-    private String qs10;
-    
-    // Constructor
-    public ProgressLog(int idLog, String idMember, String idCoach, Date startDate, Date endDate, String type, 
-                       String qs1, String qs2, String qs3, String qs4, String qs5, String qs6, 
-                       String qs7, String qs8, String qs9, String qs10) {
+    private String qs1, qs2, qs3, qs4, qs5;
+    private String as1, as2, as3, as4, as5;
+    private int point;
+    private String status;
+
+    public ProgressLog() {}
+
+    public ProgressLog(int idLog, String idMember, String idCoach, Date startDate, Date endDate, String type,
+                       String qs1, String qs2, String qs3, String qs4, String qs5,
+                       String as1, String as2, String as3, String as4, String as5,
+                       int point, String status) {
         this.idLog = idLog;
         this.idMember = idMember;
         this.idCoach = idCoach;
@@ -42,14 +31,15 @@ public class ProgressLog {
         this.qs3 = qs3;
         this.qs4 = qs4;
         this.qs5 = qs5;
-        this.qs6 = qs6;
-        this.qs7 = qs7;
-        this.qs8 = qs8;
-        this.qs9 = qs9;
-        this.qs10 = qs10;
+        this.as1 = as1;
+        this.as2 = as2;
+        this.as3 = as3;
+        this.as4 = as4;
+        this.as5 = as5;
+        this.point = point;
+        this.status = status;
     }
-    
-    // Getter và Setter cho các thuộc tính
+
     public int getIdLog() { return idLog; }
     public void setIdLog(int idLog) { this.idLog = idLog; }
 
@@ -70,31 +60,61 @@ public class ProgressLog {
 
     public String getQs1() { return qs1; }
     public void setQs1(String qs1) { this.qs1 = qs1; }
-
     public String getQs2() { return qs2; }
     public void setQs2(String qs2) { this.qs2 = qs2; }
-
     public String getQs3() { return qs3; }
     public void setQs3(String qs3) { this.qs3 = qs3; }
-
     public String getQs4() { return qs4; }
     public void setQs4(String qs4) { this.qs4 = qs4; }
-
     public String getQs5() { return qs5; }
     public void setQs5(String qs5) { this.qs5 = qs5; }
 
-    public String getQs6() { return qs6; }
-    public void setQs6(String qs6) { this.qs6 = qs6; }
+    public String getAs1() { return as1; }
+    public void setAs1(String as1) { this.as1 = as1; }
+    public String getAs2() { return as2; }
+    public void setAs2(String as2) { this.as2 = as2; }
+    public String getAs3() { return as3; }
+    public void setAs3(String as3) { this.as3 = as3; }
+    public String getAs4() { return as4; }
+    public void setAs4(String as4) { this.as4 = as4; }
+    public String getAs5() { return as5; }
+    public void setAs5(String as5) { this.as5 = as5; }
 
-    public String getQs7() { return qs7; }
-    public void setQs7(String qs7) { this.qs7 = qs7; }
+    public int getPoint() { return point; }
+    public void setPoint(int point) { this.point = point; }
 
-    public String getQs8() { return qs8; }
-    public void setQs8(String qs8) { this.qs8 = qs8; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public String getQs9() { return qs9; }
-    public void setQs9(String qs9) { this.qs9 = qs9; }
+    public String getQs(int i) {
+        switch (i) {
+            case 1: return qs1;
+            case 2: return qs2;
+            case 3: return qs3;
+            case 4: return qs4;
+            case 5: return qs5;
+            default: return null;
+        }
+    }
 
-    public String getQs10() { return qs10; }
-    public void setQs10(String qs10) { this.qs10 = qs10; }
+    public String getAnswer(int i) {
+        switch (i) {
+            case 1: return as1;
+            case 2: return as2;
+            case 3: return as3;
+            case 4: return as4;
+            case 5: return as5;
+            default: return null;
+        }
+    }
+
+    public void setAnswer(int i, String value) {
+        switch (i) {
+            case 1: as1 = value; break;
+            case 2: as2 = value; break;
+            case 3: as3 = value; break;
+            case 4: as4 = value; break;
+            case 5: as5 = value; break;
+        }
+    }
 }
