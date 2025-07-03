@@ -1,0 +1,50 @@
+<%@page import="java.util.List"%>
+<%@page import="DTO.ProgressLog"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idMember = (String) session.getAttribute("id"); // đã lưu trong session khi login
+    if (idMember == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    DAO.ProgressLogDAO dao = new DAO.ProgressLogDAO();
+    List<ProgressLog> logs = dao.getProgressLogsByMember(idMember);
+%>
+
+<h2>Danh sách nhật ký tiến trình</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Huấn luyện viên</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc</th>
+        <th>Loại</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+    </tr>
+
+    <%
+        for (ProgressLog log : logs) {
+    %>
+    <tr>
+        <td><%= log.getIdLog() %></td>
+        <td><%= log.getIdCoach() %></td>
+        <td><%= log.getStartDate() %></td>
+        <td><%= log.getEndDate() %></td>
+        <td><%= log.getType() %></td>
+        <td><%= log.getStatus() %></td>
+        <td>
+            <form action="SubmitProgressLogServlet" method="get" style="display:inline;">
+                    <input type="hidden" name="idLog" value="<%= log.getIdLog() %>">
+                    <button type="submit">
+                        <%= "save".equalsIgnoreCase(log.getStatus()) ? "Trả lời" : "Xem" %>
+                    </button>
+                </form>
+        </td>
+    </tr>
+    <%
+        }
+    %>
+</table>

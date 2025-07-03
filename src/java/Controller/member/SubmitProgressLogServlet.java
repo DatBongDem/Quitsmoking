@@ -51,7 +51,6 @@ public class SubmitProgressLogServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try {
-            // Lấy idLog từ URL
             String idLogParam = request.getParameter("idLog");
             if (idLogParam == null || idLogParam.isEmpty()) {
                 request.setAttribute("errorMessage", "Thiếu IDLog.");
@@ -60,24 +59,21 @@ public class SubmitProgressLogServlet extends HttpServlet {
             }
 
             int idLog = Integer.parseInt(idLogParam);
-
-            // Gọi DAO để lấy ProgressLog theo id
             ProgressLogDAO dao = new ProgressLogDAO();
             ProgressLog log = dao.getById(idLog);
 
             if (log == null) {
-                request.setAttribute("errorMessage", "Không tìm thấy bản ghi ProgressLog.");
+                request.setAttribute("errorMessage", "Không tìm thấy bản ghi.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 return;
             }
 
-            // Đẩy dữ liệu sang JSP
             request.setAttribute("log", log);
             request.getRequestDispatcher("progressAnswer.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Lỗi: " + e.getMessage());
+            request.setAttribute("errorMessage", "Lỗi hệ thống: " + e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
@@ -95,34 +91,41 @@ public class SubmitProgressLogServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
-        int idLog = Integer.parseInt(request.getParameter("idLog"));
-        String action = request.getParameter("action"); // "save" hoặc "submit"
 
         try {
-            ProgressLogDAO dao = new ProgressLogDAO();
-            ProgressLog log = dao.getById(idLog); // Lấy log hiện tại
+            int idLog = Integer.parseInt(request.getParameter("idLog"));
+            String action = request.getParameter("action"); // "save" hoặc "submit"
 
-            for (int i = 1; i <= 10; i++) {
+            ProgressLogDAO dao = new ProgressLogDAO();
+            ProgressLog log = dao.getById(idLog);
+
+            if (log == null) {
+                request.setAttribute("errorMessage", "Không tìm thấy bản ghi.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
+
+            for (int i = 1; i <= 5; i++) {
                 String answer = request.getParameter("as" + i);
                 if (answer != null) {
-                    log.setAnswer(i, answer);
+                    log.setAnswer(i, answer.trim());
                 }
             }
-            System.out.println("idLog = " + idLog);
-            log.setStatus(action.equals("save") ? "save" : "submit");
 
-            boolean updated = dao.update(log);
+            log.setStatus("save".equalsIgnoreCase(action) ? "save" : "submit");
+
+            boolean updated = ProgressLogDAO.update(log);
             if (updated) {
-                response.sendRedirect("progresslist.jsp"); // hoặc trang thông báo
+                response.sendRedirect("progressList.jsp");
             } else {
-                request.setAttribute("error", "Không thể lưu tiến trình.");
+                request.setAttribute("errorMessage", "Cập nhật không thành công.");
+                request.setAttribute("log", log);
                 request.getRequestDispatcher("progressAnswer.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("error", "Lỗi hệ thống: " + e.getMessage());
-            request.getRequestDispatcher("progressAnswer.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "Lỗi xử lý: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
