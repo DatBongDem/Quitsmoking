@@ -74,7 +74,16 @@ public class BadgeDAO {
     public static List<Member> getProgressRankingByStatus(String status) throws Exception {
         List<Member> list = new ArrayList<>();
 
-        String sql = "SELECT m.IDMember, m.memberName, SUM(ISNULL(p.point, 0)) AS totalPoint "
+        String sql
+                = "SELECT m.IDMember, m.memberName, "
+                + "       SUM( "
+                + "           CASE "
+                + "               WHEN p.type = '3 day' THEN ISNULL(p.point, 0) * 0.2 "
+                + "               WHEN p.type = '5 day' THEN ISNULL(p.point, 0) * 0.3 "
+                + "               WHEN p.type = '7 day' THEN ISNULL(p.point, 0) * 0.5 "
+                + "               ELSE 0 "
+                + "           END "
+                + "       ) AS totalPoint "
                 + "FROM Member m "
                 + "LEFT JOIN ProgressLog p ON m.IDMember = p.IDMember "
                 + "WHERE m.status = ? "
@@ -91,7 +100,7 @@ public class BadgeDAO {
                 Member m = new Member();
                 m.setIDMember(rs.getString("IDMember"));
                 m.setMemberName(rs.getString("memberName"));
-                m.setPoint(rs.getInt("totalPoint")); 
+                m.setPoint((int) Math.round(rs.getDouble("totalPoint"))); // Làm tròn sang int
                 list.add(m);
             }
         }

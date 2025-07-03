@@ -41,7 +41,7 @@
             <div class="ranking-box">
                 <h2 class="silver">🥈 Silver</h2>
                 <table>
-                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm</th></tr>
+                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm xét hạng</th></tr>
                             <%
                                 List<Member> silverList = (List<Member>) request.getAttribute("silverList");
                                 int i = 1;
@@ -76,7 +76,7 @@
             <div class="ranking-box">
                 <h2 class="gold">🥇 Gold</h2>
                 <table>
-                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm</th></tr>
+                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm xét hạng</th></tr>
                             <%
                                 List<Member> goldList = (List<Member>) request.getAttribute("goldList");
                                 i = 1;
@@ -113,7 +113,7 @@
             <div class="ranking-box">
                 <h2 class="diamond">💎 Diamond</h2>
                 <table>
-                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm</th></tr>
+                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm xét hạng</th></tr>
                             <%
                                 List<Member> diamondList = (List<Member>) request.getAttribute("diamondList");
                                 i = 1;
