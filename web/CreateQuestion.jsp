@@ -92,7 +92,7 @@
                 <div class="form-title-row">
                     <div class="form-title-left">
                         <span class="icon-circle"><i class="fas fa-question"></i></span>
-                        <span class="form-title-text">Nhập Câu Hỏi Cho Thành Viên:</span>
+                        <span class="form-title-text">Nhập tiến trình Cho Thành Viên:</span>
                     </div>
                     <span class="member-id"><%= idMember%></span>
                 </div>
@@ -100,6 +100,17 @@
                     <span class="count-badge" id="countBadge"><span id="countDisplay">1</span>/10</span> câu hỏi
                 </div>
                 <form method="get" action="SaveQuestionsServlet" class="question-form" autocomplete="off">
+                    <div class="progress-section">
+                        <label for="progress">Nhập tiến trình:</label>
+                        <textarea
+                            id="progress"
+                            name="progress"
+                            rows="5"
+                            style="width:100%;"
+                            placeholder="Mô tả ngắn gọn tiến trình làm việc…"
+                            required
+                            ></textarea>
+                    </div>
                     <input type="hidden" name="idMember" value="<%= idMember%>"/>
                     <div class="plan-section">
                         <span class="plan-label">Chọn thời hạn (ngày):</span>
@@ -121,17 +132,7 @@
                     </div>
                     <input type="hidden" id="questionCount" name="questionCount" value="1"/>
                     <div id="questions"></div>
-                    <div class="progress-section">
-                        <label for="progress">Nhập tiến trình:</label>
-                        <textarea
-                            id="progress"
-                            name="progress"
-                            rows="5"
-                            style="width:100%;"
-                            placeholder="Mô tả ngắn gọn tiến trình làm việc…"
-                            required
-                            ></textarea>
-                    </div>
+                    
                     <button type="button" class="btn add-btn" id="addBtn">
                         <i class="fas fa-plus"></i> Thêm câu hỏi
                     </button>

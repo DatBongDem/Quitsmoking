@@ -418,3 +418,38 @@ body, html {
     -webkit-animation: fadeInUp 0.7s;
     animation: fadeInUp 0.7s;
 }
+
+.progress-section {
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+.main-container .question-form .progress-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #2e7d32; /* Xanh lá đậm */
+}
+
+.main-container .question-form .progress-section textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #a5d6a7; /* Xanh lá nhạt */
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9fff9;
+}
+
+.main-container .question-form .progress-section textarea:focus {
+    border-color: #4CAF50; /* Xanh lá chủ đạo */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Hiệu ứng xanh lá khi focus */
+}
+
+.main-container .question-form .progress-section textarea::placeholder {
+    color: #99cc99;
+}
