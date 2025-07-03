@@ -171,4 +171,30 @@ public class ProgressLogDAO {
             return stmt.executeUpdate() > 0;
         }
     }
+    
+    public List<ProgressLog> getLogsOfMemberForCoach(String idMember, String idCoach) throws Exception {
+    List<ProgressLog> list = new ArrayList<>();
+    String sql = "SELECT * FROM ProgressLog WHERE IDMember = ? AND IDCoach = ?";
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, idMember);
+        ps.setString(2, idCoach);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            ProgressLog log = new ProgressLog(
+                rs.getInt("IDLog"), idMember, idCoach,
+                rs.getDate("StartDate"), rs.getDate("EndDate"),
+                rs.getString("type"), rs.getString("progress"),
+                rs.getString("qs1"), rs.getString("qs2"), rs.getString("qs3"),
+                rs.getString("qs4"), rs.getString("qs5"),
+                rs.getString("as1"), rs.getString("as2"), rs.getString("as3"),
+                rs.getString("as4"), rs.getString("as5"),
+                rs.getInt("point"), rs.getString("status")
+            );
+            list.add(log);
+        }
+    }
+    return list;
+}
+
 } 

@@ -16,6 +16,17 @@
 
 <h2>Trả lời câu hỏi từ huấn luyện viên</h2>
 
+<!-- Hiển thị progress -->
+<% 
+    String progress = log.getProgress();
+    if (progress != null && !progress.trim().isEmpty()) {
+%>
+    <div style="margin-bottom: 20px;">
+        <p><b>Nhật ký ghi chú:</b></p>
+        <textarea readonly rows="4" cols="70"><%= progress %></textarea>
+    </div>
+<% } %>
+
 <form action="SubmitProgressLogServlet" method="post">
     <input type="hidden" name="idLog" value="<%= log.getIdLog() %>">
 

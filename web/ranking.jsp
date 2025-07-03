@@ -41,17 +41,31 @@
             <div class="ranking-box">
                 <h2 class="silver">🥈 Silver</h2>
                 <table>
-                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Số huy hiệu</th></tr>
+                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm</th></tr>
                             <%
                                 List<Member> silverList = (List<Member>) request.getAttribute("silverList");
                                 int i = 1;
+                                boolean hasData = false;
+
                                 if (silverList != null && !silverList.isEmpty()) {
                                     for (Member m : silverList) {
+                                        Integer point = m.getPoint();
+                                        if (point == null || point == 0) {
+                                            continue; // Bỏ qua nếu không có điểm
+                                        }
+                                        hasData = true;
                             %>
-                    <tr><td><%= i++%></td><td><%= m.getIDMember()%></td><td><%= m.getMemberName()%></td><td><%= m.getPoint()%></td></tr>
+                    <tr>
+                        <td><%= i++%></td>
+                        <td><%= m.getIDMember()%></td>
+                        <td><%= m.getMemberName()%></td>
+                        <td><%= point%></td>
+                    </tr>
                     <%
+                            }
                         }
-                    } else {
+
+                        if (!hasData) {
                     %>
                     <tr><td colspan="4">Không có dữ liệu cho bảng xếp hạng Silver.</td></tr>
                     <% } %>
@@ -62,42 +76,73 @@
             <div class="ranking-box">
                 <h2 class="gold">🥇 Gold</h2>
                 <table>
-                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Số huy hiệu</th></tr>
+                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm</th></tr>
                             <%
                                 List<Member> goldList = (List<Member>) request.getAttribute("goldList");
                                 i = 1;
+                                boolean hasGold = false;
+
                                 if (goldList != null && !goldList.isEmpty()) {
                                     for (Member m : goldList) {
+                                        Integer point = m.getPoint();
+                                        if (point == null || point == 0) {
+                                            continue;
+                                        }
+
+                                        hasGold = true;
                             %>
-                    <tr><td><%= i++%></td><td><%= m.getIDMember()%></td><td><%= m.getMemberName()%></td><td><%= m.getPoint()%></td></tr>
+                    <tr>
+                        <td><%= i++%></td>
+                        <td><%= m.getIDMember()%></td>
+                        <td><%= m.getMemberName()%></td>
+                        <td><%= point%></td>
+                    </tr>
                     <%
+                            }
                         }
-                    } else {
+
+                        if (!hasGold) {
                     %>
                     <tr><td colspan="4">Không có dữ liệu cho bảng xếp hạng Gold.</td></tr>
                     <% } %>
                 </table>
+
             </div>
 
             <!-- Diamond -->
             <div class="ranking-box">
                 <h2 class="diamond">💎 Diamond</h2>
                 <table>
-                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Số huy hiệu</th></tr>
+                    <tr><th>STT</th><th>ID</th><th>Tên</th><th>Điểm</th></tr>
                             <%
                                 List<Member> diamondList = (List<Member>) request.getAttribute("diamondList");
                                 i = 1;
+                                boolean hasDiamond = false;
+
                                 if (diamondList != null && !diamondList.isEmpty()) {
                                     for (Member m : diamondList) {
+                                        Integer point = m.getPoint();
+                                        if (point == null || point == 0) {
+                                            continue; // Ẩn nếu không có điểm
+                                        }
+                                        hasDiamond = true;
                             %>
-                    <tr><td><%= i++%></td><td><%= m.getIDMember()%></td><td><%= m.getMemberName()%></td><td><%= m.getPoint()%></td></tr>
+                    <tr>
+                        <td><%= i++%></td>
+                        <td><%= m.getIDMember()%></td>
+                        <td><%= m.getMemberName()%></td>
+                        <td><%= point%></td>
+                    </tr>
                     <%
+                            }
                         }
-                    } else {
+
+                        if (!hasDiamond) {
                     %>
                     <tr><td colspan="4">Không có dữ liệu cho bảng xếp hạng Diamond.</td></tr>
                     <% }%>
                 </table>
+
             </div>
         </div>
 

@@ -27,6 +27,19 @@
     <p><b>Ngày bắt đầu:</b> <%= log.getStartDate() %></p>
     <p><b>Ngày kết thúc:</b> <%= log.getEndDate() %></p>
 
+    <%-- ✅ Thêm phần ghi chú progress --%>
+    <%
+        String progress = log.getProgress();
+        if (progress != null && !progress.trim().isEmpty()) {
+    %>
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+            <p><b>Ghi chú tiến trình:</b></p>
+            <textarea readonly rows="4" cols="70"><%= progress %></textarea>
+        </div>
+    <%
+        }
+    %>
+
     <hr>
 
     <%
