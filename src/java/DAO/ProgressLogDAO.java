@@ -24,6 +24,7 @@ public class ProgressLogDAO {
             log.setStartDate(rs.getDate("StartDate"));
             log.setEndDate(rs.getDate("EndDate"));
             log.setType(rs.getString("Type"));
+            log.setProgress(rs.getString("progress"));
 
             for (int i = 1; i <= 5; i++) {
                 String q = rs.getString("qs" + i);
@@ -42,13 +43,13 @@ public class ProgressLogDAO {
 
     private static final String INSERT_SQL =
             "INSERT INTO ProgressLog " +
-            "(IDMember, IDCoach, StartDate, EndDate, " +
+            "(IDMember, IDCoach, StartDate, EndDate, progress, " +
             "qs1, qs2, qs3, qs4, qs5, " +
             "type, status) " +
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public static void insertQuestions(String idMember, String idCoach,
-                                       Date endDate, String[] questions, String type) throws ClassNotFoundException {
+                                       Date endDate, String progress, String[] questions, String type) throws ClassNotFoundException {
         String[] qs = new String[5];
         for (int i = 0; i < 5; i++) {
             if (questions != null && i < questions.length) {
@@ -67,6 +68,7 @@ public class ProgressLogDAO {
             ps.setString(idx++, idCoach);
             ps.setDate(idx++, new Date(System.currentTimeMillis()));
             ps.setDate(idx++, endDate);
+            ps.setString(idx++, progress);
 
             for (int i = 0; i < 5; i++) {
                 if (qs[i] != null) {
@@ -77,7 +79,7 @@ public class ProgressLogDAO {
             }
 
             ps.setString(idx++, type);
-            ps.setString(idx++, "save");
+            ps.setString(idx++, "0");
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error inserting ProgressLog for member=" + idMember, e);
@@ -100,6 +102,7 @@ public class ProgressLogDAO {
                 Date startDate = rs.getDate("StartDate");
                 Date endDate = rs.getDate("EndDate");
                 String type = rs.getString("type");
+                String progress = rs.getString("progress");
 
                 String qs1 = rs.getString("qs1");
                 String qs2 = rs.getString("qs2");
@@ -117,7 +120,7 @@ public class ProgressLogDAO {
                 String status = rs.getString("status");
 
                 ProgressLog log = new ProgressLog(
-                        idLog, idMember, idCoach, startDate, endDate, type,
+                        idLog, idMember, idCoach, startDate, endDate, type, progress,
                         qs1, qs2, qs3, qs4, qs5,
                         as1, as2, as3, as4, as5,
                         point, status
@@ -133,7 +136,7 @@ public class ProgressLogDAO {
     public static boolean update(ProgressLog log) throws Exception {
         String sql =
                 "UPDATE ProgressLog SET " +
-                        "IDMember = ?, IDCoach = ?, StartDate = ?, EndDate = ?, type = ?, " +
+                        "IDMember = ?, IDCoach = ?, StartDate = ?, EndDate = ?, type = ?, progress = ?, " +
                         "qs1 = ?, qs2 = ?, qs3 = ?, qs4 = ?, qs5 = ?, " +
                         "as1 = ?, as2 = ?, as3 = ?, as4 = ?, as5 = ?, " +
                         "point = ?, status = ? " +
@@ -147,22 +150,23 @@ public class ProgressLogDAO {
             stmt.setDate(3, log.getStartDate());
             stmt.setDate(4, log.getEndDate());
             stmt.setString(5, log.getType());
+            stmt.setString(6, log.getProgress());
 
-            stmt.setString(6, log.getQs1());
-            stmt.setString(7, log.getQs2());
-            stmt.setString(8, log.getQs3());
-            stmt.setString(9, log.getQs4());
-            stmt.setString(10, log.getQs5());
+            stmt.setString(7, log.getQs1());
+            stmt.setString(8, log.getQs2());
+            stmt.setString(9, log.getQs3());
+            stmt.setString(10, log.getQs4());
+            stmt.setString(11, log.getQs5());
 
-            stmt.setString(11, log.getAs1());
-            stmt.setString(12, log.getAs2());
-            stmt.setString(13, log.getAs3());
-            stmt.setString(14, log.getAs4());
-            stmt.setString(15, log.getAs5());
+            stmt.setString(12, log.getAs1());
+            stmt.setString(13, log.getAs2());
+            stmt.setString(14, log.getAs3());
+            stmt.setString(15, log.getAs4());
+            stmt.setString(16, log.getAs5());
 
-            stmt.setInt(16, log.getPoint());
-            stmt.setString(17, log.getStatus());
-            stmt.setInt(18, log.getIdLog());
+            stmt.setInt(17, log.getPoint());
+            stmt.setString(18, log.getStatus());
+            stmt.setInt(19, log.getIdLog());
 
             return stmt.executeUpdate() > 0;
         }
