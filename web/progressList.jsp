@@ -36,12 +36,17 @@
         <td><%= log.getType() %></td>
         <td><%= log.getStatus() %></td>
         <td>
-            <form action="SubmitProgressLogServlet" method="get" style="display:inline;">
-                    <input type="hidden" name="idLog" value="<%= log.getIdLog() %>">
-                    <button type="submit">
-                        <%= "save".equalsIgnoreCase(log.getStatus()) ? "Trả lời" : "Xem" %>
-                    </button>
+            <% if ("save".equalsIgnoreCase(log.getStatus())) { %>
+                <form action="SubmitProgressLogServlet" method="get" style="display:inline;">
+                    <input type="hidden" name="idLog" value="<%= log.getIdLog() %>" />
+                    <button type="submit">✏️ Trả lời</button>
                 </form>
+            <% } else { %>
+                <form action="ViewProgressLogServlet" method="get" style="display:inline;">
+                    <input type="hidden" name="idLog" value="<%= log.getIdLog() %>" />
+                    <button type="submit">Xem</button>
+                </form>
+            <% } %>
         </td>
     </tr>
     <%
