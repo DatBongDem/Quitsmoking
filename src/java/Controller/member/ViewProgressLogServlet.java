@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nguyen Tien Dat
  */
-public class SubmitProgressLogServlet extends HttpServlet {
+public class ViewProgressLogServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +32,10 @@ public class SubmitProgressLogServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+           
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,8 +62,7 @@ public class SubmitProgressLogServlet extends HttpServlet {
             }
 
             int idLog = Integer.parseInt(idLogParam);
-            ProgressLogDAO dao = new ProgressLogDAO();
-            ProgressLog log = dao.getById(idLog);
+            ProgressLog log = new ProgressLogDAO().getById(idLog);
 
             if (log == null) {
                 request.setAttribute("errorMessage", "Không tìm thấy bản ghi.");
@@ -69,7 +71,7 @@ public class SubmitProgressLogServlet extends HttpServlet {
             }
 
             request.setAttribute("log", log);
-            request.getRequestDispatcher("progressAnswer.jsp").forward(request, response);
+            request.getRequestDispatcher("viewProgressLog.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,44 +91,7 @@ public class SubmitProgressLogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        try {
-            int idLog = Integer.parseInt(request.getParameter("idLog"));
-            String action = request.getParameter("action"); // "save" hoặc "submit"
-
-            ProgressLogDAO dao = new ProgressLogDAO();
-            ProgressLog log = dao.getById(idLog);
-
-            if (log == null) {
-                request.setAttribute("errorMessage", "Không tìm thấy bản ghi.");
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-                return;
-            }
-
-            for (int i = 1; i <= 5; i++) {
-                String answer = request.getParameter("as" + i);
-                if (answer != null) {
-                    log.setAnswer(i, answer.trim());
-                }
-            }
-
-            log.setStatus("save".equalsIgnoreCase(action) ? "save" : "submit");
-
-            boolean updated = ProgressLogDAO.update(log);
-            if (updated) {
-                response.sendRedirect("progressList.jsp");
-            } else {
-                request.setAttribute("errorMessage", "Cập nhật không thành công.");
-                request.setAttribute("log", log);
-                request.getRequestDispatcher("progressAnswer.jsp").forward(request, response);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Lỗi xử lý: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
