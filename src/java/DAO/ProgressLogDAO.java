@@ -79,7 +79,7 @@ public class ProgressLogDAO {
             }
 
             ps.setString(idx++, type);
-            ps.setString(idx++, "0");
+            ps.setString(idx++, "save");
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error inserting ProgressLog for member=" + idMember, e);

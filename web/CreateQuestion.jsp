@@ -121,6 +121,17 @@
                     </div>
                     <input type="hidden" id="questionCount" name="questionCount" value="1"/>
                     <div id="questions"></div>
+                    <div class="progress-section">
+                        <label for="progress">Nhập tiến trình:</label>
+                        <textarea
+                            id="progress"
+                            name="progress"
+                            rows="5"
+                            style="width:100%;"
+                            placeholder="Mô tả ngắn gọn tiến trình làm việc…"
+                            required
+                            ></textarea>
+                    </div>
                     <button type="button" class="btn add-btn" id="addBtn">
                         <i class="fas fa-plus"></i> Thêm câu hỏi
                     </button>
