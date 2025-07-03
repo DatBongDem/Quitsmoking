@@ -5,6 +5,7 @@
  */
 package Controller.coach;
 
+import DAO.NotificationDao;
 import DAO.ProgressLogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -95,6 +96,7 @@ public class SaveQuestionsServlet extends HttpServlet {
         // 5. Forward kết quả
         request.setAttribute("success", success);
         request.setAttribute("message", message);
+        NotificationDao.sendNotificationToMember("NT18", idMember);
         request.getRequestDispatcher("CreateQuestion.jsp").forward(request, response);
     }
     
