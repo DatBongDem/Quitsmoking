@@ -23,10 +23,18 @@ textarea.form-control {
     background-color: #ffffff;
 }
 
-h2.title {
-    font-weight: bold;
+textarea.form-control:focus {
+    box-shadow: none;
+    border: 1px #000 solid;
 }
 
+.text-question {
+    font-size: 18px;
+}
+
+.card-text {
+    font-size: 18px;
+}
 .btn-success,
 .btn-primary {
     min-width: 120px;

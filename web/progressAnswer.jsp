@@ -24,16 +24,16 @@
         %>
 
         <div class="container mt-4 mb-5">
-            <h2 class="text-center text-success title mb-4">✍️ Trả lời câu hỏi từ huấn luyện viên</h2>
+            <h2 class="text-center text-success mb-4 font-weight-bold">✍️ Trả lời câu hỏi từ huấn luyện viên</h2>
 
             <% String progress = log.getProgress();
-        if (progress != null && !progress.trim().isEmpty()) {%>
+                if (progress != null && !progress.trim().isEmpty()) {%>
             <div class="card border-success mb-4 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title text-success font-weight-bold">
                         <i class="fas fa-sticky-note mr-2"></i> Nhật ký ghi chú:
                     </h5>
-                    <textarea class="form-control" rows="4" readonly><%= progress%></textarea>
+                    <textarea class="form-control text-question" rows="4" readonly><%= progress%></textarea>
                 </div>
             </div>
             <% }%>
