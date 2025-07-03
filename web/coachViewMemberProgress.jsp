@@ -1,6 +1,6 @@
 <%-- 
     Document   : coachViewMemberProgress
-    Created on : Jul 3, 2025, 9:42:51 AM
+    Created on : Jul 3, 2025
     Author     : Nguyen Tien Dat
 --%>
 
@@ -9,32 +9,42 @@
 <%@page import="java.util.List"%>
 <%@page import="java.lang.reflect.Method"%>
 
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
+    <meta charset="UTF-8">
     <title>Tiến trình của thành viên</title>
-    <style>
-        textarea { width: 100%; resize: none; }
-        .log-block { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
-    </style>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS riêng -->
+    <link rel="stylesheet" href="css/viewProgressLog.css">
 </head>
 <body>
-    <h2>Tiến trình của thành viên: <%= request.getAttribute("idMember") %></h2>
+
+<div class="container my-5">
+    <h2 class="text-center text-success mb-4">
+        Tiến trình của thành viên: <%= request.getAttribute("idMember") %>
+    </h2>
 
     <%
         List<ProgressLog> logs = (List<ProgressLog>) request.getAttribute("logs");
         if (logs == null || logs.isEmpty()) {
     %>
-        <p>Không có tiến trình nào.</p>
+        <div class="alert alert-warning text-center">Không có tiến trình nào.</div>
     <%
         } else {
             for (ProgressLog log : logs) {
     %>
-    <div class="log-block">
-        <p><b>Loại:</b> <%= log.getType() %></p>
-        <p><b>Ngày bắt đầu:</b> <%= log.getStartDate() %></p>
-        <p><b>Ngày kết thúc:</b> <%= log.getEndDate() %></p>
-        <p><b>Ghi chú tiến trình:</b> <%= log.getProgress() != null ? log.getProgress() : "(Trống)" %></p>
-        
+    <div class="log-block shadow-sm p-4 mb-5 bg-white rounded">
+        <div class="mb-3"><strong>Loại:</strong> <%= log.getType() %></div>
+        <div class="mb-3"><strong>Ngày bắt đầu:</strong> <%= log.getStartDate() %></div>
+        <div class="mb-3"><strong>Ngày kết thúc:</strong> <%= log.getEndDate() %></div>
+        <div class="mb-3"><strong>Ghi chú tiến trình:</strong>
+            <p class="form-text text-body"><%= log.getProgress() != null ? log.getProgress() : "(Trống)" %></p>
+        </div>
+
         <hr>
 
         <%
@@ -46,22 +56,26 @@
 
                 if (question != null && !question.trim().isEmpty()) {
         %>
-        <p><b>Câu hỏi <%= i %>:</b> <%= question %></p>
-        <textarea rows="2" readonly><%= 
-            "submit".equalsIgnoreCase(log.getStatus()) && answer != null ? answer : "" 
-        %></textarea>
-        <hr>
+        <div class="mb-4">
+            <label class="form-label"><strong>Câu hỏi <%= i %>:</strong> <%= question %></label>
+            <textarea class="form-control bg-light" rows="2" readonly><%= 
+                "submit".equalsIgnoreCase(log.getStatus()) && answer != null ? answer : "" 
+            %></textarea>
+        </div>
         <%
                 }
             }
         %>
 
         <% if ("submit".equalsIgnoreCase(log.getStatus())) { %>
-        <form action="GradeProgressServlet" method="post">
+        <form action="GradeProgressServlet" method="post" class="mt-3">
             <input type="hidden" name="idLog" value="<%= log.getIdLog() %>">
-            <label>Chấm điểm: </label>
-            <input type="number" name="point" value="<%= log.getPoint() %>" min="0" max="100" required>
-            <button type="submit">💾 Lưu điểm</button>
+            <div class="mb-3">
+                <label for="point_<%= log.getIdLog() %>" class="form-label">Chấm điểm:</label>
+                <input type="number" class="form-control" id="point_<%= log.getIdLog() %>" name="point" 
+                       value="<%= log.getPoint() %>" min="0" max="100" required>
+            </div>
+            <button type="submit" class="btn btn-success">💾 Lưu điểm</button>
         </form>
         <% } %>
     </div>
@@ -69,7 +83,7 @@
             }
         }
     %>
+</div>
 
-    
 </body>
 </html>
