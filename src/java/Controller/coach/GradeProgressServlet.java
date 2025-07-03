@@ -7,21 +7,18 @@ package Controller.coach;
 
 import DAO.ProgressLogDAO;
 import DTO.ProgressLog;
-import DTO.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nguyen Tien Dat
  */
-public class ViewProgressServlet extends HttpServlet {
+public class GradeProgressServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,8 +34,15 @@ public class ViewProgressServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet GradeProgressServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet GradeProgressServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -54,28 +58,7 @@ public class ViewProgressServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            HttpSession session = request.getSession();
-            String idCoach = (String) session.getAttribute("id"); // IDCoach lưu trong session
-            String idMember = request.getParameter("id"); // IDMember truyền từ form
-
-            if (idCoach == null || idMember == null) {
-                request.setAttribute("errorMessage", "Thiếu thông tin đăng nhập hoặc thành viên.");
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-                return;
-            }
-
-            ProgressLogDAO dao = new ProgressLogDAO();
-            List<ProgressLog> logs = dao.getLogsOfMemberForCoach(idMember, idCoach);
-
-            request.setAttribute("logs", logs);
-            request.setAttribute("idMember", idMember);
-            request.getRequestDispatcher("coachViewMemberProgress.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Lỗi hệ thống: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -89,7 +72,45 @@ public class ViewProgressServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        try {
+            int idLog = Integer.parseInt(request.getParameter("idLog"));
+            int point = Integer.parseInt(request.getParameter("point"));
+
+            ProgressLogDAO dao = new ProgressLogDAO();
+            ProgressLog log = dao.getById(idLog);
+
+            if (log == null) {
+                request.setAttribute("errorMessage", "Không tìm thấy nhật ký để chấm điểm.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
+
+            // Chỉ cho phép chấm nếu trạng thái là "submit"
+            if (!"submit".equalsIgnoreCase(log.getStatus())) {
+                request.setAttribute("errorMessage", "Chỉ có thể chấm điểm các tiến trình đã gửi.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
+
+            log.setPoint(point);
+            boolean updated = ProgressLogDAO.update(log);
+
+            if (updated) {
+                // Quay về trang xem tiến trình của member
+                response.sendRedirect("ViewProgressServlet?id=" + log.getIdMember());
+            } else {
+                request.setAttribute("errorMessage", "Không thể lưu điểm.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Lỗi hệ thống: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 
     /**

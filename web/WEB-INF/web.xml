@@ -96,6 +96,10 @@
         <servlet-name>ViewProgressLogServlet</servlet-name>
         <servlet-class>Controller.member.ViewProgressLogServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GradeProgressServlet</servlet-name>
+        <servlet-class>Controller.coach.GradeProgressServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>ViewProgressLogServlet</servlet-name>
         <url-pattern>/ViewProgressLogServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GradeProgressServlet</servlet-name>
+        <url-pattern>/GradeProgressServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,15 +1,23 @@
+<%@page import="DAO.ProgressLogDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="DTO.ProgressLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    String idMember = (String) session.getAttribute("id"); // đã lưu trong session khi login
+    String idMember = (String) session.getAttribute("id");
     if (idMember == null) {
         response.sendRedirect("login.jsp");
         return;
     }
 
-    DAO.ProgressLogDAO dao = new DAO.ProgressLogDAO();
-    List<ProgressLog> logs = dao.getProgressLogsByMember(idMember);
+    List<ProgressLog> logs = new ArrayList<>();
+    try {
+        ProgressLogDAO dao = new ProgressLogDAO();
+        logs = dao.getProgressLogsByMember(idMember);
+    } catch (Exception e) {
+        out.println("<p style='color:red;'>Lỗi: " + e.getMessage() + "</p>");
+        e.printStackTrace();
+    }
 %>
 
 <h2>Danh sách nhật ký tiến trình</h2>
