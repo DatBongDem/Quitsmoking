@@ -68,13 +68,16 @@
                 %>
 
                 <div class="d-flex justify-content-end mt-4">
+                    <a href="progressList.jsp" class="btn btn-success">⬅ Quay lại danh sách</a>
                     <button type="submit" name="action" value="save" class="btn btn-success shadow-sm mr-2">
                         <i class="fas fa-save"></i> Lưu
                     </button>
                     <button type="submit" name="action" value="submit" class="btn btn-primary shadow-sm">
                         <i class="fas fa-paper-plane"></i> Gửi
                     </button>
+                    
                 </div>
+                
             </form>
         </div>
     </body>
