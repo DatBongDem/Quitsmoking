@@ -1,4 +1,5 @@
 
+<%@page import="DTO.Coach"%>
 <%@page import="DTO.Member"%>
 <!DOCTYPE html>
 <html lang="vi">
@@ -9,6 +10,7 @@
         <title>Hồ sơ </title>
         <%
             Member member = (Member) request.getAttribute("member");
+            Coach coach = (Coach) request.getAttribute("coach");
         %>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
               integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -74,6 +76,10 @@
                                 <div class="detail-row">
                                     <span class="detail-label">Giới Tính</span>
                                     <span class="detail-value"><%= member.getGender()%></span>
+                                </div>
+                                  <div class="detail-row">
+                                    <span class="detail-label">Your Coach</span>
+                                    <span class="detail-value"><%= coach.getCoachName()%></span>
                                 </div>
                                 <div class="detail-row">
                                     <span class="detail-label">Ngày sinh:</span>
