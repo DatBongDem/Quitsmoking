@@ -88,6 +88,10 @@
         <servlet-name>MemberViewProgressLogServlet</servlet-name>
         <servlet-class>Controller.member.MemberViewProgressLogServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubmitProgressLogServlet</servlet-name>
+        <servlet-class>Controller.member.SubmitProgressLogServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -175,6 +179,10 @@
     <servlet-mapping>
         <servlet-name>MemberViewProgressLogServlet</servlet-name>
         <url-pattern>/MemberViewProgressLogServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitProgressLogServlet</servlet-name>
+        <url-pattern>/SubmitProgressLogServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
