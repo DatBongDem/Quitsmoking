@@ -95,7 +95,7 @@ public class SaveQuestionsServlet extends HttpServlet {
         // 5. Forward kết quả
         request.setAttribute("success", success);
         request.setAttribute("message", message);
-        request.getRequestDispatcher("ManageMemberServlet").forward(request, response);
+        request.getRequestDispatcher("ManageMemberServlet ").forward(request, response);
     }
     
     

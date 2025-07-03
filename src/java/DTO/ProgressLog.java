@@ -9,14 +9,19 @@ public class ProgressLog {
     private Date startDate;
     private Date endDate;
     private String type;
+    private String progress;
+
     private String qs1, qs2, qs3, qs4, qs5;
     private String as1, as2, as3, as4, as5;
+
     private int point;
     private String status;
 
-    public ProgressLog() {}
+    public ProgressLog() {
+    }
 
     public ProgressLog(int idLog, String idMember, String idCoach, Date startDate, Date endDate, String type,
+                       String progress,
                        String qs1, String qs2, String qs3, String qs4, String qs5,
                        String as1, String as2, String as3, String as4, String as5,
                        int point, String status) {
@@ -26,6 +31,7 @@ public class ProgressLog {
         this.startDate = startDate;
         this.endDate = endDate;
         this.type = type;
+        this.progress = progress;
         this.qs1 = qs1;
         this.qs2 = qs2;
         this.qs3 = qs3;
@@ -39,6 +45,8 @@ public class ProgressLog {
         this.point = point;
         this.status = status;
     }
+
+    // Getters and setters
 
     public int getIdLog() { return idLog; }
     public void setIdLog(int idLog) { this.idLog = idLog; }
@@ -57,6 +65,9 @@ public class ProgressLog {
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
+
+    public String getProgress() { return progress; }
+    public void setProgress(String progress) { this.progress = progress; }
 
     public String getQs1() { return qs1; }
     public void setQs1(String qs1) { this.qs1 = qs1; }
@@ -86,35 +97,41 @@ public class ProgressLog {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public String getQs(int i) {
-        switch (i) {
-            case 1: return qs1;
-            case 2: return qs2;
-            case 3: return qs3;
-            case 4: return qs4;
-            case 5: return qs5;
-            default: return null;
-        }
-    }
-
-    public String getAnswer(int i) {
-        switch (i) {
-            case 1: return as1;
-            case 2: return as2;
-            case 3: return as3;
-            case 4: return as4;
-            case 5: return as5;
-            default: return null;
-        }
-    }
-
-    public void setAnswer(int i, String value) {
-        switch (i) {
-            case 1: as1 = value; break;
-            case 2: as2 = value; break;
-            case 3: as3 = value; break;
-            case 4: as4 = value; break;
-            case 5: as5 = value; break;
-        }
+   public void setAnswer(int i, String answer) {
+    switch (i) {
+        case 1:
+            setAs1(answer);
+            break;
+        case 2:
+            setAs2(answer);
+            break;
+        case 3:
+            setAs3(answer);
+            break;
+        case 4:
+            setAs4(answer);
+            break;
+        case 5:
+            setAs5(answer);
+            break;
     }
 }
+
+public String getAnswer(int i) {
+    switch (i) {
+        case 1:
+            return getAs1();
+        case 2:
+            return getAs2();
+        case 3:
+            return getAs3();
+        case 4:
+            return getAs4();
+        case 5:
+            return getAs5();
+        default:
+            return null;
+    }
+}
+
+} 
