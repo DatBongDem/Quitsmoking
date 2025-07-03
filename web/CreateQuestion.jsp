@@ -12,9 +12,12 @@
     <title>Tạo câu hỏi cho thành viên</title>
     <link rel="stylesheet" href="css/create-question.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
+
+         <%@include file="information/bootstrap.jspf" %>
     <%
     // Lấy idMember từ request (GET)
-<<<<<<< HEAD
+
     String idMember = request.getParameter("idMember");
     if (idMember == null) {
         idMember = "";
@@ -77,41 +80,7 @@
     });
   </script>
 
-=======
-        String idMember = request.getParameter("idMember");
-        if (idMember == null) idMember = "";
-        String userName = "Nguyễn Minh Khải"; // Lấy từ session nếu cần
-    %>
-</head>
-<body>
-<div class="main-bg">
-    <!-- HEADER -->
-    <div class="custom-header">
-        <div class="header-top">
-            <div class="header-info">
-                <span><i class="fas fa-phone"></i> 000-000-000</span>
-                <span><i class="fas fa-clock"></i> 6:00 AM - 10:00 PM (Mon-Fri)</span>
-                <span><i class="fas fa-envelope"></i> tiendantse181844</span>
-            </div>
-            <div class="header-user">
-                <i class="fas fa-user"></i>
-                <span><%= userName %></span>
-            </div>
-        </div>
-        <div class="header-main">
-            <div class="header-logo">
-                <span class="logo-text">BFBB</span>
-            </div>
-            <ul class="header-nav">
-                <li><a href="homepage.jsp">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Testing</a></li>
-                <li><a href="#">Ranking</a></li>
-            </ul>
-        </div>
-    </div>
->>>>>>> 457b1eabb32d540d270933229988eebf4931c621
+
 
     <!-- FORM -->
     <div class="main-container">
