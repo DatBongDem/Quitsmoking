@@ -16,36 +16,35 @@
 
 <table border="1" cellpadding="10">
     <tr>
-        <th>ID</th>
-        <th>Huấn luyện viên</th>
+
         <th>Ngày bắt đầu</th>
         <th>Ngày kết thúc</th>
         <th>Loại</th>
         <th>Trạng thái</th>
-        <th>Hành động</th>
+
     </tr>
 
     <%
         for (ProgressLog log : logs) {
     %>
     <tr>
-        <td><%= log.getIdLog() %></td>
-        <td><%= log.getIdCoach() %></td>
-        <td><%= log.getStartDate() %></td>
-        <td><%= log.getEndDate() %></td>
-        <td><%= log.getType() %></td>
-        <td><%= log.getStatus() %></td>
+
+
+        <td><%= log.getStartDate()%></td>
+        <td><%= log.getEndDate()%></td>
+        <td><%= log.getType()%></td>
+
         <td>
-            <% if ("save".equalsIgnoreCase(log.getStatus())) { %>
-                <form action="SubmitProgressLogServlet" method="get" style="display:inline;">
-                    <input type="hidden" name="idLog" value="<%= log.getIdLog() %>" />
-                    <button type="submit">✏️ Trả lời</button>
-                </form>
-            <% } else { %>
-                <form action="ViewProgressLogServlet" method="get" style="display:inline;">
-                    <input type="hidden" name="idLog" value="<%= log.getIdLog() %>" />
-                    <button type="submit">Xem</button>
-                </form>
+            <% if ("save".equalsIgnoreCase(log.getStatus())) {%>
+            <form action="SubmitProgressLogServlet" method="get" style="display:inline;">
+                <input type="hidden" name="idLog" value="<%= log.getIdLog()%>" />
+                <button type="submit">✏️ Trả lời</button>
+            </form>
+            <% } else {%>
+            <form action="ViewProgressLogServlet" method="get" style="display:inline;">
+                <input type="hidden" name="idLog" value="<%= log.getIdLog()%>" />
+                <button type="submit">Xem</button>
+            </form>
             <% } %>
         </td>
     </tr>
