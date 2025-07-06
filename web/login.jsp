@@ -61,7 +61,7 @@
                             <div class="inner-box">
                                 <!--Display Error-->
                                 <c:if test="${not empty error}">
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -138,8 +138,8 @@
         <c:if test="${not empty error}">
             <script>
                 $(document).ready(function () {
-                    $('#exampleModal').modal('show');
-                    $('#exampleModal').on('hidden.bs.modal', function () {
+                    $('#errorModal').modal('show');
+                    $('#errorModal').on('hidden.bs.modal', function () {
                         $('#IDMember').focus();
                     });
                 });
