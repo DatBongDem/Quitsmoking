@@ -100,6 +100,10 @@
         <servlet-name>GradeProgressServlet</servlet-name>
         <servlet-class>Controller.coach.GradeProgressServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>Controller.Admin.AdminLoginServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -199,6 +203,10 @@
     <servlet-mapping>
         <servlet-name>GradeProgressServlet</servlet-name>
         <url-pattern>/GradeProgressServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/AdminLoginServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

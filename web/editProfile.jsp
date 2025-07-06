@@ -51,7 +51,7 @@
         <h1>Edit Your Profile</h1>
         <form action="UpdateProfileServlet" method="post" enctype="multipart/form-data">
 
-            <label>ID Member</label>
+            <label>Account</label>
             <input  type="text" name="idMember" value="<%= member.getIDMember()%>" required/>
 
             <label>Full Name</label>
