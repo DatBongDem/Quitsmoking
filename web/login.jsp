@@ -56,7 +56,11 @@
                                         </select>
                                     </div>
 
+
                                     <label for="IDMember" class="item-name">User Name</label><br>
+
+                                    <label for="username" class="item-name">Account</label><br>
+
                                     <div class="inner-input">
                                         <input type="text" id="IDMember" name="username" placeholder="ID Member">
                                     </div>

@@ -5,35 +5,31 @@
  */
 package DTO;
 
-import java.sql.Date;
-
 /**
  *
  * @author Nguyen Tien Dat
  */
 
-public class Coach extends Account {
+import java.sql.Date;
 
-    private String specialization;
-    private int experienceYears;
+public class Admin extends Account {
 
-    public Coach() {
+    public Admin() {
     }
 
-    public Coach(String IDCoach, String password, String coachName, String gender, String phone,
-                 String email, String address, String image, Date dateOfBirth,
-                 String specialization, int experienceYears, String status) {
-        super(IDCoach, password, coachName, gender, phone, email, address, image, dateOfBirth, status);
-        this.specialization = specialization;
-        this.experienceYears = experienceYears;
+    public Admin(String IDAdmin, String password, String adminName, String gender, String phone,
+                 String email, String address, String image, Date dateOfBirth, String status) {
+        super(IDAdmin, password, adminName, gender, phone, email, address, image, dateOfBirth, status);
     }
 
-    public String getIDCoach() {
+    
+
+    public String getIDAdmin() {
         return super.account;
     }
 
-    public void setIDCoach(String IDCoach) {
-        super.account = IDCoach;
+    public void setIDAdmin(String IDAdmin) {
+        super.account = IDAdmin;
     }
 
     public String getPassword() {
@@ -44,12 +40,12 @@ public class Coach extends Account {
         super.password = password;
     }
 
-    public String getCoachName() {
+    public String getAdminName() {
         return super.fullname;
     }
 
-    public void setCoachName(String coachName) {
-        super.fullname = coachName;
+    public void setAdminName(String adminName) {
+        super.fullname = adminName;
     }
 
     public String getGender() {
@@ -98,29 +94,5 @@ public class Coach extends Account {
 
     public void setDateOfBirth(Date dateOfBirth) {
         super.dateOfBirth = dateOfBirth;
-    }
-
-    public String getStatus() {
-        return super.status;
-    }
-
-    public void setStatus(String status) {
-        super.status = status;
-    }
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
-    public int getExperienceYears() {
-        return experienceYears;
-    }
-
-    public void setExperienceYears(int experienceYears) {
-        this.experienceYears = experienceYears;
     }
 }

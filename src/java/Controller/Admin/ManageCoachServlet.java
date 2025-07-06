@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.member;
+package Controller.Admin;
 
-import DAO.BadgeDAO;
-import DTO.Member;
-import DTO.MemberBadgeRankingDTO;
+import DAO.CoachDao;
+import DTO.Coach;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nguyen Tien Dat
  */
-public class BadgeRankingServlet extends HttpServlet {
+public class ManageCoachServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +36,7 @@ public class BadgeRankingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
+            
         }
     }
 
@@ -52,22 +52,16 @@ public class BadgeRankingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
-        List<Member> silverList = BadgeDAO.getProgressRankingByPayment("QP01");
-        List<Member> goldList = BadgeDAO.getProgressRankingByPayment("QP02");
-        List<Member> diamondList = BadgeDAO.getProgressRankingByPayment("QP03");
-
-        request.setAttribute("silverList", silverList);
-        request.setAttribute("goldList", goldList);
-        request.setAttribute("diamondList", diamondList);
-
-        request.getRequestDispatcher("ranking.jsp").forward(request, response);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        request.setAttribute("errorMessage", "Lỗi khi lấy dữ liệu xếp hạng.");
-        request.getRequestDispatcher("error.jsp").forward(request, response);
-    }
+        try {
+            CoachDao dao = new CoachDao();
+            ArrayList<Coach> list = dao.getAllCoaches();
+            request.setAttribute("coachList", list);
+            RequestDispatcher rd = request.getRequestDispatcher("adminManageCoach.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(500, "Lỗi khi truy xuất danh sách huấn luyện viên.");
+        }
     }
 
     /**

@@ -3,24 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.member;
+package Controller.Admin;
 
-import DAO.BadgeDAO;
-import DTO.Member;
-import DTO.MemberBadgeRankingDTO;
+import DAO.AdminDao;
+import DTO.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nguyen Tien Dat
  */
-public class BadgeRankingServlet extends HttpServlet {
+public class AdminLoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +35,15 @@ public class BadgeRankingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AdminLoginServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AdminLoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -52,22 +59,7 @@ public class BadgeRankingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
-        List<Member> silverList = BadgeDAO.getProgressRankingByPayment("QP01");
-        List<Member> goldList = BadgeDAO.getProgressRankingByPayment("QP02");
-        List<Member> diamondList = BadgeDAO.getProgressRankingByPayment("QP03");
-
-        request.setAttribute("silverList", silverList);
-        request.setAttribute("goldList", goldList);
-        request.setAttribute("diamondList", diamondList);
-
-        request.getRequestDispatcher("ranking.jsp").forward(request, response);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        request.setAttribute("errorMessage", "Lỗi khi lấy dữ liệu xếp hạng.");
-        request.getRequestDispatcher("error.jsp").forward(request, response);
-    }
+        processRequest(request, response);
     }
 
     /**
@@ -81,7 +73,27 @@ public class BadgeRankingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        try {
+            AdminDao dao = new AdminDao();
+            Admin admin = dao.login(username, password); // kiểm tra trong DB
+
+            if (admin != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("admin", admin);
+                response.sendRedirect("adminDashboard.jsp"); // chuyển đến trang admin
+            } else {
+                request.setAttribute("username", username);
+                request.setAttribute("error", "Sai tài khoản hoặc mật khẩu.");
+                request.getRequestDispatcher("adminLogin.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Lỗi hệ thống.");
+            request.getRequestDispatcher("adminLogin.jsp").forward(request, response);
+        }
     }
 
     /**
