@@ -104,6 +104,22 @@
         <servlet-name>AdminLoginServlet</servlet-name>
         <servlet-class>Controller.Admin.AdminLoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageCoachServlet</servlet-name>
+        <servlet-class>Controller.Admin.ManageCoachServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCoachStatusServlet</servlet-name>
+        <servlet-class>Controller.Admin.UpdateCoachStatusServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditCoachServlet</servlet-name>
+        <servlet-class>Controller.Admin.EditCoachServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateCoachServlet</servlet-name>
+        <servlet-class>Controller.Admin.CreateCoachServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -207,6 +223,22 @@
     <servlet-mapping>
         <servlet-name>AdminLoginServlet</servlet-name>
         <url-pattern>/AdminLoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCoachServlet</servlet-name>
+        <url-pattern>/ManageCoachServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCoachStatusServlet</servlet-name>
+        <url-pattern>/UpdateCoachStatusServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCoachServlet</servlet-name>
+        <url-pattern>/EditCoachServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCoachServlet</servlet-name>
+        <url-pattern>/CreateCoachServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -18,42 +18,51 @@ import java.sql.ResultSet;
 
 public class AdminDao {
 
-    public Admin login(String adminID, String password) throws Exception {
-        String sql = "SELECT * FROM Admin WHERE adminID = ? AND password = ?";
+    public Admin login(String IDAdmin, String password) throws Exception {
+        String sql = "SELECT * FROM Admin WHERE IDAdmin = ? AND password = ?";
         try (Connection conn = DBUtils.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, adminID);
+            ps.setString(1, IDAdmin);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Admin admin = new Admin();
-                admin.setAdminID(rs.getString("adminID"));
+                admin.setIDAdmin(rs.getString("IDAdmin"));
                 admin.setPassword(rs.getString("password"));
-                admin.setFullName(rs.getString("fullName"));
+                admin.setAdminName(rs.getString("adminName"));
+                admin.setGender(rs.getString("gender"));
+                admin.setPhone(rs.getString("phone"));
                 admin.setEmail(rs.getString("email"));
+                admin.setAddress(rs.getString("address"));
+                admin.setImage(rs.getString("image"));
+                admin.setDateOfBirth(rs.getDate("dateOfBirth"));
                 return admin;
             }
         }
         return null;
     }
 
-    // (Optional) Get admin by ID
-    public Admin getAdminByID(String adminID) throws Exception {
-        String sql = "SELECT * FROM Admin WHERE adminID = ?";
+    public Admin getAdminByID(String IDAdmin) throws Exception {
+        String sql = "SELECT * FROM Admin WHERE IDAdmin = ?";
         try (Connection conn = DBUtils.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, adminID);
+            ps.setString(1, IDAdmin);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Admin admin = new Admin();
-                admin.setAdminID(rs.getString("adminID"));
+                admin.setIDAdmin(rs.getString("IDAdmin"));
                 admin.setPassword(rs.getString("password"));
-                admin.setFullName(rs.getString("fullName"));
+                admin.setAdminName(rs.getString("adminName"));
+                admin.setGender(rs.getString("gender"));
+                admin.setPhone(rs.getString("phone"));
                 admin.setEmail(rs.getString("email"));
+                admin.setAddress(rs.getString("address"));
+                admin.setImage(rs.getString("image"));
+                admin.setDateOfBirth(rs.getDate("dateOfBirth"));
                 return admin;
             }
         }

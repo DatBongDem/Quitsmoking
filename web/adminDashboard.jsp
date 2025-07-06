@@ -13,7 +13,9 @@
     </head>
     <body>
         <h1>Chào mừng ADMIN đấng toàn năng của chúng tôi!!</h1>
-        
-        
+
+        <a href="ManageCoachServlet">
+            <button>Quản lý Coach</button>
+        </a>
     </body>
 </html>
