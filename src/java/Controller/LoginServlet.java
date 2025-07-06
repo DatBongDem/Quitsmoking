@@ -55,8 +55,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", member.getMemberName());
                 session.setAttribute("coachId", member.getIDCoach());
                 // Gửi dữ liệu đến homepage
-                request.setAttribute("member", member);
-                request.getRequestDispatcher("homepage.jsp").forward(request, response);
+                response.sendRedirect("homepage.jsp?login=success");
                 return;
             } else {
                 request.setAttribute("error", "Invalid username or password. Please try again.");
@@ -74,8 +73,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", coach.getCoachName());
                 session.setAttribute("coachId", coach.getIDCoach());
                 // Gửi dữ liệu đến homepage
-                request.setAttribute("coach", coach);
-                request.getRequestDispatcher("homepage.jsp").forward(request, response);
+                response.sendRedirect("homepage.jsp?login=success");
                 return;
             } else {
                 request.setAttribute("error", "Invalid username or password. Please try again.");

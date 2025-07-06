@@ -12,9 +12,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Health Center - Homepage</title>
+        <link href="css/app-notification-box.css" rel="stylesheet" type="text/css"/>
         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
         <link href="css/notification-sidebar.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <%@include file="information/bootstrap.jspf" %>
     </head>
     <body>
@@ -94,7 +94,7 @@
                         </button>
                     </div>
                     <% }
-                } else { %>
+                    } else { %>
                     <div class="no-notifications">
                         <i class="fas fa-bell-slash"></i>
                         <h4>Không có thông báo nào</h4>
@@ -219,7 +219,7 @@
             </button>
         </form>
         <% }
-    } else {%>
+        } else {%>
         <form action="CoachSupportServlet" method="get">
             <input type="hidden" name="idCoach" value="<%= id%>">
             <button type="submit" class="support-button" title="Support with Members">
@@ -227,10 +227,38 @@
             </button>
         </form>
         <% }
-        }%>
+            }%>
 
         <%@include file="information/footer.jspf" %>
 
+        <!--Login successful notification-->
+        <div class="app-notification-box" id="box-login-notification">
+            <div class="inner-logo">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <div class="inner-content">
+                <div class="inner-title">Thành Công</div>
+                <div class="inner-subtitle">Bạn đã đăng nhập thành công</div>
+            </div>
+        </div>
+        <!--End Login successful notification-->
         <script src="js/notification-sidebar.js"></script>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const url = new URLSearchParams(window.location.search);
+                if(url.has('login') && url.get('login') === 'success'){
+                    const toast = document.getElementById('box-login-notification');
+                    toast.classList.add('show');
+                    
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 5000);
+                    
+                    const urlNew = window.location.pathname + window.location.hash;
+                    history.replaceState(null, '', urlNew);
+                }
+            });
+        </script>
     </body>
 </html>
