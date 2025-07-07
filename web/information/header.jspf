@@ -81,11 +81,6 @@
                                         }
                                     %>
 
-
-
-
-
-
                                     <%
                                         if ("member".equals(role) && mycoach != null) {
                                     %>
@@ -112,8 +107,8 @@
                             </c:when>
                             <c:otherwise>
                                 <div class="inner-button">
-                                    <a href="login.jsp" target="_blank" class="button button-one">Sign In</a>
-                                    <a href="register.jsp" target="_blank" class="button button-two">Sign Up</a>
+                                    <a href="login.jsp" class="button button-one">Sign In</a>
+                                    <a href="register.jsp" class="button button-two">Sign Up</a>
                                 </div>
                             </c:otherwise>
                         </c:choose>

@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html;charset=UTF-8" %>
 <%@page import="DTO.ProgressLog"%>
 <%@page import="java.lang.reflect.Method"%>
@@ -105,7 +106,9 @@
                     <button type="submit" name="action" value="submit" class="btn btn-primary shadow-sm">
                         <i class="fas fa-paper-plane"></i> Gửi
                     </button>
+                    
                 </div>
+                
             </form>
         </div>
     </body>

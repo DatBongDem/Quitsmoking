@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.member;
+package Controller.Admin;
 
-import DAO.BadgeDAO;
-import DTO.Member;
-import DTO.MemberBadgeRankingDTO;
+import DAO.CoachDao;
+import DTO.Coach;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nguyen Tien Dat
  */
-public class BadgeRankingServlet extends HttpServlet {
+public class CreateCoachServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,22 +51,7 @@ public class BadgeRankingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
-        List<Member> silverList = BadgeDAO.getProgressRankingByPayment("QP01");
-        List<Member> goldList = BadgeDAO.getProgressRankingByPayment("QP02");
-        List<Member> diamondList = BadgeDAO.getProgressRankingByPayment("QP03");
-
-        request.setAttribute("silverList", silverList);
-        request.setAttribute("goldList", goldList);
-        request.setAttribute("diamondList", diamondList);
-
-        request.getRequestDispatcher("ranking.jsp").forward(request, response);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        request.setAttribute("errorMessage", "Lỗi khi lấy dữ liệu xếp hạng.");
-        request.getRequestDispatcher("error.jsp").forward(request, response);
-    }
+        processRequest(request, response);
     }
 
     /**
@@ -81,7 +65,36 @@ public class BadgeRankingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+
+        String IDCoach = request.getParameter("IDCoach");
+        String password = request.getParameter("pass");
+        String coachName = request.getParameter("coachName");
+        String gender = request.getParameter("gender");
+        String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String dobStr = request.getParameter("dateOfBirth");
+        String specialization = request.getParameter("specialization");
+        int experienceYears = Integer.parseInt(request.getParameter("experienceYears"));
+        String image = request.getParameter("image");
+        String status ="1";
+        Date dateOfBirth = null;
+        if (dobStr != null && !dobStr.isEmpty()) {
+            dateOfBirth = Date.valueOf(dobStr);
+        }
+
+        Coach coach = new Coach(IDCoach, password, coachName, gender, phone, email, address, image, dateOfBirth, specialization, experienceYears, status);
+        
+
+        try {
+            CoachDao dao = new CoachDao();
+            dao.insertCoach(coach);
+            response.sendRedirect("ManageCoachServlet");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(500, "Lỗi khi thêm coach mới.");
+        }
     }
 
     /**

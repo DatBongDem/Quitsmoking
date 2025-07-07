@@ -7,113 +7,110 @@ package DTO;
 
 /**
  *
- * @author Nghia
+ * @author Nguyen Tien Dat
  */
+
+
 import java.sql.Date;
 
-public class Member {
+public class Member extends Account {
 
-    private String IDMember;
-    private String password;
-    private String memberName;
-    private String gender;
-    private String phone;
-    private String email;
-    private String address;
-    private Date dateOfBirth;
     private Date joinDate;
-    private String image;
     private int point;
     private String IDCoach;
     private String subscription;
-    private String status;
 
     public Member() {
     }
 
-    // Constructor không tham số
-    public Member(String IDMember, String password, String memberName, String gender, String phone, 
-            String email, String address, Date dateOfBirth, Date joinDate, String image, int point, String IDCoach, String subscription, String status) {
-        this.IDMember = IDMember;
-        this.password = password;
-        this.memberName = memberName;
-        this.gender= gender;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.dateOfBirth = dateOfBirth;
+    public Member(String IDMember, String password, String memberName, String gender, String phone,
+                  String email, String address, Date dateOfBirth, Date joinDate, String image,
+                  int point, String IDCoach, String subscription, String status) {
+        super(IDMember, password, memberName, gender, phone, email, address, image, dateOfBirth, status);
         this.joinDate = joinDate;
-        this.image = image;
         this.point = point;
         this.IDCoach = IDCoach;
         this.subscription = subscription;
-        this.status = status;
     }
 
     public String getIDMember() {
-        return IDMember;
+        return super.account;
     }
 
     public void setIDMember(String IDMember) {
-        this.IDMember = IDMember;
+        super.account = IDMember;
     }
 
     public String getPassword() {
-        return password;
+        return super.password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        super.password = password;
     }
 
     public String getMemberName() {
-        return memberName;
+        return super.fullname;
     }
 
     public void setMemberName(String memberName) {
-        this.memberName = memberName;
+        super.fullname = memberName;
     }
 
     public String getGender() {
-        return gender;
+        return super.gender;
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        super.gender = gender;
     }
 
-    
-    
     public String getPhone() {
-        return phone;
+        return super.phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        super.phone = phone;
     }
 
     public String getEmail() {
-        return email;
+        return super.email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        super.email = email;
     }
 
     public String getAddress() {
-        return address;
+        return super.address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        super.address = address;
     }
 
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return super.dateOfBirth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        super.dateOfBirth = dateOfBirth;
+    }
+
+    public String getImage() {
+        return super.image;
+    }
+
+    public void setImage(String image) {
+        super.image = image;
+    }
+
+    public String getStatus() {
+        return super.status;
+    }
+
+    public void setStatus(String status) {
+        super.status = status;
     }
 
     public Date getJoinDate() {
@@ -124,14 +121,6 @@ public class Member {
         this.joinDate = joinDate;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public int getPoint() {
         return point;
     }
@@ -140,8 +129,6 @@ public class Member {
         this.point = point;
     }
 
-    
-    
     public String getIDCoach() {
         return IDCoach;
     }
@@ -157,16 +144,4 @@ public class Member {
     public void setSubscription(String subscription) {
         this.subscription = subscription;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    
-
-    
 }

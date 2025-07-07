@@ -52,78 +52,11 @@
         </style>
         <a href="homepage.jsp" class="home-button">Home</a>
 
-
+        
         <div class="register-form">
             <div class="container">
                 <div class="inner-form">
-                    <h2 class="inner-title">Register</h2>
-                    <form action="RegisterServlet" method="post">
-                        <div class="form-group">
-                            <label for="memberid">ID Member</label>
-                            <input type="text" class="form-control" name="memberid" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="fullname">Full Name</label>
-                            <input type="text" class="form-control" name="fullname" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="gender">Gender</label>
-                            <div class="inner-form-gender">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male"
-                                           checked>
-                                    <label class="form-check-label" for="male">Male</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female"
-                                           checked>
-                                    <label class="form-check-label" for="male">Female</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="other" value="other"
-                                           checked>
-                                    <label class="form-check-label" for="male">Other</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="confirm">Confirm Password</label>
-                            <input type="password" class="form-control" name="confirmPassword" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="tel" class="form-control" name="phone" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address">Adress</label>
-                            <textarea name="address" class="form-control" rows="2" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" class="form-control" name="dob" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-green btn-block">Register</button>
-
-                    </form>
-                </div>
-                <c:if test="${not empty errorMessage}">
+                    <c:if test="${not empty errorMessage}">
                     <div class="error-message">
                         <p>${errorMessage}</p>
                     </div>
@@ -134,6 +67,69 @@
                         <p>${successMessage}</p>
                     </div>
                 </c:if>
+                    <h2 class="inner-title">Register</h2>
+                    <form action="RegisterServlet" method="post">
+                    <div class="form-group">
+                        <label for="memberid">Account</label>
+                        <input type="text" class="form-control" name="memberid"
+                               value="${memberId}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" class="form-control" name="fullname"
+                               value="${fullname}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <div class="inner-form-gender">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="male"
+                                       ${gender=='male' ? 'checked' : ''}>
+                                <label class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="female"
+                                       ${gender=='female' ? 'checked' : ''}>
+                                <label class="form-check-label">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="other"
+                                       ${gender=='other' ? 'checked' : ''}>
+                                <label class="form-check-label">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email"
+                               value="${email}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" class="form-control" name="phone"
+                               value="${phone}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea name="address" class="form-control" rows="2" required>${address}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob"
+                               value="${dob}" required>
+                    </div>
+                    <button type="submit" class="btn btn-green btn-block">Register</button>
+                </form>
+                </div>
+                
             </div>
         </div>
 

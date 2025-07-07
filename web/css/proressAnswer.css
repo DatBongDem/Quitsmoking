@@ -1,3 +1,4 @@
+
 body {
     background-color: #a5d6a7;
     font-family: 'Segoe UI', sans-serif;
@@ -44,15 +45,18 @@ h2.title {
 .btn-primary {
     background-color: #388e3c;
     border-color: #388e3c;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
 }
 
 .btn-primary:hover {
     background-color: #2e7d32;
-}
+    transform: scale(1.05);
 
+}
 .btn-success {
     background-color: #43a047;
-    border: none; 
+    border: none;
     margin-right: 10px;
     font-weight: bold;
     padding: 8px 18px;
@@ -60,6 +64,8 @@ h2.title {
     box-shadow: 0 4px 12px rgba(67, 160, 71, 0.3);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+
 
 .btn-success:hover {
     background-color: #2e7d32;

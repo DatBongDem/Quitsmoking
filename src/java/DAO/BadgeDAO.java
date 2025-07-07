@@ -71,36 +71,39 @@ public class BadgeDAO {
 //        }
 //        return list;
 //    }
-    public static List<Member> getProgressRankingByStatus(String status) throws Exception {
+    public static List<Member> getProgressRankingByPayment(String idPayment) throws Exception {
         List<Member> list = new ArrayList<>();
 
-        String sql
-                = "SELECT m.IDMember, m.memberName, "
-                + "       SUM( "
-                + "           CASE "
-                + "               WHEN p.type = '3 day' THEN ISNULL(p.point, 0) * 0.2 "
-                + "               WHEN p.type = '5 day' THEN ISNULL(p.point, 0) * 0.3 "
-                + "               WHEN p.type = '7 day' THEN ISNULL(p.point, 0) * 0.5 "
-                + "               ELSE 0 "
-                + "           END "
-                + "       ) AS totalPoint "
+        String sql = "SELECT m.IDMember, m.memberName, "
+                + "SUM(CASE "
+                + "    WHEN p.type = '3 day' THEN ISNULL(p.point, 0) * 0.2 "
+                + "    WHEN p.type = '5 day' THEN ISNULL(p.point, 0) * 0.3 "
+                + "    WHEN p.type = '7 day' THEN ISNULL(p.point, 0) * 0.5 "
+                + "    ELSE 0 END) AS totalPoint "
                 + "FROM Member m "
+                + "JOIN QuitPlanRegistration qpr ON m.IDMember = qpr.IDMember "
                 + "LEFT JOIN ProgressLog p ON m.IDMember = p.IDMember "
-                + "WHERE m.status = ? "
+                + "WHERE qpr.IDQuitPlan = ? "
                 + "GROUP BY m.IDMember, m.memberName "
+                + "HAVING SUM(CASE "
+                + "    WHEN p.type = '3 day' THEN ISNULL(p.point, 0) * 0.2 "
+                + "    WHEN p.type = '5 day' THEN ISNULL(p.point, 0) * 0.3 "
+                + "    WHEN p.type = '7 day' THEN ISNULL(p.point, 0) * 0.5 "
+                + "    ELSE 0 END) > 0 "
                 + "ORDER BY totalPoint DESC";
 
         try (Connection conn = DBUtils.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, status);
+            ps.setString(1, idPayment); // ví dụ: QP01 = Silver
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Member m = new Member();
                 m.setIDMember(rs.getString("IDMember"));
                 m.setMemberName(rs.getString("memberName"));
-                m.setPoint((int) Math.round(rs.getDouble("totalPoint"))); // Làm tròn sang int
+                m.setPoint((int) rs.getDouble("totalPoint")); // ép double sang int
                 list.add(m);
             }
         }
