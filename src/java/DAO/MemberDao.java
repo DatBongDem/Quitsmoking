@@ -126,24 +126,6 @@ public class MemberDao {
         return memberIds;
     }
 
-//    public String getIDMemberByUsername(String username) throws SQLException, ClassNotFoundException {
-//        String sql = "SELECT IDMember FROM dbo.Member WHERE memberName = ?";
-//        try {
-//            PreparedStatement ps = getConnection().prepareStatement(sql);
-//            // Set tham số username vào PreparedStatement
-//            ps.setString(1, username);
-//
-//            // Thực thi truy vấn và lấy kết quả
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                return rs.getString(1);  // Trả về IDMember
-//            } else {
-//                return null;  // Trường hợp không tìm thấy username
-//            }
-//        } catch (SQLException e) {
-//            throw new SQLException("Error while fetching IDMember: " + e.getMessage(), e);
-//        }
-//    }
 
     public List<Member> getMembersByCoach(String idCoach) {
         List<Member> list = new ArrayList<>();

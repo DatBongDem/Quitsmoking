@@ -16,6 +16,12 @@
 
         <a href="ManageCoachServlet">
             <button>Quản lý Coach</button>
+            
+           
         </a>
+        
+        <form action="AdminManageMemberServlet" method="get">
+    <button type="submit">Quản lý Member</button>
+</form>
     </body>
 </html>

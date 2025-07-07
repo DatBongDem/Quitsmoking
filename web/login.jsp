@@ -101,6 +101,28 @@
                 </div>
             </div>
         </div>
+        <c:if test="${not empty error}">
+    <%-- BEGIN ERROR MODAL --%>
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-danger font-weight-bold">
+                    ${error}  <%-- Nơi in ra thông báo lỗi (ví dụ: "Tài khoản của bạn đã bị xóa.") --%>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-- END ERROR MODAL --%>
+</c:if>
         <!--End Form Login-->
 
         <c:if test="${not empty error}">

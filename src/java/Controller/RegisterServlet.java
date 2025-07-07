@@ -147,15 +147,7 @@ public class RegisterServlet extends HttpServlet {
             }
         }
     
-//    private String extractFileName(Part part) {
-//        String partHeader = part.getHeader("content-disposition");
-//        for (String content : partHeader.split(";")) {
-//            if (content.trim().startsWith("filename")) {
-//                return content.substring(content.indexOf("=") + 2, content.length() - 1);
-//            }
-//        }
-//        return "";
-//    }
+
     /**
      * Returns a short description of the servlet.
      *

@@ -45,25 +45,35 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        if (role.equalsIgnoreCase("member")) {
-            Member member = dao.checkLogin(id, pass);
+        if ("member".equalsIgnoreCase(role)) {
+        Member member = dao.checkLogin(id, pass);
 
-            if (member != null) {
-                // Lưu thông tin vào session
-                session.setAttribute("id", id);
-                session.setAttribute("role", "member");
-                session.setAttribute("username", member.getMemberName());
-                session.setAttribute("coachId", member.getIDCoach());
-                // Gửi dữ liệu đến homepage
-                response.sendRedirect("homepage.jsp?login=success");
-                return;
-            } else {
-                request.setAttribute("error", "Invalid username or password. Please try again.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+        if (member != null) {
+            // --- NEW: kiểm tra status ---
+            if ("2".equals(member.getStatus())) {
+                request.setAttribute("error", "Tài khoản của bạn đã bị xóa.");
+                request.getRequestDispatcher("login.jsp")
+                       .forward(request, response);
                 return;
             }
+            // ---------------------------
 
+            // Lưu thông tin vào session
+            session.setAttribute("id",       id);
+            session.setAttribute("role",     "member");
+            session.setAttribute("username", member.getMemberName());
+            session.setAttribute("coachId",  member.getIDCoach());
+            // Chuyển tới homepage
+            response.sendRedirect("homepage.jsp?login=success");
+            return;
         } else {
+            request.setAttribute("error", "Invalid username or password. Please try again.");
+            request.getRequestDispatcher("login.jsp")
+                   .forward(request, response);
+            return;
+        }
+
+    } else {
             Coach coach = daocoach.checkLogin(id, pass);
 
             if (coach != null) {
