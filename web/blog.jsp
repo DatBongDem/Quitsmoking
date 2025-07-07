@@ -31,7 +31,7 @@
 
 
         <%@include file="information/header.jspf" %>
-<a href="MyBlogServlet" class="btn btn-primary">My Blog</a>
+<!--<a href="MyBlogServlet" class="btn btn-primary">My Blog</a>-->
         <!-- Background -->
         <div class="background">
             <div class="container-fluid">
