@@ -5,9 +5,13 @@
  */
 package Controller;
 
+import DAO.MemberDao;
+import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,51 +20,37 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Nguyen Tien Dat
+ * @author Thinkpad
  */
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name = "CheckCookiesServlet", urlPatterns = {"/CheckCookiesServlet"})
+public class CheckCookiesServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(false);
-            
-            String userId = null;
-            if(session != null) {
-                 userId = (String) session.getAttribute("id");
-            }
-
-            // Delete the remember-me cookie if it exists
-            if (userId != null) {
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals(userId)) {
-                            cookie.setMaxAge(0); // Delete cookie
-                            response.addCookie(cookie);
-                            break; // Exit loop once found and deleted
-                        }
+        try {
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                MemberDao dao = new MemberDao();
+                for (Cookie cookie : cookies) {
+                    String id = cookie.getName();
+                    String password = cookie.getValue();
+                    Member result = dao.checkLogin(id, password);
+                    if (result != null) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", result.getMemberName());
+                        session.setAttribute("id", id);
+                        session.setAttribute("role", "member");
+                        session.setAttribute("coachId", result.getIDCoach());
+                        response.sendRedirect("homepage.jsp");
+                        return; // Exit after successful login
                     }
                 }
             }
-
-            // Invalidate the session
-            if (session != null) {
-                session.invalidate();
-            }
-
-            response.sendRedirect("homepage.jsp");
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,7 +66,6 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**

@@ -11,7 +11,9 @@ import DTO.Coach;
 import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.CookieStore;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +41,7 @@ public class LoginServlet extends HttpServlet {
         String id = request.getParameter("username");
         String pass = request.getParameter("password");
         String role = request.getParameter("role");
+        String remember = request.getParameter("remember");
 
         MemberDao dao = new MemberDao();
         CoachDao daocoach = new CoachDao();
@@ -57,13 +60,21 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
             // ---------------------------
-
+            
             // Lưu thông tin vào session
-            session.setAttribute("id",       id);
-            session.setAttribute("role",     "member");
+            
+            session.setAttribute("id", id);
+            session.setAttribute("role", "member");
             session.setAttribute("username", member.getMemberName());
             session.setAttribute("coachId",  member.getIDCoach());
             // Chuyển tới homepage
+            
+            if("on".equals(remember)) {
+                // TODO: Storing passwords in cookies is insecure. A token-based approach is recommended.
+                Cookie cookie = new Cookie(id, pass);
+                cookie.setMaxAge(60 * 60 * 24 * 7); // 7 days
+                response.addCookie(cookie);
+            }
             response.sendRedirect("homepage.jsp?login=success");
             return;
         } else {
@@ -82,6 +93,15 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("role", "coach");
                 session.setAttribute("username", coach.getCoachName());
                 session.setAttribute("coachId", coach.getIDCoach());
+
+                // Add cookie for coach if "remember me" is checked
+                if("on".equals(remember)) {
+                    // TODO: Storing passwords in cookies is insecure. A token-based approach is recommended.
+                    Cookie cookie = new Cookie(id, pass);
+                    cookie.setMaxAge(60 * 60 * 24 * 7); // 7 days
+                    response.addCookie(cookie);
+                }
+
                 // Gửi dữ liệu đến homepage
                 response.sendRedirect("homepage.jsp?login=success");
                 return;
