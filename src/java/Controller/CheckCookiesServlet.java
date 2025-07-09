@@ -43,7 +43,7 @@ public class CheckCookiesServlet extends HttpServlet {
                         session.setAttribute("role", "member");
                         session.setAttribute("coachId", result.getIDCoach());
                         response.sendRedirect("homepage.jsp");
-                        return; // Exit after successful login
+                        return;
                     }
                 }
             }

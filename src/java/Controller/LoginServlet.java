@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
             // Chuyển tới homepage
             
             if("on".equals(remember)) {
-                // TODO: Storing passwords in cookies is insecure. A token-based approach is recommended.
+                // Tạo cookie
                 Cookie cookie = new Cookie(id, pass);
                 cookie.setMaxAge(60 * 60 * 24 * 7); // 7 days
                 response.addCookie(cookie);
