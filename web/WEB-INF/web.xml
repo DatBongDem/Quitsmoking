@@ -244,7 +244,7 @@
         <servlet-name>CreateCoachServlet</servlet-name>
         <url-pattern>/CreateCoachServlet</url-pattern>
     </servlet-mapping>
-<<<<<<< Updated upstream
+
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>Filter.AuthenticationFilter</filter-class>
@@ -254,12 +254,12 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-=======
+
     <servlet-mapping>
         <servlet-name>UpdateQuizServlet</servlet-name>
         <url-pattern>/UpdateQuizServlet</url-pattern>
     </servlet-mapping>
->>>>>>> Stashed changes
+
     <session-config>
         <session-timeout>
             30
