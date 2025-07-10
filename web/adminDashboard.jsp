@@ -26,12 +26,12 @@
             
            
         </a>
-<<<<<<< Updated upstream
+
         
         <form action="AdminManageMemberServlet" method="get">
     <button type="submit">Quản lý Member</button>
 </form>
-=======
+
 
         <a href="adminManageQuiz.jsp">
             <button>Quản lý Quiz</button>
@@ -41,6 +41,6 @@
         <form action="AdminLogoutServlet" method="get" style="display:inline;">
             <button type="submit" class="btn btn-danger">Đăng xuất</button>
         </form>
->>>>>>> Stashed changes
+
     </body>
 </html>
