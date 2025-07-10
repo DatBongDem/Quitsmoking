@@ -120,6 +120,10 @@
         <servlet-name>CreateCoachServlet</servlet-name>
         <servlet-class>Controller.Admin.CreateCoachServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateQuizServlet</servlet-name>
+        <servlet-class>Controller.Admin.UpdateQuizServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -240,6 +244,7 @@
         <servlet-name>CreateCoachServlet</servlet-name>
         <url-pattern>/CreateCoachServlet</url-pattern>
     </servlet-mapping>
+<<<<<<< Updated upstream
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>Filter.AuthenticationFilter</filter-class>
@@ -249,6 +254,12 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+=======
+    <servlet-mapping>
+        <servlet-name>UpdateQuizServlet</servlet-name>
+        <url-pattern>/UpdateQuizServlet</url-pattern>
+    </servlet-mapping>
+>>>>>>> Stashed changes
     <session-config>
         <session-timeout>
             30
