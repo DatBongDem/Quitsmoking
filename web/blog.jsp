@@ -42,7 +42,11 @@
                             <h1 class="inner-title">Blog Page</h1>
                             <div class="inner-blog">
                                 <div class="home-page">
+                                    <%  String userRole = (String) session.getAttribute("role");
+                                    if (userRole == "member"){ %>
                                     <a href="PostNewBlog.jsp">Post New</a>
+                                            <% }
+                                            %>
                                 </div>
                             </div>
                         </div>
