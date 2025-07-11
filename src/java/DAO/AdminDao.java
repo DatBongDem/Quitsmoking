@@ -76,7 +76,7 @@ public class AdminDao {
     List<Member> list = new ArrayList<>();
     String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
                + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
-               + "FROM dbo.Member";  // no WHERE clause, fetch all
+               + "FROM dbo.Member"; 
 
     try (Connection conn = DBUtils.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql);
