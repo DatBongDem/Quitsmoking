@@ -121,8 +121,8 @@
         <servlet-class>Controller.Admin.CreateCoachServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResetPasswordServlet</servlet-name>
-        <servlet-class>Controller.ResetPasswordServlet</servlet-class>
+        <servlet-name>UpdateQuizServlet</servlet-name>
+        <servlet-class>Controller.Admin.UpdateQuizServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -244,10 +244,7 @@
         <servlet-name>CreateCoachServlet</servlet-name>
         <url-pattern>/CreateCoachServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ResetPasswordServlet</servlet-name>
-        <url-pattern>/ResetPasswordServlet</url-pattern>
-    </servlet-mapping>
+
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>Filter.AuthenticationFilter</filter-class>
@@ -256,6 +253,12 @@
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>UpdateQuizServlet</servlet-name>
+        <url-pattern>/UpdateQuizServlet</url-pattern>
+    </servlet-mapping>
 
     <session-config>
         <session-timeout>
