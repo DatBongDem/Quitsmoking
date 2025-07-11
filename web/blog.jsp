@@ -31,7 +31,6 @@
 
 
         <%@include file="information/header.jspf" %>
-<!--<a href="MyBlogServlet" class="btn btn-primary">My Blog</a>-->
         <!-- Background -->
         <div class="background">
             <div class="container-fluid">
@@ -45,6 +44,7 @@
                                     <%  String userRole = (String) session.getAttribute("role");
                                     if (userRole == "member"){ %>
                                     <a href="PostNewBlog.jsp">Post New</a>
+                                    <a href="MyBlogServlet">My Blog</a>
                                             <% }
                                             %>
                                 </div>
