@@ -41,20 +41,22 @@
                         <i class="fas fa-question-circle"></i> Quản lý Quiz
                     </a>
                 </li>
-                   <form action="AdminLogoutServlet" method="get" style="display:inline;">
-            <button type="submit" class="btn btn-danger">Đăng xuất</button>
-        </form>
-
+                <li>
+                    <a href="QuitplanManagerServlet">
+                        <i class="fas fa-chalkboard-teacher"></i> Quản lý khóa học
+                    </a>
+                </li>
             </ul>
-         
+            <div class="logout">
+                <form action="AdminLogoutServlet" method="get">
+                    <button type="submit" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </form>
+            </div>
         </div>
+        
 
-
-<!--  <form action="QuitplanManagerServlet" method="get">
-            <button type="submit">Quản lý Quitplan</button>
-        </form>-->
- 
-     
         <div class="main-content">
             <div class="content-header">
                 <h1>Chào mừng ADMIN đấng toàn năng của chúng tôi!!</h1>
@@ -74,6 +76,10 @@
                 <a href="adminManageQuiz.jsp" class="card">
                     <i class="fas fa-question-circle"></i>
                     <h4>Quản lý Quiz</h4>
+                </a>
+                <a href="QuitplanManagerServlet" class="card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h4>Quản lý khóa học</h4>
                 </a>
             </div>
         </div>
