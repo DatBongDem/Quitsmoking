@@ -72,47 +72,43 @@ public class AdminDao {
         return null;
     }
 
-    public List<Member> getAllMembers() {
-        List<Member> list = new ArrayList<>();
-        String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
-                + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
-                + "FROM dbo.Member "
-                + "WHERE status <> ?";
+   public List<Member> getAllMembers() {
+    List<Member> list = new ArrayList<>();
+    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+               + "FROM dbo.Member";  // no WHERE clause, fetch all
 
-        try (Connection conn = DBUtils.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
 
-            ps.setString(1, "2");  // chỉ lấy những member có status khác "2"
+        while (rs.next()) {
+            Member m = new Member();
+            m.setIDMember     (rs.getString("IDMember"));
+            m.setPassword     (rs.getString("password"));
+            m.setMemberName   (rs.getString("memberName"));
+            m.setGender       (rs.getString("gender"));
+            m.setPhone        (rs.getString("phone"));
+            m.setEmail        (rs.getString("email"));
+            m.setAddress      (rs.getString("address"));
+            m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
+            m.setJoinDate     (rs.getDate  ("joinDate"));
+            m.setImage        (rs.getString("image"));
+            m.setPoint        (rs.getInt   ("point"));
+            m.setIDCoach      (rs.getString("IDCoach"));
+            m.setSubscription (rs.getString("subcription"));
+            m.setStatus       (rs.getString("status"));
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Member m = new Member();
-                    m.setIDMember(rs.getString("IDMember"));
-                    m.setPassword(rs.getString("password"));
-                    m.setMemberName(rs.getString("memberName"));
-                    m.setGender(rs.getString("gender"));
-                    m.setPhone(rs.getString("phone"));
-                    m.setEmail(rs.getString("email"));
-                    m.setAddress(rs.getString("address"));
-                    m.setDateOfBirth(rs.getDate("dateOfBirth"));
-                    m.setJoinDate(rs.getDate("joinDate"));
-                    m.setImage(rs.getString("image"));
-                    m.setPoint(rs.getInt("point"));
-                    m.setIDCoach(rs.getString("IDCoach"));
-                    m.setSubscription(rs.getString("subcription"));
-                    m.setStatus(rs.getString("status"));
-
-                    list.add(m);
-                }
-            }
-
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            // Bạn có thể log lỗi hoặc ném exception tuỳ nhu cầu
+            list.add(m);
         }
 
-        return list;
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+        // Optionally rethrow or log
     }
+
+    return list;
+}
 
     public boolean deleteMember(String idMember) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE dbo.Member SET status = ? WHERE IDMember = ?";
@@ -173,46 +169,81 @@ public class AdminDao {
         }
         return rowsAffected > 0;
     }
+
     public List<Member> searchMembers(String keyword) {
-    List<Member> list = new ArrayList<>();
-    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
-               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
-               + "FROM dbo.Member "
-               + "WHERE status <> ? AND memberName LIKE ?";
-    Connection conn = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    try {
-        conn = DBUtils.getConnection();
-        stmt = conn.prepareStatement(sql);
-        stmt.setString(1, "2");                       // loại bỏ những record đã "xóa"
-        stmt.setString(2, "%" + keyword + "%");       // tìm kiếm tên chứa keyword
-        rs = stmt.executeQuery();
-        while (rs.next()) {
-            Member m = new Member();
-            m.setIDMember(   rs.getString("IDMember"));
-            m.setPassword(   rs.getString("password"));
-            m.setMemberName( rs.getString("memberName"));
-            m.setGender(     rs.getString("gender"));
-            m.setPhone(      rs.getString("phone"));
-            m.setEmail(      rs.getString("email"));
-            m.setAddress(    rs.getString("address"));
-            m.setDateOfBirth(rs.getDate("dateOfBirth"));
-            m.setJoinDate(   rs.getDate("joinDate"));
-            m.setImage(      rs.getString("image"));
-            m.setPoint(      rs.getInt("point"));
-            m.setIDCoach(    rs.getString("IDCoach"));
-            m.setSubscription(rs.getString("subcription"));
-            m.setStatus(     rs.getString("status"));
-            list.add(m);
+        List<Member> list = new ArrayList<>();
+        String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+                + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+                + "FROM dbo.Member "
+                + "WHERE status <> ? AND memberName LIKE ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "2");                       // loại bỏ những record đã "xóa"
+            stmt.setString(2, "%" + keyword + "%");       // tìm kiếm tên chứa keyword
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Member m = new Member();
+                m.setIDMember(rs.getString("IDMember"));
+                m.setPassword(rs.getString("password"));
+                m.setMemberName(rs.getString("memberName"));
+                m.setGender(rs.getString("gender"));
+                m.setPhone(rs.getString("phone"));
+                m.setEmail(rs.getString("email"));
+                m.setAddress(rs.getString("address"));
+                m.setDateOfBirth(rs.getDate("dateOfBirth"));
+                m.setJoinDate(rs.getDate("joinDate"));
+                m.setImage(rs.getString("image"));
+                m.setPoint(rs.getInt("point"));
+                m.setIDCoach(rs.getString("IDCoach"));
+                m.setSubscription(rs.getString("subcription"));
+                m.setStatus(rs.getString("status"));
+                list.add(m);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+            }
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (Exception e) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+            }
         }
-    } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
-    } finally {
-        try { if (rs   != null) rs.close();   } catch (Exception e) {}
-        try { if (stmt != null) stmt.close(); } catch (Exception e) {}
-        try { if (conn != null) conn.close(); } catch (Exception e) {}
+        return list;
     }
-    return list;
-}
+
+    public boolean restoreMember(String idMember) throws ClassNotFoundException {
+        String sql = "UPDATE Member SET status = ? WHERE IDMember = ?";
+        try (
+                Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "1");
+            ps.setString(2, idMember);
+            int updated = ps.executeUpdate();
+            return updated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+      
+
+ 
+
 }

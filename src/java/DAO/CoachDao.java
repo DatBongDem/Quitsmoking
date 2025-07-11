@@ -52,6 +52,7 @@ public class CoachDao {
                 coach.setDateOfBirth(rs.getDate("dateOfBirth"));
                 coach.setSpecialization(rs.getString("specialization"));
                 coach.setExperienceYears(rs.getInt("experienceYears"));
+                  coach.setStatus         (rs.getString("status"));
             }
 
         } catch (SQLException e) {

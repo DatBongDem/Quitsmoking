@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -80,8 +81,28 @@ public class AdminManageMemberServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   
+        String idMember = request.getParameter("IDMember");
+        AdminDao admin=new AdminDao();
+        // 2. Gọi DAO để khôi phục
+        boolean success = false;
+        try {
+            success = admin.restoreMember(idMember);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // 3. Tùy chọn: lưu thông báo vào session hoặc request
+        HttpSession session = request.getSession();
+        if (success) {
+            session.setAttribute("msg", "Khôi phục thành công member " + idMember);
+        } else {
+            session.setAttribute("msg", "Không thể khôi phục member " + idMember);
+        }
+
+        // 4. Redirect về chính servlet để load lại danh sách (GET sẽ gọi getAllMembers())
+        response.sendRedirect(request.getContextPath() + "/AdminManageMemberServlet");
     }
+    
     
 
     /**

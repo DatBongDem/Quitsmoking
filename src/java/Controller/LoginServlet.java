@@ -88,6 +88,12 @@ public class LoginServlet extends HttpServlet {
             Coach coach = daocoach.checkLogin(id, pass);
 
             if (coach != null) {
+                 if ("2".equals(coach.getStatus())) {
+            request.setAttribute("error", "Tài khoản của bạn đã bị xóa.");
+            request.getRequestDispatcher("login.jsp")
+                   .forward(request, response);
+            return;
+        }
                 // Lưu thông tin vào session
                 session.setAttribute("id", id);
                 session.setAttribute("role", "coach");

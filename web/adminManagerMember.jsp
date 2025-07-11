@@ -68,12 +68,22 @@
                 </a>
             </td>
             <td>
-                <form action="AdminDeleteMemberServlet" method="post"
-                      onsubmit="return confirm('Xác nhận xoá member này?');">
-                    <input type="hidden" name="IDMember" value="<%= id %>"/>
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
+                  <% if ("1".equals(m.getStatus())) { %>
+                      <!-- Delete active member -->
+                      <form action="AdminDeleteMemberServlet" method="post"
+                            onsubmit="return confirm('Xác nhận xoá member này?');">
+                          <input type="hidden" name="IDMember" value="<%= id %>"/>
+                          <button type="submit">Delete</button>
+                      </form>
+                  <% } else if ("2".equals(m.getStatus())) { %>
+                      <!-- Restore deleted member -->
+                      <form action="AdminManageMemberServlet" method="post"
+                            onsubmit="return confirm('Xác nhận khôi phục member này?');">
+                          <input type="hidden" name="IDMember" value="<%= id %>"/>
+                          <button type="submit">Khôi phục</button>
+                      </form>
+                  <% } %>
+              </td>
         </tr>
     <%
         }
