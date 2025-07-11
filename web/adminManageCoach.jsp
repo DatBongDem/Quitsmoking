@@ -6,6 +6,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, DTO.Coach" %>
+<%
+       if (session == null || session.getAttribute("admin") == null) {
+        response.sendRedirect("adminLogin.jsp");
+        return;
+    }
+%>
+
 <html>
     <head>
         <title>Quản lý Coach</title>
