@@ -41,19 +41,20 @@
                         <i class="fas fa-question-circle"></i> Quản lý Quiz
                     </a>
                 </li>
+                   <form action="AdminLogoutServlet" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Đăng xuất</button>
+        </form>
+
             </ul>
          
         </div>
 
 
-  <form action="QuitplanManagerServlet" method="get">
+<!--  <form action="QuitplanManagerServlet" method="get">
             <button type="submit">Quản lý Quitplan</button>
-        </form>
+        </form>-->
  
-        <form action="AdminLogoutServlet" method="get" style="display:inline;">
-            <button type="submit" class="btn btn-danger">Đăng xuất</button>
-        </form>
-
+     
         <div class="main-content">
             <div class="content-header">
                 <h1>Chào mừng ADMIN đấng toàn năng của chúng tôi!!</h1>
