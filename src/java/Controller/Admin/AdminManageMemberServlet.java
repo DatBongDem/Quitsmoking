@@ -63,7 +63,7 @@ public class AdminManageMemberServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AdminDao admin=new AdminDao();
+        MemberDao admin=new MemberDao();
              List<Member> members = admin.getAllMembers();
         request.setAttribute("members", members);
         request.getRequestDispatcher("adminManagerMember.jsp")
@@ -82,7 +82,7 @@ public class AdminManageMemberServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idMember = request.getParameter("IDMember");
-        AdminDao admin=new AdminDao();
+        MemberDao admin=new MemberDao();
         // 2. Gọi DAO để khôi phục
         boolean success = false;
         try {

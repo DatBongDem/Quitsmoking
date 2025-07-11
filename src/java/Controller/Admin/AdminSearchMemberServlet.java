@@ -6,6 +6,7 @@
 package Controller.Admin;
 
 import DAO.AdminDao;
+import DAO.MemberDao;
 import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -65,7 +66,7 @@ public class AdminSearchMemberServlet extends HttpServlet {
         if (keyword == null) {
             keyword = "";
         }
-        AdminDao admin=new AdminDao();
+        MemberDao admin=new MemberDao();
 
         // ❷ Gọi hàm searchMembers qua adminDao, không gọi tĩnh
         List<Member> members = admin.searchMembers(keyword);

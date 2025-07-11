@@ -6,6 +6,7 @@
 package Controller.Admin;
 
 import DAO.AdminDao;
+import DAO.MemberDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -74,7 +75,7 @@ public class AdminDeleteMemberServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("IDMember");
-      AdminDao admin=new AdminDao();
+        MemberDao admin=new MemberDao();
         try {
             boolean ok = admin.deleteMember(id);
             // bạn có thể set message lên session hoặc request tuỳ ý

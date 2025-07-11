@@ -550,5 +550,110 @@ public class MemberDao {
         }
         return result;
     }
+    // this is ADMIN function....
+      public List<Member> getAllMembers() {
+    List<Member> list = new ArrayList<>();
+    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+               + "FROM dbo.Member";  // no WHERE clause, fetch all
+
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Member m = new Member();
+            m.setIDMember     (rs.getString("IDMember"));
+            m.setPassword     (rs.getString("password"));
+            m.setMemberName   (rs.getString("memberName"));
+            m.setGender       (rs.getString("gender"));
+            m.setPhone        (rs.getString("phone"));
+            m.setEmail        (rs.getString("email"));
+            m.setAddress      (rs.getString("address"));
+            m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
+            m.setJoinDate     (rs.getDate  ("joinDate"));
+            m.setImage        (rs.getString("image"));
+            m.setPoint        (rs.getInt   ("point"));
+            m.setIDCoach      (rs.getString("IDCoach"));
+            m.setSubscription (rs.getString("subcription"));
+            m.setStatus       (rs.getString("status"));
+
+            list.add(m);
+        }
+
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+        // Optionally rethrow or log
+    }
+
+    return list;
+}
+
+    public boolean deleteMember(String idMember) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE dbo.Member SET status = ? WHERE IDMember = ?";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "2");          // status mới
+            ps.setString(2, idMember);     // ID của member
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+      public boolean restoreMember(String idMember) throws ClassNotFoundException {
+        String sql = "UPDATE Member SET status = ? WHERE IDMember = ?";
+        try (
+                Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "1");
+            ps.setString(2, idMember);
+            int updated = ps.executeUpdate();
+            return updated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+      
+  public List<Member> searchMembers(String keyword) {
+    List<Member> list = new ArrayList<>();
+    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+               + "FROM dbo.Member "
+               + "WHERE memberName LIKE ?";
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, "%" + keyword + "%");
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Member m = new Member();
+                m.setIDMember     (rs.getString("IDMember"));
+                m.setPassword     (rs.getString("password"));
+                m.setMemberName   (rs.getString("memberName"));
+                m.setGender       (rs.getString("gender"));
+                m.setPhone        (rs.getString("phone"));
+                m.setEmail        (rs.getString("email"));
+                m.setAddress      (rs.getString("address"));
+                m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
+                m.setJoinDate     (rs.getDate  ("joinDate"));
+                m.setImage        (rs.getString("image"));
+                m.setPoint        (rs.getInt   ("point"));
+                m.setIDCoach      (rs.getString("IDCoach"));
+                m.setSubscription (rs.getString("subcription"));
+                m.setStatus       (rs.getString("status"));
+                list.add(m);
+            }
+        }
+
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+  
+
 
 }
