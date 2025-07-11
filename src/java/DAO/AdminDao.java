@@ -170,64 +170,43 @@ public class AdminDao {
         return rowsAffected > 0;
     }
 
-    public List<Member> searchMembers(String keyword) {
-        List<Member> list = new ArrayList<>();
-        String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
-                + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
-                + "FROM dbo.Member "
-                + "WHERE status <> ? AND memberName LIKE ?";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "2");                       // loại bỏ những record đã "xóa"
-            stmt.setString(2, "%" + keyword + "%");       // tìm kiếm tên chứa keyword
-            rs = stmt.executeQuery();
+  public List<Member> searchMembers(String keyword) {
+    List<Member> list = new ArrayList<>();
+    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+               + "FROM dbo.Member "
+               + "WHERE memberName LIKE ?";
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, "%" + keyword + "%");
+
+        try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Member m = new Member();
-                m.setIDMember(rs.getString("IDMember"));
-                m.setPassword(rs.getString("password"));
-                m.setMemberName(rs.getString("memberName"));
-                m.setGender(rs.getString("gender"));
-                m.setPhone(rs.getString("phone"));
-                m.setEmail(rs.getString("email"));
-                m.setAddress(rs.getString("address"));
-                m.setDateOfBirth(rs.getDate("dateOfBirth"));
-                m.setJoinDate(rs.getDate("joinDate"));
-                m.setImage(rs.getString("image"));
-                m.setPoint(rs.getInt("point"));
-                m.setIDCoach(rs.getString("IDCoach"));
-                m.setSubscription(rs.getString("subcription"));
-                m.setStatus(rs.getString("status"));
+                m.setIDMember     (rs.getString("IDMember"));
+                m.setPassword     (rs.getString("password"));
+                m.setMemberName   (rs.getString("memberName"));
+                m.setGender       (rs.getString("gender"));
+                m.setPhone        (rs.getString("phone"));
+                m.setEmail        (rs.getString("email"));
+                m.setAddress      (rs.getString("address"));
+                m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
+                m.setJoinDate     (rs.getDate  ("joinDate"));
+                m.setImage        (rs.getString("image"));
+                m.setPoint        (rs.getInt   ("point"));
+                m.setIDCoach      (rs.getString("IDCoach"));
+                m.setSubscription (rs.getString("subcription"));
+                m.setStatus       (rs.getString("status"));
                 list.add(m);
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (Exception e) {
-            }
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-            }
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-            }
         }
-        return list;
-    }
 
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
     public boolean restoreMember(String idMember) throws ClassNotFoundException {
         String sql = "UPDATE Member SET status = ? WHERE IDMember = ?";
         try (
