@@ -129,6 +129,26 @@ public class QuitPlanDAO {
         }
     }
     
-    
+      public boolean insertQuitPlan(QuitPlan qp) {
+        String sql = "INSERT INTO dbo.QuitPlan "
+                   + "(IDQuitPlan, periodOfTime, goals, progress, price) "
+                   + "VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, qp.getIdQuitPlan());
+            ps.setInt   (2, qp.getPeriodOfTime());
+            ps.setString(3, qp.getGoals());
+            ps.setString(4, qp.getProgress());
+            ps.setDouble(5, qp.getPrice());
+
+            int rows = ps.executeUpdate();
+            System.out.println("[DAO] insertQuitPlan → rowsAffected = " + rows);
+            return rows > 0;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
 }

@@ -42,20 +42,14 @@
                     </a>
                 </li>
             </ul>
-            <div class="logout">
-                <form action="AdminLogoutServlet" method="get">
-                    <button type="submit" class="btn-logout">
-                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                    </button>
-                </form>
-            </div>
+         
         </div>
 
 
   <form action="QuitplanManagerServlet" method="get">
             <button type="submit">Quản lý Quitplan</button>
         </form>
-        
+ 
         <form action="AdminLogoutServlet" method="get" style="display:inline;">
             <button type="submit" class="btn btn-danger">Đăng xuất</button>
         </form>

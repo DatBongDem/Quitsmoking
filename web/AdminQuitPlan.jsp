@@ -13,7 +13,9 @@
     <!-- Form tìm kiếm -->
 
     <br/>
-
+  <form action="AdminCreateQuitplanServlet" method="get">
+        <button type="submit">Tạo Quitplan</button>
+    </form>
     <%
         @SuppressWarnings("unchecked")
         List<QuitPlan> list = (List<QuitPlan>) request.getAttribute("quitplans");
