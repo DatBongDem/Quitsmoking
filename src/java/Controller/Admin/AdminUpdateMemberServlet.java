@@ -85,7 +85,7 @@ public class AdminUpdateMemberServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        AdminDao admin = new AdminDao();
+        MemberDao admin = new MemberDao();
         // 1. Lấy dữ liệu từ form
         Member member = new Member();
         member.setIDMember(request.getParameter("IDMember"));
