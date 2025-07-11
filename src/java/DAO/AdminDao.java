@@ -11,6 +11,7 @@ package DAO;
  */
 import DTO.Admin;
 import DTO.Member;
+import DTO.QuitPlan;
 import Utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
