@@ -20,7 +20,7 @@
   <h2>Chỉnh sửa bài viết</h2>
   <form action="UpdatePostServlet" method="post" enctype="multipart/form-data">
     <!-- IDPost và IDMember chỉ dùng để gửi về, không cho sửa -->
-    <input type="hidden" name="idPost" value="<%= post.getIdPost()%>"/>
+  <p><strong>Debug: IDPost hiện tại là</strong> <%= post.getIdPost() %></p>
     <input type="hidden" name="idMember" value="<%= post.getIdMember() %>"/>
 
     <p>

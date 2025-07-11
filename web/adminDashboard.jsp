@@ -36,7 +36,9 @@
         <a href="adminManageQuiz.jsp">
             <button>Quản lý Quiz</button>
         </a>
-
+  <form action="QuitplanManagerServlet" method="get">
+            <button type="submit">Quản lý Quitplan</button>
+        </form>
         
         <form action="AdminLogoutServlet" method="get" style="display:inline;">
             <button type="submit" class="btn btn-danger">Đăng xuất</button>
