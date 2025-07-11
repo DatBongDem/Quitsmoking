@@ -37,7 +37,9 @@
                 <!-- thêm nội dung khác -->
             </div>
             <a href="BlogPostServlet" class="back-button">← Quay lại</a>
+            
         </div>
+                
 
 
         <%@include file="information/footer.jspf" %>

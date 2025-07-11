@@ -145,5 +145,67 @@ public class SystemDao {
             return false; // Nếu có lỗi thì trả về false
         }
     }
+     public boolean updatePost(BlogPost post) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE BlogPost "
+                   + "SET title       = ?, "
+                   + "    content     = ?, "
+                   + "    image       = ?, "
+                   + "    publishDate = ? "
+                   + "WHERE IDPost    = ?";
+        
+        try  {
+             PreparedStatement ps = getConnection().prepareStatement(sql);
+
+            ps.setString(1, post.getTitle());
+            ps.setString(2, post.getContent());
+            ps.setString(3, post.getImage());
+            ps.setDate(4, post.getPublishDate());
+            ps.setString(5, post.getIdPost());
+
+            return ps.executeUpdate() > 0;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Nếu có lỗi thì trả về false
+        }
+    }
+      public boolean deletePost(String idPost) throws ClassNotFoundException {
+        String sql = "DELETE FROM BlogPost WHERE IDPost = ?";
+        try  {
+              PreparedStatement ps = getConnection().prepareStatement(sql);
+
+            ps.setString(1, idPost);
+            int rows = ps.executeUpdate();
+          
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+//     public static void main(String[] args) throws ClassNotFoundException {
+//        // 1. Tạo đối tượng BlogPost với dữ liệu giả lập
+//        BlogPost post = new BlogPost();
+//        post.setIdPost("P2bce8a2e");                       // IDPost cần tồn tại trong DB
+//        post.setTitle("Tiêu đề mới cho bài viết");
+//        post.setContent("Nội dung đã được cập nhật...");
+//        post.setImage("/uploads/2025/07/11/new-image.jpg");
+//        // Ví dụ sử dụng ngày 2025-07-11
+//        post.setPublishDate(Date.valueOf("2025-07-11"));
+//
+//        // 2. Gọi DAO để cập nhật
+//        SystemDao dao = new SystemDao();
+//        try {
+//        boolean ok = dao.updatePost(post);
+//            if (ok) {
+//                System.out.println("Cập nhật thành công bài viết " + post.getIdPost());
+//            } else {
+//                System.out.println("Không tìm thấy bài viết hoặc không thể cập nhật.");
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("Lỗi SQL khi cập nhật: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//    }
 
 }
