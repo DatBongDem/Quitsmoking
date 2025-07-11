@@ -126,7 +126,6 @@ public class MemberDao {
         return memberIds;
     }
 
-
     public List<Member> getMembersByCoach(String idCoach) {
         List<Member> list = new ArrayList<>();
         String sql = "SELECT * FROM Member WHERE IDCoach = ?";
@@ -146,8 +145,6 @@ public class MemberDao {
         }
         return list;
     }
-
-   
 
     public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO BlogPost (IDPost, IDMember, title, [content], image, publishDate) VALUES (?, ?, ?, ?, ?, ?)";
@@ -447,12 +444,13 @@ public class MemberDao {
             return false;  // Trả về false nếu có lỗi
         }
     }
-       public List<BlogPost> getPostsByMemberId(String id) {
+
+    public List<BlogPost> getPostsByMemberId(String id) {
         List<BlogPost> posts = new ArrayList<>();
         String sql = "SELECT * FROM BlogPost WHERE IDMember = ?";
 
         try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
@@ -475,6 +473,82 @@ public class MemberDao {
 
         return posts;
     }
+    
+    public Member getEmailByMember (String email) throws SQLException, ClassNotFoundException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Member dto = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = "Select IDMember, password, memberName, gender, phone, address, dateOfBirth, joinDate, "
+                        + "image, point, IDCoach, subcription, status "
+                        + "From Member "
+                        + "Where email = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    String IDMember = rs.getString("IDMember");
+                    // Assuming you might need the password for the DTO constructor, even if not directly used for token validation
+                    String password = rs.getString("password");
+                    String memberName = rs.getString("memberName");
+                    String gender = rs.getString("gender");
+                    String phone = rs.getString("phone");
+                    String address = rs.getString("address");
+                    Date dateOfBirth = rs.getDate("dateOfBirth");
+                    Date joinDate = rs.getDate("joinDate");
+                    String image = rs.getString("image");
+                    int point = rs.getInt("point");
+                    String IDCoach = rs.getString("IDCoach");
+                    String subcription = rs.getString("subcription");
+                    String status = rs.getString("status");
+                    dto = new Member(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, image, point, IDCoach, subcription, status);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return dto; // Return the populated DTO
+    }
+    
+    public boolean updatePassword(String IDMember, String password) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = "Update Member "
+                        + "Set password = ? "
+                        + "Where IDMember = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, password);
+                stm.setString(2, IDMember);
+                int effectRow = stm.executeUpdate();
+                if(effectRow > 0){
+                    result = true;
+                }
+                
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
 
- 
 }

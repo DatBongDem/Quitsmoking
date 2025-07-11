@@ -46,6 +46,11 @@
                                 </c:if>
                                 <!--End Display Error-->
 
+                                <c:if test="${not empty message}">
+                                    <div class="alert alert-success" role="alert">
+                                        ${message}
+                                    </div>
+                                </c:if>
                                 <h3 class="inner-title">Sign In</h3>
                                 <form action="LoginServlet" method="POST" class="form-login">
                                     <label for="role" class="item-name">Select Role</label><br>
@@ -57,10 +62,7 @@
                                     </div>
 
 
-                                    <label for="IDMember" class="item-name">User Name</label><br>
-
-                                    <label for="username" class="item-name">Account</label><br>
-
+                                    <label for="IDMember" class="item-name">ID Member</label><br>
                                     <div class="inner-input">
                                         <input type="text" id="IDMember" name="username" placeholder="ID Member">
                                     </div>
@@ -79,7 +81,7 @@
                                             <input type="checkbox" id="rememberMe" name="remember" value="on">
                                             Remember Me
                                         </label>
-                                        <a href="#">Forgot Password?</a>
+                                        <a href="ForgotPasswordServlet">Forgot Password?</a>
                                     </div>
                                 </form>
                             </div>
