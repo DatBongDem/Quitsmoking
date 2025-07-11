@@ -42,7 +42,9 @@
                     </a>
                 </li>
             </ul>
-         
+          <form action="AdminLogoutServlet" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Đăng xuất</button>
+        </form>
         </div>
 
 
@@ -50,9 +52,7 @@
             <button type="submit">Quản lý Quitplan</button>
         </form>
  
-        <form action="AdminLogoutServlet" method="get" style="display:inline;">
-            <button type="submit" class="btn btn-danger">Đăng xuất</button>
-        </form>
+       
 
         <div class="main-content">
             <div class="content-header">
