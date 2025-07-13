@@ -36,7 +36,7 @@ public class ReportServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -66,10 +66,19 @@ public class ReportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         String reporterID = request.getParameter("reporterID");
         String role = request.getParameter("role");
+
+        // Gán mặc định nếu không có
+//        if (reporterID == null || reporterID.trim().isEmpty()) {
+//            reporterID = "Không có";
+//        }
+//        if (role == null || role.trim().isEmpty()) {
+//            role = "guest";
+//        }
+
         String reportType = request.getParameter("reportType");
         String link = request.getParameter("link");
         String description = request.getParameter("description");
