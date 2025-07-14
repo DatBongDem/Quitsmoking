@@ -29,7 +29,6 @@
     </head>
     <body>
         
-        <%@include file="/information/header.jspf" %>
 
         <!-- Header -->
         <header class="coach-header">
