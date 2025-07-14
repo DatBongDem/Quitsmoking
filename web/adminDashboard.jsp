@@ -55,13 +55,17 @@
                 </form>
             </div>
         </div>
-        
+
 
         <div class="main-content">
             <div class="content-header">
                 <h1>Chào mừng ADMIN đấng toàn năng của chúng tôi!!</h1>
                 <p>Đây là bảng điều khiển chính của hệ thống quản lý cai nghiện ma túy.</p>
             </div>
+
+            <form action="ViewAllReportsServlet" method="get">
+                <button type="submit">Xem tất cả báo cáo</button>
+            </form>
 
 
             <div class="dashboard-cards">

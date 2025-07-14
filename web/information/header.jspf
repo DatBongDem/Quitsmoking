@@ -102,6 +102,12 @@
                                     <%
                                         }
                                     %>
+                                    <form action="report.jsp" method="get" >
+                                        <input type="hidden" name="type" value="system">
+                                        <button type="submit">Report</button>
+                                    </form>
+
+
                                     <a href="LogoutServlet">Logout</a>
                                 </div>                             
                             </c:when>
