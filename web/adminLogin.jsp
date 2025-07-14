@@ -13,7 +13,7 @@
         <%@include file="information/bootstrap.jspf" %>
         <link rel="stylesheet" href="css/adminLogin.css">
     </head>
-    <body>
+    <body style="background: #d3d3d3">
         <div class="login-container">
             <div class="info-page">
                 <h2>Hệ thống Quản lý Cai nghiện Ma túy</h2>
