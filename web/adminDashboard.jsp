@@ -46,6 +46,11 @@
                         <i class="fas fa-chalkboard-teacher"></i> Quản lý khóa học
                     </a>
                 </li>
+                <li>
+                    <a href="ViewAllReportsServlet">
+                        <i class="fa-solid fa-circle-info"></i> Xem báo cáo
+                    </a>
+                </li>
             </ul>
             <div class="logout">
                 <form action="AdminLogoutServlet" method="get">
@@ -63,11 +68,6 @@
                 <p>Đây là bảng điều khiển chính của hệ thống quản lý cai nghiện ma túy.</p>
             </div>
 
-            <form action="ViewAllReportsServlet" method="get">
-                <button type="submit">Xem tất cả báo cáo</button>
-            </form>
-
-
             <div class="dashboard-cards">
                 <a href="ManageCoachServlet" class="card">
                     <i class="fas fa-users"></i>
@@ -84,6 +84,10 @@
                 <a href="QuitplanManagerServlet" class="card">
                     <i class="fas fa-chalkboard-teacher"></i>
                     <h4>Quản lý khóa học</h4>
+                </a>
+                <a href="ViewAllReportsServlet" class="card">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <h4>Xem báo cáo</h4>
                 </a>
             </div>
         </div>
