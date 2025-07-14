@@ -1,74 +1,106 @@
-<%-- 
-    Document   : adminManageQuiz
-    Created on : Jul 10, 2025, 9:47:36 PM
-    Author     : Nguyen Tien Dat
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="DTO.Quiz" %>
 <%@ page import="DAO.QuizDao" %>
 
-<%
-    // Kiểm tra đăng nhập admin
-   if (session == null || session.getAttribute("admin") == null) {
-        response.sendRedirect("adminLogin.jsp");
-        return;
-    }
+<%-- Check for admin session --%>
+<% if (session == null || session.getAttribute("admin") == null) {
+    response.sendRedirect("adminLogin.jsp");
+    return;
+} %>
+
+<% 
     QuizDao dao = new QuizDao();
     List<Quiz> quizList = dao.getAllQuiz();
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-    <title>Quản lý câu hỏi Quiz</title>
+    <meta charset="UTF-8">
+    <title>Quản lý Câu hỏi Quiz</title>
+    <%@include file="information/bootstrap.jspf" %>
+    <link rel="stylesheet" href="css/admin-dasboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 150px;
+            margin-top: 30px;
         }
-        td, th {
-            border: 1px solid #ccc;
-            padding: 8px;
+        .table-actions .btn {
+            margin-right: 5px;
         }
-        textarea {
-            width: 100%;
-            height: 60px;
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #cccccc;
         }
     </style>
 </head>
 <body>
-    <h2>Quản lý câu hỏi Quiz</h2>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Admin Manager</h3>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="ManageCoachServlet"><i class="fas fa-users"></i> Quản lý Coach</a></li>
+                <li><a href="AdminManageMemberServlet"><i class="fas fa-user-friends"></i> Quản lý Member</a></li>
+                <li><a href="adminManageQuiz.jsp" class="active"><i class="fas fa-question-circle"></i> Quản lý Quiz</a></li>
+                <li><a href="QuitplanManagerServlet"><i class="fas fa-calendar-alt"></i> Quản lý khóa học</a></li>
+            </ul>
+            <div class="logout">
+                <form action="AdminLogoutServlet" method="get">
+                    <button type="submit" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+                </form>
+            </div>
+        </div>
+        <!-- /Sidebar -->
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Câu hỏi</th>
-            <th>Đáp án A</th>
-            <th>Đáp án B</th>
-            <th>Đáp án C</th>
-            <th>Đáp án D</th>
-            <th>Hành động</th>
-        </tr>
-        <%
-            for (Quiz q : quizList) {
-        %>
-        <form action="UpdateQuizServlet" method="post">
-            <tr>
-                <td><input type="text" name="idQuiz" value="<%= q.getIDQuiz() %>" readonly style="width:60px;"></td>
-                <td><textarea name="question"><%= q.getQuestion() %></textarea></td>
-                <td><textarea name="answerA"><%= q.getAnswerA() %></textarea></td>
-                <td><textarea name="answerB"><%= q.getAnswerB() %></textarea></td>
-                <td><textarea name="answerC"><%= q.getAnswerC() %></textarea></td>
-                <td><textarea name="answerD"><%= q.getAnswerD() %></textarea></td>
-                <td>
-                    <button type="submit">Cập nhật</button>
-                </td>
-            </tr>
-        </form>
-        <%
-            }
-        %>
-    </table>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <h2 class="h2 mb-4">Quản lý câu hỏi Quiz</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="bg-success text-white">
+                            <tr>
+                                <th>ID</th>
+                                <th>Câu hỏi</th>
+                                <th>Đáp án A</th>
+                                <th>Đáp án B</th>
+                                <th>Đáp án C</th>
+                                <th>Đáp án D</th>
+                                <th style="width: 120px;">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (Quiz q : quizList) { %>
+                            <form action="UpdateQuizServlet" method="post">
+                                <tr>
+                                    <td><input type="text" name="idQuiz" class="form-control" value="<%= q.getIDQuiz() %>" readonly></td>
+                                    <td><textarea name="question" class="form-control" rows="3"><%= q.getQuestion() %></textarea></td>
+                                    <td><textarea name="answerA" class="form-control" rows="2"><%= q.getAnswerA() %></textarea></td>
+                                    <td><textarea name="answerB" class="form-control" rows="2"><%= q.getAnswerB() %></textarea></td>
+                                    <td><textarea name="answerC" class="form-control" rows="2"><%= q.getAnswerC() != null ? q.getAnswerC() : "" %></textarea></td>
+                                    <td><textarea name="answerD" class="form-control" rows="2"><%= q.getAnswerD() != null ? q.getAnswerD() : "" %></textarea></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-success btn-block"><i class="fas fa-save"></i> Cập nhật</button>
+                                    </td>
+                                </tr>
+                            </form>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                 <a href="adminDashboard.jsp" class="btn btn-secondary mt-3">
+                    <i class="fas fa-arrow-left"></i> Trở về trang chủ
+                </a>
+            </div>
+        </div>
+        <!-- /Main Content -->
+    </div>
 </body>
 </html>
