@@ -123,7 +123,7 @@ public class UpdatePostServlet extends HttpServlet {
      // 3) Gọi DAO update
      int update = dao.updatePost(post);
      request.setAttribute("post", post  );
-     request.getRequestDispatcher("updatePost.jsp").forward(request, response);
+  
     }
 
     /**

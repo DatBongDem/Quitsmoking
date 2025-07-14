@@ -65,43 +65,47 @@ public class QuitPlanDAO {
         return null;
     }
 
-    public List<QuitPlan> getAllQuitPlans() {
-        String sql = "SELECT IDQuitPlan, periodOfTime, goals, progress, price FROM dbo.QuitPlan";
-        List<QuitPlan> list = new ArrayList<>();
-        try (Connection conn = DBUtils.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+  public List<QuitPlan> getAllQuitPlans() {
+    String sql = "SELECT IDQuitPlan, periodOfTime, goals, progress, price, status FROM dbo.QuitPlan";
+    List<QuitPlan> list = new ArrayList<>();
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
-                QuitPlan qp = new QuitPlan();
-                qp.setIdQuitPlan(rs.getString("IDQuitPlan"));
-                qp.setPeriodOfTime(rs.getInt("periodOfTime"));
-                qp.setGoals(rs.getString("goals"));
-                qp.setProgress(rs.getString("progress"));
-                qp.setPrice(rs.getDouble("price"));
-                list.add(qp);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        while (rs.next()) {
+            QuitPlan qp = new QuitPlan();
+            qp.setIdQuitPlan(rs.getString("IDQuitPlan"));
+            qp.setPeriodOfTime(rs.getInt("periodOfTime"));
+            qp.setGoals(rs.getString("goals"));
+            qp.setProgress(rs.getString("progress"));
+            qp.setPrice(rs.getDouble("price"));
+            qp.setStatus(rs.getString("status"));  // <-- thêm dòng này
+            list.add(qp);
         }
-        return list;
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
     }
+    return list;
+}
+ public boolean deleteQuitPlan(String idQuitPlan) {
+    String sql = "UPDATE dbo.QuitPlan SET status = ? WHERE IDQuitPlan = ?";
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-    public boolean deleteQuitPlan(String idQuitPlan) {
-        String sql = "DELETE FROM dbo.QuitPlan WHERE IDQuitPlan = ?";
-        try (Connection conn = DBUtils.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+        // 1: dùng tham số để đảm bảo an toàn, dễ thay đổi sau này
+        ps.setString(1, "2");
+        ps.setString(2, idQuitPlan);
 
-            ps.setString(1, idQuitPlan);
-            int rows = ps.executeUpdate();
-            System.out.println("[DAO] deleteQuitPlan → rowsAffected = " + rows);
-            return rows > 0;
+        int rows = ps.executeUpdate();
+        System.out.println("[DAO] deleteQuitPlan → rowsAffected = " + rows);
+        return rows > 0;
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 
     public boolean updateQuitPlan(QuitPlan qp) {
         String sql = "UPDATE dbo.QuitPlan "

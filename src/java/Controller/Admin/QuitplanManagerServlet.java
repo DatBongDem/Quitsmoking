@@ -98,7 +98,7 @@ public class QuitplanManagerServlet extends HttpServlet {
         }
 
         // 4. Chuyển về trang quản lý QuitPlan để load lại danh sách
-        response.sendRedirect(request.getContextPath() + "/QuitplanManagerServlet");
+        response.sendRedirect("QuitplanManagerServlet");
     }
 
     /**
