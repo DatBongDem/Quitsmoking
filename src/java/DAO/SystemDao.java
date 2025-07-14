@@ -145,7 +145,7 @@ public class SystemDao {
         }
     }
 
-    public void updatePost(BlogPost post) {
+    public int updatePost(BlogPost post) {
         String sql = "UPDATE BlogPost "
                 + "SET title       = ?, "
                 + "    content     = ?, "
@@ -161,10 +161,11 @@ public class SystemDao {
             ps.setString(5, post.getIdPost());
 
             int rows = ps.executeUpdate();
-            System.out.println("[DAO] updatePost: rowsAffected = " + rows);
+            return rows;
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            return 0;
             // Tuỳ nhu cầu bạn có thể ném unchecked exception hoặc log tiếp
         }
     }
