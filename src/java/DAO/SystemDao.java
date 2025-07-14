@@ -122,9 +122,9 @@ public class SystemDao {
     }
 
     public boolean insertQuitPlanRegistration(String idMember, String idPayment, String idQuitPlan, String status) throws ClassNotFoundException {
-        String sql = "INSERT INTO QuitPlanRegistration \n" +
-"                    (IDMember, IDPayment, IDQuitPlan, status,registerDate) \n" +
-"                   VALUES (?, ?, ?, ?, ? )";
+        String sql = "INSERT INTO QuitPlanRegistration \n"
+                + "                    (IDMember, IDPayment, IDQuitPlan, status,registerDate) \n"
+                + "                   VALUES (?, ?, ?, ?, ? )";
 
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -136,7 +136,6 @@ public class SystemDao {
             java.util.Date now = new java.util.Date();
             ps.setDate(5, new java.sql.Date(now.getTime()));
 
-         
             // Thực thi câu lệnh SQL
             int result = ps.executeUpdate();
             return result > 0; // Trả về true nếu số dòng bị ảnh hưởng > 0
@@ -145,5 +144,47 @@ public class SystemDao {
             return false; // Nếu có lỗi thì trả về false
         }
     }
+
+    public void updatePost(BlogPost post) {
+        String sql = "UPDATE BlogPost "
+                + "SET title       = ?, "
+                + "    content     = ?, "
+                + "    image       = ?, "
+                + "    publishDate = ? "
+                + "WHERE IDPost    = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, post.getTitle());
+            ps.setString(2, post.getContent());
+            ps.setString(3, post.getImage());
+            ps.setDate(4, post.getPublishDate());
+            ps.setString(5, post.getIdPost());
+
+            int rows = ps.executeUpdate();
+            System.out.println("[DAO] updatePost: rowsAffected = " + rows);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            // Tuỳ nhu cầu bạn có thể ném unchecked exception hoặc log tiếp
+        }
+    }
+
+    public boolean deletePost(String idPost) throws ClassNotFoundException {
+        String sql = "DELETE FROM BlogPost WHERE IDPost = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+
+            ps.setString(1, idPost);
+            int rows = ps.executeUpdate();
+
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+   
 
 }

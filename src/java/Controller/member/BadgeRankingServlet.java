@@ -53,9 +53,9 @@ public class BadgeRankingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          try {
-        List<Member> silverList = BadgeDAO.getProgressRankingByStatus("Silver");
-        List<Member> goldList = BadgeDAO.getProgressRankingByStatus("Gold");
-        List<Member> diamondList = BadgeDAO.getProgressRankingByStatus("Diamond");
+        List<Member> silverList = BadgeDAO.getProgressRankingByPayment("QP01");
+        List<Member> goldList = BadgeDAO.getProgressRankingByPayment("QP02");
+        List<Member> diamondList = BadgeDAO.getProgressRankingByPayment("QP03");
 
         request.setAttribute("silverList", silverList);
         request.setAttribute("goldList", goldList);

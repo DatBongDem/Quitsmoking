@@ -62,7 +62,7 @@
                                 <h3 class="card-title text-center mb-4">Thông tin Hồ sơ</h3>
 
                                 <div class="detail-row">
-                                    <span class="detail-label">ID thành viên:</span>
+                                    <span class="detail-label">Tên đăng nhập:</span>
                                     <span class="detail-value" ><%= member.getIDMember()%></span>
                                 </div>
                                 <div class="detail-row">

@@ -126,25 +126,6 @@ public class MemberDao {
         return memberIds;
     }
 
-//    public String getIDMemberByUsername(String username) throws SQLException, ClassNotFoundException {
-//        String sql = "SELECT IDMember FROM dbo.Member WHERE memberName = ?";
-//        try {
-//            PreparedStatement ps = getConnection().prepareStatement(sql);
-//            // Set tham số username vào PreparedStatement
-//            ps.setString(1, username);
-//
-//            // Thực thi truy vấn và lấy kết quả
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                return rs.getString(1);  // Trả về IDMember
-//            } else {
-//                return null;  // Trường hợp không tìm thấy username
-//            }
-//        } catch (SQLException e) {
-//            throw new SQLException("Error while fetching IDMember: " + e.getMessage(), e);
-//        }
-//    }
-
     public List<Member> getMembersByCoach(String idCoach) {
         List<Member> list = new ArrayList<>();
         String sql = "SELECT * FROM Member WHERE IDCoach = ?";
@@ -164,8 +145,6 @@ public class MemberDao {
         }
         return list;
     }
-
-   
 
     public void insertBlogPost(String idPost, String idMember, String title, String content, String imagePath, LocalDate publishDate) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO BlogPost (IDPost, IDMember, title, [content], image, publishDate) VALUES (?, ?, ?, ?, ?, ?)";
@@ -465,12 +444,13 @@ public class MemberDao {
             return false;  // Trả về false nếu có lỗi
         }
     }
-       public List<BlogPost> getPostsByMemberId(String id) {
+
+    public List<BlogPost> getPostsByMemberId(String id) {
         List<BlogPost> posts = new ArrayList<>();
         String sql = "SELECT * FROM BlogPost WHERE IDMember = ?";
 
         try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
@@ -493,6 +473,187 @@ public class MemberDao {
 
         return posts;
     }
+    
+    public Member getEmailByMember (String email) throws SQLException, ClassNotFoundException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Member dto = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = "Select IDMember, password, memberName, gender, phone, address, dateOfBirth, joinDate, "
+                        + "image, point, IDCoach, subcription, status "
+                        + "From Member "
+                        + "Where email = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    String IDMember = rs.getString("IDMember");
+                    // Assuming you might need the password for the DTO constructor, even if not directly used for token validation
+                    String password = rs.getString("password");
+                    String memberName = rs.getString("memberName");
+                    String gender = rs.getString("gender");
+                    String phone = rs.getString("phone");
+                    String address = rs.getString("address");
+                    Date dateOfBirth = rs.getDate("dateOfBirth");
+                    Date joinDate = rs.getDate("joinDate");
+                    String image = rs.getString("image");
+                    int point = rs.getInt("point");
+                    String IDCoach = rs.getString("IDCoach");
+                    String subcription = rs.getString("subcription");
+                    String status = rs.getString("status");
+                    dto = new Member(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, image, point, IDCoach, subcription, status);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return dto; // Return the populated DTO
+    }
+    
+    public boolean updatePassword(String IDMember, String password) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = "Update Member "
+                        + "Set password = ? "
+                        + "Where IDMember = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, password);
+                stm.setString(2, IDMember);
+                int effectRow = stm.executeUpdate();
+                if(effectRow > 0){
+                    result = true;
+                }
+                
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    // this is ADMIN function....
+      public List<Member> getAllMembers() {
+    List<Member> list = new ArrayList<>();
+    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+               + "FROM dbo.Member";  // no WHERE clause, fetch all
 
- 
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Member m = new Member();
+            m.setIDMember     (rs.getString("IDMember"));
+            m.setPassword     (rs.getString("password"));
+            m.setMemberName   (rs.getString("memberName"));
+            m.setGender       (rs.getString("gender"));
+            m.setPhone        (rs.getString("phone"));
+            m.setEmail        (rs.getString("email"));
+            m.setAddress      (rs.getString("address"));
+            m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
+            m.setJoinDate     (rs.getDate  ("joinDate"));
+            m.setImage        (rs.getString("image"));
+            m.setPoint        (rs.getInt   ("point"));
+            m.setIDCoach      (rs.getString("IDCoach"));
+            m.setSubscription (rs.getString("subcription"));
+            m.setStatus       (rs.getString("status"));
+
+            list.add(m);
+        }
+
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+        // Optionally rethrow or log
+    }
+
+    return list;
+}
+
+    public boolean deleteMember(String idMember) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE dbo.Member SET status = ? WHERE IDMember = ?";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "2");          // status mới
+            ps.setString(2, idMember);     // ID của member
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+      public boolean restoreMember(String idMember) throws ClassNotFoundException {
+        String sql = "UPDATE Member SET status = ? WHERE IDMember = ?";
+        try (
+                Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "1");
+            ps.setString(2, idMember);
+            int updated = ps.executeUpdate();
+            return updated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+      
+  public List<Member> searchMembers(String keyword) {
+    List<Member> list = new ArrayList<>();
+    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+               + "FROM dbo.Member "
+               + "WHERE memberName LIKE ?";
+    try (Connection conn = DBUtils.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, "%" + keyword + "%");
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Member m = new Member();
+                m.setIDMember     (rs.getString("IDMember"));
+                m.setPassword     (rs.getString("password"));
+                m.setMemberName   (rs.getString("memberName"));
+                m.setGender       (rs.getString("gender"));
+                m.setPhone        (rs.getString("phone"));
+                m.setEmail        (rs.getString("email"));
+                m.setAddress      (rs.getString("address"));
+                m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
+                m.setJoinDate     (rs.getDate  ("joinDate"));
+                m.setImage        (rs.getString("image"));
+                m.setPoint        (rs.getInt   ("point"));
+                m.setIDCoach      (rs.getString("IDCoach"));
+                m.setSubscription (rs.getString("subcription"));
+                m.setStatus       (rs.getString("status"));
+                list.add(m);
+            }
+        }
+
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+  
+
+
 }

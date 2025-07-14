@@ -8,6 +8,7 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +33,33 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-           HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate(); 
-        }
-        response.sendRedirect("homepage.jsp");
+            HttpSession session = request.getSession(false);
+            
+            String userId = null;
+            if(session != null) {
+                 userId = (String) session.getAttribute("id");
+            }
+
+            // Delete the remember-me cookie if it exists
+            if (userId != null) {
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        if (cookie.getName().equals(userId)) {
+                            cookie.setMaxAge(0); // Delete cookie
+                            response.addCookie(cookie);
+                            break; // Exit loop once found and deleted
+                        }
+                    }
+                }
+            }
+
+            // Invalidate the session
+            if (session != null) {
+                session.invalidate();
+            }
+
+            response.sendRedirect("homepage.jsp");
         }
     }
 

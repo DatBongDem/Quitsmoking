@@ -10,6 +10,7 @@ import Utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,14 @@ import java.util.List;
  * @author Nguyen Tien Dat
  */
 public class QuitPlanDAO {
+
     public static List<QuitPlan> getAllPlans() {
         List<QuitPlan> list = new ArrayList<>();
         String sql = "SELECT * FROM QuitPlan";
         try (Connection con = DBUtils.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 QuitPlan plan = new QuitPlan();
                 plan.setIdQuitPlan(rs.getString("IDQuitPlan"));
@@ -43,8 +45,8 @@ public class QuitPlanDAO {
     public static QuitPlan getPlanById(String id) {
         String sql = "SELECT * FROM QuitPlan WHERE IDQuitPlan = ?";
         try (Connection con = DBUtils.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -62,4 +64,91 @@ public class QuitPlanDAO {
         }
         return null;
     }
+
+    public List<QuitPlan> getAllQuitPlans() {
+        String sql = "SELECT IDQuitPlan, periodOfTime, goals, progress, price FROM dbo.QuitPlan";
+        List<QuitPlan> list = new ArrayList<>();
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                QuitPlan qp = new QuitPlan();
+                qp.setIdQuitPlan(rs.getString("IDQuitPlan"));
+                qp.setPeriodOfTime(rs.getInt("periodOfTime"));
+                qp.setGoals(rs.getString("goals"));
+                qp.setProgress(rs.getString("progress"));
+                qp.setPrice(rs.getDouble("price"));
+                list.add(qp);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean deleteQuitPlan(String idQuitPlan) {
+        String sql = "DELETE FROM dbo.QuitPlan WHERE IDQuitPlan = ?";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, idQuitPlan);
+            int rows = ps.executeUpdate();
+            System.out.println("[DAO] deleteQuitPlan → rowsAffected = " + rows);
+            return rows > 0;
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateQuitPlan(QuitPlan qp) {
+        String sql = "UPDATE dbo.QuitPlan "
+                + "SET periodOfTime = ?, "
+                + "    goals        = ?, "
+                + "    progress     = ?, "
+                + "    price        = ? "
+                + "WHERE IDQuitPlan = ?";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, qp.getPeriodOfTime());
+            ps.setString(2, qp.getGoals());
+            ps.setString(3, qp.getProgress());
+            ps.setDouble(4, qp.getPrice());
+            ps.setString(5, qp.getIdQuitPlan());
+
+            int rows = ps.executeUpdate();
+            System.out.println("[DAO] updateQuitPlan → rowsAffected = " + rows);
+            return rows > 0;
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+      public boolean insertQuitPlan(QuitPlan qp) {
+        String sql = "INSERT INTO dbo.QuitPlan "
+                   + "(IDQuitPlan, periodOfTime, goals, progress, price) "
+                   + "VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, qp.getIdQuitPlan());
+            ps.setInt   (2, qp.getPeriodOfTime());
+            ps.setString(3, qp.getGoals());
+            ps.setString(4, qp.getProgress());
+            ps.setDouble(5, qp.getPrice());
+
+            int rows = ps.executeUpdate();
+            System.out.println("[DAO] insertQuitPlan → rowsAffected = " + rows);
+            return rows > 0;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }

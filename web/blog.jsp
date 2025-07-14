@@ -31,7 +31,6 @@
 
 
         <%@include file="information/header.jspf" %>
-<a href="MyBlogServlet" class="btn btn-primary">My Blog</a>
         <!-- Background -->
         <div class="background">
             <div class="container-fluid">
@@ -42,7 +41,12 @@
                             <h1 class="inner-title">Blog Page</h1>
                             <div class="inner-blog">
                                 <div class="home-page">
+                                    <%  String userRole = (String) session.getAttribute("role");
+                                    if (userRole == "member"){ %>
                                     <a href="PostNewBlog.jsp">Post New</a>
+                                    <a href="MyBlogServlet">My Blog</a>
+                                            <% }
+                                            %>
                                 </div>
                             </div>
                         </div>
@@ -72,26 +76,6 @@
                     </div>
                 </form>
 
-                <!--            <div class="row">
-                                 Blog Post 1 
-                                <div class="col-md-4 mb-4">
-                                    <div class="card h-100 d-flex flex-column">
-                                        <img src="images/Blog/blog1.jpg" class="card-img-top" alt="No smoking">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Tại sao nên cai thuốc lá?</h5>
-                                            <p class="card-text">Hút thuốc lá là nguyên nhân hàng đầu gây ra các bệnh về tim mạch, phổi
-                                                và ung thư. Việc từ bỏ thuốc lá giúp bạn cải thiện sức khỏe, tiết kiệm chi phí và sống
-                                                lâu hơn.</p>
-                                            <a href="blog-detail1.jsp" class="btn btn-success">Đọc thêm</a>
-                
-                                        </div>
-                                        <div class="col-auto">
-                                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                                        </div>
-                                    </div>
-                
-                                <div class="row">
-                <!-- Blog Post 1 -->
                 <div class="row">
                     <%
                         List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");

@@ -14,10 +14,11 @@
         <%@include file="information/bootstrap.jspf" %>
         <title>JSP Page</title>
         <%
-  // Lấy ra đối tượng post và author
-  BlogPost post   = (BlogPost) request.getAttribute("post");
-  Member   author = (Member)   request.getAttribute("author");
-%>
+            // Lấy ra đối tượng post và author
+            BlogPost post = (BlogPost) request.getAttribute("post");
+            Member author = (Member) request.getAttribute("author");
+
+        %>
         <link rel="stylesheet" href="css/blogPage.css">
         <link rel="stylesheet" href="css/stylehomepage.css">
         <link rel="stylesheet" href="css/blog-detail.css">
@@ -26,18 +27,28 @@
         <%@include file="information/header.jspf" %>
 
         <div class="blog-detail-container">
-            <h2 class="blog-detail-title"><%= post.getTitle() %></h2>
+            <h2 class="blog-detail-title"><%= post.getTitle()%></h2>
             <div class="blog-detail-meta">
-                <%= post.getPublishDate() %> | Người đăng: <%= (author!=null? author.getMemberName() : "Unknown") %>
+                <%= post.getPublishDate()%> | Người đăng: <%= (author != null ? author.getMemberName() : "Unknown")%>
             </div>
-            <img src="images/Blog/<%= post.getImage() %>" class="blog-detail-image" alt="Ảnh minh họa bài viết">
+            <img src="images/Blog/<%= post.getImage()%>" class="blog-detail-image" alt="Ảnh minh họa bài viết">
             <div class="blog-detail-content">
-                <p>  <%= post.getContent() %></p>
-              
+                <p>  <%= post.getContent()%></p>
+
                 <!-- thêm nội dung khác -->
             </div>
+                
+                
+            <form action="report.jsp" method="get">
+                <input type="hidden" name="type" value="blog">
+                <input type="hidden" name="postId" value="<%= post.getIdPost()%>">
+                <button type="submit">Báo cáo bài viết</button>
+            </form> 
+
             <a href="BlogPostServlet" class="back-button">← Quay lại</a>
+
         </div>
+
 
 
         <%@include file="information/footer.jspf" %>

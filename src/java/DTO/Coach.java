@@ -6,116 +6,107 @@
 package DTO;
 
 import java.sql.Date;
-import java.time.LocalDate;
-///vdjvi fibfib igb igi ig gigi /////
+
 /**
  *
- * @author Nghia
+ * @author Nguyen Tien Dat
  */
-public class Coach {
-     private String IDCoach;
-    private String password;
-    private String coachName;
-    private String gender;
-    private String phone;
-    private String email;
-    private String address;
-    private String image;
-    private Date dateOfBirth;
+
+public class Coach extends Account {
+
     private String specialization;
     private int experienceYears;
 
-    // Constructor không tham số
     public Coach() {
     }
 
-    // Constructor có tham số
-    public Coach(String IDCoach, String password, String coachName, String gender, String phone, String email, String address,String image, Date dateOfBirth, String specialization, int experienceYears) {
-        this.IDCoach = IDCoach;
-        this.password = password;
-        this.coachName = coachName;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.dateOfBirth = dateOfBirth;
+    public Coach(String IDCoach, String password, String coachName, String gender, String phone,
+                 String email, String address, String image, Date dateOfBirth,
+                 String specialization, int experienceYears, String status) {
+        super(IDCoach, password, coachName, gender, phone, email, address, image, dateOfBirth, status);
         this.specialization = specialization;
         this.experienceYears = experienceYears;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    // Getter và Setter
     public String getIDCoach() {
-        return IDCoach;
+        return super.account;
     }
 
     public void setIDCoach(String IDCoach) {
-        this.IDCoach = IDCoach;
+        super.account = IDCoach;
     }
 
     public String getPassword() {
-        return password;
+        return super.password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        super.password = password;
     }
 
     public String getCoachName() {
-        return coachName;
+        return super.fullname;
     }
 
     public void setCoachName(String coachName) {
-        this.coachName = coachName;
+        super.fullname = coachName;
+    }
+
+    public String getGender() {
+        return super.gender;
+    }
+
+    public void setGender(String gender) {
+        super.gender = gender;
     }
 
     public String getPhone() {
-        return phone;
+        return super.phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        super.phone = phone;
     }
 
     public String getEmail() {
-        return email;
+        return super.email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        super.email = email;
     }
 
     public String getAddress() {
-        return address;
+        return super.address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        super.address = address;
+    }
+
+    public String getImage() {
+        return super.image;
+    }
+
+    public void setImage(String image) {
+        super.image = image;
     }
 
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return super.dateOfBirth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        super.dateOfBirth = dateOfBirth;
     }
 
-   
+    public String getStatus() {
+        return super.status;
+    }
+
+    public void setStatus(String status) {
+        super.status = status;
+    }
 
     public String getSpecialization() {
         return specialization;
@@ -132,10 +123,4 @@ public class Coach {
     public void setExperienceYears(int experienceYears) {
         this.experienceYears = experienceYears;
     }
-
-    @Override
-    public String toString() {
-        return "Coach{" + "IDCoach=" + IDCoach + ", password=" + password + ", coachName=" + coachName + ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", address=" + address + ", image=" + image + ", dateOfBirth=" + dateOfBirth + ", specialization=" + specialization + ", experienceYears=" + experienceYears + '}';
-    }
-    
 }

@@ -11,7 +11,9 @@ import DTO.Coach;
 import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.CookieStore;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,43 +41,75 @@ public class LoginServlet extends HttpServlet {
         String id = request.getParameter("username");
         String pass = request.getParameter("password");
         String role = request.getParameter("role");
+        String remember = request.getParameter("remember");
 
         MemberDao dao = new MemberDao();
         CoachDao daocoach = new CoachDao();
 
         HttpSession session = request.getSession();
 
-        if (role.equalsIgnoreCase("member")) {
-            Member member = dao.checkLogin(id, pass);
+        if ("member".equalsIgnoreCase(role)) {
+        Member member = dao.checkLogin(id, pass);
 
-            if (member != null) {
-                // Lưu thông tin vào session
-                session.setAttribute("id", id);
-                session.setAttribute("role", "member");
-                session.setAttribute("username", member.getMemberName());
-                session.setAttribute("coachId", member.getIDCoach());
-                // Gửi dữ liệu đến homepage
-                request.setAttribute("member", member);
-                request.getRequestDispatcher("homepage.jsp").forward(request, response);
-                return;
-            } else {
-                request.setAttribute("error", "Invalid username or password. Please try again.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+        if (member != null) {
+            // --- NEW: kiểm tra status ---
+            if ("2".equals(member.getStatus())) {
+                request.setAttribute("error", "Tài khoản của bạn đã bị xóa.");
+                request.getRequestDispatcher("login.jsp")
+                       .forward(request, response);
                 return;
             }
-
+            // ---------------------------
+            
+            // Lưu thông tin vào session
+            
+            session.setAttribute("id", id);
+            session.setAttribute("role", "member");
+            session.setAttribute("username", member.getMemberName());
+            session.setAttribute("coachId",  member.getIDCoach());
+            // Chuyển tới homepage
+            
+            if("on".equals(remember)) {
+                // Tạo cookie
+                Cookie cookie = new Cookie(id, pass);
+                cookie.setMaxAge(60 * 60 * 24 * 7); // 7 days
+                response.addCookie(cookie);
+            }
+            response.sendRedirect("homepage.jsp?login=success");
+            return;
         } else {
+            request.setAttribute("error", "Invalid username or password. Please try again.");
+            request.getRequestDispatcher("login.jsp")
+                   .forward(request, response);
+            return;
+        }
+
+    } else {
             Coach coach = daocoach.checkLogin(id, pass);
 
             if (coach != null) {
+                 if ("2".equals(coach.getStatus())) {
+            request.setAttribute("error", "Tài khoản của bạn đã bị xóa.");
+            request.getRequestDispatcher("login.jsp")
+                   .forward(request, response);
+            return;
+        }
                 // Lưu thông tin vào session
                 session.setAttribute("id", id);
                 session.setAttribute("role", "coach");
                 session.setAttribute("username", coach.getCoachName());
                 session.setAttribute("coachId", coach.getIDCoach());
+
+                // Add cookie for coach if "remember me" is checked
+                if("on".equals(remember)) {
+                    // TODO: Storing passwords in cookies is insecure. A token-based approach is recommended.
+                    Cookie cookie = new Cookie(id, pass);
+                    cookie.setMaxAge(60 * 60 * 24 * 7); // 7 days
+                    response.addCookie(cookie);
+                }
+
                 // Gửi dữ liệu đến homepage
-                request.setAttribute("coach", coach);
-                request.getRequestDispatcher("homepage.jsp").forward(request, response);
+                response.sendRedirect("homepage.jsp?login=success");
                 return;
             } else {
                 request.setAttribute("error", "Invalid username or password. Please try again.");
