@@ -46,7 +46,7 @@ public class ForgotPasswordServlet extends HttpServlet {
         String url = FORGOT_PASSWORD_PAGE;
         try {
             if (email == null || email.trim().isEmpty()) {
-                request.setAttribute("ERROR", "Please enter your email address.");
+                request.setAttribute("ERROR", "Vui lòng nhập email!!!");
             } else {
                 MemberDao dao = new MemberDao();
                 Member member = dao.getEmailByMember(email);
@@ -60,30 +60,27 @@ public class ForgotPasswordServlet extends HttpServlet {
 
                     TokenForgotPasswordDAO daoReset = new TokenForgotPasswordDAO();
                     daoReset.saveToken(resetToken);
-                    
+
                     String resetLink = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
                             + request.getContextPath() + "/ResetPasswordServlet?token=" + token;
-                    
-                    String subject = "Password Reset Request";
-                    String body = "Dear " + member.getMemberName() + ",\n\n"
-                            + "You have requested to reset your password. Please click on the link below to reset your password:\n"
-                            + resetLink + "\n\n"
-                            + "This link will expire in 1 hour...";
+
+                    String subject = "Yêu cầu đặt lại mật khẩu";
+                    String body = "<p>Xin chào " + member.getMemberName() + 
+                            ",</p>" + "<p>Bạn có yêu cầu đặt lại mật khẩu. Vui lòng nhấn vào đường dẫn bên dưới để đặt lại mật khẩu:</p>" + 
+                            "<a href=\"" + resetLink + "\">" + resetLink + "</a>" + 
+                            "<p>Đường dẫn này sẽ hết hạn trong 1 giờ.</p>";
                     EmailUtils.sendEmail(member.getEmail(), subject, body);
-                    request.setAttribute("message", "A password reset link has been sent to your email.");
+                    request.setAttribute("message", "Liên kết đặt lại mật khẩu đã được gửi đến email của bạn");
                 } else {
-                    request.setAttribute("message", "If your email is registered, a reset link has been sent.");
+                    request.setAttribute("ERROR", "Email không tồn tại vui lòng kiểm tra lại!!!");
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            request.setAttribute("ERROR", "Database error. Please try again.");
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-            request.setAttribute("ERROR", "System error. Please try again.");
         } catch (MessagingException ex) {
             ex.printStackTrace();
-            request.setAttribute("ERROR", "Could not send email. Please try again.");
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

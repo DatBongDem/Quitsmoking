@@ -51,6 +51,8 @@ public class EmailUtils {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail)); // Người nhận
             message.setSubject(subject); // Tiêu đề
             message.setText(body); // Nội dung
+            ((MimeMessage) message).setSubject(subject, "UTF-8");
+            message.setContent(body, "text/html; charset=UTF-8");
 
             // Send email
             Transport.send(message);
