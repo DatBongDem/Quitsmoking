@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
               integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <link rel="stylesheet" href="css/user-profile.css">
-        
+
     </head>
 
     <body>
@@ -55,7 +55,7 @@
                             <div class="profile-header">
                             </div>
                             <div class="text-center profile-image-container">
-                                <img src="<%= member.getImage() != null ? member.getImage() : "images/avata/nullavata.png" %>" alt="Ảnh đại diện" class="profile-image" />
+                                <img src="<%= member.getImage() != null ? member.getImage() : "images/avata/nullavata.png"%>" alt="Ảnh đại diện" class="profile-image" />
 
                             </div>
                             <div class="card-body profile-body">
@@ -77,9 +77,9 @@
                                     <span class="detail-label">Giới Tính</span>
                                     <span class="detail-value"><%= member.getGender()%></span>
                                 </div>
-                                  <div class="detail-row">
+                                <div class="detail-row">
                                     <span class="detail-label">Your Coach</span>
-                                    <span class="detail-value"><%= coach.getCoachName()%></span>
+                                    <span class="detail-value"><%= (coach != null ? coach.getCoachName() : "Chưa có")%></span>
                                 </div>
                                 <div class="detail-row">
                                     <span class="detail-label">Ngày sinh:</span>
@@ -106,7 +106,7 @@
                                 <div class="detail-row">
                                     <span class="detail-label">Trạng thái:</span>
                                     <span class="detail-value">
-                                        <%= member.getStatus() %>
+                                        <%= member.getStatus()%>
                                     </span>
                                 </div>
 
@@ -114,9 +114,9 @@
                                     <span class="detail-label">Mô Tả</span>
                                     <span class="detail-value"><%= member.getSubscription()%></span>
                                 </div>
-                                
+
                                 <div class="text-center mt-4">
-                                    <a href="UpdateProfileServlet?idMember=<%= member.getIDMember() %>" class="btn btn-success">
+                                    <a href="UpdateProfileServlet?idMember=<%= member.getIDMember()%>" class="btn btn-success">
                                         Chỉnh sửa Hồ sơ
                                     </a>
                                 </div>
