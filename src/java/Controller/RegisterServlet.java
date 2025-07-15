@@ -88,8 +88,8 @@ public class RegisterServlet extends HttpServlet {
             String address = request.getParameter("address");
             String dob = request.getParameter("dob");
 
-            // 2. Giữ lại giá trị đã nhập để forward lại form khi có lỗi
-            request.setAttribute("memberId", id);
+//             2. Giữ lại giá trị đã nhập để forward lại form khi có lỗi
+            request.setAttribute("memberid", id);
             request.setAttribute("fullname", fullName);
             request.setAttribute("gender", gender);
             request.setAttribute("email", email);

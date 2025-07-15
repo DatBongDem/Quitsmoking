@@ -209,12 +209,12 @@
                                             Gói cơ bản
                                         </span>
                                     </td>
-                                    <td class="member-status">
-                                        <span class="status-badge <%= statusClass%>">
-                                            <i class="fas fa-circle"></i>
-                                            <%= m.getStatus()%>
-                                        </span>
-                                    </td>
+                                <td class="member-status">
+    <span class="status-badge <%= statusClass %>">
+        <i class="fas fa-circle"></i>
+        <%= (m.getStatus() != null ? m.getStatus() : "null") %>
+    </span>
+</td>
                                     <td class="member-actions">
                                         <div class="action-buttons">
                                             <form action="ViewProgressServlet" method="get" style="display: inline;">
