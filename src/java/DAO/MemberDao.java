@@ -80,7 +80,7 @@ public class MemberDao {
         String sql = "INSERT INTO Member\n"
                 + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, point , status )\n"
                 + "VALUES\n"
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             PreparedStatement pstmt = getConnection().prepareStatement(sql);
