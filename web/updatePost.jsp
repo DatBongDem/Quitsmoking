@@ -37,10 +37,9 @@
 
             <p>
                 <label>Ảnh hiện tại:</label><br/>
-                <img src="<%= request.getContextPath() + post.getImage()%>" width="200"/><br/>
+                <img src="images/Blog/<%= post.getImage()%>" width="200"/><br/>
                 <label>Chọn ảnh mới:</label><br/>
-                <input type="file"  id="image" name="image" accept="image/*"/>
-                <input type="hidden" name="existingImage" value="<%= post.getImage()%>"/>
+                <input type="file" id="image" name="image" accept="image/*">        
             </p>
 
         

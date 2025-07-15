@@ -8,6 +8,7 @@ package DAO;
 import DTO.BlogPost;
 import DTO.Payment;
 import DTO.QuitPlan;
+import DTO.RegistrationPayment;
 import static Utils.DBUtils.getConnection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -157,7 +158,8 @@ public class SystemDao {
             ps.setString(1, post.getTitle());
             ps.setString(2, post.getContent());
             ps.setString(3, post.getImage());
-            ps.setDate(4, post.getPublishDate());
+            java.util.Date now = new java.util.Date();
+            ps.setDate(4, new java.sql.Date(now.getTime()));
             ps.setString(5, post.getIdPost());
 
             int rows = ps.executeUpdate();
@@ -186,6 +188,53 @@ public class SystemDao {
         }
     }
 
-   
+    public List<RegistrationPayment> getAllRegistrations() throws SQLException, ClassNotFoundException {
+        List<RegistrationPayment> registrations = new ArrayList<>();
+        String sql = "SELECT * FROM QuitPlanRegistration";  // Câu lệnh SQL để lấy tất cả bản ghi
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            // Duyệt qua kết quả và thêm vào list
+            while (rs.next()) {
+                int idRegistration = rs.getInt("IDRegistration");
+                String idMember = rs.getString("IDMember");
+                String idPayment = rs.getString("IDPayment");
+                String idQuitPlan = rs.getString("IDQuitPlan");
+                String status = rs.getString("status");
+                Date registerDate = rs.getDate("registerDate");
+
+                // Tạo đối tượng Registration và thêm vào danh sách
+                RegistrationPayment registration = new RegistrationPayment(idRegistration, idMember, idPayment, idQuitPlan, status, registerDate);
+                registrations.add(registration);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return registrations;  // Trả về danh sách các bản ghi
+    }
+      public static void main(String[] args) {
+        SystemDao dao = new SystemDao();
+        
+        try {
+            // Lấy tất cả các bản ghi từ DAO
+            List<RegistrationPayment> registrations = dao.getAllRegistrations();
+
+            // In ra các bản ghi đã lấy được
+            for (RegistrationPayment registration : registrations) {
+                System.out.println("IDRegistration: " + registration.getIDRegistration());
+                System.out.println("IDMember: " + registration.getIDMember());
+                System.out.println("IDPayment: " + registration.getIDPayment());
+                System.out.println("IDQuitPlan: " + registration.getIDQuitPlan());
+                System.out.println("Status: " + registration.getStatus());
+                System.out.println("Register Date: " + registration.getRegisterDate());
+                System.out.println("------------------------------");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
