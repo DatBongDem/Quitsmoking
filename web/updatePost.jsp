@@ -1,61 +1,72 @@
-
-<%@page import="DTO.BlogPost"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="DTO.BlogPost" %>
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Cập nhật bài viết</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-    </head>
-    <body>
-        <%
-            BlogPost post = (BlogPost) request.getAttribute("post");
-            if (post == null) {
-        %>
-        <p>Không tìm thấy bài viết để chỉnh sửa.</p>
-        <%
-        } else {
-        %>
-        <h2>Chỉnh sửa bài viết</h2>
-        <%= post.getIdPost() %>
-        <form action="UpdatePostServlet" method="post" enctype="multipart/form-data">
-            
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật bài viết</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/updatePost.css">
+</head>
+<body>
+<%
+    BlogPost post = (BlogPost) request.getAttribute("post");
+    if (post == null) {
+%>
+    <div class="container text-center mt-5">
+        <p class="text-danger">Không tìm thấy bài viết để chỉnh sửa.</p>
+    </div>
+<%
+    } else {
+%>
+    <h2>Chỉnh sửa bài viết</h2>
 
-            <input type="hidden" name="idMember" value="<%= post.getIdMember()%>"/>
-            <input type="hidden" name="IDPost" value="<%= post.getIdPost() %>"/>
-            <p>
-                <label>Tiêu đề:</label><br/>
-                <input type="text" name="title" value="<%= post.getTitle()%>" required/>
-            </p>
+    <form action="UpdatePostServlet" method="post" enctype="multipart/form-data">
 
-            <p>
-                <label>Nội dung:</label><br/>
-                <textarea name="content" rows="8" cols="60" required><%= post.getContent()%></textarea>
-            </p>
+        <!-- Hidden fields -->
+        <input type="hidden" name="idMember" value="<%= post.getIdMember() %>"/>
+        <input type="hidden" name="IDPost" value="<%= post.getIdPost() %>"/>
+        <input type="hidden" name="existingImage" value="<%= post.getImage() %>"/>
 
-            <p>
-                <label>Ảnh hiện tại:</label><br/>
-                <img src="<%= request.getContextPath() + post.getImage()%>" width="200"/><br/>
-                <label>Chọn ảnh mới:</label><br/>
-                <input type="file" name="imageFile" accept="image/*"/>
-                <input type="hidden" name="existingImage" value="<%= post.getImage()%>"/>
-            </p>
+        <!-- ID bài viết -->
+        <p class="form-group"><strong>ID Bài viết:</strong> <%= post.getIdPost() %></p>
 
-            <p>
-                <label>Ngày xuất bản:</label><br/>
-                <input type="date" name="publishDate"
-                       value="<%= post.getPublishDate() != null ? post.getPublishDate().toString() : ""%>"
-                       required/>
-            </p>
+        <!-- Tiêu đề -->
+        <p class="form-group">
+            <label for="title">Tiêu đề:</label>
+            <input type="text" id="title" name="title" value="<%= post.getTitle() %>" required />
+        </p>
 
+        <!-- Nội dung -->
+        <p class="form-group">
+            <label for="content">Nội dung:</label>
+            <textarea id="content" name="content" rows="8" required><%= post.getContent() %></textarea>
+        </p>
+
+        <!-- Ảnh -->
+        <p class="form-group">
+            <label>Ảnh hiện tại:</label><br/>
+            <img src="<%= request.getContextPath() + post.getImage() %>" width="200" alt="Ảnh bài viết"/><br/><br/>
+            <label for="imageFile">Chọn ảnh mới:</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*" />
+        </p>
+
+        <!-- Ngày xuất bản -->
+        <p class="form-group">
+            <label for="publishDate">Ngày xuất bản:</label>
+            <input type="date" id="publishDate" name="publishDate"
+                   value="<%= post.getPublishDate() != null ? post.getPublishDate().toString() : "" %>" required />
+        </p>
+
+        <!-- Buttons -->
+        <div class="form-group text-center">
             <button type="submit">Lưu thay đổi</button>
             <a href="ManageBlogServlet">Hủy</a>
-        </form>
-        <%
-            }
-        %>
-    </body>
+        </div>
+    </form>
+<%
+    }
+%>
+</body>
 </html>
-
