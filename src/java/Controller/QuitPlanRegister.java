@@ -76,7 +76,7 @@ public class QuitPlanRegister extends HttpServlet {
         if (status != null) {
             request.setAttribute("error", "Bạn đã trong khóa, không thể đăng ký khóa mới");
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
-            return;  // Dừng lại ở đây, không tiếp tục xử lý các logic bên dưới
+            return;  
         }
         String goal = request.getParameter("goal");
 

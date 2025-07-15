@@ -96,7 +96,7 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("phone", phone);
             request.setAttribute("address", address);
             request.setAttribute("dob", dob);
-            request.setAttribute("status", "1");
+            String status = "1";
 
             try {
                 MemberDao memDao = new MemberDao();
@@ -132,7 +132,7 @@ public class RegisterServlet extends HttpServlet {
                 }
 
                 // 6. Thực hiện đăng ký
-                memDao.resigter(id, password, fullName, gender, phone, email, address, dob);
+                memDao.resigter(id, password, fullName, gender, phone, email, address, dob, status);
 
                 // 7. Gửi thông báo chào mừng
                 new NotificationDao().sendNotificationToMember("NT01", id);
