@@ -39,19 +39,13 @@
                 <label>Ảnh hiện tại:</label><br/>
                 <img src="<%= request.getContextPath() + post.getImage()%>" width="200"/><br/>
                 <label>Chọn ảnh mới:</label><br/>
-                <input type="file" name="imageFile" accept="image/*"/>
+                <input type="file"  id="image" name="image" accept="image/*"/>
                 <input type="hidden" name="existingImage" value="<%= post.getImage()%>"/>
             </p>
 
-            <p>
-                <label>Ngày xuất bản:</label><br/>
-                <input type="date" name="publishDate"
-                       value="<%= post.getPublishDate() != null ? post.getPublishDate().toString() : ""%>"
-                       required/>
-            </p>
-
+        
             <button type="submit">Lưu thay đổi</button>
-            <a href="ManageBlogServlet">Hủy</a>
+            <a href="MyBlogServlet">Hủy</a>
         </form>
         <%
             }

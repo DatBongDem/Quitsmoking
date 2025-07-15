@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Scanner;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -99,7 +100,7 @@ public class UpdatePostServlet extends HttpServlet {
         String content      = request.getParameter("content");
         String publishDateS = request.getParameter("publishDate");
         String ID =           request.getParameter("idMember");
-        
+            String existingImage = request.getParameter("image");
         // 1) Chuyển publishDate an toàn
         Date publishDate = null;
         if (publishDateS != null && !publishDateS.trim().isEmpty()) {
@@ -111,21 +112,34 @@ public class UpdatePostServlet extends HttpServlet {
                 publishDate = null;
             }
         }
+ Part imagePart = request.getPart("image");
+        String imagePath = existingImage;  // Nếu không chọn ảnh mới, giữ lại ảnh cũ
 
+        if (imagePart != null && imagePart.getSize() > 0) {
+            // Lưu ảnh mới vào thư mục
+            String fileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
+            String uploadPath = getServletContext().getRealPath("/") + "images/uploads/";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            imagePart.write(uploadPath + fileName);
+            imagePath = "images/uploads/" + fileName;  // Cập nhật đường dẫn ảnh
+        }
         // 2) Tạo DTO và gán dữ liệu
         BlogPost post = new BlogPost();
         post.setIdPost     (idPost);        
         post.setTitle      (title);
         post.setContent    (content);
+        post.setPublishDate(publishDate);
+         post.setImage(imagePath); 
        // post.setPublishDate(Date.valueOf("2025-07-11"));
         // LƯU Ý: không gọi setImage(...) nữa, giữ nguyên trong DAO
       SystemDao dao=new SystemDao();
      // 3) Gọi DAO update
      int update = dao.updatePost(post);
      request.setAttribute("post", post  );
-  
+     request.getRequestDispatcher("updatePost.jsp").forward(request, response);
     }
-
+  
     /**
      * Returns a short description of the servlet.
      *
