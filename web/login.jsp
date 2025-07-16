@@ -15,7 +15,7 @@
         <!--Home Page-->
         <a href="homepage.jsp" class="home-button">Home</a>    
         <!--End Home Page-->
-        
+
         <!--Form Login-->
         <div class="login">
             <div class="container">
@@ -23,6 +23,9 @@
                     <div class="col-xl-7">
                         <div class="inner-login">
                             <div class="inner-box">
+                                <c:if test="${not empty param.message}">
+                                    <div class="alert alert-success">${param.message}</div>
+                                </c:if>
                                 <!--Display Error-->
                                 <c:if test="${not empty error}">
                                     <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
