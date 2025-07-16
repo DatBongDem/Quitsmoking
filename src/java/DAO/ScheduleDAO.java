@@ -41,19 +41,36 @@ public class ScheduleDAO {
         return false;
     }
 
+    public static String getIDQuitPlanByMember(String idMember) throws Exception {
+        String sql = "SELECT TOP 1 IDQuitPlan FROM QuitPlanRegistration WHERE IDMember = ? ORDER BY registerDate DESC";
+        try (Connection con = DBUtils.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, idMember);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("IDQuitPlan");
+            } else {
+                return null; // hoặc throw nếu cần
+            }
+        }
+    }
+
     public void createScheduleForMember(Member member, LocalDate startDate, LocalTime startTime, String selectedDays) throws Exception {
         String idMember = member.getIDMember();
         String idCoach = member.getIDCoach();
-        String status = member.getStatus();
+        String IDQuitPlan = ScheduleDAO.getIDQuitPlanByMember(idMember);
+
         int weeks;
-        switch (status.toLowerCase()) {
-            case "silver":
+        switch (IDQuitPlan.toLowerCase()) {
+            case "QP01":
                 weeks = 4;
                 break;
-            case "gold":
+            case "QP02":
                 weeks = 12;
                 break;
-            case "diamond":
+            case "QP03":
                 weeks = 24;
                 break;
             default:
@@ -191,11 +208,11 @@ public class ScheduleDAO {
 
     public static List<Schedule> getScheduleByMemberAndMonth(String idMember, int month, int year) throws Exception {
         List<Schedule> list = new ArrayList<>();
-       String sql = "SELECT * FROM Schedule " +
-             "WHERE IDMember = ? AND MONTH(sessionDate) = ? AND YEAR(sessionDate) = ? " +
-             "ORDER BY sessionDate, startTime";
+        String sql = "SELECT * FROM Schedule "
+                + "WHERE IDMember = ? AND MONTH(sessionDate) = ? AND YEAR(sessionDate) = ? "
+                + "ORDER BY sessionDate, startTime";
 
-    try (Connection conn = DBUtils.getConnection();
+        try (Connection conn = DBUtils.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, idMember);
             stmt.setInt(2, month);
