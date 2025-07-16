@@ -105,7 +105,7 @@ response.setContentType("text/html;charset=UTF-8");
             response.sendRedirect("ManageCoachServlet");
         } else {
             request.setAttribute("error", "Cập nhật thất bại!");
-            request.getRequestDispatcher("editCoach.jsp").forward(request, response);
+            request.getRequestDispatcher("adminEditCoach.jsp").forward(request, response);
         }
 
     }

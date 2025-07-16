@@ -38,6 +38,9 @@
                     <li><a href="AdminManageMemberServlet"><i class="fas fa-user-friends"></i> Quản lý Member</a></li>
                     <li><a href="adminManageQuiz.jsp"><i class="fas fa-question-circle"></i> Quản lý Quiz</a></li>
                     <li><a href="QuitplanManagerServlet" class="active"><i class="fas fa-calendar-alt"></i> Quản lý khóa học</a></li>
+                    <li><a href="viewReports.jsp"><i class="fas fa-file-alt"></i> Quản lý Báo cáo</a></li>
+                <li><a href="AdminBlogViewServlet"><i class="fas fa-blog"></i> Quản lý Blog</a></li>
+                <li><a href="RegistrationResult.jsp"><i class="fas fa-registered"></i> Quản lý Đăng ký</a></li>
                 </ul>
                 <div class="logout">
                     <form action="AdminLogoutServlet" method="get">

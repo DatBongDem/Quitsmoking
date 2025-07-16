@@ -51,6 +51,8 @@
                         <i class="fa-solid fa-circle-info"></i> Xem báo cáo
                     </a>
                 </li>
+                <li><a href="AdminBlogViewServlet"><i class="fas fa-blog"></i> Quản lý Blog</a></li>
+                <li><a href="RegistrationResult.jsp"><i class="fas fa-registered"></i> Quản lý Đăng ký</a></li>
             </ul>
             <div class="logout">
                 <form action="AdminLogoutServlet" method="get">
@@ -95,8 +97,9 @@
                 </a>
                  <a href="AdminViewPaymentServlet" class="card">
                     <i class="fa-solid fa-circle-info"></i>
-                    <h4>Xem lịch sử thanh toán </h4>
+                    <h4>Quản lý đăng ký </h4>
                 </a>
+                
                 
             </div>
             

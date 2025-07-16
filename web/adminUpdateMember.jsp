@@ -122,6 +122,10 @@
                 </div>
                 <% } %>
             </div>
+                <a href="adminDashboard.jsp" class="btn btn-secondary mt-3">
+                    <i class="fas fa-arrow-left"></i> Trở về trang chủ
+                </a>
+            </div>
         </div>
         <!-- /Main Content -->
     </div>
