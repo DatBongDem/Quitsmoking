@@ -58,12 +58,12 @@ public class ScheduleDAO {
     }
 
     public void createScheduleForMember(Member member, LocalDate startDate, LocalTime startTime, String selectedDays) throws Exception {
-        String idMember = member.getIDMember();
+        String idMember = member.getIDMember(); 
         String idCoach = member.getIDCoach();
-        String IDQuitPlan = ScheduleDAO.getIDQuitPlanByMember(idMember);
+        String IDQuitPlan = getIDQuitPlanByMember(idMember);
 
         int weeks;
-        switch (IDQuitPlan.toLowerCase()) {
+        switch (IDQuitPlan) {
             case "QP01":
                 weeks = 4;
                 break;
