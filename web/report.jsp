@@ -3,28 +3,26 @@
     Created on : Jul 13, 2025, 1:55:27 PM
     Author     : Nguyen Tien Dat
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%
-
-    String reporterID;
-    if ((String) session.getAttribute("id") == null) {
+    String reporterID = (String) session.getAttribute("id");
+    if (reporterID == null) {
         reporterID = "không có";
-    } else {
-        reporterID = (String) session.getAttribute("id");
     }
-    String role;
-    if ((String) session.getAttribute("role")==null) {
-        role = "guest";
-    } else {
-        role = (String) session.getAttribute("role");        
-    }
-    String type = request.getParameter("type");
-    String postId = request.getParameter("postId");
 
+    String role = (String) session.getAttribute("role");
+    if (role == null) {
+        role = "guest";
+    }
+
+    String type = request.getParameter("type");
     if (type == null) {
         type = "system";
     }
 
+    String postId = request.getParameter("postId");
     String link = "";
     if ("blog".equals(type) && postId != null && !postId.isEmpty()) {
         link = "http://localhost:8080/PageQuitSmoking/BlogDetailServlet?id=" + postId;
@@ -32,14 +30,20 @@
 %>
 <!DOCTYPE html>
 <html>
+
     <head>
+        <meta charset="UTF-8">
         <title>Gửi báo cáo</title>
+        <link rel="stylesheet" href="css/report.css">
+
+
     </head>
     <body>
+        <a href="homepage.jsp" class="home-button">Home</a>
 
-        <h2>Gửi báo cáo - <%= ("system".equals(type) ? "Hệ thống" : "Bài viết")%></h2>
+        <h2>📣 Gửi báo cáo - <%= ("system".equals(type) ? "Hệ thống" : "Bài viết")%></h2>
 
-        <%  String message = (String) request.getAttribute("message");
+        <% String message = (String) request.getAttribute("message");
             if (message != null) {%>
         <p style="color: green;"><%= message%></p>
         <% }%>
@@ -49,8 +53,8 @@
             <input type="hidden" name="role" value="<%= role%>">
             <input type="hidden" name="type" value="<%= type%>">
 
-            <label>Loại báo cáo:</label>
-            <select name="reportType" required>
+            <label for="reportType">Loại báo cáo:</label>
+            <select name="reportType" id="reportType" required>
                 <% if ("system".equals(type)) { %>
                 <option value="Lỗi tải trang">Lỗi tải trang</option>
                 <option value="Lỗi phông chữ">Lỗi phông chữ</option>
@@ -65,17 +69,17 @@
                 <option value="Thông tin sai sự thật">Thông tin sai sự thật</option>
                 <option value="Khác">Khác</option>
                 <% } %>
-            </select><br><br>
+            </select>
 
-            <label>Link liên quan:</label>
+            <label for="link">Link liên quan:</label>
             <% if ("blog".equals(type)) {%>
-            <input type="text" name="link" value="<%= link%>" readonly><br><br>
+            <input type="text" name="link" id="link" value="<%= link%>" readonly>
             <% } else { %>
-            <input type="text" name="link"><br><br>
+            <input type="text" name="link" id="link">
             <% }%>
 
-            <label>Mô tả:</label><br>
-            <textarea name="description" rows="5" cols="40" required></textarea><br><br>
+            <label for="description">Mô tả:</label>
+            <textarea name="description" id="description" rows="5" required></textarea>
 
             <input type="submit" value="Gửi báo cáo">
         </form>
