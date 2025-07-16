@@ -105,7 +105,7 @@
                         <div class="stat-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <div class="stat-label">Đang học</div>
+                        <div class="stat-label">Lịch học</div>
                     </div>
                 </div>
 
@@ -217,12 +217,12 @@
                 <span>Trang chủ</span>
             </a>
             
-            <a href="progress.jsp" class="nav-btn progress-btn">
+            <a href="progressList.jsp" class="nav-btn progress-btn">
                 <i class="fas fa-chart-line"></i>
                 <span>Tiến trình</span>
             </a>
             
-            <a href="badge.jsp" class="nav-btn badge-btn">
+            <a href="BadgeServlet" class="nav-btn badge-btn">
                 <i class="fas fa-medal"></i>
                 <span>Huy hiệu</span>
             </a>

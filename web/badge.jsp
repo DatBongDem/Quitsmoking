@@ -155,7 +155,7 @@
                     <span>Quay lại trang chủ</span>
                 </a>
                 
-                <a href="progress.jsp" class="progress-button">
+                <a href="progressList.jsp" class="progress-button">
                     <i class="fas fa-chart-line"></i>
                     <span>Xem tiến trình</span>
                 </a>
