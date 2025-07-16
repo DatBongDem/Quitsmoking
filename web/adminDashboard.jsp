@@ -89,7 +89,17 @@
                     <i class="fa-solid fa-circle-info"></i>
                     <h4>Xem báo cáo</h4>
                 </a>
+                   <a href="AdminBlogViewServlet" class="card">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <h4>Xem các Blog </h4>
+                </a>
+                 <a href="AdminViewPaymentServlet" class="card">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <h4>Xem lịch sử thanh toán </h4>
+                </a>
+                
             </div>
+            
         </div>
     </body>
 </html>

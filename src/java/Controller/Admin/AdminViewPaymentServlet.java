@@ -5,25 +5,28 @@
  */
 package Controller.Admin;
 
-import DAO.QuitPlanDAO;
-import DTO.QuitPlan;
+import DAO.SystemDao;
+
+import DTO.RegistrationPayment;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nghia
  */
-@WebServlet(name = "QuitplanManagerServlet", urlPatterns = {"/QuitplanManagerServlet"})
-public class QuitplanManagerServlet extends HttpServlet {
+@WebServlet(name = "AdminViewPaymentServlet", urlPatterns = {"/AdminViewPaymentServlet"})
+public class AdminViewPaymentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +45,10 @@ public class QuitplanManagerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuitplanManagerServlet</title>");
+            out.println("<title>Servlet AdminViewPaymentServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet QuitplanManagerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminViewPaymentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,14 +66,28 @@ public class QuitplanManagerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<QuitPlan> list = new ArrayList<>();
-        QuitPlanDAO dao = new QuitPlanDAO();
-        list = dao.getAllQuitPlans();
+        SystemDao registrationDao=new SystemDao();
+       try {
+            // Lấy tất cả các bản ghi từ DAO
+            List<RegistrationPayment> registrations;
+            try {
+                registrations = registrationDao.getAllRegistrations();
+                   // Truyền dữ liệu vào request
+            request.setAttribute("registrations", registrations);
 
-        // 2. Đặt vào request và forward đến JSP
-        request.setAttribute("quitplans", list);
-        request.getRequestDispatcher("AdminQuitPlan.jsp")
-                .forward(request, response);
+            // Chuyển hướng tới trang JSP để hiển thị
+            request.getRequestDispatcher("RegistrationResult.jsp").forward(request, response);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminViewPaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+         
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Error retrieving registrations: " + e.getMessage());
+            
+        }
+    
     }
 
     /**
@@ -84,21 +101,7 @@ public class QuitplanManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idQuitPlan = request.getParameter("idQuitPlan");
-        QuitPlanDAO dao = new QuitPlanDAO();
-        // 2. Gọi DAO xóa
-        boolean success = dao.deleteQuitPlan(idQuitPlan);
-
-        // 3. Lưu thông báo vào session nếu cần
-        HttpSession session = request.getSession();
-        if (success) {
-            session.setAttribute("msg", "Xóa QuitPlan " + idQuitPlan + " thành công.");
-        } else {
-            session.setAttribute("msg", "Xóa thất bại hoặc không tìm thấy IDQuitPlan = " + idQuitPlan);
-        }
-
-        // 4. Chuyển về trang quản lý QuitPlan để load lại danh sách
-        response.sendRedirect("QuitplanManagerServlet");
+        processRequest(request, response);
     }
 
     /**

@@ -96,6 +96,7 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("phone", phone);
             request.setAttribute("address", address);
             request.setAttribute("dob", dob);
+            request.setAttribute("status", "1");
 
             try {
                 MemberDao memDao = new MemberDao();

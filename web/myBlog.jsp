@@ -21,7 +21,7 @@
             <div class="post">
                 <h3><%= post.getTitle() %></h3>
                 <p><%= post.getContent() %></p>
-                <img src="<%= post.getImage() %>" alt="Image of <%= post.getTitle() %>" />
+                <img src="images/Blog/<%= post.getImage() %>" alt="Image of <%= post.getTitle() %>" />
                 <p><strong>Published on:</strong> <%= post.getPublishDate() %></p>
                 
                 <a href="UpdatePostServlet?idPost=<%= post.getIdPost() %>" class="btn btn-warning">Update</a>

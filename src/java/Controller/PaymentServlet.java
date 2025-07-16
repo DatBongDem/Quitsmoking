@@ -119,22 +119,12 @@ public class PaymentServlet extends HttpServlet {
         } else {
             quitPlan = "QP03";  // Nếu goal là diamond, quitPlan là QP03
         }
-        String status = "";
-        if (quitPlan.trim().equalsIgnoreCase("QP01".trim())) {
-            status = "SILVER";
-        } else if (quitPlan.trim().equalsIgnoreCase("QP02".trim())) {
-            status = "GOLD";
-        } else if (quitPlan.trim().equalsIgnoreCase("QP03".trim())) {
-            status = "DIAMOND";
-        } else {
-            System.out.println("Invalid quitplan!");
-            return;
-        }
-
+        String status = "1";
+        
         try {
-            dao.insertQuitPlanRegistration(idMember, IDpaymentMethod, quitPlan, "success");
+            dao.insertQuitPlanRegistration(idMember, "PM01", quitPlan, "success");
             mem.updateCoachForMember(idMember);
-            //mem.updateMemberStatus(idMember, status);
+            mem.updateMemberStatus(idMember, status);
             String coachId = coachDAO.getCoachIdFromMember(idMember);
             Coach coach=coachDAO.getCoachById(coachId);
          

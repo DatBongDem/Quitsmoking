@@ -10,11 +10,23 @@ package DTO;
  * @author Nghia
  */
 public class QuitPlan {
+
     private String idQuitPlan;
     private int periodOfTime;
     private String goals;
     private String progress;
     private double price;
+    private String status;
+
+  
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
 
     // Getters và setters
     public String getIdQuitPlan() {

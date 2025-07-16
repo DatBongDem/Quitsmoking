@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="DTO.BlogPost" %>
 
@@ -62,11 +63,11 @@
         <!-- Buttons -->
         <div class="form-group text-center">
             <button type="submit">Lưu thay đổi</button>
-            <a href="ManageBlogServlet">Hủy</a>
+            <a href="MyBlogServlet">Hủy</a>
         </div>
     </form>
 <%
     }
 %>
 </body>
-</html>
+
