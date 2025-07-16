@@ -82,7 +82,7 @@
                             <div class="stat-number">
                                 <i class="fas fa-fire"></i>
                             </div>
-                            <div class="stat-label">Đang tiến bộ</div>
+                            <div class="stat-label"></div>
                         </div>
                     </div>
                 </div>
