@@ -76,11 +76,11 @@ public class MemberDao {
     }
 
     public void resigter(String id, String password, String memberName, String gender, String phone,
-            String email, String address, String dateofBirth) throws ClassNotFoundException {
+            String email, String address, String dateofBirth, String status) throws ClassNotFoundException {
         String sql = "INSERT INTO Member\n"
-                + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, point )\n"
+                + "(IDMember, password, memberName, gender, phone, email, address, dateOfBirth, joinDate, point , status )\n"
                 + "VALUES\n"
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             PreparedStatement pstmt = getConnection().prepareStatement(sql);
@@ -97,7 +97,7 @@ public class MemberDao {
             java.util.Date now = new java.util.Date();
             pstmt.setDate(9, new java.sql.Date(now.getTime()));
             pstmt.setInt(10, -1);
-
+            pstmt.setString(11, status);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

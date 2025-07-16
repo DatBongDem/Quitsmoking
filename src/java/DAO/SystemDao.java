@@ -10,12 +10,14 @@ import DTO.Payment;
 import DTO.QuitPlan;
 import DTO.RegistrationPayment;
 import static Utils.DBUtils.getConnection;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.Registration;
 
 /**
  *
@@ -215,25 +217,54 @@ public class SystemDao {
         }
         return registrations;  // Trả về danh sách các bản ghi
     }
-      public static void main(String[] args) {
-        SystemDao dao = new SystemDao();
-        
-        try {
-            // Lấy tất cả các bản ghi từ DAO
-            List<RegistrationPayment> registrations = dao.getAllRegistrations();
 
-            // In ra các bản ghi đã lấy được
-            for (RegistrationPayment registration : registrations) {
-                System.out.println("IDRegistration: " + registration.getIDRegistration());
-                System.out.println("IDMember: " + registration.getIDMember());
-                System.out.println("IDPayment: " + registration.getIDPayment());
-                System.out.println("IDQuitPlan: " + registration.getIDQuitPlan());
-                System.out.println("Status: " + registration.getStatus());
-                System.out.println("Register Date: " + registration.getRegisterDate());
-                System.out.println("------------------------------");
+    public RegistrationPayment getByMember(String memberId) {
+        RegistrationPayment registrationPayment = null;
+        String sql = "SELECT top 1 IDRegistration, IDMember, IDPayment, IDQuitPlan, status, registerDate\n" +
+"FROM QuitPlanRegistration\n" +
+"WHERE IDMember = ?\n" +
+"ORDER BY registerDate DESC"; // Sắp xếp theo registerDate giảm dần và lấy 1 bản ghi đầu tiên
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, memberId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    registrationPayment = new RegistrationPayment(
+                            rs.getInt("IDRegistration"),
+                            rs.getString("IDMember"),
+                            rs.getString("IDPayment"),
+                            rs.getString("IDQuitPlan"),
+                            rs.getString("status"),
+                            rs.getDate("registerDate") // java.sql.Date thừa kế java.util.Date
+                    );
+                }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        return registrationPayment;
+    }
+
+    public static void main(String[] args) {
+        // Test with a member ID
+        String memberId = "CaoVan0982"; // Sử dụng một IDMember hợp lệ từ database của bạn
+        SystemDao dao = new SystemDao();
+
+        // Gọi phương thức getByMember
+        RegistrationPayment registrationPayment = dao.getByMember(memberId);
+
+        // Kiểm tra kết quả và in ra
+        if (registrationPayment != null) {
+            System.out.println("IDRegistration: " + registrationPayment.getIDQuitPlan());
+            System.out.println("IDMember: " + registrationPayment.getIDMember());
+            System.out.println("IDPayment: " + registrationPayment.getIDPayment());
+            System.out.println("IDQuitPlan: " + registrationPayment.getIDRegistration());
+            System.out.println("Status: " + registrationPayment.getStatus());
+            System.out.println("Register Date: " + registrationPayment.getRegisterDate());
         }
     }
 

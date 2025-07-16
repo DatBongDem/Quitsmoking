@@ -88,15 +88,15 @@ public class RegisterServlet extends HttpServlet {
             String address = request.getParameter("address");
             String dob = request.getParameter("dob");
 
-            // 2. Giữ lại giá trị đã nhập để forward lại form khi có lỗi
-            request.setAttribute("memberId", id);
+//             2. Giữ lại giá trị đã nhập để forward lại form khi có lỗi
+            request.setAttribute("memberid", id);
             request.setAttribute("fullname", fullName);
             request.setAttribute("gender", gender);
             request.setAttribute("email", email);
             request.setAttribute("phone", phone);
             request.setAttribute("address", address);
             request.setAttribute("dob", dob);
-            request.setAttribute("status", "1");
+            String status = "1";
 
             try {
                 MemberDao memDao = new MemberDao();
@@ -132,7 +132,7 @@ public class RegisterServlet extends HttpServlet {
                 }
 
                 // 6. Thực hiện đăng ký
-                memDao.resigter(id, password, fullName, gender, phone, email, address, dob);
+                memDao.resigter(id, password, fullName, gender, phone, email, address, dob, status);
 
                 // 7. Gửi thông báo chào mừng
                 new NotificationDao().sendNotificationToMember("NT01", id);

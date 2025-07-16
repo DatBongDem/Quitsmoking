@@ -6,6 +6,8 @@
 package Controller;
 
 import DAO.MemberDao;
+import DAO.SystemDao;
+import DTO.RegistrationPayment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -64,6 +66,7 @@ public class QuitPlanRegister extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         MemberDao mem = new MemberDao();
+        SystemDao sys = new SystemDao();
         String memberId = (String) session.getAttribute("id"); // IDMember
         String roleID = (String) session.getAttribute("role"); // IDMember
         if (memberId == null || roleID.equalsIgnoreCase("coach")) {
@@ -72,21 +75,50 @@ public class QuitPlanRegister extends HttpServlet {
 
             return;
         }
-        String status = mem.getMemberById(memberId).getStatus();
-        if (status != null) {
+
+        RegistrationPayment re = sys.getByMember(memberId);
+        String status = null;
+
+// Kiểm tra nếu không có dữ liệu (memberId không tồn tại trong bảng), thực thi trường hợp else
+        if (re != null) {
+            status = re.getStatus();
+        } else {
+            // Nếu không tìm thấy memberId trong cơ sở dữ liệu, thực thi trực tiếp vào trường hợp else
+            String goal = request.getParameter("goal");
+
+            if ("Silver".equalsIgnoreCase(goal)) {
+                response.sendRedirect("GOISILIVER.jsp");
+            } else if ("Gold".equalsIgnoreCase(goal)) {
+                response.sendRedirect("GOIGOLD.jsp");
+            } else {
+                response.sendRedirect("GOIDIAMOND.jsp");
+            }
+            return; // Đảm bảo không tiếp tục kiểm tra status nữa khi không có dữ liệu
+        }
+
+// Nếu status là null hoặc không phải "completed"
+        if (status != null && !status.equalsIgnoreCase("completed")) {
             request.setAttribute("error", "Bạn đã trong khóa, không thể đăng ký khóa mới");
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
-            return;  // Dừng lại ở đây, không tiếp tục xử lý các logic bên dưới
+            return;
         }
-        String goal = request.getParameter("goal");
 
-        if ("Silver".equalsIgnoreCase(goal)) {
-            response.sendRedirect("GOISILIVER.jsp");
-        } else if ("Gold".equalsIgnoreCase(goal)) {
-            response.sendRedirect("GOIGOLD.jsp");
+// Nếu status là null hoặc không phải "completed"
+        if (status != null && !status.equalsIgnoreCase("completed")) {
+            request.setAttribute("error", "Bạn đã trong khóa, không thể đăng ký khóa mới");
+            request.getRequestDispatcher("homepage.jsp").forward(request, response);
+            return;
         } else {
+            String goal = request.getParameter("goal");
 
-            response.sendRedirect("GOIDIAMOND.jsp");
+            if ("Silver".equalsIgnoreCase(goal)) {
+                response.sendRedirect("GOISILIVER.jsp");
+            } else if ("Gold".equalsIgnoreCase(goal)) {
+                response.sendRedirect("GOIGOLD.jsp");
+            } else {
+
+                response.sendRedirect("GOIDIAMOND.jsp");
+            }
         }
     }
 
