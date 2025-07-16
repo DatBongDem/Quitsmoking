@@ -154,7 +154,7 @@
                                 <%
                                     if (memberList != null && !memberList.isEmpty()) {
                                         for (Member m : memberList) {
-                                            String statusClass = "status-active"; // Luôn xanh
+                                            String statusClass = "status-active";
                                             String genderIcon = "male".equalsIgnoreCase(m.getGender()) ? "fas fa-mars" : "fas fa-venus";
                                 %>
                                 <tr class="member-row" data-status="<%= m.getStatus().toLowerCase()%>">

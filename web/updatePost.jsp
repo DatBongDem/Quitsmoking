@@ -48,17 +48,13 @@
         <!-- Ảnh -->
         <p class="form-group">
             <label>Ảnh hiện tại:</label><br/>
-            <img src="<%= request.getContextPath() + post.getImage() %>" width="200" alt="Ảnh bài viết"/><br/><br/>
+            <img src="images/Blog/<%= post.getImage() %>" width="200" alt="Ảnh bài viết"/><br/><br/>
             <label for="imageFile">Chọn ảnh mới:</label>
-            <input type="file" id="imageFile" name="imageFile" accept="image/*" />
+            <input type="file" id="imageFile" name="image" accept="image/*" />
         </p>
 
-        <!-- Ngày xuất bản -->
-        <p class="form-group">
-            <label for="publishDate">Ngày xuất bản:</label>
-            <input type="date" id="publishDate" name="publishDate"
-                   value="<%= post.getPublishDate() != null ? post.getPublishDate().toString() : "" %>" required />
-        </p>
+    
+     
 
         <!-- Buttons -->
         <div class="form-group text-center">
