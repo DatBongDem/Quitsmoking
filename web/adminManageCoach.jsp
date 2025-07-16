@@ -33,10 +33,34 @@
                     <h3>Admin Manager</h3>
                 </div>
                 <ul class="sidebar-nav">
-                    <li><a href="ManageCoachServlet" class="active"><i class="fas fa-users"></i> Quản lý Coach</a></li>
-                    <li><a href="AdminManageMemberServlet"><i class="fas fa-user-friends"></i> Quản lý Member</a></li>
-                    <li><a href="adminManageQuiz.jsp"><i class="fas fa-question-circle"></i> Quản lý Quiz</a></li>
-                    <li><a href="QuitplanManagerServlet"><i class="fas fa-calendar-alt"></i> Quản lý khóa học</a></li>
+                    <li>
+                        <a href="ManageCoachServlet">
+                            <i class="fas fa-users"></i> Quản lý Coach
+                        </a>
+                    </li>
+                    <li>
+                        <a href="AdminManageMemberServlet">
+                            <i class="fas fa-user-friends"></i> Quản lý Member
+                        </a>
+                    </li>
+                    <li>
+                        <a href="adminManageQuiz.jsp">
+                            <i class="fas fa-question-circle"></i> Quản lý Quiz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="QuitplanManagerServlet">
+                            <i class="fas fa-chalkboard-teacher"></i> Quản lý khóa học
+                        </a>
+                    </li>
+                    <li>
+                        <a href="ViewAllReportsServlet">
+                            <i class="fa-solid fa-circle-info"></i> Xem báo cáo
+                        </a>
+                    </li>
+
+                    <li><a href="AdminBlogViewServlet"><i class="fas fa-blog"></i> Quản lý Blog</a></li>
+                    <li><a href="RegistrationResult.jsp"><i class="fas fa-registered"></i> Quản lý Đăng ký</a></li>
                 </ul>
                 <div class="logout">
                     <form action="AdminLogoutServlet" method="get">
@@ -73,8 +97,8 @@
                             </thead>
                             <tbody>
                                 <% ArrayList<Coach> coachList = (ArrayList<Coach>) request.getAttribute("coachList");
-                                if (coachList != null && !coachList.isEmpty()) {
-                                    for (Coach c : coachList) {%>
+                                    if (coachList != null && !coachList.isEmpty()) {
+                                        for (Coach c : coachList) {%>
                                 <tr>
                                     <th scope="row"><%= c.getIDCoach()%></th>
                                     <td><%= c.getCoachName()%></td>
@@ -105,7 +129,7 @@
                                     </td>
                                 </tr>
                                 <% }
-                            } else { %>
+                                } else { %>
                                 <tr>
                                     <td colspan="9" class="text-center">Không có dữ liệu.</td>
                                 </tr>

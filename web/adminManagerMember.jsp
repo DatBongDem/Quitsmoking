@@ -3,115 +3,137 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Quản lý Member</title>
-    <%@include file="information/bootstrap.jspf" %>
-    <link rel="stylesheet" href="css/admin-dasboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        .table-actions .btn {
-            margin-right: 5px;
-        }
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid #cccccc;
-        }
-    </style>
-</head>
-<body>
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h3>Admin Manager</h3>
-            </div>
-            <ul class="sidebar-nav">
-                <li><a href="ManageCoachServlet"><i class="fas fa-users"></i> Quản lý Coach</a></li>
-                <li><a href="AdminManageMemberServlet" class="active"><i class="fas fa-user-friends"></i> Quản lý Member</a></li>
-                <li><a href="adminManageQuiz.jsp"><i class="fas fa-question-circle"></i> Quản lý Quiz</a></li>
-                <li><a href="QuitplanManagerServlet"><i class="fas fa-calendar-alt"></i> Quản lý khóa học</a></li>
-                <li><a href="viewReports.jsp"><i class="fas fa-file-alt"></i> Quản lý Báo cáo</a></li>
-                <li><a href="AdminBlogViewServlet"><i class="fas fa-blog"></i> Quản lý Blog</a></li>
-                <li><a href="RegistrationResult.jsp"><i class="fas fa-registered"></i> Quản lý Đăng ký</a></li>
-            </ul>
-            <div class="logout">
-                <form action="AdminLogoutServlet" method="get">
-                    <button type="submit" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
-                </form>
-            </div>
-        </div>
-        <!-- /Sidebar -->
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="container-fluid">
-                <h2 class="h2 mb-4">Danh sách Member</h2>
-                <form action="AdminSearchMemberServlet" method="get" class="mb-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="keyword" placeholder="Nhập tên Member..." value="<%= request.getParameter("keyword") != null ? request.getParameter("keyword") : "" %>">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-success"><i class="fas fa-search"></i> Tìm kiếm</button>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered">
-                        <thead class="bg-success text-white">
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên</th>
-                                <th>Giới tính</th>
-                                <th>Điện thoại</th>
-                                <th>Email</th>
-                                <th>ID Coach</th>
-                                <th>Trạng thái</th>
-                                <th class="text-center">Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% List<Member> members = (List<Member>) request.getAttribute("members");
-                               if (members != null && !members.isEmpty()) {
-                                   for (Member m : members) {
-                                       String id = m.getIDMember(); %>
-                            <tr>
-                                <td><%= id %></td>
-                                <td><%= m.getMemberName() %></td>
-                                <td><%= m.getGender() %></td>
-                                <td><%= m.getPhone() %></td>
-                                <td><%= m.getEmail() %></td>
-                                <td><%= m.getIDCoach() %></td>
-                                <td class="text-center"><span class="badge <%= "1".equals(m.getStatus()) ? "badge-success" : "badge-danger" %>"><%= "1".equals(m.getStatus()) ? "Hoạt động" : "Đã xóa" %></span></td>
-                                <td class="text-center table-actions">
-                                    <a href="AdminUpdateMemberServlet?IDMember=<%= id %>" class="btn btn-sm btn-info" title="Sửa"><i class="fas fa-edit"></i></a>
-                                    <% if ("1".equals(m.getStatus())) { %>
-                                    <form action="AdminDeleteMemberServlet" method="post" onsubmit="return confirm('Xác nhận xoá member này?');" class="d-inline">
-                                        <input type="hidden" name="IDMember" value="<%= id %>"/>
-                                        <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                    <% } else if ("2".equals(m.getStatus())) { %>
-                                    <form action="AdminManageMemberServlet" method="post" onsubmit="return confirm('Xác nhận khôi phục member này?');" class="d-inline">
-                                        <input type="hidden" name="IDMember" value="<%= id %>"/>
-                                        <button type="submit" class="btn btn-sm btn-warning" title="Khôi phục"><i class="fas fa-undo"></i></button>
-                                    </form>
-                                    <% } %>
-                                </td>
-                            </tr>
-                            <% } } else { %>
-                            <tr>
-                                <td colspan="8" class="text-center">Không có dữ liệu.</td>
-                            </tr>
-                            <% } %>
-                        </tbody>
-                    </table>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Quản lý Member</title>
+        <%@include file="information/bootstrap.jspf" %>
+        <link rel="stylesheet" href="css/admin-dasboard.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <style>
+            .table-actions .btn {
+                margin-right: 5px;
+            }
+            .table-bordered th,
+            .table-bordered td {
+                border: 1px solid #cccccc;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="d-flex">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Admin Manager</h3>
                 </div>
-                 <a href="adminDashboard.jsp" class="btn btn-secondary mt-3">
-                    <i class="fas fa-arrow-left"></i> Trở về trang chủ
-                </a>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="ManageCoachServlet">
+                            <i class="fas fa-users"></i> Quản lý Coach
+                        </a>
+                    </li>
+                    <li>
+                        <a href="AdminManageMemberServlet">
+                            <i class="fas fa-user-friends"></i> Quản lý Member
+                        </a>
+                    </li>
+                    <li>
+                        <a href="adminManageQuiz.jsp">
+                            <i class="fas fa-question-circle"></i> Quản lý Quiz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="QuitplanManagerServlet">
+                            <i class="fas fa-chalkboard-teacher"></i> Quản lý khóa học
+                        </a>
+                    </li>
+                    <li>
+                        <a href="ViewAllReportsServlet">
+                            <i class="fa-solid fa-circle-info"></i> Xem báo cáo
+                        </a>
+                    </li>
+
+                    <li><a href="AdminBlogViewServlet"><i class="fas fa-blog"></i> Quản lý Blog</a></li>
+                    <li><a href="RegistrationResult.jsp"><i class="fas fa-registered"></i> Quản lý Đăng ký</a></li>
+                </ul>
+                <div class="logout">
+                    <form action="AdminLogoutServlet" method="get">
+                        <button type="submit" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+                    </form>
+                </div>
             </div>
+            <!-- /Sidebar -->
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="container-fluid">
+                    <h2 class="h2 mb-4">Danh sách Member</h2>
+                    <form action="AdminSearchMemberServlet" method="get" class="mb-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="keyword" placeholder="Nhập tên Member..." value="<%= request.getParameter("keyword") != null ? request.getParameter("keyword") : ""%>">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-success"><i class="fas fa-search"></i> Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead class="bg-success text-white">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên</th>
+                                    <th>Giới tính</th>
+                                    <th>Điện thoại</th>
+                                    <th>Email</th>
+                                    <th>ID Coach</th>
+                                    <th>Trạng thái</th>
+                                    <th class="text-center">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% List<Member> members = (List<Member>) request.getAttribute("members");
+                                if (members != null && !members.isEmpty()) {
+                                    for (Member m : members) {
+                                        String id = m.getIDMember();%>
+                                <tr>
+                                    <td><%= id%></td>
+                                    <td><%= m.getMemberName()%></td>
+                                    <td><%= m.getGender()%></td>
+                                    <td><%= m.getPhone()%></td>
+                                    <td><%= m.getEmail()%></td>
+                                    <td><%= m.getIDCoach()%></td>
+                                    <td class="text-center"><span class="badge <%= "1".equals(m.getStatus()) ? "badge-success" : "badge-danger"%>"><%= "1".equals(m.getStatus()) ? "Hoạt động" : "Đã xóa"%></span></td>
+                                    <td class="text-center table-actions">
+                                        <a href="AdminUpdateMemberServlet?IDMember=<%= id%>" class="btn btn-sm btn-info" title="Sửa"><i class="fas fa-edit"></i></a>
+                                            <% if ("1".equals(m.getStatus())) {%>
+                                        <form action="AdminDeleteMemberServlet" method="post" onsubmit="return confirm('Xác nhận xoá member này?');" class="d-inline">
+                                            <input type="hidden" name="IDMember" value="<%= id%>"/>
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                        <% } else if ("2".equals(m.getStatus())) {%>
+                                        <form action="AdminManageMemberServlet" method="post" onsubmit="return confirm('Xác nhận khôi phục member này?');" class="d-inline">
+                                            <input type="hidden" name="IDMember" value="<%= id%>"/>
+                                            <button type="submit" class="btn btn-sm btn-warning" title="Khôi phục"><i class="fas fa-undo"></i></button>
+                                        </form>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                                <% }
+                            } else { %>
+                                <tr>
+                                    <td colspan="8" class="text-center">Không có dữ liệu.</td>
+                                </tr>
+                                <% }%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="adminDashboard.jsp" class="btn btn-secondary mt-3">
+                        <i class="fas fa-arrow-left"></i> Trở về trang chủ
+                    </a>
+                </div>
+            </div>
+            <!-- /Main Content -->
         </div>
-        <!-- /Main Content -->
-    </div>
-</body>
+    </body>
 </html>

@@ -62,7 +62,7 @@ public class EditCoachServlet extends HttpServlet {
             request.getRequestDispatcher("adminEditCoach.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(500, "Lỗi khi lấy thông tin Coach.");
+            response.sendError(500, "Lỗi khi lấy thông tin Coach.");    
         }
     }
 

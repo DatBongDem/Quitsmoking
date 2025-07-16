@@ -51,6 +51,7 @@
                         <i class="fa-solid fa-circle-info"></i> Xem báo cáo
                     </a>
                 </li>
+
                 <li><a href="AdminBlogViewServlet"><i class="fas fa-blog"></i> Quản lý Blog</a></li>
                 <li><a href="RegistrationResult.jsp"><i class="fas fa-registered"></i> Quản lý Đăng ký</a></li>
             </ul>
