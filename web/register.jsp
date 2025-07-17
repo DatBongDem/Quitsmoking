@@ -50,7 +50,7 @@
             }
 
         </style>
-        <a href="homepage.jsp" class="home-button">Home</a>
+        <a href="homepage.jsp" class="home-button">Trang chủ</a>
 
         
         <div class="register-form">
@@ -67,35 +67,35 @@
                         <p>${successMessage}</p>
                     </div>
                 </c:if>
-                    <h2 class="inner-title">Register</h2>
+                    <h2 class="inner-title">Đăng Ký</h2>
                     <form action="RegisterServlet" method="post">
                     <div class="form-group">
-                        <label for="memberid">Account</label>
+                        <label for="memberid">ID Member</label>
                         <input type="text" class="form-control" name="memberid"
                                value="${memberId}" required>
                     </div>
                     <div class="form-group">
-                        <label for="fullname">Full Name</label>
+                        <label for="fullname">Họ và tên</label>
                         <input type="text" class="form-control" name="fullname"
                                value="${fullname}" required>
                     </div>
                     <div class="form-group">
-                        <label>Gender</label>
+                        <label>Giới tính</label>
                         <div class="inner-form-gender">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" value="male"
                                        ${gender=='male' ? 'checked' : ''}>
-                                <label class="form-check-label">Male</label>
+                                <label class="form-check-label">Nam</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" value="female"
                                        ${gender=='female' ? 'checked' : ''}>
-                                <label class="form-check-label">Female</label>
+                                <label class="form-check-label">Nữ</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" value="other"
                                        ${gender=='other' ? 'checked' : ''}>
-                                <label class="form-check-label">Other</label>
+                                <label class="form-check-label">Khác</label>
                             </div>
                         </div>
                     </div>
@@ -105,28 +105,28 @@
                                value="${email}" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Mật khẩu</label>
                         <input type="password" class="form-control" name="password" required>
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
+                        <label for="confirmPassword">Xác nhận mật khẩu</label>
                         <input type="password" class="form-control" name="confirmPassword" required>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone</label>
+                        <label for="phone">Số điện thoại</label>
                         <input type="tel" class="form-control" name="phone"
                                value="${phone}" required>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address</label>
+                        <label for="address">Địa chỉ</label>
                         <textarea name="address" class="form-control" rows="2" required>${address}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="dob">Date of Birth</label>
+                        <label for="dob">Ngày sinh</label>
                         <input type="date" class="form-control" name="dob"
                                value="${dob}" required>
                     </div>
-                    <button type="submit" class="btn btn-green btn-block">Register</button>
+                    <button type="submit" class="btn btn-green btn-block">Đăng ký</button>
                 </form>
                 </div>
                 

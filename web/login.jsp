@@ -13,7 +13,7 @@
     </head>
     <body>
         <!--Home Page-->
-        <a href="homepage.jsp" class="home-button">Home</a>    
+        <a href="homepage.jsp" class="home-button">Trang chủ</a>    
         <!--End Home Page-->
 
         <!--Form Login-->
@@ -54,9 +54,9 @@
                                         ${message}
                                     </div>
                                 </c:if>
-                                <h3 class="inner-title">Sign In</h3>
+                                <h3 class="inner-title">Đăng Nhập</h3>
                                 <form action="LoginServlet" method="POST" class="form-login">
-                                    <label for="role" class="item-name">Select Role</label><br>
+                                    <label for="role" class="item-name">Vai trò</label><br>
                                     <div class="select-wrapper">
                                         <select class="inner-option" id="role" name="role">
                                             <option value="member" selected>Member</option>
@@ -67,24 +67,24 @@
 
                                     <label for="IDMember" class="item-name">ID Member</label><br>
                                     <div class="inner-input">
-                                        <input type="text" id="IDMember" name="username" placeholder="ID Member">
+                                        <input type="text" id="IDMember" name="username">
                                     </div>
 
-                                    <label for="password" class="item-name">Password</label><br>
+                                    <label for="password" class="item-name">Mật Khẩu</label><br>
                                     <div class="inner-input">
-                                        <input type="password" id="password" name="password" placeholder="Password">
+                                        <input type="password" id="password" name="password">
                                     </div>
 
                                     <div class="inner-button">
-                                        <button type="submit" class="button" value="Login">Login</button>
+                                        <button type="submit" class="button" value="Login">Đăng Nhập</button>
                                     </div>
                                     <!-- Remember Me + Forgot Password -->
                                     <div class="inner-options">
                                         <label for="rememberMe" class="item-name">
                                             <input type="checkbox" id="rememberMe" name="remember" value="on">
-                                            Remember Me
+                                            Lưu đăng nhập
                                         </label>
-                                        <a href="ForgotPasswordServlet">Forgot Password?</a>
+                                        <a href="ForgotPasswordServlet">Quên mật khẩu?</a>
                                     </div>
                                 </form>
                             </div>
@@ -94,13 +94,14 @@
                         <div class="welcome">
                             <div class="inner-welcome">
                                 <h2 class="inner-title-welcome">
-                                    Welcome to Login
+                                    Chào mừng bạn đến với trang đăng nhập
                                 </h2>
-                                <span class="inner-sub-title">Don't have an account?</span>
+                                <span class="inner-sub-title">Bạn chưa có tài khoản?</span>
                                 <div class="inner-button">
-                                    <a href="register.jsp" class="button">Sign Up</a>
+                                    <a href="register.jsp" class="button">Đăng ký ngay</a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

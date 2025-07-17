@@ -1,52 +1,48 @@
-<%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
 <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-4">
-                        <div class="inner-footer">
-                            <h4 class="inner-title">
-                                COMPANY NAME
-                            </h4>
-                            <p class="inner-desc">
-                                Fusce at libero iaculis, venenatis augue quis, pharetra lorem. Curabitur ut dolor eu elit
-                                consequat ultricies.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="inner-footer">
-                            <h4 class="inner-title title-two">
-                                CONTACT
-                            </h4>
-                            <ul class="contact-list">
-                                <li>
-                                    <i class="fa-solid fa-phone"></i>
-                                    <span>0369640433</span>
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <a href="mailto:info@gmail.com">tiendatntse181844</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="inner-footer">
-                            <h4 class="inner-title title-two">OPEN HOURS</h4>
-                            <ul class="hours-list">
-                                <li>
-                                    Monday -Friday 06:00 AM - 10:00 PM
-                                </li>
-                                <li>
-                                    Saturday 09:00 AM - 08:00 PM
-                                </li>
-                                <li>
-                                    Sunday Closed
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <!-- Thông tin về trung tâm -->
+            <div class="col-xl-4">
+                <div class="inner-footer">
+                    <h4 class="inner-title">
+                        TRUNG TÂM HỖ TRỢ CAI NGHIỆN THUỐC LÁ
+                    </h4>
+                    <p class="inner-desc">
+                        Chúng tôi cam kết đồng hành cùng bạn trên hành trình bỏ thuốc. Với đội ngũ chuyên gia tận tâm và các chương trình hỗ trợ hiệu quả, sức khỏe của bạn luôn là ưu tiên hàng đầu của chúng tôi.
+                    </p>
                 </div>
             </div>
-        </footer>
+
+            <!-- Thông tin liên hệ -->
+            <div class="col-xl-4">
+                <div class="inner-footer">
+                    <h4 class="inner-title title-two">
+                        LIÊN HỆ
+                    </h4>
+                    <ul class="contact-list">
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <span>0369 640 433</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <a href="mailto:tiendatntse181844@gmail.com">tiendatntse181844@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Thời gian làm việc -->
+            <div class="col-xl-4">
+                <div class="inner-footer">
+                    <h4 class="inner-title title-two">GIỜ LÀM VIỆC</h4>
+                    <ul class="hours-list">
+                        <li>Thứ 2 – Chủ nhật: 06:00 – 22:00</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>

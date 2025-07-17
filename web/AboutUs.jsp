@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="css/StyleAboutUs.css">
         <link href="css/stylehomepage.css" rel="stylesheet" type="text/css"/>
 
-         <%@include file="information/bootstrap.jspf" %>
-</head>
+        <%@include file="information/bootstrap.jspf" %>
+    </head>
 
     <body>
         <%@include file="information/header.jspf" %>
@@ -19,8 +19,8 @@
             <section class="about-us-blur">
                 <div class="overlay">
                     <h2>About Us</h2>
-                    <p>BBFB’s mission is to empower individuals to quit smoking and achieve a healthier, happier life
-                        through personalized programs and a supportive community.</p>
+                    <p>Sứ mệnh của BBFB là hỗ trợ mọi người từ bỏ thuốc lá và hướng đến một cuộc sống khỏe mạnh,
+                        hạnh phúc hơn thông qua các chương trình cá nhân hóa và cộng đồng hỗ trợ tích cực.</p>
                 </div>
             </section>
 
@@ -30,28 +30,28 @@
                     <img src="images/aboutUs/anhh.png" alt="Community">
                 </div>
                 <div class="content">
-                    <h3>What will you gain by joining us ?</h3>
+                    <h3>Bạn sẽ nhận được gì khi tham gia cùng chúng tôi?</h3>
                     <ol>
-                        <li>Personalized Quitting Plan: We design a plan tailored to each individual's habits, health, and
-                            goals, increasing the chances of successfully quitting smoking.</li>
-                        <li>Expert Counseling: Members will receive ongoing support from medical professionals,
-                            psychologists, and coaches through online consultations and workshops.</li>
-                        <li>Supportive Community: Join a positive and inspiring community where members can share
-                            experiences, encourage one another, and progress together.</li>
-                        <li>Resources and Tools: The website provides articles, videos, and in-depth materials about the
-                            harmful effects of smoking, how to deal with cravings, and how to stay motivated.</li>
+                        <li><strong>Kế hoạch cai thuốc cá nhân hóa:</strong> Chúng tôi xây dựng lộ trình riêng dựa trên thói quen hút thuốc, tình trạng sức khỏe và mục tiêu của từng người, giúp tăng khả năng thành công khi cai thuốc.</li>
 
+                        <li><strong>Tư vấn từ chuyên gia:</strong> Thành viên sẽ được hỗ trợ liên tục từ các bác sĩ, chuyên gia tâm lý và huấn luyện viên thông qua các buổi tư vấn trực tuyến và hội thảo.</li>
+
+                        <li><strong>Cộng đồng hỗ trợ tích cực:</strong> Gia nhập một cộng đồng tích cực, nơi bạn có thể chia sẻ trải nghiệm, động viên lẫn nhau và cùng nhau tiến bộ.</li>
+
+                        <li><strong>Tài liệu và công cụ hữu ích:</strong> Truy cập kho tài liệu bao gồm bài viết, video và hướng dẫn chi tiết về tác hại của thuốc lá, cách vượt qua cơn thèm và giữ vững động lực.</li>
                     </ol>
+
                 </div>
 
             </section>
 
             <section class="story">
                 <div class="content">
-                    <h3>Our Story</h3>
-                    <p>BBFB was founded with a passion for helping people overcome smoking addiction. Through personalized
-                        plans, expert guidance, and a community-first approach, we strive to create lasting impact on health
-                        and well-being.</p>
+                    <<h3>Câu Chuyện Của Chúng Tôi</h3>
+                    <p style="font-size: 17px">BBFB được thành lập với niềm đam mê giúp mọi người vượt qua cơn nghiện thuốc lá.
+                        Thông qua các kế hoạch cá nhân hóa, sự hướng dẫn từ chuyên gia và cách tiếp cận lấy cộng đồng làm trung tâm,
+                        chúng tôi nỗ lực tạo ra tác động lâu dài đến sức khỏe và chất lượng cuộc sống.</p>
+
                 </div>
                 <div class="image">
                     <img src="images/aboutUs/cay.png" alt="Our Story">

@@ -126,11 +126,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="inner-wrap">
-                            <p class="inner-sub-title">LET'S HEALTHY MAKE YOU BEAUTIFUL</p>
-                            <h1 class="inner-title">Healthy Living</h1>
+                            <p class="inner-sub-title">HÀNH TRÌNH BỎ THUỐC, LẤY LẠI SỨC KHỎE</p>
+                            <h1 class="inner-title">Sống Khỏe Mỗi Ngày</h1>
                             <div class="inner-button">
-                                <a href="AboutUs.jsp" class="button-logo">More About Us</a>
+                                <a href="AboutUs.jsp" class="button-logo">Tìm hiểu thêm</a>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -144,11 +145,10 @@
                     <div class="col-xl-6 d-flex align-items-center">
                         <div class="inner-main">
                             <h1 class="inner-title">
-                                Welcome to Your Health Center
+                                Chào mừng bạn đến với Trung tâm Cai nghiện Thuốc lá!
                             </h1>
                             <p class="inner-desc">
-                                Welcome to our Health Center! Your health is our top priority. We believe in having an outstanding team - doctors,
-                                clinical staff, and support personnel - with the ultimate goal of providing you with the best possible care in a respectful and compassionate manner. We are continuously seeking new ways to improve what we do and how we serve our community.
+                                Sức khỏe của bạn là ưu tiên hàng đầu của chúng tôi. Chúng tôi tin rằng một đội ngũ chuyên nghiệp – bao gồm bác sĩ, nhân viên y tế và bộ phận hỗ trợ – sẽ mang đến cho bạn sự chăm sóc tốt nhất với tinh thần tôn trọng và cảm thông. Trung tâm luôn nỗ lực không ngừng để cải thiện phương pháp điều trị và nâng cao chất lượng dịch vụ, với mục tiêu giúp bạn từ bỏ thuốc lá một cách an toàn và hiệu quả, hướng tới một cuộc sống khỏe mạnh hơn.
                             </p>
                         </div>
                     </div>
@@ -243,22 +243,22 @@
         </div>
         <!--End Login successful notification-->
         <script src="js/notification-sidebar.js"></script>
-        
+
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const url = new URLSearchParams(window.location.search);
-                if(url.has('login') && url.get('login') === 'success'){
-                    const toast = document.getElementById('box-login-notification');
-                    toast.classList.add('show');
-                    
-                    setTimeout(() => {
-                        toast.classList.remove('show');
-                    }, 5000);
-                    
-                    const urlNew = window.location.pathname + window.location.hash;
-                    history.replaceState(null, '', urlNew);
-                }
-            });
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        const url = new URLSearchParams(window.location.search);
+                                        if (url.has('login') && url.get('login') === 'success') {
+                                            const toast = document.getElementById('box-login-notification');
+                                            toast.classList.add('show');
+
+                                            setTimeout(() => {
+                                                toast.classList.remove('show');
+                                            }, 5000);
+
+                                            const urlNew = window.location.pathname + window.location.hash;
+                                            history.replaceState(null, '', urlNew);
+                                        }
+                                    });
         </script>
     </body>
 </html>

@@ -8,19 +8,19 @@
         <div class="row">
             <div class="col-12 ">
                 <div class="inner-main">
-                    <p class="inner-title">Welcome to a Professional Health Care</p>
+                    <p class="inner-title">Trung tâm Cai nghiện Thuốc lá!</p>
                     <div class="inner-contact">
                         <div class="inner-phone">
                             <i class="fa-solid fa-phone"></i>
-                            <span>000-000-000</span>
+                            <span>0369640433</span>
                         </div>
                         <div class="inner-time">
                             <i class="fa-regular fa-calendar-plus"></i>
-                            <span>6:00 AM - 10:00 PM (Mon-Fri)</span>
+                            <span>Thứ 2 – Chủ nhật: 06:00 – 22:00</span>
                         </div>
                         <div class="inner-email">
                             <i class="fa-solid fa-envelope"></i>
-                            <a href="#">tiendatntse181844</a>
+                            <a href="#">tiendatntse181844@fpt.edu.vn</a>
                         </div>
                     </div>
                 </div>
@@ -40,19 +40,19 @@
                     <div class="inner-list">
                         <ul>
                             <li>
-                                <a href="homepage.jsp">Home</a>
+                                <a href="homepage.jsp">Trang chủ</a>
                             </li>
                             <li>
-                                <a href="AboutUs.jsp">About Us</a>
+                                <a href="AboutUs.jsp">Giới thiệu</a>
                             </li>
                             <li>
-                                <a href="BlogPostServlet">Blog</a>
+                                <a href="BlogPostServlet">Tin tức</a>
                             </li>
                             <li>
-                                <a href="TestServlet">Testing</a>
+                                <a href="TestServlet">Bài Kiểm tra</a>
                             </li>
                             <li>
-                                <a href="BadgeRankingServlet">Ranking</a>
+                                <a href="BadgeRankingServlet">Xếp Hạng</a>
                             </li>
 
                         </ul>
@@ -75,8 +75,8 @@
 
                                         if ("member".equals(role)) {
                                     %>
-                                    <a href="DetailMemberProfile">Profile</a>
-                                    <a href="BadgeServlet">Badge</a>
+                                    <a href="DetailMemberProfile">Thông tin</a>
+                                    <a href="BadgeServlet">Huy hiệu</a>
                                     <%
                                         }
                                     %>
@@ -84,8 +84,8 @@
                                     <%
                                         if ("member".equals(role) && mycoach != null) {
                                     %>
-                                    <a href="progressList.jsp">ProgressLog</a>
-                                    <a href="MemberScheduleServlet">Schedule</a>
+                                    <a href="progressList.jsp">Tiến trình</a>
+                                    <a href="MemberScheduleServlet">Lịch học</a>
                                     <%
                                         }
                                     %>
@@ -94,24 +94,24 @@
                                     <%
                                         if ("coach".equals(role)) {
                                     %>
-                                    <a href="ProfileServlet">Profile</a>
-                                    <a href="ManageMemberServlet">Manage</a>
-                                    <a href="CoachScheduleServlet">Schedule</a>
+                                    <a href="ProfileServlet">Thông tin</a>
+                                    <a href="ManageMemberServlet">Quản lý</a>
+                                    <a href="CoachScheduleServlet">Lịch dạy</a>
 
 
                                     <%
                                         }
                                     %>
-                                    <a href="report.jsp">Report</a>
+                                    <a href="report.jsp">Báo cáo</a>
 
 
-                                    <a href="LogoutServlet">Logout</a>
+                                    <a href="LogoutServlet">Đăng xuất</a>
                                 </div>                             
                             </c:when>
                             <c:otherwise>
                                 <div class="inner-button">
-                                    <a href="login.jsp" class="button button-one">Sign In</a>
-                                    <a href="register.jsp" class="button button-two">Sign Up</a>
+                                    <a href="login.jsp" class="button button-one">Đăng nhập</a>
+                                    <a href="register.jsp" class="button button-two">Đăng ký</a>
                                 </div>
                             </c:otherwise>
                         </c:choose>
