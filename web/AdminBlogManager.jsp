@@ -34,7 +34,7 @@
             }
 
             body {
-                background: #d3d3d3; 
+                background: #f0fff4; 
             }
         </style>
     </head>
@@ -44,8 +44,8 @@
         <!-- Main Content -->
         <div class="main-content d-flex justify-content-center" style="padding: 40px 0;">
             <div class="container" style="max-width: 1100px;">
-                <div class="title bg-success p-2 mb-2">
-                    <h2 class="h2 mb-2 text-center text-white">Quản lý Bài viết Blog</h2>
+                <div class="title p-2 mb-2">
+                    <h1 class="h2 mb-2 text-black">Quản lý Bài viết Blog</h1>
                 </div>
 
                 <%

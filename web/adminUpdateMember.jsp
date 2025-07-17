@@ -18,7 +18,7 @@
             }
 
             body {
-                background: #d3d3d3; 
+                background: #f0fff4; 
             }
         </style>
     </head>

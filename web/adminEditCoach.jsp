@@ -23,13 +23,13 @@
             .form-control:focus {
                 outline: none;
                 box-shadow: none;
-                border-color: #ced4da; /* hoặc đổi thành màu bạn muốn */
+                border-color: #ced4da;
             }
             
         </style>
 
     </head>
-    <body style="background: #d3d3d3">
+    <body style="background: #f0fff4">
         <!-- Main Content -->
         <div class="main-content d-flex justify-content-center align-items-center" style="min-height: 100vh;">
             <div class="container">
@@ -94,11 +94,7 @@
                         <% }%>
                     </div>
                 </div>
-                <a href="adminDashboard.jsp" class="btn btn-secondary mt-3">
-                    <i class="fas fa-arrow-left"></i> Trở về trang chủ
-                </a>
             </div>
-
             <!-- /Main Content -->
         </div>
     </body>

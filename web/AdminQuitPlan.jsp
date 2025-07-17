@@ -34,7 +34,7 @@
             }
 
             body {
-                background: #d3d3d3; 
+                background: #f0fff4; 
             }
         </style>
     </head>
@@ -43,8 +43,8 @@
         <div class="main-content d-flex justify-content-center" style="padding: 40px 0;">
             <div class="container" style="max-width: 1100px;">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="title bg-success p-2 mb-2">
-                        <h2 class="h2 mb-2 text-center text-white">Danh sách Quitplan</h2>
+                    <div class="title p-2 mb-2">
+                        <h1 class="mb-2 text-center text-black">Danh sách Quitplan</h1>
                     </div>
                     <!-- Bạn có thể thêm nút "Thêm mới" ở đây nếu cần -->
                 </div>
@@ -58,7 +58,7 @@
                                 <th>Mục tiêu</th>
                                 <th>Tiến độ</th>
                                 <th>Giá</th>
-                                <th class="text-center">Hành động</th>
+                                <th class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody>
