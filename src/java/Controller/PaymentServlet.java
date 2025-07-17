@@ -71,11 +71,18 @@ public class PaymentServlet extends HttpServlet {
         String price = request.getParameter("price");
         HttpSession session = request.getSession();
         String idMember = (String) session.getAttribute("id");
+        String role = (String) session.getAttribute("role");
+        String mycoach = (String) session.getAttribute("coachId");
+
         MemberDao memberDao = new MemberDao();
         Member member = memberDao.getMemberById(idMember);
         SystemDao SystemDao = new SystemDao();
         // Lấy danh sách phương thức thanh toán từ DAO
-
+        if (idMember == null || role.equalsIgnoreCase("coach")) {
+            // Nếu không có idMember trong session, chuyển hướng đến trang login.jsp
+            response.sendRedirect("login.jsp");
+            return; // Dừng các thao tác tiếp theo để tránh lỗi
+        }
         // Set danh sách payments vào request để chuyển tiếp vào JSP
         try {
 
@@ -120,17 +127,17 @@ public class PaymentServlet extends HttpServlet {
             quitPlan = "QP03";  // Nếu goal là diamond, quitPlan là QP03
         }
         String status = "1";
-        
+
         try {
             dao.insertQuitPlanRegistration(idMember, "PM01", quitPlan, "success");
             mem.updateCoachForMember(idMember);
             mem.updateMemberStatus(idMember, status);
             String coachId = coachDAO.getCoachIdFromMember(idMember);
-            Coach coach=coachDAO.getCoachById(coachId);
-         
+            Coach coach = coachDAO.getCoachById(coachId);
+
             nofiDao.sendNotificationToMember("NT07", idMember);
             nofiDao.sendNotificationToCoach("NT08", coachId);
-            request.setAttribute("coachName",   coach.getCoachName());
+            request.setAttribute("coachName", coach.getCoachName());
             request.getRequestDispatcher("AfterPayment.jsp").forward(request, response);
 
         } catch (Exception e) {

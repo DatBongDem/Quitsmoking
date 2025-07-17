@@ -69,18 +69,18 @@ public class QuitPlanRegister extends HttpServlet {
         SystemDao sys = new SystemDao();
         String memberId = (String) session.getAttribute("id"); // IDMember
         String roleID = (String) session.getAttribute("role"); // IDMember
-        if (memberId == null || roleID.equalsIgnoreCase("coach")) {
-            // Chưa đăng nhập → chuyển về login
-            request.getRequestDispatcher("homepage.jsp").forward(request, response);
-
-            return;
-        }
+//        if (memberId == null || roleID.equalsIgnoreCase("coach")) {
+//            // Chưa đăng nhập → chuyển về login
+//            request.getRequestDispatcher("homepage.jsp").forward(request, response);
+//
+//            return;
+//        }
 
         RegistrationPayment re = sys.getByMember(memberId);
         String status = null;
 
 // Kiểm tra nếu không có dữ liệu (memberId không tồn tại trong bảng), thực thi trường hợp else
-        if (re != null) {
+        if (re != null && memberId != null  && !roleID.equalsIgnoreCase("coach")) {
             status = re.getStatus();
         } else {
             // Nếu không tìm thấy memberId trong cơ sở dữ liệu, thực thi trực tiếp vào trường hợp else
