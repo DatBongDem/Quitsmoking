@@ -37,14 +37,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="inner-wrap">
-                            <p class="inner-sub-title">LET'S HEALTHY MAKE YOU BEAUTIFUK</p>
-                            <h1 class="inner-title">Blog Page</h1>
+                            <p class="inner-sub-title">HÀNH TRÌNH BỎ THUỐC, LẤY LẠI SỨC KHỎE</p>
+                            <h1 class="inner-title">Tin Tức</h1>
                             <div class="inner-blog">
                                 <div class="home-page">
                                     <%  String userRole = (String) session.getAttribute("role");
                                     if (userRole == "member"){ %>
-                                    <a href="PostNewBlog.jsp">Post New</a>
-                                    <a href="MyBlogServlet">My Blog</a>
+                                    <a href="PostNewBlog.jsp">Đăng Bài</a>
+                                    <a href="MyBlogServlet">Bài của tôi</a>
                                             <% }
                                             %>
                                 </div>
