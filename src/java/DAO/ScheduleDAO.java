@@ -28,12 +28,16 @@ public class ScheduleDAO {
 
     public static boolean hasSchedule(String idMember) {
         try (Connection conn = DBUtils.getConnection()) {
-            String sql = "SELECT COUNT(*) FROM Schedule WHERE IDMember = ?";
+            String sql = "SELECT TOP 1 status "
+                    + "FROM QuitPlanRegistration "
+                    + "WHERE IDMember = ? "
+                    + "ORDER BY registerDate DESC, IDRegistration DESC";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, idMember);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                String status = rs.getString("status");
+                return "studying".equalsIgnoreCase(status);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +62,7 @@ public class ScheduleDAO {
     }
 
     public void createScheduleForMember(Member member, LocalDate startDate, LocalTime startTime, String selectedDays) throws Exception {
-        String idMember = member.getIDMember(); 
+        String idMember = member.getIDMember();
         String idCoach = member.getIDCoach();
         String IDQuitPlan = getIDQuitPlanByMember(idMember);
 
@@ -108,6 +112,47 @@ public class ScheduleDAO {
                 }
             }
             ps.executeBatch();
+        }
+    }
+
+    public boolean updateLatestStatusToStudying(String idMember) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBUtils.getConnection();
+
+            String sql = "UPDATE QuitPlanRegistration "
+                    + "SET status = 'studying' "
+                    + "WHERE IDRegistration = ("
+                    + "   SELECT TOP 1 IDRegistration "
+                    + "   FROM QuitPlanRegistration "
+                    + "   WHERE IDMember = ? "
+                    + "   ORDER BY registerDate DESC, IDRegistration DESC"
+                    + ")";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, idMember);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            // đóng kết nối
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
