@@ -20,7 +20,7 @@
         <main class="container">
 
             <div class="plan-content">
-                <img src="image/quit1.png" alt="Hình ảnh gói Copper" class="plan-image">
+                <img src="<%=request.getContextPath()%>/images/home/plan-1.jpg" alt="Hình ảnh gói Copper" class="plan-image">
 
                 <div class="plan-details">
                     <p class="plan-description">

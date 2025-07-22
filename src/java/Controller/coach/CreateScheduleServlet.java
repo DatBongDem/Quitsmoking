@@ -64,7 +64,7 @@ public class CreateScheduleServlet extends HttpServlet {
 
             ScheduleDAO scheduleDAO = new ScheduleDAO();
             scheduleDAO.createScheduleForMember(member, startDate, startTime, selectedDays);
-
+            scheduleDAO.updateLatestStatusToStudying(member.getIDMember());
             response.sendRedirect("ManageMemberServlet");
         } catch (Exception e) {
             e.printStackTrace();
