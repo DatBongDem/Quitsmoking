@@ -6,6 +6,7 @@
 package Controller.member;
 
 import DAO.MemberDao;
+import DAO.NotificationDao;
 import DAO.QuizDao;
 import DAO.QuizResultDao;
 import DTO.Member;
@@ -101,6 +102,7 @@ public class TestServlet extends HttpServlet {
             }
 
             request.getRequestDispatcher("test.jsp").forward(request, response);
+            
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Lỗi xảy ra: " + e.getMessage());
@@ -112,7 +114,7 @@ public class TestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        NotificationDao noti=new NotificationDao();
         try {
             HttpSession session = request.getSession();
             String idMember = (String) session.getAttribute("id");
@@ -143,7 +145,7 @@ public class TestServlet extends HttpServlet {
 
             // ✅ Cập nhật điểm
             memberDao.updatePoint(idMember, totalScore);
-
+            noti.sendNotificationToMember("NT18", idMember);
             
             doGet(request, response);
         } catch (Exception e) {

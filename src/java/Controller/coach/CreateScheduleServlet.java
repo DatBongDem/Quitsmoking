@@ -6,6 +6,7 @@
 package Controller.coach;
 
 import DAO.MemberDao;
+import DAO.NotificationDao;
 import DAO.ScheduleDAO;
 import DTO.Member;
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class CreateScheduleServlet extends HttpServlet {
         String selectedDays = request.getParameter("days");
         String startTimeStr = request.getParameter("startTime");
         String startDateStr = request.getParameter("startDate");
-
+        NotificationDao noti=new NotificationDao();
         try {
             LocalDate startDate = LocalDate.parse(startDateStr);
             LocalTime startTime = LocalTime.parse(startTimeStr);
@@ -65,7 +66,10 @@ public class CreateScheduleServlet extends HttpServlet {
             ScheduleDAO scheduleDAO = new ScheduleDAO();
             scheduleDAO.createScheduleForMember(member, startDate, startTime, selectedDays);
             scheduleDAO.updateLatestStatusToStudying(member.getIDMember());
+         
             response.sendRedirect("ManageMemberServlet");
+              noti.sendNotificationToMember("NT12", idMember);
+              
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Lỗi khi tạo lịch: " + e.getMessage());

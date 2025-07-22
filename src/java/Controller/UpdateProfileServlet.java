@@ -9,6 +9,7 @@ package Controller;
 
 import DAO.CoachDao;
 import DAO.MemberDao;
+import DAO.NotificationDao;
 import DTO.Coach;
 import DTO.Member;
 import java.io.File;
@@ -102,6 +103,7 @@ public class UpdateProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        NotificationDao noti=new NotificationDao();
         try {
             request.setCharacterEncoding("UTF-8");
             String AVATAR_UPLOAD_DIR = "images/avata";
@@ -210,6 +212,7 @@ public class UpdateProfileServlet extends HttpServlet {
                 request.setAttribute("error", "Update failed");
                 request.getRequestDispatcher("editProfile.jsp").forward(request, response);
             }
+            noti.sendNotificationToMember("NT19", idMember);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UpdateProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
