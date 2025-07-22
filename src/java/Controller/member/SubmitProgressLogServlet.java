@@ -5,6 +5,7 @@
  */
 package Controller.member;
 
+import DAO.NotificationDao;
 import DAO.ProgressLogDAO;
 import DTO.ProgressLog;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class SubmitProgressLogServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
+      
         try {
             String idLogParam = request.getParameter("idLog");
             if (idLogParam == null || idLogParam.isEmpty()) {
@@ -70,7 +71,7 @@ public class SubmitProgressLogServlet extends HttpServlet {
 
             request.setAttribute("log", log);
             request.getRequestDispatcher("progressAnswer.jsp").forward(request, response);
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Lỗi hệ thống: " + e.getMessage());

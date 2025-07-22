@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.NotificationDao;
 import DAO.ReportDAO;
 import DTO.ReportDTO;
 import java.io.IOException;
@@ -70,6 +71,7 @@ public class ReportServlet extends HttpServlet {
 
         String reporterID = request.getParameter("reporterID");
         String role = request.getParameter("role");
+        
 
         // Gán mặc định nếu không có
 //        if (reporterID == null || reporterID.trim().isEmpty()) {
@@ -97,7 +99,7 @@ public class ReportServlet extends HttpServlet {
         } else {
             request.setAttribute("message", "Gửi báo cáo thất bại. Vui lòng thử lại.");
         }
-
+      
         request.getRequestDispatcher("report.jsp").forward(request, response);
     }
 

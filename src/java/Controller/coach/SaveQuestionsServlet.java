@@ -97,6 +97,7 @@ public class SaveQuestionsServlet extends HttpServlet {
         request.setAttribute("success", success);
         request.setAttribute("message", message);
         NotificationDao.sendNotificationToMember("NT18", idMember);
+          NotificationDao.sendNotificationToMember("NT20", idMember);
         request.getRequestDispatcher("CreateQuestion.jsp").forward(request, response);
         
     }
