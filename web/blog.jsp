@@ -1,132 +1,110 @@
-<%-- 
-    Document   : blog
-    Created on : Jun 17, 2025, 4:13:39 PM
-    Author     : Thinkpad
---%>
-<%@ page errorPage="error.jsp" %>
 <%@page import="DTO.Member"%>
 <%@page import="DTO.BlogPost"%>
 <%@page import="java.util.List"%>
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Quit Smoking Center</title>
+    
+    <%@include file="information/bootstrap.jspf" %>
+    <link rel="stylesheet" href="css/stylehomepage.css">
+    <link rel="stylesheet" href="css/blogPageStyle.css">
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
 
-        <%@include file="information/bootstrap.jspf" %>
+    <%@include file="information/header.jspf" %>
 
-        <link rel="stylesheet" href="css/blogPage.css">
-        <link rel="stylesheet" href="css/stylehomepage.css">
-        <%
-            String keyword = request.getParameter("keyword");
-        %>
-        <title>Blog Page</title>
-    </head>
-
-    <body>
-
-
-        <%@include file="information/header.jspf" %>
-        <!-- Background -->
-        <div class="background">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="inner-wrap">
-                            <p class="inner-sub-title">HÀNH TRÌNH BỎ THUỐC, LẤY LẠI SỨC KHỎE</p>
-                            <h1 class="inner-title">Tin Tức</h1>
-                            <div class="inner-blog">
-                                <div class="home-page">
-                                    <%  String userRole = (String) session.getAttribute("role");
-                                    if (userRole == "member"){ %>
-                                    <a href="PostNewBlog.jsp">Đăng Bài</a>
-                                    <a href="MyBlogServlet">Bài của tôi</a>
-                                            <% }
-                                            %>
-                                </div>
+    <!-- Banner Section -->
+    <div class="background">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="inner-wrap">
+                        <p class="inner-sub-title">HÀNH TRÌNH BỎ THUỐC, LẤY LẠI SỨC KHỎE</p>
+                        <h1 class="inner-title">Tin Tức</h1>
+                        <div class="inner-blog">
+                            <div class="home-page">
+                                <%
+                                    String userRole = (String) session.getAttribute("role");
+                                    if ("member".equals(userRole)) {
+                                %>
+                                <a href="PostNewBlog.jsp">Đăng Bài</a>
+                                <a href="MyBlogServlet">Bài của tôi</a>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Background -->
+    </div>
 
+    <!-- Main Blog Section -->
+    <section class="blog-section">
+        <div class="blog-container">
+            <!-- Blog List -->
+            <div class="blog-list-container">
+                <%
+                    List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");
+                    List<Member> members = (List<Member>) request.getAttribute("members");
 
-        <!-- Blog Page Content -->
-        <section class="blog py-5">
-            <div class="container">
-                <h2 class="text-center mb-5">Tin tức về thuốc lá</h2>
-                
-
-                <!-- Search Form -->
-                <form class="blog-search-form mb-5" action="BlogPostServlet" method="post">
-                    <div class="form-row justify-content-center">
-                        <div class="col-md-6 col-sm-8 mb-2">
-                            <input type="text" class="form-control" name="keyword" value="<%= request.getAttribute("keyword") != null ? request.getAttribute("keyword") : ""%>"  placeholder="Tìm kiếm bài viết..." />
-
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="row">
-                    <%
-                        List<BlogPost> blogPosts = (List<BlogPost>) request.getAttribute("blogPosts");
-                        List<Member> members = (List<Member>) request.getAttribute("members");
-
-                        if (blogPosts != null && !blogPosts.isEmpty()) {
-                            for (BlogPost post : blogPosts) {
-                                String memberId = post.getIdMember();
-                                Member member = null;
-                                if (members != null) {
-                                    for (Member m : members) {
-                                        if (m.getIDMember().equals(memberId)) {
-                                            member = m;
-                                            break;
-                                        }
+                    if (blogPosts != null && !blogPosts.isEmpty()) {
+                        for (BlogPost post : blogPosts) {
+                            String memberName = "Admin";
+                            String avatar = "images/avata/admin_avatar.png"; // Default avatar
+                            if (members != null) {
+                                for (Member m : members) {
+                                    if (m.getIDMember().equals(post.getIdMember())) {
+                                        memberName = m.getMemberName();
+                                        avatar = (m.getImage() != null && !m.getImage().isEmpty()) ? m.getImage() : "images/avata/nullavata.png";
+                                        break;
                                     }
                                 }
-                    %>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 d-flex flex-column">
-                            <img src="images/Blog/<%= post.getImage()%>" class="card-img-top" alt="No smoking">
-                            <div class="card-body">
-                                <h5 class="card-title"><%= post.getTitle()%></h5>
-                                
-                                <a href="BlogDetailServlet?id=<%= post.getIdPost()%>" class="btn btn-success">Đọc thêm</a>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div><%= post.getPublishDate()%></div>
-                                <div>Người đăng: <%= member != null ? member.getMemberName() : "Unknown"%></div>
-                            </div>
+                            }
+                            
+                            String content = post.getContent();
+                            String excerpt = (content != null && content.length() > 150) ? content.substring(0, 150) + "..." : content;
+                %>
+                <div class="blog-list-item">
+                    <div class="blog-list-item-img">
+                        <a href="BlogDetailServlet?id=<%= post.getIdPost() %>">
+                            <img src="images/Blog/<%= post.getImage() %>" alt="<%= post.getTitle() %>">
+                        </a>
+                    </div>
+                    <div class="blog-list-item-content">
+                        <div class="blog-list-item-meta">
+                            <img src="<%= avatar %>" alt="Author" class="author-avatar">
+                            <span><strong><%= memberName %></strong> &bull; <%= new java.text.SimpleDateFormat("MMM dd, yyyy").format(post.getPublishDate()) %></span>
+                        </div>
+                        <a href="BlogDetailServlet?id=<%= post.getIdPost() %>" class="blog-list-item-title"><%= post.getTitle() %></a>
+                        <p class="blog-excerpt"><%= excerpt %></p>
+                        <div class="blog-list-item-footer">
+                            
+                            
                         </div>
                     </div>
-                    <%
-                        } // end for
-                    } else {
-                    %>
-                    <div class="col-12">
-                        <p class="text-center">Không có bài viết nào.</p>
-                    </div>
-                    <%
+                </div>
+                <%
                         }
-                    %>
-                </div> <!-- end .row -->  
+                    } else {
+                %>
+                <div class="col-12">
+                    <p class="text-center">Không có bài viết nào được tìm thấy.</p>
+                </div>
+                <%
+                    }
+                %>
+            </div>
+        </div>
+    </section>
 
+    <%@include file="information/footer.jspf" %>
 
-
-        </section>
-
-        <%@include file="information/footer.jspf" %>
-
-
-    </body>
-
+</body>
 </html>

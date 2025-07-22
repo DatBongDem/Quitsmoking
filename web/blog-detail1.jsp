@@ -1,56 +1,81 @@
-<%-- 
-    Document   : blog-detail1
-    Created on : Jun 17, 2025, 6:09:35 PM
-    Author     : Thinkpad
---%>
-
 <%@page import="DTO.BlogPost"%>
 <%@page import="DTO.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@include file="information/bootstrap.jspf" %>
-        <title>JSP Page</title>
-        <%
-            // Lấy ra đối tượng post và author
-            BlogPost post = (BlogPost) request.getAttribute("post");
-            Member author = (Member) request.getAttribute("author");
+<html lang="vi">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Chi tiết bài viết</title>
+    
+    <!-- Bootstrap and Font Awesome -->
+    <%@include file="information/bootstrap.jspf" %>
+    
+    <!-- New Blog Stylesheet -->
+    <link rel="stylesheet" href="css/blogPageStyle.css">
+    <link rel="stylesheet" href="css/stylehomepage.css">
 
-        %>
-        <link rel="stylesheet" href="css/blogPage.css">
-        <link rel="stylesheet" href="css/stylehomepage.css">
-        <link rel="stylesheet" href="css/blog-detail.css">
-    </head>
-    <body>
-        <%@include file="information/header.jspf" %>
+    <%
+        BlogPost post = (BlogPost) request.getAttribute("post");
+        Member author = (Member) request.getAttribute("author");
+        if (post == null) {
+            // Redirect or show error if post is not found
+            response.sendRedirect("blog.jsp");
+            return;
+        }
+    %>
+</head>
+<body>
 
+    <!-- Header -->
+    <%@include file="information/header.jspf" %>
+
+    <!-- Main Blog Detail Section -->
+    <div class="blog-section">
         <div class="blog-detail-container">
-            <h2 class="blog-detail-title"><%= post.getTitle()%></h2>
-            <div class="blog-detail-meta">
-                <%= post.getPublishDate()%> | Người đăng: <%= (author != null ? author.getMemberName() : "Unknown")%>
+            
+            <!-- Post Title -->
+            <h1 class="detail-title"><%= post.getTitle() %></h1>
+            
+            <!-- Post Metadata -->
+            <div class="detail-meta">
+                <span>
+                    <i class="fas fa-user"></i> 
+                    Người đăng: <strong><%= (author != null ? author.getMemberName() : "Không rõ") %></strong>
+                </span>
+                <span>
+                    <i class="fas fa-calendar-alt"></i> 
+                    Ngày đăng: <strong><%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(post.getPublishDate()) %></strong>
+                </span>
             </div>
-            <img src="images/Blog/<%= post.getImage()%>" class="blog-detail-image" alt="Ảnh minh họa bài viết">
-            <div class="blog-detail-content">
-                <p>  <%= post.getContent()%></p>
-
-                <!-- thêm nội dung khác -->
+            
+            <!-- Post Image -->
+            <img src="images/Blog/<%= post.getImage() %>" class="detail-hero-image" alt="<%= post.getTitle() %>">
+            
+            <!-- Post Content -->
+            <div class="detail-content">
+                <p><%= post.getContent().replace("\n", "<br>") %></p>
+                <!-- You can add more content paragraphs here if needed -->
             </div>
-                
-                
-            <form action="report.jsp" method="get">
-                <input type="hidden" name="type" value="blog">
-                <input type="hidden" name="postId" value="<%= post.getIdPost()%>">
-                <button type="submit">Báo cáo bài viết</button>
-            </form> 
-
-            <a href="BlogPostServlet" class="back-button">← Quay lại</a>
-
+            
+            <!-- Action Buttons -->
+            <div class="detail-actions">
+                <a href="BlogPostServlet" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+                <form action="report.jsp" method="get" style="margin: 0;">
+                    <input type="hidden" name="type" value="blog">
+                    <input type="hidden" name="postId" value="<%= post.getIdPost() %>">
+                    <button type="submit" class="btn-report">
+                        <i class="fas fa-flag"></i> Báo cáo
+                    </button>
+                </form>
+            </div>
+            
         </div>
+    </div>
 
+    <!-- Footer -->
+    <%@include file="information/footer.jspf" %>
 
-
-        <%@include file="information/footer.jspf" %>
-    </body>
+</body>
 </html>
