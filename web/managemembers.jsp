@@ -3,6 +3,7 @@
     Created on : Jun 18, 2025, 6:51:28 PM
     Author     : Nguyen Tien Dat
 --%>
+<%@page import="DAO.ScheduleDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, DTO.Member" %>
 <%
@@ -209,12 +210,12 @@
                                             Gói cơ bản
                                         </span>
                                     </td>
-                                <td class="member-status">
-    <span class="status-badge <%= statusClass %>">
-        <i class="fas fa-circle"></i>
-        <%= (m.getStatus() != null ? m.getStatus() : "null") %>
-    </span>
-</td>
+                                    <td class="member-status">
+                                        <span class="status-badge <%= statusClass%>">
+                                            <i class="fas fa-circle"></i>
+                                            <%= (m.getStatus() != null ? m.getStatus() : "null")%>
+                                        </span>
+                                    </td>
                                     <td class="member-actions">
                                         <div class="action-buttons">
                                             <form action="ViewProgressServlet" method="get" style="display: inline;">
@@ -239,6 +240,24 @@
                                                     <span>Tạo kế hoạch</span>
                                                 </button>
                                             </form>
+                                            <%
+                                                String idCoach = (String) session.getAttribute("id");
+
+                                                boolean showFinish = ScheduleDAO.canFinishCourse(idCoach, m.getIDMember()); %>
+                                            <% if (showFinish) {%>
+                                            <script>
+                                                function confirmFinish() {
+                                                    return confirm("Kết thúc khóa học với thành viên này, hãy đảm bảo bạn và thành viên đã hoàn thành đủ nội dung khóa học.");
+                                                }
+                                            </script>
+                                            <form action="FinishCourseServlet" method="post">
+                                                <input type="hidden" name="idMember" value="<%= m.getIDMember()%>"/>
+                                                <button type="submit"  onclick="return confirmFinish()" class="btn-action secondary" title="Xếp lịch">
+                                                    <i class="fas fa-clipboard-list"></i>
+                                                    <span>Kết thúc khóa học</span>                                                    
+                                                </button>
+                                            </form>
+                                            <% } %>
                                         </div>
                                     </td>
                                 </tr>

@@ -9,6 +9,7 @@ import DTO.Member;
 import DTO.Schedule;
 import Utils.DBUtils;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,12 +29,16 @@ public class ScheduleDAO {
 
     public static boolean hasSchedule(String idMember) {
         try (Connection conn = DBUtils.getConnection()) {
-            String sql = "SELECT COUNT(*) FROM Schedule WHERE IDMember = ?";
+            String sql = "SELECT TOP 1 status "
+                    + "FROM QuitPlanRegistration "
+                    + "WHERE IDMember = ? "
+                    + "ORDER BY registerDate DESC, IDRegistration DESC";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, idMember);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                String status = rs.getString("status");
+                return "studying".equalsIgnoreCase(status);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +63,7 @@ public class ScheduleDAO {
     }
 
     public void createScheduleForMember(Member member, LocalDate startDate, LocalTime startTime, String selectedDays) throws Exception {
-        String idMember = member.getIDMember(); 
+        String idMember = member.getIDMember();
         String idCoach = member.getIDCoach();
         String IDQuitPlan = getIDQuitPlanByMember(idMember);
 
@@ -108,6 +113,47 @@ public class ScheduleDAO {
                 }
             }
             ps.executeBatch();
+        }
+    }
+
+    public boolean updateLatestStatusToStudying(String idMember) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBUtils.getConnection();
+
+            String sql = "UPDATE QuitPlanRegistration "
+                    + "SET status = 'studying' "
+                    + "WHERE IDRegistration = ("
+                    + "   SELECT TOP 1 IDRegistration "
+                    + "   FROM QuitPlanRegistration "
+                    + "   WHERE IDMember = ? "
+                    + "   ORDER BY registerDate DESC, IDRegistration DESC"
+                    + ")";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, idMember);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            // đóng kết nối
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -234,5 +280,90 @@ public class ScheduleDAO {
             }
         }
         return list;
+    }
+
+    public static boolean canFinishCourse(String idCoach, String idMember) {
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "SELECT MAX(sessionDate) AS LastSession "
+                    + "FROM Schedule WHERE IDCoach = ? AND IDMember = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, idCoach);
+            ps.setString(2, idMember);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Date lastSessionDate = rs.getDate("LastSession");
+                if (lastSessionDate != null) {
+                    LocalDate lastDate = lastSessionDate.toLocalDate();
+                    return LocalDate.now().isAfter(lastDate);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean finishLatestCourse(String idMember) {
+        PreparedStatement ps1 = null;
+        PreparedStatement ps2 = null;
+         Connection conn = null;
+        try {
+            conn = DBUtils.getConnection();
+            conn.setAutoCommit(false); // Bắt đầu transaction
+
+            // 1. Cập nhật status = 'completed' cho QuitPlanRegistration mới nhất
+            String sql1 = "UPDATE QuitPlanRegistration "
+                    + "SET status = 'completed' "
+                    + "WHERE IDRegistration = ("
+                    + "   SELECT TOP 1 IDRegistration "
+                    + "   FROM QuitPlanRegistration "
+                    + "   WHERE IDMember = ? "
+                    + "   ORDER BY registerDate DESC, IDRegistration DESC"
+                    + ")";
+            ps1 = conn.prepareStatement(sql1);
+            ps1.setString(1, idMember);
+            int updated1 = ps1.executeUpdate();
+
+            // 2. Cập nhật IDCoach = NULL trong bảng Member
+            String sql2 = "UPDATE Member SET IDCoach = NULL WHERE IDMember = ?";
+            ps2 = conn.prepareStatement(sql2);
+            ps2.setString(1, idMember);
+            int updated2 = ps2.executeUpdate();
+
+            // Nếu cả 2 cập nhật thành công, commit
+            if (updated1 > 0 && updated2 > 0) {
+                conn.commit();
+                return true;
+            } else {
+                conn.rollback();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                if (ps1 != null) {
+                    ps1.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
     }
 }

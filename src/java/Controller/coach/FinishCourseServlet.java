@@ -5,12 +5,9 @@
  */
 package Controller.coach;
 
-import DAO.MemberDao;
 import DAO.ScheduleDAO;
-import DTO.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nguyen Tien Dat
  */
-public class ManageMemberServlet extends HttpServlet {
+public class FinishCourseServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,15 +34,7 @@ public class ManageMemberServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ManageMemberServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ManageMemberServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+          
         }
     }
 
@@ -61,19 +50,7 @@ public class ManageMemberServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String coachId = (String) session.getAttribute("coachId");
-
-        // Gọi DAO để lấy danh sách thành viên
-        List<Member> memberList = MemberDao.getMembersByCoachId(coachId);
-
-        // Đặt danh sách lên request
-        request.setAttribute("memberList", memberList);
-
-        
-
-        // Chuyển đến trang JSP
-        request.getRequestDispatcher("managemembers.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -87,7 +64,19 @@ public class ManageMemberServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+    String idMember = request.getParameter("idMember");
+
+        boolean success = ScheduleDAO.finishLatestCourse(idMember);
+
+        if (success) {
+            request.setAttribute("message", "Khóa học đã được kết thúc thành công!");
+        } else {
+            request.setAttribute("message", "Không thể kết thúc khóa học.");
+        }
+
+
+    response.sendRedirect("ManageMemberServlet"); // redirect lại trang phù hợp
     }
 
     /**
