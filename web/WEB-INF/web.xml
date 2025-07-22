@@ -132,6 +132,10 @@
         <servlet-name>ViewAllReportsServlet</servlet-name>
         <servlet-class>Controller.Admin.ViewAllReportsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FinishCourseServlet</servlet-name>
+        <servlet-class>Controller.coach.FinishCourseServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -271,6 +275,10 @@
     <servlet-mapping>
         <servlet-name>ViewAllReportsServlet</servlet-name>
         <url-pattern>/ViewAllReportsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FinishCourseServlet</servlet-name>
+        <url-pattern>/FinishCourseServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
