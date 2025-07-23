@@ -57,11 +57,11 @@
                         <h3>Lịch học đã tồn tại</h3>
                         <p>Thành viên này đã có lịch học trong hệ thống.</p>
                         <div class="alert-actions">
-                            <a href="ViewScheduleServlet?idMember=<%= idMember %>" class="btn btn-primary">
+                            <a href="CoachScheduleServlet" class="btn btn-primary">
                                 <i class="fas fa-eye"></i>
                                 Xem lịch hiện tại
                             </a>
-                            <a href="managemembers.jsp" class="btn btn-secondary">
+                            <a href="ManageMemberServlet" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i>
                                 Quay lại
                             </a>
