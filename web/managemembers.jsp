@@ -100,7 +100,7 @@
                         <i class="fas fa-search"></i>
                         <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên, email, ID..." onkeyup="searchMembers()">
                     </div>
-                    <div class="filter-buttons">
+<!--                    <div class="filter-buttons">
                         <button class="filter-btn active" data-filter="all" onclick="filterMembers('all')">
                             Tất cả
                         </button>
@@ -110,7 +110,7 @@
                         <button class="filter-btn" data-filter="inactive" onclick="filterMembers('inactive')">
                             Không hoạt động
                         </button>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 
@@ -144,9 +144,8 @@
                                     <th>Giới tính</th>
                                     <th>Điện thoại</th>
                                     <th>Email</th>
-                                    <th>Điểm</th>
-                                    <th>Mô tả cơ bản</th>
-                                    <th>Gói</th>
+                                    <th>Mức độ</th>
+                                    <th>Mô tả của thành viên</th>
                                     <th>Trạng thái</th>
                                     <th>Quản lý</th>
                                 </tr>
@@ -197,7 +196,7 @@
                                     <td class="member-points">
                                         <div class="points-container">
                                             <span class="points-number"><%= m.getPoint()%></span>
-                                            <span class="points-label">điểm</span>
+                                            
                                         </div>
                                     </td>
                                     <td class="member-subscription">
@@ -205,15 +204,19 @@
                                             <%= m.getSubscription() != null ? m.getSubscription() : "Chưa có"%>
                                         </span>
                                     </td>
-                                    <td class="member-package">
+<!--                                    <td class="member-package">
                                         <span class="package-badge">
                                             Gói cơ bản
                                         </span>
-                                    </td>
+                                    </td>-->
                                     <td class="member-status">
                                         <span class="status-badge <%= statusClass%>">
                                             <i class="fas fa-circle"></i>
-                                            <%= (m.getStatus() != null ? m.getStatus() : "null")%>
+                                            <%  if (m.getStatus().contains("1") ){%>
+                                            Đang hoạt động
+                                            <% } else {%>
+                                            Đã bị xóa bởi admin
+                                            <% } %>
                                         </span>
                                     </td>
                                     <td class="member-actions">

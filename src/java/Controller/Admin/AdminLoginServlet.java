@@ -6,6 +6,7 @@
 package Controller.Admin;
 
 import DAO.AdminDao;
+import DAO.CoachDao;
 import DTO.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import DAO.MemberDao;
 
 /**
  *
@@ -35,15 +37,7 @@ public class AdminLoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminLoginServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminLoginServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
         }
     }
 
@@ -83,7 +77,20 @@ public class AdminLoginServlet extends HttpServlet {
             if (admin != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("admin", admin);
-                response.sendRedirect("adminDashboard.jsp"); // chuyển đến trang admin
+
+                //Lay so luong member
+                MemberDao memberDAO = new MemberDao();
+                int totalMembers = memberDAO.getTotalMemberCount();
+                session.setAttribute("totalMembers", totalMembers);
+
+                //lay so luong coach
+                CoachDao coachDAO = new CoachDao();
+                int totalCoaches = coachDAO.getTotalCoachCount();
+                session.setAttribute("totalCoaches", totalCoaches);
+                
+                
+
+                response.sendRedirect("adminDashboard.jsp");
             } else {
                 request.setAttribute("username", username);
                 request.setAttribute("error", "Sai tài khoản hoặc mật khẩu.");

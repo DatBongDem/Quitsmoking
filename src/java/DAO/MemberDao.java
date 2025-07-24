@@ -473,8 +473,8 @@ public class MemberDao {
 
         return posts;
     }
-    
-    public Member getEmailByMember (String email) throws SQLException, ClassNotFoundException{
+
+    public Member getEmailByMember(String email) throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -520,7 +520,7 @@ public class MemberDao {
         }
         return dto; // Return the populated DTO
     }
-    
+
     public boolean updatePassword(String IDMember, String password) throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -535,10 +535,10 @@ public class MemberDao {
                 stm.setString(1, password);
                 stm.setString(2, IDMember);
                 int effectRow = stm.executeUpdate();
-                if(effectRow > 0){
+                if (effectRow > 0) {
                     result = true;
                 }
-                
+
             }
         } finally {
             if (stm != null) {
@@ -550,44 +550,45 @@ public class MemberDao {
         }
         return result;
     }
+
     // this is ADMIN function....
-      public List<Member> getAllMembers() {
-    List<Member> list = new ArrayList<>();
-    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
-               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
-               + "FROM dbo.Member";  // no WHERE clause, fetch all
+    public List<Member> getAllMembers() {
+        List<Member> list = new ArrayList<>();
+        String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+                + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+                + "FROM dbo.Member";  // no WHERE clause, fetch all
 
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            Member m = new Member();
-            m.setIDMember     (rs.getString("IDMember"));
-            m.setPassword     (rs.getString("password"));
-            m.setMemberName   (rs.getString("memberName"));
-            m.setGender       (rs.getString("gender"));
-            m.setPhone        (rs.getString("phone"));
-            m.setEmail        (rs.getString("email"));
-            m.setAddress      (rs.getString("address"));
-            m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
-            m.setJoinDate     (rs.getDate  ("joinDate"));
-            m.setImage        (rs.getString("image"));
-            m.setPoint        (rs.getInt   ("point"));
-            m.setIDCoach      (rs.getString("IDCoach"));
-            m.setSubscription (rs.getString("subcription"));
-            m.setStatus       (rs.getString("status"));
+            while (rs.next()) {
+                Member m = new Member();
+                m.setIDMember(rs.getString("IDMember"));
+                m.setPassword(rs.getString("password"));
+                m.setMemberName(rs.getString("memberName"));
+                m.setGender(rs.getString("gender"));
+                m.setPhone(rs.getString("phone"));
+                m.setEmail(rs.getString("email"));
+                m.setAddress(rs.getString("address"));
+                m.setDateOfBirth(rs.getDate("dateOfBirth"));
+                m.setJoinDate(rs.getDate("joinDate"));
+                m.setImage(rs.getString("image"));
+                m.setPoint(rs.getInt("point"));
+                m.setIDCoach(rs.getString("IDCoach"));
+                m.setSubscription(rs.getString("subcription"));
+                m.setStatus(rs.getString("status"));
 
-            list.add(m);
+                list.add(m);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            // Optionally rethrow or log
         }
 
-    } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
-        // Optionally rethrow or log
+        return list;
     }
-
-    return list;
-}
 
     public boolean deleteMember(String idMember) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE dbo.Member SET status = ? WHERE IDMember = ?";
@@ -601,7 +602,8 @@ public class MemberDao {
             return rowsAffected > 0;
         }
     }
-      public boolean restoreMember(String idMember) throws ClassNotFoundException {
+
+    public boolean restoreMember(String idMember) throws ClassNotFoundException {
         String sql = "UPDATE Member SET status = ? WHERE IDMember = ?";
         try (
                 Connection conn = DBUtils.getConnection();
@@ -615,45 +617,58 @@ public class MemberDao {
             return false;
         }
     }
-      
-  public List<Member> searchMembers(String keyword) {
-    List<Member> list = new ArrayList<>();
-    String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
-               + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
-               + "FROM dbo.Member "
-               + "WHERE memberName LIKE ?";
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        stmt.setString(1, "%" + keyword + "%");
+    public List<Member> searchMembers(String keyword) {
+        List<Member> list = new ArrayList<>();
+        String sql = "SELECT IDMember, password, memberName, gender, phone, email, address, "
+                + "dateOfBirth, joinDate, image, point, IDCoach, subcription, status "
+                + "FROM dbo.Member "
+                + "WHERE memberName LIKE ?";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Member m = new Member();
-                m.setIDMember     (rs.getString("IDMember"));
-                m.setPassword     (rs.getString("password"));
-                m.setMemberName   (rs.getString("memberName"));
-                m.setGender       (rs.getString("gender"));
-                m.setPhone        (rs.getString("phone"));
-                m.setEmail        (rs.getString("email"));
-                m.setAddress      (rs.getString("address"));
-                m.setDateOfBirth  (rs.getDate  ("dateOfBirth"));
-                m.setJoinDate     (rs.getDate  ("joinDate"));
-                m.setImage        (rs.getString("image"));
-                m.setPoint        (rs.getInt   ("point"));
-                m.setIDCoach      (rs.getString("IDCoach"));
-                m.setSubscription (rs.getString("subcription"));
-                m.setStatus       (rs.getString("status"));
-                list.add(m);
+            stmt.setString(1, "%" + keyword + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Member m = new Member();
+                    m.setIDMember(rs.getString("IDMember"));
+                    m.setPassword(rs.getString("password"));
+                    m.setMemberName(rs.getString("memberName"));
+                    m.setGender(rs.getString("gender"));
+                    m.setPhone(rs.getString("phone"));
+                    m.setEmail(rs.getString("email"));
+                    m.setAddress(rs.getString("address"));
+                    m.setDateOfBirth(rs.getDate("dateOfBirth"));
+                    m.setJoinDate(rs.getDate("joinDate"));
+                    m.setImage(rs.getString("image"));
+                    m.setPoint(rs.getInt("point"));
+                    m.setIDCoach(rs.getString("IDCoach"));
+                    m.setSubscription(rs.getString("subcription"));
+                    m.setStatus(rs.getString("status"));
+                    list.add(m);
+                }
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public int getTotalMemberCount() throws SQLException, ClassNotFoundException {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM Member";
+
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
             }
         }
-
-    } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
+        return count;
     }
-    return list;
-}
-  
-
 
 }
