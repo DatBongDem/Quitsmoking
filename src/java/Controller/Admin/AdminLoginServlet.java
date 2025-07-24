@@ -6,6 +6,7 @@
 package Controller.Admin;
 
 import DAO.AdminDao;
+import DAO.CoachDao;
 import DTO.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,12 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import DAO.MemberDao;
-        
+
 /**
  *
  * @author Nguyen Tien Dat
  */
-
 public class AdminLoginServlet extends HttpServlet {
 
     /**
@@ -77,13 +77,19 @@ public class AdminLoginServlet extends HttpServlet {
             if (admin != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("admin", admin);
-                
+
                 //Lay so luong member
                 MemberDao memberDAO = new MemberDao();
                 int totalMembers = memberDAO.getTotalMemberCount();
                 session.setAttribute("totalMembers", totalMembers);
+
+                //lay so luong coach
+                CoachDao coachDAO = new CoachDao();
+                int totalCoaches = coachDAO.getTotalCoachCount();
+                session.setAttribute("totalCoaches", totalCoaches);
                 
-                               
+                
+
                 response.sendRedirect("adminDashboard.jsp");
             } else {
                 request.setAttribute("username", username);
