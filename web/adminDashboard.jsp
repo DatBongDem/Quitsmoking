@@ -71,7 +71,7 @@
                 <p>Đây là bảng điều khiển chính của hệ thống quản lý cai nghiện ma túy.</p>
             </div>
 
-            <div class="dashboard-cards">
+<!--            <div class="dashboard-cards">
                 <a href="ManageCoachServlet" class="card">
                     <i class="fas fa-users"></i>
                     <h4>Quản lý Coach</h4>
@@ -102,7 +102,9 @@
                 </a>
                 
                 
-            </div>
+            </div>-->
+
+             <h2>Tổng số thành viên: <%= (Integer) session.getAttribute("totalMembers") %></h2>
             
         </div>
     </body>

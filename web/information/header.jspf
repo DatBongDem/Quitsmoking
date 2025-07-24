@@ -76,14 +76,7 @@
                                         if ("member".equals(role)) {
                                     %>
                                     <a href="DetailMemberProfile">Thông tin</a>
-                                    <a href="BadgeServlet">Huy hiệu</a>
-                                    <%
-                                        }
-                                    %>
-
-                                    <%
-                                        if ("member".equals(role) && mycoach != null) {
-                                    %>
+                                    <a href="BadgeServlet">Huy hiệu</a>                                    
                                     <a href="progressList.jsp">Tiến trình</a>
                                     <a href="MemberScheduleServlet">Lịch học</a>
                                     <%
@@ -102,9 +95,8 @@
                                     <%
                                         }
                                     %>
+                                    <!--Chung cho coach vs member-->
                                     <a href="report.jsp">Báo cáo</a>
-
-
                                     <a href="LogoutServlet">Đăng xuất</a>
                                 </div>                             
                             </c:when>
