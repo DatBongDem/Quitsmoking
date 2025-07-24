@@ -78,7 +78,7 @@
                                     <div class="inner-button">
                                         <button type="submit" class="button" value="Login">Đăng Nhập</button>
                                     </div>
-                                    
+
                                     <!-- Remember Me + Forgot Password -->
                                     <div class="inner-options">
                                         <label for="rememberMe" class="item-name">
@@ -100,11 +100,10 @@
                                 <span class="inner-sub-title">Bạn chưa có tài khoản?</span>
                                 <div class="inner-button">
                                     <a href="register.jsp" class="button">Đăng ký ngay</a>
+                                    <a href="adminLogin.jsp" class="button">Đăng nhập Admin</a>
                                 </div>
                             </div>
- <div class="inner-button mt-2">
-                            <a href="adminLogin.jsp" class="button">Đăng nhập Admin</a>
-                        </div>
+                            
                         </div>
                     </div>
                 </div>
