@@ -78,7 +78,7 @@
                                     <div class="inner-button">
                                         <button type="submit" class="button" value="Login">Đăng Nhập</button>
                                     </div>
-                                    
+
                                     <!-- Remember Me + Forgot Password -->
                                     <div class="inner-options">
                                         <label for="rememberMe" class="item-name">
@@ -102,36 +102,14 @@
                                     <a href="register.jsp" class="button">Đăng ký ngay</a>
                                 </div>
                             </div>
- <div class="inner-button mt-2">
-                            <a href="adminLogin.jsp" class="button">Đăng nhập Admin</a>
-                        </div>
+                            <div class="inner-button mt-2">
+                                <a href="adminLogin.jsp" class="button">Đăng nhập Admin</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <c:if test="${not empty error}">
-            <%-- BEGIN ERROR MODAL --%>
-            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Login Error</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body text-danger font-weight-bold">
-                            ${error}  <%-- Nơi in ra thông báo lỗi (ví dụ: "Tài khoản của bạn đã bị xóa.") --%>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <%-- END ERROR MODAL --%>
-        </c:if>
         <!--End Form Login-->
 
         <c:if test="${not empty error}">
