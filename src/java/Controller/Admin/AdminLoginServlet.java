@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import DAO.MemberDao;
+import DAO.QuitPlanDAO;
+import java.util.Map;
 
 /**
  *
@@ -87,8 +89,14 @@ public class AdminLoginServlet extends HttpServlet {
                 CoachDao coachDAO = new CoachDao();
                 int totalCoaches = coachDAO.getTotalCoachCount();
                 session.setAttribute("totalCoaches", totalCoaches);
-                
-                
+
+                //lay so luong nguoi dang ky
+                QuitPlanDAO qprDAO = new QuitPlanDAO();
+                int totalRegisteredMembers = qprDAO.getRegisteredMemberCount();
+                session.setAttribute("totalRegisteredMembers", totalRegisteredMembers);
+                //lay so luong thanh vien theo tung goi
+                Map<String, Integer> memberCountByPlan = qprDAO.getMemberCountByQuitPlan();
+                session.setAttribute("memberCountByPlan", memberCountByPlan);
 
                 response.sendRedirect("adminDashboard.jsp");
             } else {

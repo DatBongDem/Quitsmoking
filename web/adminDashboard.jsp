@@ -4,6 +4,7 @@
     Author     : Nguyen Tien Dat
 --%>
 
+<%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -71,42 +72,57 @@
                 <p>Đây là bảng điều khiển chính của hệ thống quản lý cai nghiện ma túy.</p>
             </div>
 
-<!--            <div class="dashboard-cards">
-                <a href="ManageCoachServlet" class="card">
-                    <i class="fas fa-users"></i>
-                    <h4>Quản lý Coach</h4>
-                </a>
-                <a href="AdminManageMemberServlet" class="card">
-                    <i class="fas fa-user-friends"></i>
-                    <h4>Quản lý Member</h4>
-                </a>
-                <a href="adminManageQuiz.jsp" class="card">
-                    <i class="fas fa-question-circle"></i>
-                    <h4>Quản lý Quiz</h4>
-                </a>
-                <a href="QuitplanManagerServlet" class="card">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h4>Quản lý khóa học</h4>
-                </a>
-                <a href="ViewAllReportsServlet" class="card">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <h4>Xem báo cáo</h4>
-                </a>
-                   <a href="AdminBlogViewServlet" class="card">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <h4>Quản lý Blog </h4>
-                </a>
-                 <a href="AdminViewPaymentServlet" class="card">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <h4>Quản lý đăng ký </h4>
-                </a>
-                
-                
-            </div>-->
+            <!--            <div class="dashboard-cards">
+                            <a href="ManageCoachServlet" class="card">
+                                <i class="fas fa-users"></i>
+                                <h4>Quản lý Coach</h4>
+                            </a>
+                            <a href="AdminManageMemberServlet" class="card">
+                                <i class="fas fa-user-friends"></i>
+                                <h4>Quản lý Member</h4>
+                            </a>
+                            <a href="adminManageQuiz.jsp" class="card">
+                                <i class="fas fa-question-circle"></i>
+                                <h4>Quản lý Quiz</h4>
+                            </a>
+                            <a href="QuitplanManagerServlet" class="card">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <h4>Quản lý khóa học</h4>
+                            </a>
+                            <a href="ViewAllReportsServlet" class="card">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <h4>Xem báo cáo</h4>
+                            </a>
+                               <a href="AdminBlogViewServlet" class="card">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <h4>Quản lý Blog </h4>
+                            </a>
+                             <a href="AdminViewPaymentServlet" class="card">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <h4>Quản lý đăng ký </h4>
+                            </a>
+                            
+                            
+                        </div>-->
 
-             <h2>Tổng số thành viên: <%= (Integer) session.getAttribute("totalMembers") %></h2>
-              <h2>Tổng số huấn luyện viên: <%= (Integer) session.getAttribute("totalCoaches") %></h2>
-            
+            <h2>Tổng số thành viên: <%= (Integer) session.getAttribute("totalMembers")%></h2>
+            <h2>Tổng số huấn luyện viên: <%= (Integer) session.getAttribute("totalCoaches")%></h2>
+            <h2>Số thành viên đã đăng ký gói cai nghiện: <%= (Integer) session.getAttribute("totalRegisteredMembers")%></h2>
+            <%
+                Map<String, Integer> memberCountByPlan = (Map<String, Integer>) session.getAttribute("memberCountByPlan");
+                if (memberCountByPlan != null) {
+            %>
+            <h3>Số thành viên theo từng gói cai nghiện:</h3>
+            <ul>
+                <li>Bạc: <%= memberCountByPlan.getOrDefault("QP01", 0)%> thành viên</li>
+                <li>Vàng: <%= memberCountByPlan.getOrDefault("QP02", 0)%> thành viên</li>
+                <li>Kim Cương: <%= memberCountByPlan.getOrDefault("QP03", 0)%> thành viên</li>
+            </ul>
+            <%
+                }
+            %>
+
+
         </div>
     </body>
 </html>
