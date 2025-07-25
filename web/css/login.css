@@ -103,8 +103,9 @@ label {
 
 .welcome .inner-welcome .inner-title-welcome {
     font-size: 26px;
-    color: #000;
+    color: #fff;
     font-weight: bold;
+    padding: 0 10px;
 }
 
 .welcome .inner-welcome .inner-sub-title {
@@ -121,6 +122,25 @@ label {
     color: #000;
     font-weight: bold;
     text-decoration: none;
+    border-radius: 5px;
+}
+
+.welcome .inner-welcome .inner-button-admin{
+    margin-top: 40px;
+}
+
+.welcome .inner-welcome .inner-button-admin .button {
+    background: #c0c0c0;
+    padding: 10px 30px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.welcome .inner-welcome .inner-button-admin .button:hover {
+    background-color: #ccc;
+    transition: background-color 0.3s ease;
 }
 
 .welcome .inner-welcome .inner-button .button:hover {
