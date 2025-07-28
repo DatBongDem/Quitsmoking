@@ -172,9 +172,9 @@
                                 Xác nhận thanh toán
                             </button>
 
-                            <div class="security-note">
+<!--                            <div class="security-note">
                                 Giao dịch được bảo mật SSL 256-bit
-                            </div>
+                            </div>-->
                         </form>
                     </div>
 

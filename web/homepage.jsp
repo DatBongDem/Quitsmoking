@@ -186,7 +186,30 @@
                                 <p class="inner-desc">
                                     <%= plan.getProgress()%>
                                 </p>
+                                <%
+                                    Boolean isCompleted = (Boolean) session.getAttribute("isCompleted");
+                                    if (isCompleted != null && isCompleted) {
+                                        double originalPrice = plan.getPrice();
+                                        double discountPrice = originalPrice * 0.7;
+                                %>
+                                <p>Vì bạn đã từng hoàn thành khóa học.</p>
+                                <span class="price mt-auto">
+                                    <span style="text-decoration: line-through; color: gray; font-size: 69%;">
+                                        <%= String.format("%,.0f", originalPrice)%> VND
+                                    </span>
+                                    &nbsp;
+                                    <span style="color: red; font-weight: bold;">
+                                        <%= String.format("%,.0f", discountPrice)%> VND
+                                    </span>
+                                </span>
+                                <%
+                                } else {
+                                %>
                                 <span class="price mt-auto"><%= String.format("%,.0f", plan.getPrice())%> VND</span>
+                                <%
+                                    }
+                                %>
+
                             </div>
                             <div class="inner-button">
                                 <form action="QuitPlanRegister" method="post">

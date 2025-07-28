@@ -670,5 +670,21 @@ public class MemberDao {
         }
         return count;
     }
+    
+    public boolean isMemberCompleted(String idMember) {
+        String sql = "SELECT COUNT(*) FROM QuitPlanRegistration WHERE IDMember = ? AND status = 'completed'";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, idMember);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0; // Có ít nhất 1 bản ghi status = completed
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Mặc định là chưa hoàn thành
+    }
 
 }
