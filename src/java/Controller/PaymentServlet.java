@@ -69,6 +69,7 @@ public class PaymentServlet extends HttpServlet {
             throws ServletException, IOException {
         String goal = request.getParameter("goal");
         String price = request.getParameter("price");
+         String date = request.getParameter("date");
         HttpSession session = request.getSession();
         String idMember = (String) session.getAttribute("id");
         String role = (String) session.getAttribute("role");
@@ -88,6 +89,7 @@ public class PaymentServlet extends HttpServlet {
 
             request.setAttribute("goal", goal);
             request.setAttribute("price", price);
+            request.setAttribute("date", date);
             request.setAttribute("member", member);
             List<Payment> payments = SystemDao.getAllPayments();
             request.setAttribute("payments", payments);

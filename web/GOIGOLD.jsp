@@ -79,7 +79,7 @@
                     </ul>
                     <form action="PaymentServlet" method="get">
                         <input type="hidden" name="goal" value="GOLD" /> <!-- Set giá trị goal -->
-                         <!-- Set giá trị price -->
+                          <input type="hidden" name="date" value="90" />
 
                         <%
                             Boolean isCompleted = (Boolean) session.getAttribute("isCompleted");

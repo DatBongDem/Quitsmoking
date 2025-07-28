@@ -17,6 +17,7 @@
         <%
             String goal = (String) request.getAttribute("goal");
             String price = (String) request.getAttribute("price");
+            String date = (String) request.getAttribute("date");
             Member member = (Member) request.getAttribute("member");
             List<Payment> payments = (List<Payment>) request.getAttribute("payments");
 
@@ -139,7 +140,7 @@
                                 <div class="package-name">Gói: <%= goal%></div>
                                 <div class="package-price">Giá: <%= price%> đ</div>
                             </div>
-                            <div class="package-duration">Thời hạn: 30 ngày</div>
+                            <div class="package-duration">Thời hạn: <%= date%> ngày</div>
 
                             <div class="package-features">
                                 <h4>Tính năng bao gồm:</h4>
