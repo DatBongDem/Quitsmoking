@@ -1,3 +1,4 @@
+
 <!doctype html>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -101,10 +102,11 @@
                                 <div class="inner-button">
                                     <a href="register.jsp" class="button">Đăng ký ngay</a>
                                 </div>
+                                <div class="inner-button-admin">
+                                    <a href="adminLogin.jsp" class="button">Đăng nhập Admin</a>
+                                </div>
                             </div>
-                            <div class="inner-button mt-2">
-                                <a href="adminLogin.jsp" class="button">Đăng nhập Admin</a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -124,4 +126,3 @@
         </c:if>
     </body>
 
-</html>

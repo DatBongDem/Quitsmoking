@@ -67,6 +67,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("role", "member");
             session.setAttribute("username", member.getMemberName());
             session.setAttribute("coachId",  member.getIDCoach());
+            session.setAttribute("isCompleted", dao.isMemberCompleted(id));
+            
             // Chuyển tới homepage
             
             if("on".equals(remember)) {

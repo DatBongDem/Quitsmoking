@@ -52,7 +52,7 @@ public class CoachDao {
                 coach.setDateOfBirth(rs.getDate("dateOfBirth"));
                 coach.setSpecialization(rs.getString("specialization"));
                 coach.setExperienceYears(rs.getInt("experienceYears"));
-                  coach.setStatus         (rs.getString("status"));
+                coach.setStatus(rs.getString("status"));
             }
 
         } catch (SQLException e) {
@@ -268,4 +268,18 @@ public class CoachDao {
         }
     }
 
+    public int getTotalCoachCount() throws SQLException, ClassNotFoundException {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM Coach";
+
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        }
+        return count;
+    }
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
     <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <head>
         <meta charset="UTF-8" />
@@ -78,41 +78,67 @@
 
                     <form action="PaymentServlet" method="get">
                         <input type="hidden" name="goal" value="DIAMOND" /> <!-- Set giá trị goal -->
-                        <input type="hidden" name="price" value="4,500,000" /> <!-- Set giá trị price -->
+                          <input type="hidden" name="date" value="120" />
 
+                        
+                        <%
+                            Boolean isCompleted = (Boolean) session.getAttribute("isCompleted");
+                            if (isCompleted != null && isCompleted) {
+                                double originalPrice = 4500000;
+                                double discountPrice = originalPrice * 0.7;
+                        %>
+                        <input type="hidden" name="price" value="3,150,000" />
+                        <p class="plan-price">
+                            Giá:
+                            <span style="text-decoration: line-through; color: gray; font-size: 90%;">
+                                <%= String.format("%,.0f", originalPrice)%> VND
+                            </span>
+                            &nbsp;
+                            <span style="color: red; font-weight: bold;">
+                                <%= String.format("%,.0f", discountPrice)%> VND
+                            </span>
+                        </p>
+                        <%
+                        } else {
+                        %>
                         <p class="plan-price">Giá: 4,500,000 VND</p>
+                        <input type="hidden" name="price" value="4,500,000" />
+                        <%
+                            }
+                        %>
+                        
                         <button type="submit" class="btn-register">Đăng Ký Ngay</button>   </form>
 
                 </div>
             </div>
 
-    </main>
+        </main>
 
-    <div class="footer">
-        <div class="container">
-            <div class="inner-footer" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                <div class="footer-col">
-                    <p class="inner-title">COMPANY NAME</p>
-                    <p class="inner-desc">Fusce at libero iaculis, venenatis augue quis, pharetra lorem...</p>
-                </div>
-                <div class="footer-col">
-                    <p class="inner-title">CONTACT</p>
-                    <ul class="contact-list">
-                        <li><i class="fas fa-phone"></i> 010-070-010</li>
-                        <li><i class="fas fa-envelope"></i> info@gmail.com</li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <p class="inner-title">OPEN HOURS</p>
-                    <ul class="hours-list">
-                        <li>Monday - Friday 06:00 AM - 10:00 PM</li>
-                        <li>Saturday 09:00 AM - 08:00 PM</li>
-                        <li>Sunday Closed</li>
-                    </ul>
+        <div class="footer">
+            <div class="container">
+                <div class="inner-footer" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                    <div class="footer-col">
+                        <p class="inner-title">COMPANY NAME</p>
+                        <p class="inner-desc">Fusce at libero iaculis, venenatis augue quis, pharetra lorem...</p>
+                    </div>
+                    <div class="footer-col">
+                        <p class="inner-title">CONTACT</p>
+                        <ul class="contact-list">
+                            <li><i class="fas fa-phone"></i> 010-070-010</li>
+                            <li><i class="fas fa-envelope"></i> info@gmail.com</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <p class="inner-title">OPEN HOURS</p>
+                        <ul class="hours-list">
+                            <li>Monday - Friday 06:00 AM - 10:00 PM</li>
+                            <li>Saturday 09:00 AM - 08:00 PM</li>
+                            <li>Sunday Closed</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 
 </html>

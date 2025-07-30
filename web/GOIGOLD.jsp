@@ -79,9 +79,33 @@
                     </ul>
                     <form action="PaymentServlet" method="get">
                         <input type="hidden" name="goal" value="GOLD" /> <!-- Set giá trị goal -->
-                        <input type="hidden" name="price" value="2,500,000" /> <!-- Set giá trị price -->
+                          <input type="hidden" name="date" value="90" />
 
+                        <%
+                            Boolean isCompleted = (Boolean) session.getAttribute("isCompleted");
+                            if (isCompleted != null && isCompleted) {
+                                double originalPrice = 2500000;
+                                double discountPrice = originalPrice * 0.7;
+                        %>
+                        <input type="hidden" name="price" value="1,750,000" />
+                        <p class="plan-price">
+                            Giá:
+                            <span style="text-decoration: line-through; color: gray; font-size: 90%;">
+                                <%= String.format("%,.0f", originalPrice)%> VND
+                            </span>
+                            &nbsp;
+                            <span style="color: red; font-weight: bold;">
+                                <%= String.format("%,.0f", discountPrice)%> VND
+                            </span>
+                        </p>
+                        <%
+                        } else {
+                        %>
                         <p class="plan-price">Giá: 2,500,000 VND</p>
+                        <input type="hidden" name="price" value="2,500,000" />
+                        <%
+                            }
+                        %>
                         <button type="submit" class="btn-register">Đăng Ký Ngay</button>   </form>
 
                 </div>

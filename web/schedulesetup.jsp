@@ -223,10 +223,7 @@
                         <i class="fas fa-check-circle"></i>
                         <span>Ngày bắt đầu phải là thứ Hai</span>
                     </div>
-                    <div class="info-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Có thể điều chỉnh lịch sau khi tạo</span>
-                    </div>
+                    
                 </div>
             </div>
         </div>

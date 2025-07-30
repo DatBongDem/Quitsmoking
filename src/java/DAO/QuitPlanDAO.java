@@ -12,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -65,47 +67,47 @@ public class QuitPlanDAO {
         return null;
     }
 
-  public List<QuitPlan> getAllQuitPlans() {
-    String sql = "SELECT IDQuitPlan, periodOfTime, goals, progress, price, status FROM dbo.QuitPlan";
-    List<QuitPlan> list = new ArrayList<>();
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+    public List<QuitPlan> getAllQuitPlans() {
+        String sql = "SELECT IDQuitPlan, periodOfTime, goals, progress, price, status FROM dbo.QuitPlan";
+        List<QuitPlan> list = new ArrayList<>();
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            QuitPlan qp = new QuitPlan();
-            qp.setIdQuitPlan(rs.getString("IDQuitPlan"));
-            qp.setPeriodOfTime(rs.getInt("periodOfTime"));
-            qp.setGoals(rs.getString("goals"));
-            qp.setProgress(rs.getString("progress"));
-            qp.setPrice(rs.getDouble("price"));
-            qp.setStatus(rs.getString("status"));  // <-- thêm dòng này
-            list.add(qp);
+            while (rs.next()) {
+                QuitPlan qp = new QuitPlan();
+                qp.setIdQuitPlan(rs.getString("IDQuitPlan"));
+                qp.setPeriodOfTime(rs.getInt("periodOfTime"));
+                qp.setGoals(rs.getString("goals"));
+                qp.setProgress(rs.getString("progress"));
+                qp.setPrice(rs.getDouble("price"));
+                qp.setStatus(rs.getString("status"));  // <-- thêm dòng này
+                list.add(qp);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
+        return list;
     }
-    return list;
-}
- public boolean deleteQuitPlan(String idQuitPlan) {
-    String sql = "UPDATE dbo.QuitPlan SET status = ? WHERE IDQuitPlan = ?";
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        // 1: dùng tham số để đảm bảo an toàn, dễ thay đổi sau này
-        ps.setString(1, "2");
-        ps.setString(2, idQuitPlan);
+    public boolean deleteQuitPlan(String idQuitPlan) {
+        String sql = "UPDATE dbo.QuitPlan SET status = ? WHERE IDQuitPlan = ?";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        int rows = ps.executeUpdate();
-        System.out.println("[DAO] deleteQuitPlan → rowsAffected = " + rows);
-        return rows > 0;
+            // 1: dùng tham số để đảm bảo an toàn, dễ thay đổi sau này
+            ps.setString(1, "2");
+            ps.setString(2, idQuitPlan);
 
-    } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();
-        return false;
+            int rows = ps.executeUpdate();
+            System.out.println("[DAO] deleteQuitPlan → rowsAffected = " + rows);
+            return rows > 0;
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-}
-
 
     public boolean updateQuitPlan(QuitPlan qp) {
         String sql = "UPDATE dbo.QuitPlan "
@@ -132,16 +134,16 @@ public class QuitPlanDAO {
             return false;
         }
     }
-    
-      public boolean insertQuitPlan(QuitPlan qp) {
+
+    public boolean insertQuitPlan(QuitPlan qp) {
         String sql = "INSERT INTO dbo.QuitPlan "
-                   + "(IDQuitPlan, periodOfTime, goals, progress, price) "
-                   + "VALUES (?, ?, ?, ?, ?)";
+                + "(IDQuitPlan, periodOfTime, goals, progress, price) "
+                + "VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, qp.getIdQuitPlan());
-            ps.setInt   (2, qp.getPeriodOfTime());
+            ps.setInt(2, qp.getPeriodOfTime());
             ps.setString(3, qp.getGoals());
             ps.setString(4, qp.getProgress());
             ps.setDouble(5, qp.getPrice());
@@ -154,5 +156,41 @@ public class QuitPlanDAO {
             return false;
         }
     }
+
+    public int getRegisteredMemberCount() throws SQLException, ClassNotFoundException {
+        int count = 0;
+        String query = "SELECT COUNT(DISTINCT IDMember) FROM QuitPlanRegistration";
+
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        }
+        return count;
+    }
+
     
+    public Map<String, Integer> getMemberCountByQuitPlan() throws Exception {
+        Map<String, Integer> result = new HashMap<>();
+
+        String query = "SELECT IDQuitPlan, COUNT(DISTINCT IDMember) AS memberCount " +
+                       "FROM QuitPlanRegistration " +
+                       "GROUP BY IDQuitPlan";
+
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String planId = rs.getString("IDQuitPlan");
+                int count = rs.getInt("memberCount");
+                result.put(planId, count);
+            }
+        }
+
+        return result;
+    }
 }

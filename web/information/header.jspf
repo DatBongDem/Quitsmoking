@@ -35,7 +35,7 @@
             <div class="col-12">
                 <div class="inner-header">
                     <div class="inner-logo">
-                        <a href="#">BFBB</a>
+                        <a href="homepage.jsp">BFBB</a>
                     </div>
                     <div class="inner-list">
                         <ul>
