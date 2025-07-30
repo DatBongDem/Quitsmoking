@@ -5,6 +5,7 @@
  */
 package Controller.member;
 
+import DAO.BadgeDetailDAO;
 import DAO.NotificationDao;
 import DAO.ProgressLogDAO;
 import DTO.ProgressLog;
@@ -50,7 +51,7 @@ public class SubmitProgressLogServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-      
+
         try {
             String idLogParam = request.getParameter("idLog");
             if (idLogParam == null || idLogParam.isEmpty()) {
@@ -71,7 +72,7 @@ public class SubmitProgressLogServlet extends HttpServlet {
 
             request.setAttribute("log", log);
             request.getRequestDispatcher("progressAnswer.jsp").forward(request, response);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Lỗi hệ thống: " + e.getMessage());
@@ -117,6 +118,14 @@ public class SubmitProgressLogServlet extends HttpServlet {
 
             boolean updated = ProgressLogDAO.update(log);
             if (updated) {
+                if ("submit".equalsIgnoreCase(action)) {
+                    try {
+                        BadgeDetailDAO badgeDAO = new BadgeDetailDAO();
+                        badgeDAO.checkAndGrantBadges(log.getIdMember());
+                    } catch (Exception ex) {
+                        ex.printStackTrace(); // chỉ log lỗi, không dừng tiến trình
+                    }
+                }
                 response.sendRedirect("progressList.jsp");
             } else {
                 request.setAttribute("errorMessage", "Cập nhật không thành công.");
