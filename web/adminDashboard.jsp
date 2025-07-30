@@ -20,6 +20,9 @@
         <title>Trang Quản trị Admin</title>
         <%@include file="information/bootstrap.jspf" %>
         <link rel="stylesheet" href="css/admin-dasboard.css">
+        <style>
+            
+        </style>
     </head>
     <body>
         <div class="sidebar">
@@ -121,8 +124,6 @@
             <%
                 }
             %>
-
-
         </div>
     </body>
 </html>

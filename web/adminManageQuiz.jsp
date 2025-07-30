@@ -20,7 +20,6 @@
         <meta charset="UTF-8">
         <title>Quản lý Câu hỏi Quiz</title>
         <%@include file="information/bootstrap.jspf" %>
-        <link rel="stylesheet" href="css/admin-dasboard.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <style>
             .table-actions .btn {
@@ -30,56 +29,27 @@
             .table-bordered td {
                 border: 1px solid #cccccc;
             }
+            
+            input:focus,
+            select:focus,
+            textarea:focus,
+            .form-control:focus {
+                outline: none;
+                box-shadow: none;
+                border-color: #ced4da; /* hoặc đổi thành màu bạn muốn */
+            }
+
+            body {
+                background: #f0fff4; 
+            }
         </style>
     </head>
     <body>
-        <div class="d-flex">
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <div class="sidebar-header">
-                    <h3>Admin Manager</h3>
-                </div>
-                <ul class="sidebar-nav">
-                    <li>
-                        <a href="ManageCoachServlet">
-                            <i class="fas fa-users"></i> Quản lý Coach
-                        </a>
-                    </li>
-                    <li>
-                        <a href="AdminManageMemberServlet">
-                            <i class="fas fa-user-friends"></i> Quản lý Member
-                        </a>
-                    </li>
-                    <li>
-                        <a href="adminManageQuiz.jsp">
-                            <i class="fas fa-question-circle"></i> Quản lý Quiz
-                        </a>
-                    </li>
-                    <li>
-                        <a href="QuitplanManagerServlet">
-                            <i class="fas fa-chalkboard-teacher"></i> Quản lý khóa học
-                        </a>
-                    </li>
-                    <li>
-                        <a href="ViewAllReportsServlet">
-                            <i class="fa-solid fa-circle-info"></i> Xem báo cáo
-                        </a>
-                    </li>
-
-                    <li><a href="AdminBlogViewServlet"><i class="fas fa-blog"></i> Quản lý Blog</a></li>
-                    <li><a href="RegistrationResult.jsp"><i class="fas fa-registered"></i> Quản lý Đăng ký</a></li>
-                </ul>
-                <div class="logout">
-                    <form action="AdminLogoutServlet" method="get">
-                        <button type="submit" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
-                    </form>
-                </div>
-            </div>
             <!-- /Sidebar -->
 
             <!-- Main Content -->
             <div class="main-content d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-                <div class="container-fluid">
+                <div class="container">
                     <h2 class="h2 mb-4">Quản lý câu hỏi Quiz</h2>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
