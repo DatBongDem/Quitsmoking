@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/updatePost.css">
 </head>
 <body>
+    <a href="homepage.jsp" class="home-button">Home</a>
 <%
     BlogPost post = (BlogPost) request.getAttribute("post");
     if (post == null) {
