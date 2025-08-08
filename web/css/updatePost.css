@@ -118,16 +118,7 @@ button:hover {
     transform: translateY(-2px);
 }
 
-a {
-    background-color: #e57373;
-    color: white;
-    margin-left: 10px;
-}
 
-a:hover {
-    background-color: #d32f2f;
-    transform: translateY(-2px);
-}
 
 /* Center align for error message */
 .text-danger {
@@ -145,4 +136,27 @@ a:hover {
 input:focus,
 textarea:focus {
     box-shadow: 0 0 4px #a5d6a7;
+}
+.home-button {
+    position: fixed; /* Cố định vị trí */
+    top: 20px; /* Cách mép trên 20px */
+    left: 20px; /* Cách mép trái 20px */
+    background-color: #28a745; /* Màu xanh lá chủ đạo */
+    color: white; /* Màu chữ */
+    padding: 10px 20px; /* Khoảng cách bên trong nút */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold; /* Chữ đậm */
+    border: none; /* Không viền */
+    border-radius: 8px; /* Bo góc */
+    text-decoration: none; /* Loại bỏ gạch chân */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển động */
+    z-index: 999; /* Hiển thị trên cùng */
+}
+
+.home-button:hover {
+    background-color: #218838; /* Màu đậm hơn khi hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng tăng khi hover */
+    transform: scale(1.05); /* Hi?u ?ng phóng to nh? */
+    text-decoration: underline; /* G?ch chân khi hover */
 }
