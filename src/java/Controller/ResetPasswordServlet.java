@@ -33,7 +33,7 @@ public class ResetPasswordServlet extends HttpServlet {
             TokenForgotPasswordDTO resetToken = tokenDao.getToken(token);
 
             if (resetToken == null || resetToken.getExpiryTime().isBefore(LocalDateTime.now())) {
-                request.setAttribute("ERROR", "Token is invalid or has expired.");
+                request.setAttribute("ERROR", "Token hết hạn");
                 url = ERROR_PAGE;
                 return;
             }
@@ -62,7 +62,7 @@ public class ResetPasswordServlet extends HttpServlet {
             TokenForgotPasswordDTO resetToken = tokenDao.getToken(token);
 
             if (resetToken == null || resetToken.getExpiryTime().isBefore(LocalDateTime.now())) {
-                request.setAttribute("ERROR", "Token is invalid or has expired.");
+                request.setAttribute("ERROR", "Token đã hết hạn");
                 url = ERROR_PAGE;
                 return;
             }
@@ -76,7 +76,7 @@ public class ResetPasswordServlet extends HttpServlet {
             // Xóa token sau khi sử dụng
             tokenDao.deleteToken(token);
 
-            request.setAttribute("message", "Password reset successful. Please login again.");
+            request.setAttribute("message", "Mật khẩu đã đặt lại thành công. Vui lòng đăng nhập lại");
             request.getRequestDispatcher(SUCCESS_PAGE).forward(request, response);
 
         } catch (SQLException ex) {

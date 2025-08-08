@@ -278,7 +278,7 @@
                                                 toast.classList.remove('show');
                                             }, 5000);
 
-                                            const urlNew = window.location.pathname + window.location.hash;
+                                            const urlNew = window.location.pathname;
                                             history.replaceState(null, '', urlNew);
                                         }
                                     });
